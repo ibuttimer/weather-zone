@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "weather-zone"
 version = "0.1.0"
-description = ""
+license = "MIT"
+description = "Weather forecast application"
 authors = ["Ian Buttimer <ibuttimer@yahoo.com>"]
 readme = "README.md"
 packages = [{include = "weather_zone"}]
@@ -9,6 +10,7 @@ packages = [{include = "weather_zone"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^4.2.3"
+django-environ = "^0.10.0"
 
 
 [build-system]
