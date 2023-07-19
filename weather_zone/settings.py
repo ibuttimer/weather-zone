@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 import environ
 
+from .constants import FORECAST_APP_NAME, MET_EIREANN_APP_NAME
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # name of main app
@@ -55,6 +57,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+PROVIDERS = [
+    MET_EIREANN_APP_NAME,
+]
+# register provider apps before forecast app
+INSTALLED_APPS.extend(PROVIDERS)
+INSTALLED_APPS.extend([
+    # forecast app must be registered after provider apps
+    FORECAST_APP_NAME,
+])
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,3 +149,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# read in provider settings
+# providers should provide provider-specific settings via following variable:
+# - <PROVIDER APP NAME>_SETTINGS : dict of settings e.g. 'url=http://example.com;username=foo;password=bar'
+PROVIDER_SETTINGS = {}
+for provider in PROVIDERS:
+    # https://django-environ.readthedocs.io/en/latest/tips.html#complex-dict-format
+    PROVIDER_SETTINGS[provider] = env.dict(
+        provider.upper() + '_SETTINGS',
+        cast={'value': str},
+        default={}
+    )
