@@ -25,6 +25,21 @@ Constants for forecast app
 #
 from pathlib import Path
 
+from utils import append_slash, url_path
+
 
 # name of this app
 THIS_APP = Path(__file__).resolve().parent.name
+
+
+# routes related
+ADDRESS_URL = append_slash(url_path("address", "<str:address>"))
+LAT_LONG_URL = append_slash("geo-coordinate")
+
+ADDRESS_ROUTE_NAME = "address"
+LAT_LONG_ROUTE_NAME = "geo-coordinate"
+
+QUERY_PARAM_LAT = "lat"
+QUERY_PARAM_LONG = "long"
+QUERY_PARAM_FROM = "from"
+QUERY_PARAM_TO = "to"

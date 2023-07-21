@@ -1,0 +1,199 @@
+/*!
+ * MIT License
+ *
+ * Copyright (c) 2023 Ian Buttimer
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ */
+/* based on:
+    - https://getbootstrap.com/docs/5.3/customize/sass/
+    - https://github.com/twbs/examples/blob/main/sass-js/scss/styles.scss
+ */
+
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+/* based on colours from https://huemint.com/bootstrap-plus/#palette=e6ebeb-ffffff-00062e-5a3f6a-8c5683-cd6f6a-cc8965-ba6d4d-e6b3a0 */
+$white: #ffffff;
+
+$light:      #efe5db;
+$dark:       #07065e;
+$primary:    #5233b7;
+$secondary:  #ffaa2c;
+$info:       #f76f00;
+$accent1:    #4fbdb0;
+$accent2:    #278474;
+$accent3:    #44356a;
+$success:    #00ae67;
+$warning:    #e3ce00;
+$danger:     #f32200;
+
+//$pagination-active-bg: #1A8044;
+//$pagination-active-border-color: #1A8044;
+
+$position-values: (
+  0: 0,
+  10: 10%,
+  20: 20%,
+  30: 30%,
+  40: 40%,
+  50: 50%,
+  60: 60%,
+  70: 70%,
+  80: 80%,
+  90: 90%,
+  100: 100%
+);
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar"; // Requires nav
+@import "bootstrap/scss/card";
+// @import "bootstrap/scss/breadcrumb";
+// @import "bootstrap/scss/accordion";
+ @import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+// @import "bootstrap/scss/progress";
+// @import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+// @import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal"; // Requires transitions
+@import "bootstrap/scss/tooltip";
+// @import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+
+
+$utilities: map-merge(
+    $utilities,
+    (
+      "bg-opacity": (
+        css-var: true,
+        class: bg-opacity,
+        values: (
+                10: .1,
+                20: .2,
+                25: .25,
+                30: .3,
+                40: .4,
+                50: .5,
+                60: .6,
+                70: .7,
+                75: .75,
+                80: .8,
+                90: .9,
+                100: 1
+        )
+      ),
+    )
+);
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here
+
+/* customised mixin for .btn-outline-xxx
+    * set --bs-btn-disabled-bg and --bs-btn-bg to white
+ */
+@mixin button-outline-white_bg-variant(
+  $color,
+  $color-hover: color-contrast($color),
+  $active-background: $color,
+  $active-border: $color,
+  $active-color: color-contrast($active-background)
+) {
+  --#{$prefix}btn-color: #{$color};
+  --#{$prefix}btn-border-color: #{$color};
+  --#{$prefix}btn-hover-color: #{$color-hover};
+  --#{$prefix}btn-hover-bg: #{$active-background};
+  --#{$prefix}btn-hover-border-color: #{$active-border};
+  --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($color)};
+  --#{$prefix}btn-active-color: #{$active-color};
+  --#{$prefix}btn-active-bg: #{$active-background};
+  --#{$prefix}btn-active-border-color: #{$active-border};
+  --#{$prefix}btn-active-shadow: #{$btn-active-box-shadow};
+  --#{$prefix}btn-disabled-color: #{$color};
+  --#{$prefix}btn-disabled-bg: white;
+  --#{$prefix}btn-bg: white;
+  --#{$prefix}btn-disabled-border-color: #{$color};
+  --#{$prefix}gradient: none;
+}
+
+/* customised mixin for .btn-outline-xxx
+    * set --bs-btn-disabled-bg and --bs-btn-bg to white
+ */
+@mixin bg-colour(
+  $color
+) {
+  background-color: #{$color};
+}
+
+@each $color, $value in $theme-colors {
+  // generate .btn-outline-{theme-colour}, e.g. btn-outline-primary
+  .btn-outline-#{$color} {
+    @include button-outline-white_bg-variant($value);
+  }
+
+  // generate .bg-{theme-colour}, e.g. bg-primary
+  .bg-#{$color} {
+    @include bg-colour($value);
+  }
+}
+
+@each $color, $value in $colors {
+  // generate .bg-{colour}, e.g. bg-red
+  .bg-#{$color} {
+    @include bg-colour($value);
+  }
+}
+
+@each $color, $value in $grays {
+  // generate .bg-gray-{colour}, e.g. bg-gray-100
+  .bg-gray-#{$color} {
+    @include bg-colour($value);
+  }
+}

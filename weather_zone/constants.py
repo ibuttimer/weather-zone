@@ -23,11 +23,43 @@ Constants for the weather_zone package
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
+from utils import append_slash
 
 APP_NAME = "Weather-Zone"
 COPYRIGHT_YEAR = 2023
 COPYRIGHT = "Ian Buttimer"
 
 # Namespace related
+BASE_APP_NAME = "base"
 FORECAST_APP_NAME = "forecast"
 MET_EIREANN_APP_NAME = "met_eireann"
+
+# Base routes related
+HOME_URL = "/"
+HELP_URL = append_slash("help")
+ABOUT_URL = append_slash("about")
+PRIVACY_URL = append_slash("privacy")
+ROBOTS_URL = "robots.txt"
+SITEMAP_URL = "sitemap.xml"
+
+HOME_ROUTE_NAME = "home"
+HELP_ROUTE_NAME = "help"
+ABOUT_ROUTE_NAME = "about"
+PRIVACY_ROUTE_NAME = "privacy"
+ROBOTS_ROUTE_NAME = "robots.txt"
+
+# Admin routes related
+ADMIN_URL = append_slash("admin")
+
+# Forecast routes related
+FORECAST_URL = append_slash("forecast")
+
+# context related
+HOME_MENU_CTX = "home_menu"
+HELP_MENU_CTX = "help_menu"
+ABOUT_MENU_CTX = "about_menu"
+
+IS_SUPER_CTX = "is_super"
+IS_DEVELOPMENT_CTX = "is_development"
+IS_TEST_CTX = "is_test"
+NO_ROBOTS_CTX = "no_robots"

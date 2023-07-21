@@ -1,5 +1,5 @@
 """
-Signal processing for met_eireann app
+Module for utility functions
 """
 #  MIT License
 #
@@ -23,38 +23,27 @@ Signal processing for met_eireann app
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from django.conf import settings
-from django.dispatch import receiver
+from .html import add_navbar_attr, NavbarAttr, html_tag
+from .url_path import (
+    append_slash, namespaced_url, app_template_path, url_path, reverse_q,
+    GET, PATCH, POST, DELETE
+)
+from .views import resolve_req
 
-from forecast import registry_open, Registry
+__all__ = [
+    'add_navbar_attr',
+    'NavbarAttr',
+    'html_tag',
 
-from .constants import THIS_APP
-from .provider import MetEireannProvider
+    'append_slash',
+    'namespaced_url',
+    'app_template_path',
+    'url_path',
+    'reverse_q',
+    'GET',
+    'PATCH',
+    'POST',
+    'DELETE',
 
-
-@receiver(registry_open)
-def registry_open_handler(sender, **kwargs):
-    """
-    Handler for registry open signal
-    :param sender: sender which sent the signal
-    :param kwargs: keyword arguments including
-        registry: registry that was opened
-    :return:
-    """
-    registry: Registry = kwargs.get('registry')
-
-    # create provider
-    config = settings.FORECAST_APPS_SETTINGS.get(THIS_APP)
-    provider = MetEireannProvider(**{
-        'name': THIS_APP,
-        'url': config.get('url'),
-        'lat_q': config.get('latitude'),
-        'long_q': config.get('longitude'),
-        'from_q': config.get('from'),
-        'to_q': config.get('to')
-    })
-    registry.add(provider.name, provider)
-
-    print(f"Registry open signal received from {sender}")
-    print(f"kwargs: {kwargs}")
-    print(f"registry: {registry}")
+    'resolve_req',
+]

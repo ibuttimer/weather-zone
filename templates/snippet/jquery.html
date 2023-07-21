@@ -1,0 +1,5 @@
+{% load static %}
+{% if not is_development %}
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+{% endif %}
+<script>window.jQuery || document.write('<script type="text/javascript" src="{% static 'jquery/jquery-3.7.0.min.js' %}"><\/script>')</script>

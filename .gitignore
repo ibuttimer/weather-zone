@@ -139,6 +139,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+/node_modules/
 
 # Spyder project settings
 .spyderproject
@@ -171,5 +172,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 /weather-zone.iml
+
+# Miscellaneous
+nc-*
 
 # End of https://www.toptal.com/developers/gitignore/api/django!/weather-zone.iml

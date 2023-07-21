@@ -1,0 +1,14 @@
+
+
+/* custom properties */
+:root {
+}
+
+
+/* Colour classes */
+
+
+/* navbar classes */
+.active_page {
+    border-bottom: solid 2px var(--accent2);
+}

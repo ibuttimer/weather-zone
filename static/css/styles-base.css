@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Mulish:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
+:root {
+    --heading-font: 'Mulish', sans-serif;
+    --heading-font-weight: 400;
+    --heading-bold-font-weight: 500;
+    --paragraph-font: 'Karla', serif;
+    --paragraph-light-font-weight: 300;
+    --paragraph-font-weight: 400;
+    --paragraph-bold-font-weight: 600;
+
+    /* accent colors from https://huemint.com/bootstrap-plus/#palette=e6ebeb-ffffff-00062e-5a3f6a-8c5683-cd6f6a-cc8965-ba6d4d-e6b3a0 */
+    --accent1: #4fbdb0;
+    --accent2: #278474;
+    --accent3: #44356a;
+}
+
+html {
+    height: 100%;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+/* Colour classes */
+.theme-colour {
+    color: var(--accent3);
+}
+
+.site-warning-lead {
+    color: red;
+}
+
+/* bootstrap xxl breakpoint, 1400px wide or less */
+@media screen and (max-width: 1400px) {
+}
+
+/* bootstrap xl breakpoint, 1200px wide or less */
+@media screen and (max-width: 1200px) {
+}
+
+/* bootstrap lg breakpoint, 992px wide or less */
+@media screen and (max-width: 992px) {
+}
+
+/* bootstrap md breakpoint, 768px wide or less */
+@media screen and (max-width: 768px) {
+}
+
+/* bootstrap sm breakpoint, 576px wide or less */
+@media screen and (max-width: 576px) {
+}
+
+/* tiny screens, 315px wide or less */
+@media screen and (max-width: 315px) {
+    .btn__text,
+    .btn__dbl-text,
+    .btn__dbl-text-lg {
+        width: min-content;
+    }
+}
