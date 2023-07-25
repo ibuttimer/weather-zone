@@ -33,3 +33,7 @@ THIS_APP = Path(__file__).resolve().parent.name
 
 # general context
 APP_NAME_CTX = 'app_name'
+REDIRECT_TO_CTX = 'redirect_to'
+SET_LANGUAGE_CTX = 'set_language'
+LANG_COUNTRY_CTX = 'lang_country'
+ARIA_CHANGE_LANG_CTX = 'change_lang'

@@ -20,16 +20,16 @@
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 #
-from django.urls import path
+from django.urls import path, include
 
 from weather_zone import (
     HOME_ROUTE_NAME, HELP_URL, HELP_ROUTE_NAME,
     ABOUT_URL, ABOUT_ROUTE_NAME, PRIVACY_URL, PRIVACY_ROUTE_NAME,
-    ROBOTS_URL, ROBOTS_ROUTE_NAME
+    ROBOTS_URL, ROBOTS_ROUTE_NAME, LANGUAGE_URL, LANGUAGE_ROUTE_NAME,
 )
 from .views import (
     robots_txt, get_home,
-    get_about, get_privacy, get_help
+    get_about, get_privacy, get_help, get_language
 )
 
 _url_info = [
@@ -37,11 +37,13 @@ _url_info = [
     (ABOUT_URL, get_about, ABOUT_ROUTE_NAME),
     (HELP_URL, get_help, HELP_ROUTE_NAME),
     (PRIVACY_URL, get_privacy, PRIVACY_ROUTE_NAME),
+    (LANGUAGE_URL, get_language, LANGUAGE_ROUTE_NAME),
     ('', get_home, HOME_ROUTE_NAME),
 ]
 
 urlpatterns = [
     path(ROBOTS_URL, robots_txt, name=ROBOTS_ROUTE_NAME),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 urlpatterns.extend([
     # standard urls

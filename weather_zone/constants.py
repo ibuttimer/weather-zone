@@ -39,12 +39,14 @@ HOME_URL = "/"
 HELP_URL = append_slash("help")
 ABOUT_URL = append_slash("about")
 PRIVACY_URL = append_slash("privacy")
+LANGUAGE_URL = append_slash("language")
 ROBOTS_URL = "robots.txt"
 SITEMAP_URL = "sitemap.xml"
 
 HOME_ROUTE_NAME = "home"
 HELP_ROUTE_NAME = "help"
 ABOUT_ROUTE_NAME = "about"
+LANGUAGE_ROUTE_NAME = "language"
 PRIVACY_ROUTE_NAME = "privacy"
 ROBOTS_ROUTE_NAME = "robots.txt"
 

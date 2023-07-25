@@ -22,6 +22,7 @@
 
     <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'flags/sprite.css' %}" rel="stylesheet" type="text/css">
 
     {% block extra_css %}
     {% endblock extra_css %}
@@ -57,26 +58,26 @@
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
                                 <a {{ home_menu.a_attr | safe }} href="{% url 'home' %}">
-                                    <span {{ home_menu.span_attr | safe }}>Home</span>
+                                    <span {{ home_menu.span_attr | safe }}>{% translate 'Home' %}</span>
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
                                         {% with has_permission=forecast_menu.has_permission active=forecast_menu.active disabled=forecast_menu.disabled %}{% include "snippet/menu_dropdown_class.html" %}{% endwith %}>
-                                    Forecast
+                                    {% translate 'Forecast' %}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{% url 'forecast:address' %}">Address</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'forecast:address' %}">{% translate 'Address' %}</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
                                 <a {{ help_menu.a_attr | safe }} href="{% url 'help' %}">
-                                    <span {{ help_menu.span_attr | safe }}>Help</span>
+                                    <span {{ help_menu.span_attr | safe }}>{% translate 'Help' %}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a {{ about_menu.a_attr | safe }} href="{% url 'about' %}">
-                                    <span {{ about_menu.span_attr | safe }}>About</span>
+                                    <span {{ about_menu.span_attr | safe }}>{% translate 'About' %}</span>
                                 </a>
                             </li>
                         </ul>
@@ -164,6 +165,11 @@
         </div>
 
         <div class="col-md-3 col-sm-6 d-flex align-items-center justify-content-md-center justify-content-sm-start">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ change_lang }}">
+                <a href="{% url 'language' %}" aria-label="{{ change_lang }}">
+                    <i class="{{ lang_country.flag_css }}"></i>
+                </a>
+            </span>
         </div>
 
         <ul class="nav col-md-2 col-sm-6 justify-content-end list-unstyled d-flex">
@@ -179,6 +185,8 @@
             </li>
             {% endfor %}
         </ul>
+
+
     </footer>
 
     <!-- Bootstrap JS -->

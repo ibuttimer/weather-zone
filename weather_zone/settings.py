@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 import environ
 
+from django.utils.translation import gettext_lazy as _
+
 from .constants import (
     BASE_APP_NAME, FORECAST_APP_NAME, MET_EIREANN_APP_NAME
 )
@@ -95,6 +97,7 @@ INSTALLED_APPS.extend([
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -171,6 +174,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+LANGUAGES = [
+    ("en", _("English")),
+    ("de", _("German")),
+    ("fr", _("French")),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

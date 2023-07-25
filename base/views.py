@@ -24,6 +24,7 @@ Views for base app
 #  DEALINGS IN THE SOFTWARE.
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 
 from weather_zone import (
@@ -33,7 +34,7 @@ from forecast import ADDRESS_ROUTE_NAME
 from utils import app_template_path, namespaced_url
 
 from .constants import (
-    THIS_APP,
+    THIS_APP, REDIRECT_TO_CTX, SET_LANGUAGE_CTX
 )
 
 DISALLOWED_URLS = [
@@ -105,6 +106,21 @@ def get_privacy(request: HttpRequest) -> HttpResponse:
     #     request, app_template_path(THIS_APP, "privacy.html")
     # )
     return get_landing(request)
+
+
+@require_GET
+def get_language(request: HttpRequest) -> HttpResponse:
+    """
+    Render set language page
+    :param request: request
+    :return: response
+    """
+    return render(
+        request, app_template_path(THIS_APP, "set_language.html"), context={
+            REDIRECT_TO_CTX: request.GET.get('next', '/'),
+            SET_LANGUAGE_CTX: _('Set language'),
+        }
+    )
 
 
 @require_GET

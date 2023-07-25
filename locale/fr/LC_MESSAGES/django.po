@@ -1,0 +1,128 @@
+#  MIT License
+#
+#  Copyright (c) 2023 Ian Buttimer
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in
+#  all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#  SOFTWARE.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-25 16:31+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\base\context_processors.py:64
+#, fuzzy
+#| msgid "Set language"
+msgid "Change language"
+msgstr "Définir la langue"
+
+#: .\base\templates\base\set_language.html:34
+msgid "Set"
+msgstr "Fixé"
+
+#: .\base\views.py:121
+msgid "Set language"
+msgstr "Définir la langue"
+
+#: .\forecast\forms.py:59
+msgid "Line 1"
+msgstr "Ligne 1"
+
+#: .\forecast\forms.py:61
+msgid "Line 2"
+msgstr "Ligne 1"
+
+#: .\forecast\forms.py:63
+msgid "City"
+msgstr "Ville"
+
+#: .\forecast\forms.py:65
+msgid "State/Province/Region"
+msgstr "Etat/Province/Région"
+
+#: .\forecast\forms.py:67
+msgid "Postcode"
+msgstr "Code postal"
+
+#: .\forecast\forms.py:69
+msgid "(Select country)"
+msgstr "(Choisissez le pays)"
+
+#: .\forecast\forms.py:119
+msgid "No fields entered"
+msgstr "Aucun champ saisi"
+
+#: .\forecast\views.py:139
+#, fuzzy
+#| msgid "Forecast"
+msgid "Forecast location"
+msgstr "Lieu de prévision"
+
+#: .\forecast\views.py:140
+msgid "Address of forecast location"
+msgstr "Adresse du lieu de prévision"
+
+#: .\templates\base.html:61
+msgid "Home"
+msgstr "Maison"
+
+#: .\templates\base.html:67
+msgid "Forecast"
+msgstr "Prévision"
+
+#: .\templates\base.html:70
+msgid "Address"
+msgstr "Adresse"
+
+#: .\templates\base.html:75
+msgid "Help"
+msgstr "Aider"
+
+#: .\templates\base.html:80
+msgid "About"
+msgstr "À propos"
+
+#: .\templates\snippet\site_warning.html:9
+msgid ""
+"This site is for educational purposes only, <em>do not enter</em> valid "
+"personal details."
+msgstr ""
+"Ce site est uniquement à des fins éducatives, <em>ne saisissez pas</em> de "
+"données personnelles valides."
+
+#: .\weather_zone\settings.py:182
+msgid "English"
+msgstr "Anglais"
+
+#: .\weather_zone\settings.py:183
+msgid "German"
+msgstr "Allemand"
+
+#: .\weather_zone\settings.py:184
+msgid "French"
+msgstr "Français"

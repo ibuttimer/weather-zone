@@ -23,8 +23,13 @@ Base context processors
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 #
-
+from django.conf import settings
 from django.http import HttpRequest
+from django.utils.translation import (
+    get_language_from_request, gettext_lazy as _
+)
+
+from django_countries.fields import Country
 
 from weather_zone.constants import (
     HOME_MENU_CTX, HOME_ROUTE_NAME,
@@ -34,7 +39,15 @@ from weather_zone.constants import (
 )
 from utils import resolve_req, add_navbar_attr
 
-from .constants import APP_NAME_CTX
+from .constants import APP_NAME_CTX, LANG_COUNTRY_CTX, ARIA_CHANGE_LANG_CTX
+
+LANG_COUNTRIES = {
+    'en': Country(code='GB'),
+    'de': Country(code='DE'),
+    'fr': Country(code='FR'),
+}
+assert set(LANG_COUNTRIES.keys()) == set(
+    map(lambda x: x[0], settings.LANGUAGES))
 
 
 def base_context(request: HttpRequest) -> dict:
@@ -44,7 +57,11 @@ def base_context(request: HttpRequest) -> dict:
     :return: dictionary to add to template context
     """
     context = {
-        APP_NAME_CTX: APP_NAME
+        APP_NAME_CTX: APP_NAME,
+        LANG_COUNTRY_CTX: LANG_COUNTRIES[
+            get_language_from_request(request, check_path=False).lower()
+        ],
+        ARIA_CHANGE_LANG_CTX: _('Change language'),
     }
     no_robots = False
     called_by = resolve_req(request)

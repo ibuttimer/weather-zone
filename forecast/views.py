@@ -27,6 +27,7 @@ from collections import namedtuple
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.decorators.http import require_http_methods
 from django_countries import countries
@@ -46,7 +47,6 @@ from .forms import AddressForm
 from .geocoding import geocode_address
 from .dto import GeoAddress, Forecast, AttribRow, ForecastEntry
 
-TITLE = 'Address Forecast'
 
 DISPLAY_ITEMS = [
     AttribRow(
@@ -136,8 +136,8 @@ class ForecastAddress(View):
         :return: tuple of template path and context
         """
         context = {
-            TITLE_CTX: TITLE,
-            PAGE_HEADING_CTX: TITLE,
+            TITLE_CTX: _("Forecast location"),
+            PAGE_HEADING_CTX: _("Address of forecast location"),
             SUBMIT_BTN_TEXT_CTX: SUBMIT_BTN_TEXT[action],
             ADDRESS_FORM_CTX: form,
             SUBMIT_URL_CTX: self.url()
