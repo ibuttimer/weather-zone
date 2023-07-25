@@ -1,5 +1,5 @@
 """
-Interface for forecast providers
+Interface for forecast _providers
 """
 #  MIT License
 #
@@ -25,6 +25,9 @@ Interface for forecast providers
 #
 
 from abc import ABC, abstractmethod
+from datetime import datetime
+
+from .dto import Forecast, GeoAddress
 
 
 class IProvider(ABC):
@@ -33,21 +36,27 @@ class IProvider(ABC):
     """
 
     @abstractmethod
-    def location_url(self, latitude: str, longitude: str, **kwargs) -> str:
+    def url_params(self, lat: float, lng: float, start: datetime = None,
+                   end: datetime = None, **kwargs) -> dict:
         """
-        Get forecast url for a location
+        Get query params of forecast url for a location
 
-        :param latitude: Latitude of the location
-        :param longitude: Longitude of the location
+        :param lat: Latitude of the location
+        :param lng: Longitude of the location
+        :param start: forecast start date; default is current time
+        :param end: forecast end date; default is end of available forecast
         :return: url
         """
 
     @abstractmethod
-    def get_forecast(self, location: str, **kwargs) -> dict:
+    def get_geo_forecast(self, geo_address: GeoAddress, start: datetime = None,
+                         end: datetime = None, **kwargs) -> Forecast:
         """
-        Get forecast for a location
+        Get forecast for a location using geographic coordinates
 
-        :param location: Location to get forecast for
+        :param geo_address:
+        :param start: forecast start date; default is current time
+        :param end: forecast end date; default is end of available forecast
         :param kwargs: Additional arguments
         :return: Forecast
         """

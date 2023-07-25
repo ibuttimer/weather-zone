@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+<!-- address_form.html start -->
+{# --- template variable defines for includes --- #}
+{# address form template expects: 'address_form' as AddressForm #}
+{#                                'submit_url' as url to submit address #}
+{#                                'title' as title for page #}
+{#                                'page_heading' as heading for page #}
+{#                                'read_only' as boolean #}
+
+{% load i18n %}
+{% load static %}
+{% load form_auto_id %}
+
+{% block extra_css %}
+    <link href="{% static 'css/forecast/styles-address.css' %}" rel="stylesheet" type="text/css">
+{% endblock extra_css %}
+
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="row mt-2 mb-2">
+        {% if page_heading %}
+            <div class="col-12 text-center">
+                <h3>{{ page_heading | safe }}</h3>
+            </div>
+        {% endif %}
+    </div>
+
+    <article id="article-content" class="row d-flex justify-content-center">
+        <row class="col-lg-10 col-md-11 col-sm-12">
+            <form {% if not read_only %} method="post" action="{{ submit_url }}" enctype="multipart/x-www-form-urlencoded" {% endif %}>
+                {% if not read_only %}
+                    {% csrf_token %}
+                {% endif %}
+
+                <div id="id__address-form-errors-container">
+                    {% with form=address_form %}
+                        {% include "snippet/form_errors.html" %}
+                    {% endwith %}
+                </div>
+
+                <fieldset {% if read_only %} disabled {% endif %}>
+                    {% for field in address_form %}
+                        <div class="row mb-3">
+                            <div class="col-sm-4 text-start">
+                                <label for="{% form_auto_id field.name %}" class="col-form-label">{{ field.label }}</label>
+                            </div>
+                            <div {% if field.name == "country" %} class="col-sm-8 d-flex align-items-center" {% else %} class="col-sm-8" {% endif %}>
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <button id="id__address-form-submit-btn" type="submit" class="btn btn-primary btn__text">{{ submit_btn_text }}</button>
+                    </div>
+                </div>
+            </form>
+        </row>
+    </article>
+{% endblock %}
+<!-- address_form.html end -->

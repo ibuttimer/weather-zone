@@ -23,10 +23,42 @@ Views utility functions
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 #
-from typing import Optional
+from typing import Optional, Any
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import ResolverMatch, resolve, Resolver404
+
+
+def redirect_on_success_or_render(request: HttpRequest, success: bool,
+                                  redirect_to: str = '/',
+                                  *args: Any,
+                                  template_path: str = None,
+                                  context: dict = None,
+                                  permanent: bool = False,
+                                  **kwargs: Any) -> HttpResponse:
+    """
+    Redirect if success, otherwise render the specified template.
+    :param request:         http request
+    :param success:         success flag
+    :param redirect_to:     a view name that can be resolved by
+                            `urls.reverse()` or a URL
+    :param args:            optional args for view name, (`urls.reverse()`
+                            used to reverse-resolve the name)
+    :param template_path:   template to render
+    :param context:         context for template
+    :param permanent:       if True, then the redirect will use a 301
+                            (permanent redirect)
+    :return: http response
+    """
+    response: HttpResponse
+    if success:
+        # success, redirect
+        response = redirect(redirect_to, *args, permanent=permanent, **kwargs)
+    else:
+        # render template
+        response = render(request, template_path, context=context)
+    return response
 
 
 def resolve_req(

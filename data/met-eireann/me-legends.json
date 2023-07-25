@@ -1,0 +1,445 @@
+{
+  "sun": {
+    "desc_en": "Sun",
+    "old_id": "1",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_sun": {
+    "desc_en": "Sun",
+    "old_id": "101",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightcloud": {
+    "desc_en": "Light cloud",
+    "old_id": "2",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightcloud": {
+    "desc_en": "Light cloud",
+    "old_id": "102",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "cloud": {
+    "desc_en": "Cloudy",
+    "old_id": "4",
+    "variants": null
+  },
+  "rain": {
+    "desc_en": "Rain",
+    "old_id": "10",
+    "variants": null
+  },
+  "rainthunder": {
+    "desc_en": "Rain and thunder",
+    "old_id": "11",
+    "variants": null
+  },
+  "rainsun": {
+    "desc_en": "Heavy rain showers",
+    "old_id": "41",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_rainsun": {
+    "desc_en": "Heavy rain showers",
+    "old_id": "141",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "rainthundersun": {
+    "desc_en": "Heavy rain showers and thunder",
+    "old_id": "25",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_rainthundersun": {
+    "desc_en": "Heavy rain showers and thunder",
+    "old_id": "125",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "heavysleetthunder": {
+    "desc_en": "Heavy sleet and thunder",
+    "old_id": "32",
+    "variants": null
+  },
+  "heavysleetsun": {
+    "desc_en": "Heavy sleet showers",
+    "old_id": "43",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_heavysleetsun": {
+    "desc_en": "Heavy sleet showers",
+    "old_id": "143",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "heavysleetthundersun": {
+    "desc_en": "Heavy sleet showers and thunder",
+    "old_id": "27",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_heavysleetthundersun": {
+    "desc_en": "Heavy sleet showers and thunder",
+    "old_id": "127",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "heavysnowthunder": {
+    "desc_en": "Heavy snow and thunder",
+    "old_id": "34",
+    "variants": null
+  },
+  "heavysnowsun": {
+    "desc_en": "Heavy snow showers",
+    "old_id": "45",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_heavysnowsun": {
+    "desc_en": "Heavy snow showers",
+    "old_id": "145",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "heavysnowthundersun": {
+    "desc_en": "Heavy snow showers and thunder",
+    "old_id": "29",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_heavysnowthundersun": {
+    "desc_en": "Heavy snow showers and thunder",
+    "old_id": "129",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "drizzle": {
+    "desc_en": "Light rain",
+    "old_id": "46",
+    "variants": null
+  },
+  "drizzlethunder": {
+    "desc_en": "Light rain and thunder",
+    "old_id": "30",
+    "variants": null
+  },
+  "drizzlesun": {
+    "desc_en": "Light rain showers",
+    "old_id": "40",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_drizzlesun": {
+    "desc_en": "Light rain showers",
+    "old_id": "140",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "drizzlethundersun": {
+    "desc_en": "Light rain showers and thunder",
+    "old_id": "24",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_drizzlethundersun": {
+    "desc_en": "Light rain showers and thunder",
+    "old_id": "124",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightsleetthunder": {
+    "desc_en": "Light sleet and thunder",
+    "old_id": "31",
+    "variants": null
+  },
+  "lightsleetsun": {
+    "desc_en": "Light sleet showers",
+    "old_id": "42",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightsleetsun": {
+    "desc_en": "Light sleet showers",
+    "old_id": "142",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightsnowthunder": {
+    "desc_en": "Light snow and thunder",
+    "old_id": "33",
+    "variants": null
+  },
+  "lightsnowsun": {
+    "desc_en": "Light snow showers",
+    "old_id": "44",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightsnowsun": {
+    "desc_en": "Light snow showers",
+    "old_id": "144",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightsleetthundersun": {
+    "desc_en": "Light sleet showers and thunder",
+    "old_id": "26",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightsleetthundersun": {
+    "desc_en": "Light sleet showers and thunder",
+    "old_id": "126",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightsnowthundersun": {
+    "desc_en": "Light snow showers and thunder",
+    "old_id": "28",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightsnowthundersun": {
+    "desc_en": "Light snow showers and thunder",
+    "old_id": "128",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "partlycloud": {
+    "desc_en": "Partly cloudy",
+    "old_id": "3",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_partlycloud": {
+    "desc_en": "Partly cloudy",
+    "old_id": "103",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightrain": {
+    "desc_en": "Light rain",
+    "old_id": "9",
+    "variants": null
+  },
+  "lightrainthunder": {
+    "desc_en": "Rain and thunder",
+    "old_id": "22",
+    "variants": null
+  },
+  "lightrainsun": {
+    "desc_en": "Rain showers",
+    "old_id": "5",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightrainsun": {
+    "desc_en": "Rain showers",
+    "old_id": "105",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "lightrainthundersun": {
+    "desc_en": "Rain showers and thunder",
+    "old_id": "6",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_lightrainthundersun": {
+    "desc_en": "Rain showers and thunder",
+    "old_id": "106",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "sleetthunder": {
+    "desc_en": "Sleet and thunder",
+    "old_id": "23",
+    "variants": null
+  },
+  "sleetsun": {
+    "desc_en": "Sleet showers",
+    "old_id": "7",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_snowsun": {
+    "desc_en": "Sleet showers",
+    "old_id": "107",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "sleetsunthunder": {
+    "desc_en": "Sleet showers and thunder",
+    "old_id": "20",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_sleetsunthunder": {
+    "desc_en": "Sleet showers and thunder",
+    "old_id": "120",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "snowthunder": {
+    "desc_en": "Snow and thunder",
+    "old_id": "14",
+    "variants": null
+  },
+  "snowsun": {
+    "desc_en": "Snow showers",
+    "old_id": "8",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_snowsun": {
+    "desc_en": "Snow showers",
+    "old_id": "108",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "snowsunthunder": {
+    "desc_en": "Snow showers and thunder",
+    "old_id": "21",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  },
+  "dark_snowsunthunder": {
+    "desc_en": "Snow showers and thunder",
+    "old_id": "121",
+    "variants": [
+      "day",
+      "night",
+      "polartwilight"
+    ]
+  }
+}

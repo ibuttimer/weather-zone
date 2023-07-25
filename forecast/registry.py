@@ -35,12 +35,12 @@ class Registry:
     Provides a registry of forecast providers
     """
 
-    providers: dict
+    _providers: dict
 
     _registry: TypeRegistry
 
     def __init__(self):
-        self.providers = {}
+        self._providers = {}
 
     @staticmethod
     def get_registry() -> TypeRegistry:
@@ -60,7 +60,7 @@ class Registry:
         :param name: Name of provider
         :return: True if registered, otherwise False
         """
-        return name in self.providers
+        return name in self._providers
 
     def add(self, name: str, provider: IProvider,
             raise_on_reg: bool = True) -> bool:
@@ -77,7 +77,7 @@ class Registry:
         if registered and raise_on_reg:
             raise ValueError(f"Provider '{name}' already registered")
         if not registered:
-            self.providers[name] = provider
+            self._providers[name] = provider
             registered = True
         return registered
 
@@ -93,4 +93,13 @@ class Registry:
         registered = self.is_registered(name)
         if not registered and raise_not_reg:
             raise ValueError(f"Provider '{name}' not registered")
-        return self.providers[name] if registered else None
+        return self._providers[name] if registered else None
+
+    @property
+    def providers(self) -> dict:
+        """
+        Get the providers
+
+        :return: Providers
+        """
+        return self._providers

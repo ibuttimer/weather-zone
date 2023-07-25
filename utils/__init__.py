@@ -23,17 +23,29 @@ Module for utility functions
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
+from .forms import FormMixin
 from .html import add_navbar_attr, NavbarAttr, html_tag
+from .misc import (
+    is_boolean_true, Crud, ensure_list, find_index, dict_drill
+)
 from .url_path import (
     append_slash, namespaced_url, app_template_path, url_path, reverse_q,
     GET, PATCH, POST, DELETE
 )
-from .views import resolve_req
+from .views import resolve_req, redirect_on_success_or_render
 
 __all__ = [
+    'FormMixin',
+
     'add_navbar_attr',
     'NavbarAttr',
     'html_tag',
+
+    'is_boolean_true',
+    'Crud',
+    'ensure_list',
+    'find_index',
+    'dict_drill',
 
     'append_slash',
     'namespaced_url',
@@ -46,4 +58,5 @@ __all__ = [
     'DELETE',
 
     'resolve_req',
+    'redirect_on_success_or_render',
 ]

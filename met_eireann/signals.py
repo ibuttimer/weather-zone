@@ -49,7 +49,7 @@ def registry_open_handler(sender, **kwargs):
         'name': THIS_APP,
         'url': config.get('url'),
         'lat_q': config.get('latitude'),
-        'long_q': config.get('longitude'),
+        'lng_q': config.get('longitude'),
         'from_q': config.get('from'),
         'to_q': config.get('to')
     })

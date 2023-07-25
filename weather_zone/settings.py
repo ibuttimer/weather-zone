@@ -55,7 +55,7 @@ ALLOWED_HOSTS = []
 # Set to 'cloudinary' or 's3' for cloud storage
 STORAGE_PROVIDER = 'default' if DEVELOPMENT else \
     env('STORAGE_PROVIDER', default='default').lower()
-PROVIDERS = {
+STATIC_PROVIDERS = {
     'default': 'django.contrib.staticfiles.storage.StaticFilesStorage',
     'cloudinary': 'cloudinary_storage.storage.StaticHashedCloudinaryStorage',
     's3': f'{MAIN_APP}.s3_storage.StaticStorage'
@@ -121,6 +121,7 @@ TEMPLATES = [
                 # app-specific context processors
                 f'{MAIN_APP}.context_processors.app_context',
                 f'{BASE_APP_NAME}.context_processors.base_context',
+                f'{FORECAST_APP_NAME}.context_processors.forecast_context',
             ],
         },
     },
@@ -208,8 +209,16 @@ else:
     STATIC_URL = 'static/'
     MEDIA_URL = 'media/'
 
-# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = PROVIDERS[STORAGE_PROVIDER]
+# https://docs.djangoproject.com/en/4.2/ref/settings/#storages
+STORAGES = {
+    "default": {
+        "BACKEND": DEFAULT_STORAGE[STORAGE_PROVIDER],
+    },
+    "staticfiles": {
+        "BACKEND": STATIC_PROVIDERS[STORAGE_PROVIDER],
+    },
+}
+
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-STATICFILES_DIRS
 # Additional locations the staticfiles app will traverse for collectstatic
 STATICFILES_DIRS = [
@@ -226,12 +235,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-MEDIA_ROOT
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-file-storage
-DEFAULT_FILE_STORAGE = DEFAULT_STORAGE[STORAGE_PROVIDER]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # read in forecast provider settings
@@ -254,3 +259,15 @@ GOOGLE_SITE_VERIFICATION = env('GOOGLE_SITE_VERIFICATION', default='')
 # Fontawesome kit url
 # https://fontawesome.com/docs/web/setup/use-kit
 FONTAWESOME_URL = env('FONTAWESOME_URL', default='')
+
+# Google API key for geocoding
+# https://developers.google.com/maps/documentation/geocoding/start
+GOOGLE_API_KEY = env('GOOGLE_API_KEY', default='')
+
+# Requests timeout
+REQUEST_TIMEOUT = env('REQUEST_TIMEOUT', default=10)
+
+
+# Development mode settings
+CACHED_GEOCODE_RESULT = env('CACHED_GEOCODE_RESULT', default='') \
+    if DEVELOPMENT else ''

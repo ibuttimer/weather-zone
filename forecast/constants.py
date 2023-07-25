@@ -25,21 +25,40 @@ Constants for forecast app
 #
 from pathlib import Path
 
-from utils import append_slash, url_path
-
+from utils import append_slash, url_path, Crud
 
 # name of this app
 THIS_APP = Path(__file__).resolve().parent.name
 
 
 # routes related
-ADDRESS_URL = append_slash(url_path("address", "<str:address>"))
+ADDRESS_URL = append_slash("address")
 LAT_LONG_URL = append_slash("geo-coordinate")
+DISPLAY_URL = url_path("display")
 
 ADDRESS_ROUTE_NAME = "address"
 LAT_LONG_ROUTE_NAME = "geo-coordinate"
+DISPLAY_ROUTE_NAME = "display"
 
 QUERY_PARAM_LAT = "lat"
-QUERY_PARAM_LONG = "long"
+QUERY_PARAM_LONG = "lng"
 QUERY_PARAM_FROM = "from"
 QUERY_PARAM_TO = "to"
+
+# context variables
+FORECAST_MENU_CTX = "forecast_menu"
+
+ADDRESS_FORM_CTX = "address_form"
+SUBMIT_URL_CTX = "submit_url"
+FORECAST_CTX = "forecast"
+ROW_TYPES_CTX = "row_types"
+TITLE_CTX = 'title'
+PAGE_HEADING_CTX = 'page_heading'
+SUBMIT_BTN_TEXT_CTX = 'submit_btn_text'
+
+SUBMIT_BTN_TEXT = {
+    Crud.CREATE: 'Save',
+    Crud.UPDATE: 'Update',
+    Crud.DELETE: 'Delete',
+    Crud.READ: 'Close',
+}

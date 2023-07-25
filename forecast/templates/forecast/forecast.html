@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+<!-- forecast.html start -->
+{# --- template variable defines for includes --- #}
+{# address form template expects: 'forecast' as Forecast #}
+{#                                'row_types' as list of row types #}
+{#                                'title' as title for page #}
+{#                                'page_heading' as heading for page #}
+
+{% load i18n %}
+{% load static %}
+{% load form_auto_id  lookup_value %}
+
+{% block extra_css %}
+    <link href="{% static 'css/forecast/styles-forecast.css' %}" rel="stylesheet" type="text/css">
+{% endblock extra_css %}
+
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="row mt-2 mb-2">
+        {% if page_heading %}
+            <div class="col-12 text-center">
+                <h3>{{ page_heading | safe }}</h3>
+            </div>
+        {% endif %}
+    </div>
+
+    <article id="article-content" class="row d-flex justify-content-center">
+        <row class="col-lg-10 col-md-11 col-sm-12">
+            <table class="table">
+              {% for row in forecast.attrib_series %}
+                {% lookup_value row_types forloop.counter0 as val_type %}
+                {% if forloop.first %}
+                  <thead>
+                {% endif %}
+                {% if val_type == 'hdr' %}
+                    <tr>
+                    {% for value in row %}
+                      <th scope="col">{{ value|safe }}</th>
+                    {% endfor %}
+                    </tr>
+                    {% lookup_value row_types forloop.counter as next_type %}
+                    {% if next_type != 'hdr' %}
+                      </thead>
+                      <tbody>
+                    {% endif %}
+                  {% else %}
+                    <tr>
+                    {% for value in row %}
+
+                      {% if forloop.first %}<th scope="row">{% else %}<td>{% endif %}
+                        {% if value %}
+                            {% if val_type == 'img' %}
+                                <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-icon">
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        {% endif %}
+                      {% if forloop.first %}</th>{% else %}</td>{% endif %}
+                    {% endfor %}
+                    </tr>
+                {% endif %}
+                </tbody>
+             {% endfor %}
+            </table>
+        </row>
+    </article>
+{% endblock %}
+<!-- forecast.html end -->

@@ -26,15 +26,20 @@ from django.urls import path
 from .constants import (
     ADDRESS_URL, ADDRESS_ROUTE_NAME,
     LAT_LONG_URL, LAT_LONG_ROUTE_NAME,
+    DISPLAY_URL, DISPLAY_ROUTE_NAME,
+    THIS_APP,
 )
 from . import views
 
 
 # https://docs.djangoproject.com/en/4.2/topics/http/urls/#url-namespaces-and-included-urlconfs
+app_name = THIS_APP
+
 
 urlpatterns = [
     # standard app urls
-    path(ADDRESS_URL, views.address, name=ADDRESS_ROUTE_NAME),
+    path(ADDRESS_URL, views.ForecastAddress.as_view(), name=ADDRESS_ROUTE_NAME),
     # path(LAT_LONG_URL, views.UserDetailByUsername.as_view(),
     #      name=LAT_LONG_ROUTE_NAME),
+    path(DISPLAY_URL, views.display_forecast, name=DISPLAY_ROUTE_NAME),
 ]

@@ -23,6 +23,7 @@ Miscellaneous URL path utilities
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 #
+from urllib.parse import urlencode
 
 from django.urls import reverse as django_reverse
 
@@ -91,10 +92,10 @@ def reverse_q(viewname, urlconf=None, args=None, kwargs=None,
     :param kwargs: keyword args
     :param current_app: application to which the view belongs
     :param query_kwargs: query arguments
-    :return: str
+    :return: url str
     """
     url = django_reverse(viewname, urlconf=urlconf, args=args, kwargs=kwargs,
                          current_app=current_app)
     if query_kwargs:
-        url = f'{url}?{"&".join([f"{k}={v}" for k,v in query_kwargs.items()])}'
+        url = f'{url}?{urlencode(query_kwargs)}'
     return url
