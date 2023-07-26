@@ -26,12 +26,14 @@ Data transfer objects for forecast module
 from collections import namedtuple
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 
 AttribRow = namedtuple('AttribRow',
-                       # display text, attribute name, format function, type
+                       # display text or callable, attribute name,
+                       #                        format function, type
                        ['text', 'attribute', 'format_fxn', 'type'],
                        defaults=[None, None, None, None])
+""" Tuple to hold attribute row data for forecast display """
 
 
 @dataclass
@@ -39,6 +41,11 @@ class GeoAddress:
     """
     Geocoded address
     """
+    FORMATTED_ADDRESS_FIELD = 'formatted_address'
+    LAT_FIELD = 'lat'
+    LNG_FIELD = 'lng'
+    IS_VALID_FIELD = 'is_valid'
+
     formatted_address: str
     lat: float
     lng: float
@@ -47,15 +54,27 @@ class GeoAddress:
     def as_dict(self) -> Dict[str, Any]:
         """
         Convert a GeoAddress to a map
-        :param address: GeoAddress to convert
         :return: map of GeoAddress
         """
         return {
-            'formatted_address': self.formatted_address,
-            'lat': self.lat,
-            'lng': self.lng,
-            'is_valid': self.is_valid
+            GeoAddress.FORMATTED_ADDRESS_FIELD: self.formatted_address,
+            GeoAddress.LAT_FIELD: self.lat,
+            GeoAddress.LNG_FIELD: self.lng,
+            GeoAddress.IS_VALID_FIELD: self.is_valid
         }
+
+    @staticmethod
+    def dict_keys() -> List[Tuple[str, Any]]:
+        """
+        Get the keys for a GeoAddress map
+        :return: list of keys and default values
+        """
+        return [
+            (GeoAddress.FORMATTED_ADDRESS_FIELD, ''),
+            (GeoAddress.LAT_FIELD, 0.0),
+            (GeoAddress.LNG_FIELD, 0.0),
+            (GeoAddress.IS_VALID_FIELD, False)
+        ]
 
     @staticmethod
     def from_dict(address: Dict[str, Any]) -> 'GeoAddress':
@@ -64,12 +83,19 @@ class GeoAddress:
         :param address: map of GeoAddress
         :return: GeoAddress
         """
-        return GeoAddress(
-            formatted_address=address.get('formatted_address', ''),
-            lat=address.get('lat', 0.0),
-            lng=address.get('lng', 0.0),
-            is_valid=address.get('is_valid', False)
-        )
+        return GeoAddress(**{
+            k: address.get(k, v) for k, v in GeoAddress.dict_keys()
+        })
+
+    @staticmethod
+    def empty_obj() -> 'GeoAddress':
+        """
+        Generate an empty GeoAddress
+        :return: GeoAddress
+        """
+        return GeoAddress.from_dict({
+            k: v for k, v in GeoAddress.dict_keys()
+        })
 
 
 @dataclass
@@ -77,11 +103,55 @@ class Location(GeoAddress):
     """
     Geocoded location
     """
+    ALTITUDE_FIELD = 'altitude'
+
     altitude: float
+
+    def as_dict(self) -> Dict[str, Any]:
+        """
+        Convert a Location to a map
+        :return: map of Location
+        """
+        data = super().as_dict()
+        data.update({
+            Location.ALTITUDE_FIELD: self.altitude
+        })
+        return data
+
+    @staticmethod
+    def dict_keys() -> List[Tuple[str, Any]]:
+        """
+        Get the keys for a Location map
+        :return: list of keys and default values
+        """
+        return GeoAddress.dict_keys() + [
+            (Location.ALTITUDE_FIELD, 0.0)
+        ]
+
+    @staticmethod
+    def from_dict(location: Dict[str, Any]) -> 'Location':
+        """
+        Convert a map to a Location
+        :param location: map of Location
+        :return: Location
+        """
+        return Location(**{
+            k: location.get(k, v) for k, v in Location.dict_keys()
+        })
+
+    @staticmethod
+    def empty_obj() -> 'Location':
+        """
+        Generate an empty Location
+        :return: Location
+        """
+        return Location.from_dict({
+            k: v for k, v in Location.dict_keys()
+        })
 
 
 @dataclass
-class ForecastEntry():
+class ForecastEntry:
     """
     Forecast entry
     """
@@ -89,6 +159,7 @@ class ForecastEntry():
     END_KEY = "end"
     TEMPERATURE_KEY = "temperature"
     WIND_DIR_KEY = "wind_dir"
+    WIND_CARDINAL_KEY = "wind_cardinal"
     WIND_SPEED_KEY = "wind_speed"
     WIND_GUST_KEY = "wind_gust"
     HUMIDITY_KEY = "humidity"
@@ -107,6 +178,7 @@ class ForecastEntry():
     end: datetime  # end date/time
     temperature: float  # temperature
     wind_dir: float  # wind direction
+    wind_cardinal: str  # wind cardinal direction
     wind_speed: float  # wind speed
     wind_gust: float  # wind gust
     humidity: float  # humidity
@@ -128,6 +200,7 @@ class ForecastEntry():
             end=end,
             temperature=0.0,
             wind_dir=0.0,
+            wind_cardinal='',
             wind_speed=0.0,
             wind_gust=0.0,
             humidity=0.0,
@@ -162,7 +235,7 @@ class Forecast:
     created: datetime  # date/time forecast was created
     address: GeoAddress  # address forecast is for
     provider: str  # name of forecast provider
-    units: Dict[str, str]  # units used in forecast
+    units: Dict[str, str]  # units used in forecast; key is ForecastEntry key
     time_series: List[ForecastEntry]  # time series forecast
     # attribute series forecast, key is display name, value is list of values
     attrib_series: Dict[str, List[Any]]
@@ -182,20 +255,33 @@ class Forecast:
         """
         self.units = units
 
+    def get_units(self, key: str) -> str:
+        """
+        Get the units for the specified key
+        :param key: key to get units for
+        :return: units
+        """
+        return self.units.get(key, '')
+
     def set_attrib_series(self, attrib_rows: List[AttribRow]):
         """
         Set the attribute series, i.e. a series of the display name and a
         list of values for each specified attribute.
         e.g. [['Temperature', 12.3, 14.5, 16.7], ['Humidity', 0.5, 0.6, 0.7]]
+
         :param attrib_rows: Attribute rows to generate series
+        Note 1: the AttribRow text field may be a
+                Callable[[Forecast, AttribRow], str].
+             2: the AttribRow format_fxn field may be a
+                Callable[[Forecast, AttribRow, Any], str].
         """
         self.attrib_series = []
         for item in attrib_rows:
-            row = [item.text]
+            row = [item.text(self, item) if callable(item.text) else item.text]
             for entry in self.time_series:
                 value = getattr(entry, item.attribute)
                 if item.format_fxn:
-                    value = item.format_fxn(value)
+                    value = item.format_fxn(self, item, value)
                 elif item.type == 'img':
                     value = ImageData(value, entry.symbol)
                 row.append(value)

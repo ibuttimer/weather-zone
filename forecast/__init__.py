@@ -24,6 +24,9 @@ from .constants import (
     ADDRESS_ROUTE_NAME, LAT_LONG_ROUTE_NAME,
     QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
 )
+from .dto import (
+    Forecast, ForecastEntry, GeoAddress, Location
+)
 from .iprovider import IProvider
 from .provider import Provider
 from .registry import Registry
@@ -37,6 +40,11 @@ __all__ = [
     'QUERY_PARAM_LONG',
     'QUERY_PARAM_FROM',
     'QUERY_PARAM_TO',
+
+    'Forecast',
+    'ForecastEntry',
+    'GeoAddress',
+    'Location',
 
     'IProvider',
     'Provider',

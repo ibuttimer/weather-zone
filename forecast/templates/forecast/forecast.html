@@ -6,6 +6,7 @@
 {#                                'row_types' as list of row types #}
 {#                                'title' as title for page #}
 {#                                'page_heading' as heading for page #}
+{#                                'page_sub_heading' as sub-heading for page #}
 
 {% load i18n %}
 {% load static %}
@@ -19,9 +20,10 @@
 
 {% block content %}
     <div class="row mt-2 mb-2">
-        {% if page_heading %}
+        {% if page_heading or page_sub_heading %}
             <div class="col-12 text-center">
-                <h3>{{ page_heading | safe }}</h3>
+                {% if page_heading %}<h3>{{ page_heading | safe }}</h3>{% endif %}
+                {% if page_sub_heading %}<h4>{{ page_sub_heading | safe }}</h4>{% endif %}
             </div>
         {% endif %}
     </div>
@@ -48,13 +50,12 @@
                   {% else %}
                     <tr>
                     {% for value in row %}
-
                       {% if forloop.first %}<th scope="row">{% else %}<td>{% endif %}
                         {% if value %}
                             {% if val_type == 'img' %}
                                 <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-icon">
                             {% else %}
-                                {{ value }}
+                                {{ value|safe }}
                             {% endif %}
                         {% endif %}
                       {% if forloop.first %}</th>{% else %}</td>{% endif %}

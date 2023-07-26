@@ -36,12 +36,14 @@ from django.conf import settings
 
 from utils import dict_drill, ensure_list
 
-from forecast.dto import Forecast, GeoAddress, ForecastEntry
+from forecast import Forecast, ForecastEntry, GeoAddress, Location
 from forecast.provider import Provider
 
 
-BASE_LEGENDS_URL = os.path.join(settings.BASE_DIR, 'data/met-eireann/legends.json')
-PATCH_LEGENDS_URL = os.path.join(settings.BASE_DIR, 'data/met-eireann/me-legends.json')
+BASE_LEGENDS_URL = os.path.join(settings.BASE_DIR,
+                                'data/met-eireann/legends.json')
+PATCH_LEGENDS_URL = os.path.join(settings.BASE_DIR,
+                                 'data/met-eireann/me-legends.json')
 DARK_LEGEND_OFFSET = 100    # offset of dark variant legends
 NO_LEGEND_ADDENDUM = ''
 DAY_LEGEND_ADDENDUM = 'd'
@@ -54,9 +56,14 @@ FORECAST_DATA_PATH = ['weatherdata', 'product', 'time']
 DATATYPE_ATTRIB = '@datatype'
 FROM_ATTRIB = '@from'
 TO_ATTRIB = '@to'
+FORECAST_PROP = 'forecast'
 LOCATION_PROP = 'location'
+ALTITUDE_PROP = '@altitude'
+LATITUDE_PROP = '@latitude'
+LONGITUDE_PROP = '@longitude'
 UNIT_ATTRIB = '@unit'
 VALUE_ATTRIB = '@value'
+NAME_ATTRIB = '@name'
 DEG_ATTRIB = '@deg'
 MPS_ATTRIB = '@mps'
 PERCENT_ATTRIB = '@percent'
@@ -81,8 +88,10 @@ MeAttrib = namedtuple('MeAttrib', ['key', 'unit', 'value'])
 ME_ATTRIBUTES = {
     ME_TEMPERATURE_KEY: MeAttrib(
         ForecastEntry.TEMPERATURE_KEY, UNIT_ATTRIB, VALUE_ATTRIB),
-    ME_WIND_DIRECTION_KEY: MeAttrib(
-        ForecastEntry.WIND_DIR_KEY, DEG_ATTRIB, DEG_ATTRIB),
+    ME_WIND_DIRECTION_KEY: [
+        MeAttrib(ForecastEntry.WIND_DIR_KEY, DEG_ATTRIB, DEG_ATTRIB),
+        MeAttrib(ForecastEntry.WIND_CARDINAL_KEY, None, NAME_ATTRIB)
+    ],
     ME_WIND_SPEED_KEY: MeAttrib(
         ForecastEntry.WIND_SPEED_KEY, MPS_ATTRIB, MPS_ATTRIB),
     ME_WIND_GUST_KEY: MeAttrib(
@@ -109,10 +118,17 @@ ME_UNITS = {
     DEG_ATTRIB: '°',
     NUM_ATTRIB: '',
     ID_ATTRIB: '',
+    NAME_ATTRIB: '',
 }
 ATTRIB_IS_UNIT = [
     MPS_ATTRIB, PERCENT_ATTRIB, DEG_ATTRIB
 ]
+
+LOCATION_FIELDS = {
+    ALTITUDE_PROP: Location.ALTITUDE_FIELD,
+    LATITUDE_PROP: Location.LAT_FIELD,
+    LONGITUDE_PROP: Location.LNG_FIELD,
+}
 
 
 class MetEireannProvider(Provider):
@@ -242,6 +258,9 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
     :return: Parsed forecast
     """
     units_set = set()
+    location_set = set()
+    location = Location.empty_obj()
+
     data = xmltodict.parse(data)
 
     # get created date/time
@@ -254,7 +273,7 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
     forecast_entries = {}
     forecast_data = dict_drill(data, *FORECAST_DATA_PATH, default=[])
     for entry in forecast_data.value if forecast_data.found else []:
-        if entry.get(DATATYPE_ATTRIB, None) != 'forecast':
+        if entry.get(DATATYPE_ATTRIB, None) != FORECAST_PROP:
             continue
         # get forecast date/time
         from_dt: datetime = extract_datetime(entry.get(FROM_ATTRIB))
@@ -274,22 +293,30 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
             #       "@id": "TTT", "@unit": "celsius", "@value": "16.1"
             #    }, ... }
             fc_key = fc_key.lower()
+            if fc_key in LOCATION_FIELDS.keys() and fc_key not in location_set:
+                # set location fields (all float)
+                setattr(location, LOCATION_FIELDS[fc_key],
+                        float(fc_value if fc_value else 0))
+                location_set.add(fc_key)
+
             if fc_key not in ME_ATTRIBUTES:
                 continue
 
+            # set attributes
             for me_attrib in ensure_list(ME_ATTRIBUTES.get(fc_key)):
 
                 # set unit
                 if me_attrib.key not in units_set:
                     # get attrib unit
                     unit = me_attrib.unit   # default, attrib key is the unit
-                    if unit.startswith(LITERAL_MARKER):
-                        # attrib value is the unit
-                        unit = unit[len(LITERAL_MARKER):]
-                    elif unit not in ATTRIB_IS_UNIT:
-                        # attrib value is the unit
-                        unit = fc_value.get(unit)
-                    forecast.units[me_attrib.key] = ME_UNITS.get(unit)
+                    if unit:
+                        if unit.startswith(LITERAL_MARKER):
+                            # attrib value is the unit
+                            unit = unit[len(LITERAL_MARKER):]
+                        elif unit not in ATTRIB_IS_UNIT:
+                            # attrib value is the unit
+                            unit = fc_value.get(unit)
+                        forecast.units[me_attrib.key] = ME_UNITS.get(unit)
                     units_set.add(me_attrib.key)
 
                 # process attrib value

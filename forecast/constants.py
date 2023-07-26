@@ -55,4 +55,5 @@ FORECAST_CTX = "forecast"
 ROW_TYPES_CTX = "row_types"
 TITLE_CTX = 'title'
 PAGE_HEADING_CTX = 'page_heading'
+PAGE_SUB_HEADING_CTX = 'page_sub_heading'
 SUBMIT_BTN_TEXT_CTX = 'submit_btn_text'

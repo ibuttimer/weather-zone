@@ -40,7 +40,8 @@ from utils import (
 from .constants import (
     THIS_APP, ADDRESS_FORM_CTX, SUBMIT_URL_CTX, ADDRESS_ROUTE_NAME,
     SUBMIT_BTN_TEXT_CTX, TITLE_CTX, PAGE_HEADING_CTX,
-    FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE
+    FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE,
+    PAGE_SUB_HEADING_CTX
 )
 from .forecast import generate_forecast
 from .forms import AddressForm
@@ -49,20 +50,59 @@ from .dto import GeoAddress, Forecast, AttribRow, ForecastEntry
 from .misc import RangeArg
 
 
+def title_unit_wrapper(title: str):
+    """"
+    Wrapper to add unit to title
+    :param title: title
+    :return: function to add unit to title
+    """
+    def add_title_unit(forecast: Forecast, ar: AttribRow):
+        """
+        Add unit to title
+        :param forecast: forecast
+        :param ar: AttribRow
+        :return: title
+        """
+        unit = forecast.get_units(ar.attribute)
+        return f'{title}<br>({unit})' if unit else title
+    return add_title_unit
+
+
+def add_measurement_unit(forecast: Forecast, ar: AttribRow, measurement: str):
+    """
+    Add unit to measurement
+    :param forecast: forecast
+    :param ar: AttribRow
+    :param measurement: measurement
+    :return: measurement
+    """
+    unit = forecast.get_units(ar.attribute)
+    return f'{measurement}{unit}' if unit else measurement
+
+
 DISPLAY_ITEMS = [
+    # display text, attribute name, format function, type
     AttribRow(
-        '', ForecastEntry.START_KEY, lambda x: x.strftime('%a<br>%d %b'), 'hdr'),
+        '', ForecastEntry.START_KEY,
+        lambda f, a, x: x.strftime('%a<br>%d %b'), 'hdr'),
     AttribRow(
-        '', ForecastEntry.START_KEY, lambda x: x.strftime('%H:%M'), 'hdr'),
+        '', ForecastEntry.START_KEY,
+        lambda f, a, x: x.strftime('%H:%M'), 'hdr'),
     AttribRow('', ForecastEntry.ICON_KEY, type='img'),
-    AttribRow('Temperature', ForecastEntry.TEMPERATURE_KEY),
-    AttribRow('Precipitation', ForecastEntry.PRECIPITATION_KEY),
     AttribRow(
-        'Precipitation Probability', ForecastEntry.PRECIPITATION_PROB_KEY),
-    AttribRow('Humidity', ForecastEntry.HUMIDITY_KEY),
-    AttribRow('Wind Speed', ForecastEntry.WIND_SPEED_KEY),
-    AttribRow('Wind Direction', ForecastEntry.WIND_DIR_KEY),
-    AttribRow('Wind Gust', ForecastEntry.WIND_GUST_KEY),
+        title_unit_wrapper('Temperature'), ForecastEntry.TEMPERATURE_KEY),
+    AttribRow(
+        title_unit_wrapper('Precipitation'), ForecastEntry.PRECIPITATION_KEY),
+    AttribRow(
+        'Precipitation Probability', ForecastEntry.PRECIPITATION_PROB_KEY,
+        add_measurement_unit),
+    AttribRow('Humidity', ForecastEntry.HUMIDITY_KEY,
+              add_measurement_unit),
+    AttribRow(
+        title_unit_wrapper('Wind Speed'), ForecastEntry.WIND_SPEED_KEY),
+    AttribRow('Wind Direction', ForecastEntry.WIND_CARDINAL_KEY),
+    AttribRow(
+        title_unit_wrapper('Wind Gust'), ForecastEntry.WIND_GUST_KEY),
 ]
 
 class ForecastAddress(View):
@@ -201,6 +241,7 @@ def forecast_render_info(forecast: Forecast):
     context = {
         TITLE_CTX: title,
         PAGE_HEADING_CTX: title,
+        PAGE_SUB_HEADING_CTX: forecast.address.formatted_address,
         FORECAST_CTX: forecast,
         ROW_TYPES_CTX: list(map(lambda x: x.type, DISPLAY_ITEMS))
     }
