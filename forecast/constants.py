@@ -44,6 +44,7 @@ QUERY_PARAM_LAT = "lat"
 QUERY_PARAM_LONG = "lng"
 QUERY_PARAM_FROM = "from"
 QUERY_PARAM_TO = "to"
+QUERY_TIME_RANGE = "time_rng"
 
 # context variables
 FORECAST_MENU_CTX = "forecast_menu"
@@ -55,10 +56,3 @@ ROW_TYPES_CTX = "row_types"
 TITLE_CTX = 'title'
 PAGE_HEADING_CTX = 'page_heading'
 SUBMIT_BTN_TEXT_CTX = 'submit_btn_text'
-
-SUBMIT_BTN_TEXT = {
-    Crud.CREATE: 'Save',
-    Crud.UPDATE: 'Update',
-    Crud.DELETE: 'Delete',
-    Crud.READ: 'Close',
-}

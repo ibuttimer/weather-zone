@@ -33,6 +33,7 @@ from django_countries.widgets import CountrySelectWidget
 
 from utils import FormMixin
 
+from .misc import RangeArg, get_range_choices
 
 LINE1_FIELD = 'line1'
 LINE2_FIELD = 'line2'
@@ -40,6 +41,7 @@ CITY_FIELD = 'city'
 LINE4_FIELD = 'state'
 POSTCODE_FIELD = 'postcode'
 COUNTRY_FIELD = 'country'
+TIME_RANGE_FIELD = 'time_range'
 
 
 class AddressForm(FormMixin, forms.Form):
@@ -55,6 +57,7 @@ class AddressForm(FormMixin, forms.Form):
     LINE4_FIELD = LINE4_FIELD
     POSTCODE_FIELD = POSTCODE_FIELD
     COUNTRY_FIELD = COUNTRY_FIELD
+    TIME_RANGE_FIELD = TIME_RANGE_FIELD
 
     line1 = forms.CharField(label=_('Line 1'), max_length=MAX_ADDR_LINE_LEN,
                             required=False)
@@ -68,17 +71,25 @@ class AddressForm(FormMixin, forms.Form):
                                required=False)
     country = CountryField(blank_label=_("(Select country)"),
                            blank=True).formfield()
+    # choices set during init
+    time_range = forms.ChoiceField(
+        label=_("Time range"), required=True, choices=get_range_choices())
 
     @dataclass
     class Meta:
         """ Form metadata """
-        fields = [
-            # fields in order of display
+        addr_fields = [
+            # address fields in order of display
             LINE1_FIELD, LINE2_FIELD, CITY_FIELD, LINE4_FIELD,
             POSTCODE_FIELD, COUNTRY_FIELD
         ]
+        # fields in order of display
+        fields = addr_fields.copy()
+        fields.extend([
+            TIME_RANGE_FIELD
+        ])
         select_fields = [
-            COUNTRY_FIELD
+            COUNTRY_FIELD, TIME_RANGE_FIELD
         ]
         widgets = {
             # https://pypi.org/project/django-countries/#countryselectwidget
@@ -116,4 +127,5 @@ class AddressForm(FormMixin, forms.Form):
             if not any(
                 [self.cleaned_data.get(f) for f in AddressForm.Meta.fields]
             ):
-                raise forms.ValidationError(_("No fields entered"), code="empty")
+                raise forms.ValidationError(
+                    _("No fields entered"), code="empty")

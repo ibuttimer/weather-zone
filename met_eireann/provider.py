@@ -264,7 +264,7 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
         # (rain/symbol)
         f_cast = forecast_entries.get(
             to_dt, ForecastEntry.of_period(start=from_dt, end=to_dt))
-        forecast_entries[from_dt] = f_cast
+        forecast_entries[to_dt] = f_cast
 
         for fc_key, fc_value in entry.get(LOCATION_PROP, {}).items():
             # e.g. fc_key

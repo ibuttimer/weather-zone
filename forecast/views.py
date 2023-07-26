@@ -39,13 +39,14 @@ from utils import (
 
 from .constants import (
     THIS_APP, ADDRESS_FORM_CTX, SUBMIT_URL_CTX, ADDRESS_ROUTE_NAME,
-    SUBMIT_BTN_TEXT_CTX, TITLE_CTX, SUBMIT_BTN_TEXT, PAGE_HEADING_CTX,
-    FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME
+    SUBMIT_BTN_TEXT_CTX, TITLE_CTX, PAGE_HEADING_CTX,
+    FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE
 )
 from .forecast import generate_forecast
 from .forms import AddressForm
 from .geocoding import geocode_address
 from .dto import GeoAddress, Forecast, AttribRow, ForecastEntry
+from .misc import RangeArg
 
 
 DISPLAY_ITEMS = [
@@ -77,8 +78,7 @@ class ForecastAddress(View):
         :param kwargs: additional keyword arguments
         :return: http response
         """
-        template_path, context = self.address_render_info(
-            AddressForm(), Crud.CREATE)
+        template_path, context = self.address_render_info(AddressForm())
 
         return render(request, template_path, context=context)
 
@@ -106,30 +106,33 @@ class ForecastAddress(View):
 
             geo_address: GeoAddress = geocode_address([
                 b for b in map(
-                    get_field, AddressForm.Meta.fields
+                    get_field, AddressForm.Meta.addr_fields
                 ) if b
             ])
             success = geo_address.is_valid
 
             # need to redirect to url with query parameters
+            query_kwargs = geo_address.as_dict()
+            query_kwargs[QUERY_TIME_RANGE] = get_field(
+                AddressForm.TIME_RANGE_FIELD)
             url = reverse_q(
                 namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
-                query_kwargs=geo_address.as_dict()
+                query_kwargs=query_kwargs
             )
 
             template_path, context = (None, None)
         else:
             success = False
-            template_path, context = self.address_render_info(form, Crud.CREATE)
+            template_path, context = self.address_render_info(form)
 
         return redirect_on_success_or_render(
             request, success,
-            redirect_to = url,
+            redirect_to=url,
             *args, template_path=template_path, context=context,
             **kwargs
         )
 
-    def address_render_info(self, form: AddressForm, action: Crud):
+    def address_render_info(self, form: AddressForm):
         """
         Get info to render an address form
         :param form: form to use
@@ -138,7 +141,7 @@ class ForecastAddress(View):
         context = {
             TITLE_CTX: _("Forecast location"),
             PAGE_HEADING_CTX: _("Address of forecast location"),
-            SUBMIT_BTN_TEXT_CTX: SUBMIT_BTN_TEXT[action],
+            SUBMIT_BTN_TEXT_CTX: _("Submit"),
             ADDRESS_FORM_CTX: form,
             SUBMIT_URL_CTX: self.url()
         }
@@ -165,14 +168,20 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     :return: http response
     """
     for query in [
-        'formatted_address', 'lat', 'lng', 'is_valid'
+        'formatted_address', 'lat', 'lng', 'is_valid'   # attrib of GeoAddress
     ]:
         if query not in request.GET.dict():
             raise ValueError(f"Missing query parameter {query}")
 
     geo_address = GeoAddress.from_dict(request.GET.dict())
 
-    forecast = generate_forecast(geo_address, provider='met_eireann')
+    time_rng = RangeArg.from_str(
+        request.GET.get(QUERY_TIME_RANGE, RangeArg.ALL.value)
+    )
+    dates = time_rng.as_dates()
+
+    forecast = generate_forecast(geo_address, provider='met_eireann',
+                                 start=dates.start, end=dates.end)
 
     template_path, context = forecast_render_info(forecast)
 
@@ -188,9 +197,10 @@ def forecast_render_info(forecast: Forecast):
     # transform forecast entries into a list of attribute lists
     forecast.set_attrib_series(DISPLAY_ITEMS)
 
+    title = _("Location forecast")
     context = {
-        TITLE_CTX: TITLE,
-        PAGE_HEADING_CTX: TITLE,
+        TITLE_CTX: title,
+        PAGE_HEADING_CTX: title,
         FORECAST_CTX: forecast,
         ROW_TYPES_CTX: list(map(lambda x: x.type, DISPLAY_ITEMS))
     }

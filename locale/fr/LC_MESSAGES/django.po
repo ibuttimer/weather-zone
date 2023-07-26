@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-25 16:31+0100\n"
+"POT-Creation-Date: 2023-07-26 09:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Change language"
 msgstr "Définir la langue"
 
-#: .\base\templates\base\set_language.html:34
+#: .\base\templates\base\set_language.html:35
 msgid "Set"
 msgstr "Fixé"
 
@@ -49,43 +49,95 @@ msgstr "Fixé"
 msgid "Set language"
 msgstr "Définir la langue"
 
-#: .\forecast\forms.py:59
+#: .\forecast\forms.py:62
 msgid "Line 1"
 msgstr "Ligne 1"
 
-#: .\forecast\forms.py:61
+#: .\forecast\forms.py:64
 msgid "Line 2"
 msgstr "Ligne 1"
 
-#: .\forecast\forms.py:63
+#: .\forecast\forms.py:66
 msgid "City"
 msgstr "Ville"
 
-#: .\forecast\forms.py:65
+#: .\forecast\forms.py:68
 msgid "State/Province/Region"
 msgstr "Etat/Province/Région"
 
-#: .\forecast\forms.py:67
+#: .\forecast\forms.py:70
 msgid "Postcode"
 msgstr "Code postal"
 
-#: .\forecast\forms.py:69
+#: .\forecast\forms.py:72
 msgid "(Select country)"
 msgstr "(Choisissez le pays)"
 
-#: .\forecast\forms.py:119
+#: .\forecast\forms.py:76
+msgid "Time range"
+msgstr "Intervalle de temps"
+
+#: .\forecast\forms.py:131
 msgid "No fields entered"
 msgstr "Aucun champ saisi"
 
-#: .\forecast\views.py:139
+#: .\forecast\misc.py:89
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: .\forecast\misc.py:90
+msgid "Tomorrow"
+msgstr "Demain"
+
+#: .\forecast\misc.py:91
+msgid "Next 2 days"
+msgstr "2 prochains jours"
+
+#: .\forecast\misc.py:92
+msgid "Next 3 days"
+msgstr "3 prochains jours"
+
+#: .\forecast\misc.py:93
+msgid "Next 4 days"
+msgstr "4 prochains jours"
+
+#: .\forecast\misc.py:94
+msgid "Next 5 days"
+msgstr "5 prochains jours"
+
+#: .\forecast\misc.py:95
+msgid "Tomorrow 2 days"
+msgstr "Demain 2 jours"
+
+#: .\forecast\misc.py:96
+msgid "Tomorrow 3 days"
+msgstr "Demain 3 jours"
+
+#: .\forecast\misc.py:97
+msgid "Tomorrow 4 days"
+msgstr "Demain 4 jours"
+
+#: .\forecast\misc.py:98
+msgid "All available"
+msgstr "Tous disponibles"
+
+#: .\forecast\views.py:142
 #, fuzzy
 #| msgid "Forecast"
 msgid "Forecast location"
 msgstr "Lieu de prévision"
 
-#: .\forecast\views.py:140
+#: .\forecast\views.py:143
 msgid "Address of forecast location"
 msgstr "Adresse du lieu de prévision"
+
+#: .\forecast\views.py:144
+msgid "Submit"
+msgstr "Soumettre"
+
+#: .\forecast\views.py:200
+msgid "Location forecast"
+msgstr "Prévision de localisation"
 
 #: .\templates\base.html:61
 msgid "Home"
