@@ -49,6 +49,7 @@ In the `weather-zone` folder, run the following command to install the necessary
 | PORT                     | Port application is served on; default 8000                                                                                                                                        |
 | DEBUG                    | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                        |
 | SECRET_KEY               | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation) |
+| DATABASE_URL             | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                      |
 | FONTAWESOME_URL          | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
 | REQUESTS_TIMEOUT         | Requests timeout in seconds                                                                                                                                                        |
 
@@ -70,6 +71,16 @@ $ python -c "import secrets; print(secrets.token_urlsafe())"
 ### Before first run
 Before running the application for the first time following cloning from the repository and setting up a new database,
 the following steps must be performed, from a terminal window, in the `weather-zone` folder.
+
+#### Initialise the database
+````shell
+$ python manage.py migrate
+````
+#### Create a superuser
+Enter `Username`, `Password` and optionally `Email address`.
+````shell
+$ python manage.py createsuperuser
+````
 
 #### Build Bootstrap
 Build the customised version of Bootstrap.
@@ -93,8 +104,14 @@ The application structure is as follows:
 ```
 ├─ README.md            - this file
 ├─ docs                 - documentation
+├─ data                 - application data
+├─ locale               - translation files
 ├─ manage.py            - application entry point
-└─ weather_zone         - main Django application
+├─ weather_zone         - main Django application
+├─ base                 - base Django application
+├─ forecast             - application generating forecast data from provider data  
+├─ met_eireann          - Met Éireann forecast provider application
+└─ templates            - application templates
 ```
 
 ## Credits
