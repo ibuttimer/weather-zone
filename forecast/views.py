@@ -46,7 +46,9 @@ from .constants import (
 from .forecast import generate_forecast
 from .forms import AddressForm
 from .geocoding import geocode_address
-from .dto import GeoAddress, Forecast, AttribRow, ForecastEntry
+from .dto import (
+    GeoAddress, Forecast, AttribRow, ForecastEntry, TYPE_WEATHER_ICON,
+    TYPE_HDR, TYPE_WIND_DIR_ICON)
 from .misc import RangeArg
 
 
@@ -68,39 +70,50 @@ def title_unit_wrapper(title: str):
     return add_title_unit
 
 
-def add_measurement_unit(forecast: Forecast, ar: AttribRow, measurement: str):
+def measurement_unit_wrapper(format: str):
+    """"
+    Wrapper to add measurement unit to value
+    :param format: format string for value
+    :return: function to add measurement unit to value
     """
-    Add unit to measurement
-    :param forecast: forecast
-    :param ar: AttribRow
-    :param measurement: measurement
-    :return: measurement
-    """
-    unit = forecast.get_units(ar.attribute)
-    return f'{measurement}{unit}' if unit else measurement
+    def add_measurement_unit(forecast: Forecast, ar: AttribRow, measurement: str):
+        """
+        Add unit to measurement
+        :param forecast: forecast
+        :param ar: AttribRow
+        :param measurement: measurement
+        :return: measurement
+        """
+        unit = forecast.get_units(ar.attribute)
+        if format:
+            measurement = f'{{0:{format}}}'.format(measurement)
+        return f'{measurement}{unit}' if unit else measurement
+    return add_measurement_unit
 
 
 DISPLAY_ITEMS = [
     # display text, attribute name, format function, type
     AttribRow(
         '', ForecastEntry.START_KEY,
-        lambda f, a, x: x.strftime('%a<br>%d %b'), 'hdr'),
+        lambda f, a, x: x.strftime('%a<br>%d %b'), TYPE_HDR),
     AttribRow(
         '', ForecastEntry.START_KEY,
         lambda f, a, x: x.strftime('%H:%M'), 'hdr'),
-    AttribRow('', ForecastEntry.ICON_KEY, type='img'),
+    AttribRow('', ForecastEntry.ICON_KEY, type=TYPE_WEATHER_ICON),
     AttribRow(
         title_unit_wrapper('Temperature'), ForecastEntry.TEMPERATURE_KEY),
     AttribRow(
         title_unit_wrapper('Precipitation'), ForecastEntry.PRECIPITATION_KEY),
     AttribRow(
         'Precipitation Probability', ForecastEntry.PRECIPITATION_PROB_KEY,
-        add_measurement_unit),
+        measurement_unit_wrapper('.0f')),
     AttribRow('Humidity', ForecastEntry.HUMIDITY_KEY,
-              add_measurement_unit),
+              measurement_unit_wrapper('.1f')),
     AttribRow(
         title_unit_wrapper('Wind Speed'), ForecastEntry.WIND_SPEED_KEY),
-    AttribRow('Wind Direction', ForecastEntry.WIND_CARDINAL_KEY),
+    AttribRow(
+        'Wind Direction', ForecastEntry.WIND_DIR_ICON_KEY,
+        type=TYPE_WIND_DIR_ICON),
     AttribRow(
         title_unit_wrapper('Wind Gust'), ForecastEntry.WIND_GUST_KEY),
 ]

@@ -35,6 +35,11 @@ AttribRow = namedtuple('AttribRow',
                        defaults=[None, None, None, None])
 """ Tuple to hold attribute row data for forecast display """
 
+# AttribRow types
+TYPE_HDR = 'hdr'                # header
+TYPE_WEATHER_ICON = 'img_wi'    # weather icon image
+TYPE_WIND_DIR_ICON = 'img_wd'   # wind direction icon image
+
 
 @dataclass
 class GeoAddress:
@@ -160,6 +165,7 @@ class ForecastEntry:
     TEMPERATURE_KEY = "temperature"
     WIND_DIR_KEY = "wind_dir"
     WIND_CARDINAL_KEY = "wind_cardinal"
+    WIND_DIR_ICON_KEY = "wind_dir_icon"
     WIND_SPEED_KEY = "wind_speed"
     WIND_GUST_KEY = "wind_gust"
     HUMIDITY_KEY = "humidity"
@@ -179,6 +185,7 @@ class ForecastEntry:
     temperature: float  # temperature
     wind_dir: float  # wind direction
     wind_cardinal: str  # wind cardinal direction
+    wind_dir_icon: str  # wind direction icon
     wind_speed: float  # wind speed
     wind_gust: float  # wind gust
     humidity: float  # humidity
@@ -201,6 +208,7 @@ class ForecastEntry:
             temperature=0.0,
             wind_dir=0.0,
             wind_cardinal='',
+            wind_dir_icon='',
             wind_speed=0.0,
             wind_gust=0.0,
             humidity=0.0,
@@ -282,7 +290,9 @@ class Forecast:
                 value = getattr(entry, item.attribute)
                 if item.format_fxn:
                     value = item.format_fxn(self, item, value)
-                elif item.type == 'img':
+                elif item.type == TYPE_WEATHER_ICON:
                     value = ImageData(value, entry.symbol)
+                elif item.type == TYPE_WIND_DIR_ICON:
+                    value = ImageData(value, entry.wind_cardinal)
                 row.append(value)
             self.attrib_series.append(row)

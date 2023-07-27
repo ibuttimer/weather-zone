@@ -52,10 +52,16 @@
                     {% for value in row %}
                       {% if forloop.first %}<th scope="row">{% else %}<td>{% endif %}
                         {% if value %}
-                            {% if val_type == 'img' %}
-                                <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-icon">
-                            {% else %}
+                            {% if forloop.first %}
                                 {{ value|safe }}
+                            {% else %}
+                                {% if val_type == 'img_wi' %}
+                                    <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-icon">
+                                {% elif val_type == 'img_wd' %}
+                                    <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-dir">
+                                {% else %}
+                                    {{ value|safe }}
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                       {% if forloop.first %}</th>{% else %}</td>{% endif %}

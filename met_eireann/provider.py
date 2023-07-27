@@ -48,7 +48,8 @@ DARK_LEGEND_OFFSET = 100    # offset of dark variant legends
 NO_LEGEND_ADDENDUM = ''
 DAY_LEGEND_ADDENDUM = 'd'
 NIGHT_LEGEND_ADDENDUM = 'n'
-WEATHER_ICON_URL = 'img/weather_icons/'
+WEATHER_ICON_URL = 'img/weather_icons/{old_id:02d}{addendum}.svg'
+WIND_DIR_ICON_URL = 'img/wind_icons/cardinal-{name}.png'
 
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 CREATED_PATH = ['weatherdata', '@created']
@@ -120,15 +121,27 @@ ME_UNITS = {
     ID_ATTRIB: '',
     NAME_ATTRIB: '',
 }
+# attributes where the attribute name is the unit name
 ATTRIB_IS_UNIT = [
     MPS_ATTRIB, PERCENT_ATTRIB, DEG_ATTRIB
 ]
 
+# fields to extract the location from
 LOCATION_FIELDS = {
     ALTITUDE_PROP: Location.ALTITUDE_FIELD,
     LATITUDE_PROP: Location.LAT_FIELD,
     LONGITUDE_PROP: Location.LNG_FIELD,
 }
+
+# cardinal directions for which there are images and their corresponding
+# degrees
+CARDINAL_DIRECTIONS = {
+    0: 'n', 180: 's', 90: 'e', 270: 'w',
+    45: 'ne', 315: 'nw', 135: 'se', 225: 'sw'
+}
+DIR_COUNT = len(CARDINAL_DIRECTIONS)    # number of cardinal directions
+ARC_PER_DIR = 360 / DIR_COUNT       # degrees per cardinal direction segment
+HALF_ARC_PER_DIR = ARC_PER_DIR / 2  # mid-point of cardinal direction segment
 
 
 class MetEireannProvider(Provider):
@@ -205,9 +218,13 @@ class MetEireannProvider(Provider):
             if response.status_code == HTTPStatus.OK:
                 parse_forecast(response.text, forecast)
 
-                # get icon for each forecast entry
+                # get icons for each ForecastEntry
                 for entry in forecast.time_series:
+                    # forecast summary icon
                     entry.icon = self.get_icon(entry.symbol)
+                    # wind direction icon
+                    entry.wind_dir_icon = self.get_wind_dir_icon(
+                        entry.wind_cardinal, entry.wind_dir)
 
         except requests.exceptions.RequestException as e:
             print(e)
@@ -219,7 +236,7 @@ class MetEireannProvider(Provider):
         Get the icon for a forecast
 
         :param legend: Legend to retrieve
-        :return: Legend
+        :return: icon url
         """
         # "sun": {
         #     "desc_en": "Sun",
@@ -243,7 +260,25 @@ class MetEireannProvider(Provider):
             old_id -= DARK_LEGEND_OFFSET
             addendum = NIGHT_LEGEND_ADDENDUM
 
-        return f"{WEATHER_ICON_URL}{old_id:02d}{addendum}.svg"
+        return WEATHER_ICON_URL.format(old_id=old_id, addendum=addendum)
+
+    def get_wind_dir_icon(self, name: str, degrees: float) -> str:
+        """
+        Get the icon for wind direction
+
+        :param name: wind direction cardinal name
+        :param degrees: wind direction in degrees
+        :return: icon url
+        """
+        name = name.lower()
+        if name not in CARDINAL_DIRECTIONS.values():
+            # determine cardinal direction from degrees
+            name = CARDINAL_DIRECTIONS[
+                (int((degrees + HALF_ARC_PER_DIR) / ARC_PER_DIR) % DIR_COUNT)
+                * ARC_PER_DIR
+            ]
+
+        return WIND_DIR_ICON_URL.format(name=name)
 
     def __str__(self):
         return f"{self.name}, {self.url}"
