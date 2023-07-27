@@ -131,23 +131,24 @@ DISPLAY_ITEMS = [
         lambda f, a, x: x.strftime('%H:%M'), 'hdr'),
     AttribRow('', ForecastEntry.ICON_KEY, type=TYPE_WEATHER_ICON),
     AttribRow(
-        title_unit_wrapper('Temperature'), ForecastEntry.TEMPERATURE_KEY),
+        title_unit_wrapper(_('Temperature')), ForecastEntry.TEMPERATURE_KEY),
     AttribRow(
-        title_unit_wrapper('Precipitation'), ForecastEntry.PRECIPITATION_KEY),
+        title_unit_wrapper(_('Precipitation')),
+        ForecastEntry.PRECIPITATION_KEY),
     AttribRow(
-        'Precipitation Probability', ForecastEntry.PRECIPITATION_PROB_KEY,
+        _('Precipitation Probability'), ForecastEntry.PRECIPITATION_PROB_KEY,
         measurement_unit_wrapper('.0f')),
-    AttribRow('Humidity', ForecastEntry.HUMIDITY_KEY,
+    AttribRow(_('Humidity'), ForecastEntry.HUMIDITY_KEY,
               measurement_unit_wrapper('.1f')),
     AttribRow(
-        title_unit_wrapper('Wind Speed', unit=Units.KPH),
+        title_unit_wrapper(_('Wind Speed'), unit=Units.KPH),
         ForecastEntry.WIND_SPEED_KEY,
         speed_conversion_wrapper(Units.KPH, format='.0f')),
     AttribRow(
-        'Wind Direction', ForecastEntry.WIND_DIR_ICON_KEY,
+        _('Wind Direction'), ForecastEntry.WIND_DIR_ICON_KEY,
         type=TYPE_WIND_DIR_ICON),
     AttribRow(
-        title_unit_wrapper('Wind Gust', unit=Units.KPH),
+        title_unit_wrapper(_('Wind Gust'), unit=Units.KPH),
         ForecastEntry.WIND_GUST_KEY,
         speed_conversion_wrapper(Units.KPH, format='.0f')),
 ]

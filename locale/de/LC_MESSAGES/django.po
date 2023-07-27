@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 09:25+0100\n"
+"POT-Creation-Date: 2023-07-27 13:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,21 +121,51 @@ msgstr "Morgen 4 Tage"
 msgid "All available"
 msgstr "Alles Verfügbar"
 
-#: .\forecast\views.py:142
+#: .\forecast\views.py:134
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: .\forecast\views.py:136
+#, fuzzy
+#| msgid "Forecast"
+msgid "Precipitation"
+msgstr "Prognosestandort"
+
+#: .\forecast\views.py:139
+msgid "Precipitation Probability"
+msgstr "Niederschlagswahrscheinlichkeit"
+
+#: .\forecast\views.py:141
+msgid "Humidity"
+msgstr "Feuchtigkeit"
+
+#: .\forecast\views.py:144
+msgid "Wind Speed"
+msgstr "Windgeschwindigkeit"
+
+#: .\forecast\views.py:148
+msgid "Wind Direction"
+msgstr "Windrichtung"
+
+#: .\forecast\views.py:151
+msgid "Wind Gust"
+msgstr "Windböe"
+
+#: .\forecast\views.py:230
 #, fuzzy
 #| msgid "Forecast"
 msgid "Forecast location"
 msgstr "Prognosestandort"
 
-#: .\forecast\views.py:143
+#: .\forecast\views.py:231
 msgid "Address of forecast location"
 msgstr "Adresse des prognostizierten Standorts"
 
-#: .\forecast\views.py:144
+#: .\forecast\views.py:232
 msgid "Submit"
 msgstr "Einreichen"
 
-#: .\forecast\views.py:200
+#: .\forecast\views.py:288
 msgid "Location forecast"
 msgstr "Standortprognose"
 
@@ -167,14 +197,14 @@ msgstr ""
 "Diese Website dient nur zu Bildungszwecken. Geben Sie <em>keine gültigen "
 "persönlichen Daten</em> ein."
 
-#: .\weather_zone\settings.py:182
+#: .\weather_zone\settings.py:198
 msgid "English"
 msgstr "Englisch"
 
-#: .\weather_zone\settings.py:183
+#: .\weather_zone\settings.py:199
 msgid "German"
 msgstr "Deutsch"
 
-#: .\weather_zone\settings.py:184
+#: .\weather_zone\settings.py:200
 msgid "French"
 msgstr "Französisch"
