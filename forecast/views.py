@@ -43,6 +43,7 @@ from .constants import (
     FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE,
     PAGE_SUB_HEADING_CTX
 )
+from .convert import Units, speed_conversion
 from .forecast import generate_forecast
 from .forms import AddressForm
 from .geocoding import geocode_address
@@ -52,10 +53,11 @@ from .dto import (
 from .misc import RangeArg
 
 
-def title_unit_wrapper(title: str):
+def title_unit_wrapper(title: str, unit: Units = None):
     """"
     Wrapper to add unit to title
     :param title: title
+    :param unit: unit to display; default is forecast unit
     :return: function to add unit to title
     """
     def add_title_unit(forecast: Forecast, ar: AttribRow):
@@ -65,8 +67,9 @@ def title_unit_wrapper(title: str):
         :param ar: AttribRow
         :return: title
         """
-        unit = forecast.get_units(ar.attribute)
-        return f'{title}<br>({unit})' if unit else title
+        unit_symbol = unit.value if unit else forecast.get_units(ar.attribute)
+        return f'{title}<br>({unit_symbol})' if unit_symbol else title
+
     return add_title_unit
 
 
@@ -88,11 +91,38 @@ def measurement_unit_wrapper(format: str):
         if format:
             measurement = f'{{0:{format}}}'.format(measurement)
         return f'{measurement}{unit}' if unit else measurement
+
     return add_measurement_unit
 
 
+def speed_conversion_wrapper(to_unit: Units, format: str = None):
+    """"
+    Wrapper to add value speed conversion
+    :param to_unit: unit to convert to
+    :param format: format string for value
+    :return: function to add value speed conversion
+    """
+    def forecast_speed_conversion(
+            forecast: Forecast, ar: AttribRow, measurement: float):
+        """
+        Convert speed measurement for forecast display
+        :param forecast: Forecast
+        :param ar: Attribute row
+        :param measurement: forcast measurement
+        :return:
+        """
+        from_unit = Units.from_str(forecast.get_units(ar.attribute))
+        measurement = speed_conversion(measurement, from_unit, to_unit)
+        return f'{{0:{format}}}'.format(measurement) if format else measurement
+
+    return forecast_speed_conversion
+
+
 DISPLAY_ITEMS = [
-    # display text, attribute name, format function, type
+    # display text: str or Callable[[Forecast, AttribRow], str]
+    # attribute name
+    # format function: Callable[[Forecast, AttribRow, str], str]
+    # type
     AttribRow(
         '', ForecastEntry.START_KEY,
         lambda f, a, x: x.strftime('%a<br>%d %b'), TYPE_HDR),
@@ -110,12 +140,16 @@ DISPLAY_ITEMS = [
     AttribRow('Humidity', ForecastEntry.HUMIDITY_KEY,
               measurement_unit_wrapper('.1f')),
     AttribRow(
-        title_unit_wrapper('Wind Speed'), ForecastEntry.WIND_SPEED_KEY),
+        title_unit_wrapper('Wind Speed', unit=Units.KPH),
+        ForecastEntry.WIND_SPEED_KEY,
+        speed_conversion_wrapper(Units.KPH, format='.0f')),
     AttribRow(
         'Wind Direction', ForecastEntry.WIND_DIR_ICON_KEY,
         type=TYPE_WIND_DIR_ICON),
     AttribRow(
-        title_unit_wrapper('Wind Gust'), ForecastEntry.WIND_GUST_KEY),
+        title_unit_wrapper('Wind Gust', unit=Units.KPH),
+        ForecastEntry.WIND_GUST_KEY,
+        speed_conversion_wrapper(Units.KPH, format='.0f')),
 ]
 
 class ForecastAddress(View):

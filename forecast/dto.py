@@ -289,6 +289,7 @@ class Forecast:
             for entry in self.time_series:
                 value = getattr(entry, item.attribute)
                 if item.format_fxn:
+                    # pass in the forecast, the AttribRow and the value
                     value = item.format_fxn(self, item, value)
                 elif item.type == TYPE_WEATHER_ICON:
                     value = ImageData(value, entry.symbol)

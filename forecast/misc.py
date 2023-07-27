@@ -74,7 +74,7 @@ class RangeArg(Enum):
     def from_str(cls, arg: str) -> 'RangeArg':
         """
         Convert string to enum
-        :param arg: string to convert
+        :param arg: value string to convert
         :return: enum
         """
         return cls[arg.upper().replace('+', '_PLUS_')]
