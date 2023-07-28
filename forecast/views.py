@@ -54,6 +54,7 @@ from .dto import (
     GeoAddress, Forecast, AttribRow, ForecastEntry, TYPE_WEATHER_ICON,
     TYPE_HDR, TYPE_WIND_DIR_ICON)
 from .misc import RangeArg
+from .registry import Registry
 
 
 def title_unit_wrapper(title: str, unit: Units = None):
@@ -281,9 +282,9 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     )
     dates = time_rng.as_dates()
 
-    forecast = generate_forecast(geo_address,
-                                 provider=LOCATIONFORECAST_APP_NAME,
-                                 start=dates.start, end=dates.end)
+    forecast = generate_forecast(
+        geo_address, provider=Registry.get_registry().provider_names()[0],
+        start=dates.start, end=dates.end)
 
     template_path, context = forecast_render_info(forecast)
 

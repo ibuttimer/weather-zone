@@ -23,7 +23,7 @@ Provides a registry of forecast providers
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from typing import TypeVar, Optional
+from typing import TypeVar, Optional, List, Any
 
 from .iprovider import IProvider
 
@@ -95,11 +95,19 @@ class Registry:
             raise ValueError(f"Provider '{name}' not registered")
         return self._providers[name] if registered else None
 
+    def provider_names(self) -> List[str]:
+        """
+        Get the provider names
+
+        :return: Provider names
+        """
+        return list(self._providers.keys())
+
     @property
-    def providers(self) -> dict:
+    def providers(self) -> List[IProvider]:
         """
         Get the providers
 
         :return: Providers
         """
-        return self._providers
+        return list(self._providers.values())

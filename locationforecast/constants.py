@@ -32,20 +32,39 @@ THIS_APP = Path(__file__).resolve().parent.name
 # prefix for environment variables
 APP_ENV_PREFIX = f'{THIS_APP.upper()}_'
 
+# provider names
+MET_EIREANN = 'met_eireann'
+
 # legend data keys and attributes
 OLD_ID_PROP = 'old_id'
 VARIANTS_PROP = 'variants'
 
-# forcast data keys and attributes
-# (following conversion to dict by xmltodict)
+# forcast data tags (standardised to lower case)
+# and attributes (following conversion to dict by xmltodict)
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 CREATED_PATH = ['weatherdata', '@created']
 FORECAST_DATA_PATH = ['weatherdata', 'product', 'time']
 DATATYPE_ATTRIB = '@datatype'
 FROM_ATTRIB = '@from'
 TO_ATTRIB = '@to'
+
 FORECAST_PROP = 'forecast'
 LOCATION_PROP = 'location'
+TEMPERATURE_TAG = 'temperature'
+WIND_DIRECTION_TAG = 'winddirection'
+WIND_SPEED_TAG = 'windspeed'
+WIND_GUST_TAG = 'windgust'
+HUMIDITY_TAG = 'humidity'
+PRESSURE = 'pressure'
+CLOUDINESS = 'cloudiness'
+FOG = 'fog'
+LOWCLOUDS = 'lowclouds'
+MEDIUMCLOUDS = 'mediumclouds'
+HIGHCLOUDS = 'highclouds'
+DEWPOINTTEMPERATURE = 'dewpointtemperature'
+PRECIPITATION_TAG = 'precipitation'
+SYMBOL_TAG = 'symbol'
+
 ALTITUDE_PROP = '@altitude'
 LATITUDE_PROP = '@latitude'
 LONGITUDE_PROP = '@longitude'

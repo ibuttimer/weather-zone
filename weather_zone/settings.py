@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as _
 from .constants import (
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME
 )
+from .misc import provider_settings_name
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -267,17 +268,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# read in forecast provider settings
+# read in forecast provider settings; list of <provider app name>_<provider id>
+FORECAST_PROVIDERS = env.list('FORECAST_PROVIDERS', default=[])
 # providers should provide provider-specific settings via following variable:
 # - <PROVIDER APP NAME>_SETTINGS : dict of settings
 #   e.g. 'url=http://example.com;username=foo;password=bar'
 FORECAST_APPS_SETTINGS = {}
-for provider in FORECAST_APPS:
+for provider in FORECAST_PROVIDERS:
     # https://django-environ.readthedocs.io/en/latest/tips.html#complex-dict-format
-    FORECAST_APPS_SETTINGS[provider] = env.dict(
-        provider.upper() + '_SETTINGS',
-        cast={'value': str},
-        default={}
+    FORECAST_APPS_SETTINGS[provider.upper()] = env.dict(
+        provider.upper(), cast={'value': str}, default={}
     )
 
 # Google site verification

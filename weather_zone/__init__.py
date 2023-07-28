@@ -28,6 +28,7 @@ from .constants import (
     SITEMAP_URL,
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME
 )
+from .misc import provider_settings_name
 
 
 __all__ = [
@@ -49,4 +50,6 @@ __all__ = [
     'BASE_APP_NAME',
     'FORECAST_APP_NAME',
     'LOCATIONFORECAST_APP_NAME',
+
+    'provider_settings_name',
 ]

@@ -28,6 +28,7 @@ from collections import namedtuple
 from datetime import datetime, tzinfo, timezone
 from http import HTTPStatus
 import json
+from typing import Dict, Tuple
 
 import requests
 import xmltodict
@@ -49,51 +50,19 @@ from .constants import (
 from .legends import LegendStore, load_legends
 
 
-DARK_LEGEND_OFFSET = 100    # offset of dark variant legends
 NO_LEGEND_ADDENDUM = ''
 DAY_LEGEND_ADDENDUM = 'd'
 NIGHT_LEGEND_ADDENDUM = 'n'
 WEATHER_ICON_URL = 'img/weather_icons/{old_id:02d}{addendum}.svg'
 WIND_DIR_ICON_URL = 'img/wind_icons/cardinal-{name}.png'
 
-# Met Eireann keys (standardised to lower case)
-ME_TEMPERATURE_KEY = 'temperature'
-ME_WIND_DIRECTION_KEY = 'winddirection'
-ME_WIND_SPEED_KEY = 'windspeed'
-ME_WIND_GUST_KEY = 'windgust'
-ME_HUMIDITY_KEY = 'humidity'
-ME_PRECIPITATION_KEY = 'precipitation'
-ME_SYMBOL_KEY = 'symbol'
-
 #                                  Forecast key, unit attrib, value attrib
-MeAttrib = namedtuple('MeAttrib', ['key', 'unit', 'value'])
+ForecastAttrib = namedtuple(
+    'ForecastAttrib', ['key', 'unit', 'value'])
 
-ME_ATTRIBUTES = {
-    ME_TEMPERATURE_KEY: MeAttrib(
-        ForecastEntry.TEMPERATURE_KEY, UNIT_ATTRIB, VALUE_ATTRIB),
-    ME_WIND_DIRECTION_KEY: [
-        MeAttrib(ForecastEntry.WIND_DIR_KEY, DEG_ATTRIB, DEG_ATTRIB),
-        MeAttrib(ForecastEntry.WIND_CARDINAL_KEY, None, NAME_ATTRIB)
-    ],
-    ME_WIND_SPEED_KEY: MeAttrib(
-        ForecastEntry.WIND_SPEED_KEY, MPS_ATTRIB, MPS_ATTRIB),
-    ME_WIND_GUST_KEY: MeAttrib(
-        ForecastEntry.WIND_GUST_KEY, MPS_ATTRIB, MPS_ATTRIB),
-    ME_HUMIDITY_KEY: MeAttrib(
-        ForecastEntry.HUMIDITY_KEY, UNIT_ATTRIB, VALUE_ATTRIB),
-    ME_PRECIPITATION_KEY: [
-        MeAttrib(ForecastEntry.PRECIPITATION_KEY, UNIT_ATTRIB, VALUE_ATTRIB),
-        MeAttrib(ForecastEntry.PRECIPITATION_PROB_KEY, PERCENT_LITERAL,
-                 PROBABILITY_ATTRIB)
-    ],
-    ME_SYMBOL_KEY: [
-        MeAttrib(ForecastEntry.SYMBOL_KEY, ID_ATTRIB, NUM_ATTRIB),
-        MeAttrib(ForecastEntry.ALT_TEXT_KEY, ID_ATTRIB, ID_ATTRIB),
-    ]
-}
 
 # attrib unit to display
-ME_UNITS = {
+ATTRIB_UNITS = {
     'celsius': '°C',
     'percent': '%',
     PERCENT_ATTRIB: '%',
@@ -134,12 +103,12 @@ class LocationforecastProvider(Provider):
     """
     lat_q: str      # Latitude query parameter
     lng_q: str      # Longitude query parameter
-    from_q: str     # From date/time query parameter
-    to_q: str       # To date/time query parameter
+    attributes: Dict[str, ForecastAttrib]   # forecast parsing attributes
     legends: LegendStore   # Legends
+    cached_result: str  # cached result; used for development
 
     def __init__(self, name: str, friendly_name: str, url: str,
-                 lat_q: str, lng_q: str, from_q: str, to_q: str):
+                 lat_q: str, lng_q: str, attributes: Dict[str, ForecastAttrib]):
         """
         Constructor
 
@@ -148,14 +117,13 @@ class LocationforecastProvider(Provider):
         :param url: URL of provider
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
-        :param from_q: From date/time query parameter
-        :param to_q: To date/time query parameter
+        :param attributes: Attributes to use to parse forecast
         """
         super().__init__(name, friendly_name, url)
         self.lat_q = lat_q
         self.lng_q = lng_q
-        self.from_q = from_q
-        self.to_q = to_q
+        self.attributes = attributes
+        self.cached_result = None
         self.legends = load_legends()
 
     def url_params(self, lat: float, lng: float, start: datetime = None,
@@ -169,16 +137,12 @@ class LocationforecastProvider(Provider):
         :param end: forecast end date; default is end of available forecast
         :return: url
         """
-        # https://data.gov.ie/dataset/met-eireann-weather-forecast-api
-        # http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=<LATITUDE>;long=<LONGITUDE>;from=2018-11-10T02:00;to=2018-11-12T12:00
-        params = {
+        # https://api.met.no/weatherapi/locationforecast/2.0/documentation
+        # https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=59.93&lon=10.72&altitude=90
+        return {
             self.lat_q: lat,
             self.lng_q: lng,
         }
-        for q, v in [(self.from_q, start), (self.to_q, end)]:
-            if v is not None:
-                params[q] = v.strftime('%Y-%m-%dT%H:%M')
-        return params
 
     def get_geo_forecast(self, geo_address: GeoAddress, start: datetime = None,
                          end: datetime = None, **kwargs) -> Forecast:
@@ -199,9 +163,8 @@ class LocationforecastProvider(Provider):
         forecast.provider = self.friendly_name
 
         forecast_resp = None
-        if settings.CACHED_MET_EIREANN_RESULT:
-            forecast_resp = self.read_cached_resp(
-                settings.CACHED_MET_EIREANN_RESULT)
+        if self.cached_result:
+            forecast_resp = self.read_cached_resp(self.cached_result)
             forecast.cached = len(forecast_resp) > 0
         else:
             try:
@@ -215,7 +178,7 @@ class LocationforecastProvider(Provider):
                 print(e)
 
         if forecast_resp:
-            parse_forecast(forecast_resp, forecast)
+            parse_forecast(forecast_resp, forecast, self.attributes)
 
             # get icons for each ForecastEntry
             for entry in forecast.time_series:
@@ -226,6 +189,17 @@ class LocationforecastProvider(Provider):
                     entry.wind_cardinal, entry.wind_dir)
 
         return forecast
+
+    def get_id_variant(self, legend: Dict) -> Tuple[int, str]:
+        """
+        Get the id and variant addendum for icon filename
+        :param legend: legend to get id and variant from
+        :return: tuple of id and variant addendum
+        """
+        addendum = DAY_LEGEND_ADDENDUM if entry.get(VARIANTS_PROP, None) \
+            else NO_LEGEND_ADDENDUM
+        old_id = int(entry.get(OLD_ID_PROP))
+        return old_id, addendum
 
     def get_icon(self, legend: str) -> str:
         """
@@ -249,12 +223,7 @@ class LocationforecastProvider(Provider):
         if not self.legends.key_exists(legend):
             raise ValueError(f"Legend '{legend}' not found")
         entry = self.legends.get(legend)
-        addendum = DAY_LEGEND_ADDENDUM if entry.get(VARIANTS_PROP, None) \
-            else NO_LEGEND_ADDENDUM
-        old_id = int(entry.get(OLD_ID_PROP))
-        if old_id > DARK_LEGEND_OFFSET:
-            old_id -= DARK_LEGEND_OFFSET
-            addendum = NIGHT_LEGEND_ADDENDUM
+        old_id, addendum = self.get_id_variant(entry)
 
         return WEATHER_ICON_URL.format(old_id=old_id, addendum=addendum)
 
@@ -280,12 +249,14 @@ class LocationforecastProvider(Provider):
         return f"{self.name}, {self.url}"
 
 
-def parse_forecast(data: str, forecast: Forecast) -> Forecast:
+def parse_forecast(data: str, forecast: Forecast,
+                   attributes: Dict[str, ForecastAttrib]) -> Forecast:
     """
     Parse a forecast
 
     :param data: forecast data to parse
     :param forecast: Forecast to update
+    :param attributes: Attributes to use to parse forecast
     :return: Parsed forecast
     """
     units_set = set()
@@ -330,11 +301,11 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
                         float(fc_value if fc_value else 0))
                 location_set.add(fc_key)
 
-            if fc_key not in ME_ATTRIBUTES:
+            if fc_key not in attributes:
                 continue
 
             # set attributes
-            for me_attrib in ensure_list(ME_ATTRIBUTES.get(fc_key)):
+            for me_attrib in ensure_list(attributes.get(fc_key)):
 
                 # set unit
                 if me_attrib.key not in units_set:
@@ -347,7 +318,7 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
                         elif unit not in ATTRIB_IS_UNIT:
                             # attrib value is the unit
                             unit = fc_value.get(unit)
-                        forecast.units[me_attrib.key] = ME_UNITS.get(unit)
+                        forecast.units[me_attrib.key] = ATTRIB_UNITS.get(unit)
                     units_set.add(me_attrib.key)
 
                 # process attrib value

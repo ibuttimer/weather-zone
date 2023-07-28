@@ -1,5 +1,5 @@
 """
-Forecasting module
+Miscellaneous functions
 """
 #  MIT License
 #
@@ -23,33 +23,12 @@ Forecasting module
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from datetime import datetime
-from typing import Optional
 
-from .dto import GeoAddress, Forecast
-from .registry import Registry
-
-
-def generate_forecast(
-        geo_address: GeoAddress, start: datetime = None,
-        end: datetime = None, provider: str = None) -> Forecast:
+def provider_settings_name(app_name: str, provider_name: str) -> str:
     """
-    Get a forecast
-    :param geo_address: geographic address
-    :param start: forecast start date; default is current time
-    :param end: forecast end date; default is end of available forecast
-    :param provider: forecast provider; default is all providers
-    :return: Forecast
+    Convert a provider name to a settings name
+    :param app_name: application name
+    :param provider_name: provider name
+    :return: settings name
     """
-    registry = Registry.get_registry()
-    if provider is None:
-        # get all providers
-        for forcaster in registry.providers:
-            loc_forecast = forcaster.get_geo_forecast(geo_address, start, end)
-
-    else:
-        # get specific provider
-        loc_forecast = registry.get(provider) \
-            .get_geo_forecast(geo_address, start, end)
-
-    return loc_forecast
+    return f"{app_name.upper()}_{provider_name.upper()}"
