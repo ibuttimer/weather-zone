@@ -299,3 +299,5 @@ REQUEST_TIMEOUT = env('REQUEST_TIMEOUT', default=10)
 # Development mode settings
 CACHED_GEOCODE_RESULT = env('CACHED_GEOCODE_RESULT', default='') \
     if DEVELOPMENT else ''
+CACHED_MET_EIREANN_RESULT = env('CACHED_MET_EIREANN_RESULT', default='') \
+    if DEVELOPMENT else ''

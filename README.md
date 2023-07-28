@@ -43,15 +43,18 @@ In the `weather-zone` folder, run the following command to install the necessary
 ```
 
 ###### Table 1: Configuration settings
-| Key                      | Value                                                                                                                                                                              |
-|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ENV_FILE                 | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                            |
-| PORT                     | Port application is served on; default 8000                                                                                                                                        |
-| DEBUG                    | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                        |
-| SECRET_KEY               | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation) |
-| DATABASE_URL             | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                      |
-| FONTAWESOME_URL          | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
-| REQUESTS_TIMEOUT         | Requests timeout in seconds                                                                                                                                                        |
+| Key                        | Value                                                                                                                                                                              |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ENV_FILE                   | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                            |
+| PORT                       | Port application is served on; default 8000                                                                                                                                        |
+| DEBUG                      | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                        |
+| SECRET_KEY                 | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation) |
+| DATABASE_URL               | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                      |
+| FONTAWESOME_URL            | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
+| REQUESTS_TIMEOUT           | Requests timeout in seconds                                                                                                                                                        |
+|                            | **Development-specific configuration**                                                                                                                                             |
+| CACHED_GEOCODE_RESULT      | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                |
+| CACHED_MET_EIREANN_RESULT  | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                             |
 
 # TODO add STORAGE_PROVIDER environment variables
 

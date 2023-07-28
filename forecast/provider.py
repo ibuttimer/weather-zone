@@ -66,3 +66,15 @@ class Provider(IProvider, ABC):
         :return: URL of provider
         """
         return self.url
+
+    def read_cached_resp(self, filepath: str) -> str:
+        """
+        Read cached response
+
+        :param filepath: Path to cached response
+        :return: Cached response
+        """
+        response = None
+        with open(filepath, 'r') as f:
+            response = f.read()
+        return response

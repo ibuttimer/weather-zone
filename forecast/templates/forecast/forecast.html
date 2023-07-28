@@ -72,6 +72,13 @@
              {% endfor %}
             </table>
         </row>
+        {% if forecast.cached %}
+        <row class="col-lg-10 col-md-11 col-sm-12">
+            <div class="col-12 text-start">
+                <p class="text-warning">(Cached data)</p>
+            </div>
+        </row>
+        {% endif %}
     </article>
 {% endblock %}
 <!-- forecast.html end -->

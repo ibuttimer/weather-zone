@@ -214,23 +214,33 @@ class MetEireannProvider(Provider):
         # request forecast
         forecast = Forecast(geo_address)
         forecast.provider = self.friendly_name
-        try:
-            response = requests.get(
-                self.url, params=params, headers=get_request_headers(),
-                timeout=settings.REQUEST_TIMEOUT)
-            if response.status_code == HTTPStatus.OK:
-                parse_forecast(response.text, forecast)
 
-                # get icons for each ForecastEntry
-                for entry in forecast.time_series:
-                    # forecast summary icon
-                    entry.icon = self.get_icon(entry.symbol)
-                    # wind direction icon
-                    entry.wind_dir_icon = self.get_wind_dir_icon(
-                        entry.wind_cardinal, entry.wind_dir)
+        forecast_resp = None
+        if settings.CACHED_MET_EIREANN_RESULT:
+            forecast_resp = self.read_cached_resp(
+                settings.CACHED_MET_EIREANN_RESULT)
+            forecast.cached = len(forecast_resp) > 0
+        else:
+            try:
+                response = requests.get(
+                    self.url, params=params, headers=get_request_headers(),
+                    timeout=settings.REQUEST_TIMEOUT)
+                if response.status_code == HTTPStatus.OK:
+                    forecast_resp = response.text
 
-        except requests.exceptions.RequestException as e:
-            print(e)
+            except requests.exceptions.RequestException as e:
+                print(e)
+
+        if forecast_resp:
+            parse_forecast(forecast_resp, forecast)
+
+            # get icons for each ForecastEntry
+            for entry in forecast.time_series:
+                # forecast summary icon
+                entry.icon = self.get_icon(entry.symbol)
+                # wind direction icon
+                entry.wind_dir_icon = self.get_wind_dir_icon(
+                    entry.wind_cardinal, entry.wind_dir)
 
         return forecast
 

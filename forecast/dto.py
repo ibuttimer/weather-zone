@@ -247,6 +247,7 @@ class Forecast:
     time_series: List[ForecastEntry]  # time series forecast
     # attribute series forecast, key is display name, value is list of values
     attrib_series: Dict[str, List[Any]]
+    cached: bool  # is this a cached forecast?
 
     def __init__(self, address: GeoAddress):
         self.address = address
@@ -255,6 +256,7 @@ class Forecast:
         self.units = {}
         self.time_series = []
         self.attrib_series: {}
+        self.cached = False
 
     def set_units(self, units: dict):
         """
