@@ -32,7 +32,7 @@ COPYRIGHT = "Ian Buttimer"
 # Namespace related
 BASE_APP_NAME = "base"
 FORECAST_APP_NAME = "forecast"
-MET_EIREANN_APP_NAME = "met_eireann"
+LOCATIONFORECAST_APP_NAME = "locationforecast"
 
 # Base routes related
 HOME_URL = "/"

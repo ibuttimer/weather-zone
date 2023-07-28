@@ -32,6 +32,9 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django_countries import countries
 
+from weather_zone.constants import (
+    LOCATIONFORECAST_APP_NAME
+)
 from utils import (
     GET, app_template_path, reverse_q, namespaced_url, Crud,
     redirect_on_success_or_render,
@@ -278,7 +281,8 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     )
     dates = time_rng.as_dates()
 
-    forecast = generate_forecast(geo_address, provider='met_eireann',
+    forecast = generate_forecast(geo_address,
+                                 provider=LOCATIONFORECAST_APP_NAME,
                                  start=dates.start, end=dates.end)
 
     template_path, context = forecast_render_info(forecast)

@@ -1,5 +1,5 @@
 """
-This module is used to configure the met_eireann app.
+Constants for locationforecast app
 """
 #  MIT License
 #
@@ -23,16 +23,11 @@ This module is used to configure the met_eireann app.
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from django.apps import AppConfig
+from pathlib import Path
 
 
-class MetEireannConfig(AppConfig):
-    """
-    This class is used to configure the met_eireann app.
-    """
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'met_eireann'
+# name of this app
+THIS_APP = Path(__file__).resolve().parent.name
 
-    def ready(self):
-        # Implicitly connect signal handlers decorated with @receiver.
-        from . import signals
+# prefix for environment variables
+APP_ENV_PREFIX = f'{THIS_APP.upper()}_'

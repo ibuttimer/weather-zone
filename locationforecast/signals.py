@@ -1,5 +1,5 @@
 """
-Signal processing for met_eireann app
+Signal processing for locationforecast app
 """
 #  MIT License
 #
@@ -29,7 +29,7 @@ from django.dispatch import receiver
 from forecast import registry_open, Registry
 
 from .constants import THIS_APP
-from .provider import MetEireannProvider
+from .provider import LocationforecastProvider
 
 
 @receiver(registry_open)
@@ -45,7 +45,7 @@ def registry_open_handler(sender, **kwargs):
 
     # create provider
     config = settings.FORECAST_APPS_SETTINGS.get(THIS_APP)
-    provider = MetEireannProvider(**{
+    provider = LocationforecastProvider(**{
         'name': THIS_APP,
         'friendly_name': 'Met Éireann',
         'url': config.get('url'),

@@ -1,5 +1,5 @@
 """
-Met Eireann forecast provider
+Locationforecast forecast provider
 """
 #  MIT License
 #
@@ -42,9 +42,9 @@ from forecast.provider import Provider
 
 
 BASE_LEGENDS_URL = os.path.join(settings.BASE_DIR,
-                                'data/met-eireann/legends.json')
+                                'data/locationforecast/legends.json')
 PATCH_LEGENDS_URL = os.path.join(settings.BASE_DIR,
-                                 'data/met-eireann/me-legends.json')
+                                 'data/locationforecast/me-legends.json')
 DARK_LEGEND_OFFSET = 100    # offset of dark variant legends
 NO_LEGEND_ADDENDUM = ''
 DAY_LEGEND_ADDENDUM = 'd'
@@ -145,7 +145,7 @@ ARC_PER_DIR = 360 / DIR_COUNT       # degrees per cardinal direction segment
 HALF_ARC_PER_DIR = ARC_PER_DIR / 2  # mid-point of cardinal direction segment
 
 
-class MetEireannProvider(Provider):
+class LocationforecastProvider(Provider):
     """
     Forecast provider
     """

@@ -113,7 +113,7 @@ The application structure is as follows:
 ├─ weather_zone         - main Django application
 ├─ base                 - base Django application
 ├─ forecast             - application generating forecast data from provider data  
-├─ met_eireann          - Met Éireann forecast provider application
+├─ locationforecast     - Locationforecast provider application
 └─ templates            - application templates
 ```
 

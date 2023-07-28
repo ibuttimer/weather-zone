@@ -16,7 +16,7 @@ import environ
 from django.utils.translation import gettext_lazy as _
 
 from .constants import (
-    BASE_APP_NAME, FORECAST_APP_NAME, MET_EIREANN_APP_NAME
+    BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,7 +79,7 @@ INSTALLED_APPS = [
 
 # forecast provider apps
 FORECAST_APPS = [
-    MET_EIREANN_APP_NAME,
+    LOCATIONFORECAST_APP_NAME,
 ]
 # weather_zone apps
 WZ_APPS = FORECAST_APPS.copy()
@@ -300,4 +300,6 @@ REQUEST_TIMEOUT = env('REQUEST_TIMEOUT', default=10)
 CACHED_GEOCODE_RESULT = env('CACHED_GEOCODE_RESULT', default='') \
     if DEVELOPMENT else ''
 CACHED_MET_EIREANN_RESULT = env('CACHED_MET_EIREANN_RESULT', default='') \
+    if DEVELOPMENT else ''
+CACHED_MET_NORWAY_CLASSIC_RESULT = env('CACHED_MET_NORWAY_CLASSIC_RESULT', default='') \
     if DEVELOPMENT else ''
