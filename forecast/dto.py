@@ -172,6 +172,7 @@ class ForecastEntry:
     PRECIPITATION_KEY = "precipitation"
     PRECIPITATION_PROB_KEY = "precipitation_prob"
     SYMBOL_KEY = "symbol"
+    ALT_TEXT_KEY = "alt_text"
     ICON_KEY = "icon"
 
     # keys that are floats
@@ -192,6 +193,7 @@ class ForecastEntry:
     precipitation: float  # precipitation
     precipitation_prob: float  # precipitation probability
     symbol: str  # symbol
+    alt_text: str  # alternative text
     icon: str  # icon
 
     @staticmethod
@@ -215,6 +217,7 @@ class ForecastEntry:
             precipitation=0.0,
             precipitation_prob=0.0,
             symbol='',
+            alt_text='',
             icon=''
         )
 
@@ -294,7 +297,7 @@ class Forecast:
                     # pass in the forecast, the AttribRow and the value
                     value = item.format_fxn(self, item, value)
                 elif item.type == TYPE_WEATHER_ICON:
-                    value = ImageData(value, entry.symbol)
+                    value = ImageData(value, entry.alt_text)
                 elif item.type == TYPE_WIND_DIR_ICON:
                     value = ImageData(value, entry.wind_cardinal)
                 row.append(value)

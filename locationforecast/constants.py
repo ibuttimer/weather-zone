@@ -31,3 +31,32 @@ THIS_APP = Path(__file__).resolve().parent.name
 
 # prefix for environment variables
 APP_ENV_PREFIX = f'{THIS_APP.upper()}_'
+
+# legend data keys and attributes
+OLD_ID_PROP = 'old_id'
+VARIANTS_PROP = 'variants'
+
+# forcast data keys and attributes
+# (following conversion to dict by xmltodict)
+DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+CREATED_PATH = ['weatherdata', '@created']
+FORECAST_DATA_PATH = ['weatherdata', 'product', 'time']
+DATATYPE_ATTRIB = '@datatype'
+FROM_ATTRIB = '@from'
+TO_ATTRIB = '@to'
+FORECAST_PROP = 'forecast'
+LOCATION_PROP = 'location'
+ALTITUDE_PROP = '@altitude'
+LATITUDE_PROP = '@latitude'
+LONGITUDE_PROP = '@longitude'
+UNIT_ATTRIB = '@unit'
+VALUE_ATTRIB = '@value'
+NAME_ATTRIB = '@name'
+DEG_ATTRIB = '@deg'
+MPS_ATTRIB = '@mps'
+PERCENT_ATTRIB = '@percent'
+LITERAL_MARKER = '$'
+PERCENT_LITERAL = f'{LITERAL_MARKER}percent'
+PROBABILITY_ATTRIB = '@probability'
+NUM_ATTRIB = '@number'
+ID_ATTRIB = '@id'

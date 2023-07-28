@@ -37,43 +37,24 @@ from django.conf import settings
 from base import get_request_headers
 from utils import dict_drill, ensure_list
 
-from forecast import Forecast, ForecastEntry, GeoAddress, Location
-from forecast.provider import Provider
+from forecast import Forecast, ForecastEntry, GeoAddress, Location, Provider
+
+from .constants import (
+    DATETIME_FORMAT, CREATED_PATH, FORECAST_DATA_PATH, DATATYPE_ATTRIB,
+    FROM_ATTRIB, TO_ATTRIB, FORECAST_PROP, LOCATION_PROP, ALTITUDE_PROP,
+    LATITUDE_PROP, LONGITUDE_PROP, UNIT_ATTRIB, VALUE_ATTRIB, NAME_ATTRIB,
+    DEG_ATTRIB, MPS_ATTRIB, PERCENT_ATTRIB, LITERAL_MARKER, PERCENT_LITERAL,
+    PROBABILITY_ATTRIB, NUM_ATTRIB, ID_ATTRIB, OLD_ID_PROP, VARIANTS_PROP
+)
+from .legends import LegendStore, load_legends
 
 
-BASE_LEGENDS_URL = os.path.join(settings.BASE_DIR,
-                                'data/locationforecast/legends.json')
-PATCH_LEGENDS_URL = os.path.join(settings.BASE_DIR,
-                                 'data/locationforecast/me-legends.json')
 DARK_LEGEND_OFFSET = 100    # offset of dark variant legends
 NO_LEGEND_ADDENDUM = ''
 DAY_LEGEND_ADDENDUM = 'd'
 NIGHT_LEGEND_ADDENDUM = 'n'
 WEATHER_ICON_URL = 'img/weather_icons/{old_id:02d}{addendum}.svg'
 WIND_DIR_ICON_URL = 'img/wind_icons/cardinal-{name}.png'
-
-DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
-CREATED_PATH = ['weatherdata', '@created']
-FORECAST_DATA_PATH = ['weatherdata', 'product', 'time']
-DATATYPE_ATTRIB = '@datatype'
-FROM_ATTRIB = '@from'
-TO_ATTRIB = '@to'
-FORECAST_PROP = 'forecast'
-LOCATION_PROP = 'location'
-ALTITUDE_PROP = '@altitude'
-LATITUDE_PROP = '@latitude'
-LONGITUDE_PROP = '@longitude'
-UNIT_ATTRIB = '@unit'
-VALUE_ATTRIB = '@value'
-NAME_ATTRIB = '@name'
-DEG_ATTRIB = '@deg'
-MPS_ATTRIB = '@mps'
-PERCENT_ATTRIB = '@percent'
-LITERAL_MARKER = '$'
-PERCENT_LITERAL = f'{LITERAL_MARKER}percent'
-PROBABILITY_ATTRIB = '@probability'
-NUM_ATTRIB = '@number'
-ID_ATTRIB = '@id'
 
 # Met Eireann keys (standardised to lower case)
 ME_TEMPERATURE_KEY = 'temperature'
@@ -105,8 +86,10 @@ ME_ATTRIBUTES = {
         MeAttrib(ForecastEntry.PRECIPITATION_PROB_KEY, PERCENT_LITERAL,
                  PROBABILITY_ATTRIB)
     ],
-    ME_SYMBOL_KEY: MeAttrib(
-        ForecastEntry.SYMBOL_KEY, ID_ATTRIB, ID_ATTRIB),
+    ME_SYMBOL_KEY: [
+        MeAttrib(ForecastEntry.SYMBOL_KEY, ID_ATTRIB, NUM_ATTRIB),
+        MeAttrib(ForecastEntry.ALT_TEXT_KEY, ID_ATTRIB, ID_ATTRIB),
+    ]
 }
 
 # attrib unit to display
@@ -153,7 +136,7 @@ class LocationforecastProvider(Provider):
     lng_q: str      # Longitude query parameter
     from_q: str     # From date/time query parameter
     to_q: str       # To date/time query parameter
-    legends: dict   # Legends
+    legends: LegendStore   # Legends
 
     def __init__(self, name: str, friendly_name: str, url: str,
                  lat_q: str, lng_q: str, from_q: str, to_q: str):
@@ -263,12 +246,12 @@ class LocationforecastProvider(Provider):
         # The original and variant legends may be connected via the 'old_id'
         # field; variant 'old_id' values are the original 'old_id' + 100
         legend = legend.lower()
-        if legend not in self.legends:
+        if not self.legends.key_exists(legend):
             raise ValueError(f"Legend '{legend}' not found")
         entry = self.legends.get(legend)
-        addendum = DAY_LEGEND_ADDENDUM if entry.get('variants', None) \
+        addendum = DAY_LEGEND_ADDENDUM if entry.get(VARIANTS_PROP, None) \
             else NO_LEGEND_ADDENDUM
-        old_id = int(entry.get('old_id'))
+        old_id = int(entry.get(OLD_ID_PROP))
         if old_id > DARK_LEGEND_OFFSET:
             old_id -= DARK_LEGEND_OFFSET
             addendum = NIGHT_LEGEND_ADDENDUM
@@ -379,27 +362,6 @@ def parse_forecast(data: str, forecast: Forecast) -> Forecast:
         )
 
     return forecast
-
-
-def load_legends() -> dict:
-    """
-    Load legends
-    :return:
-    """
-    # load legends from json file
-    with open(BASE_LEGENDS_URL, 'r') as f:
-        legends = json.load(f)
-
-    # patch legends from json file
-    with open(PATCH_LEGENDS_URL, 'r') as f:
-        patch_legends = json.load(f)
-        legends.update(patch_legends)
-
-    for key in legends.keys():
-        if not key.islower():
-            legends[key.lower()] = legends.pop(key)
-
-    return legends
 
 
 def extract_datetime(dt: str) -> datetime:
