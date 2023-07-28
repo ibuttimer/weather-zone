@@ -39,7 +39,10 @@ from weather_zone.constants import (
 )
 from utils import resolve_req, add_navbar_attr
 
-from .constants import APP_NAME_CTX, LANG_COUNTRY_CTX, ARIA_CHANGE_LANG_CTX
+from .constants import (
+    APP_NAME_CTX, APP_VERSION_CTX, LANG_COUNTRY_CTX, ARIA_CHANGE_LANG_CTX
+)
+from .app_info import get_version
 
 LANG_COUNTRIES = {
     'en': Country(code='GB'),
@@ -58,6 +61,7 @@ def base_context(request: HttpRequest) -> dict:
     """
     context = {
         APP_NAME_CTX: APP_NAME,
+        APP_VERSION_CTX: get_version(),
         LANG_COUNTRY_CTX: LANG_COUNTRIES[
             get_language_from_request(request, check_path=False).lower()
         ],

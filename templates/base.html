@@ -173,6 +173,8 @@
         </div>
 
         <ul class="nav col-md-2 col-sm-6 justify-content-end list-unstyled d-flex">
+            <p>{% translate "Version" %} {{ app_version }}</p>
+
             {% for social in socials %}
             <li>
                 <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ social.name }}">

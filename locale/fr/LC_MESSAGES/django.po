@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-27 13:19+0100\n"
+"POT-Creation-Date: 2023-07-27 16:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\base\context_processors.py:64
+#: .\base\context_processors.py:68
 #, fuzzy
 #| msgid "Set language"
 msgid "Change language"
@@ -189,6 +189,10 @@ msgstr "Aider"
 msgid "About"
 msgstr "À propos"
 
+#: .\templates\base.html:176
+msgid "Version"
+msgstr "Version"
+
 #: .\templates\snippet\site_warning.html:9
 msgid ""
 "This site is for educational purposes only, <em>do not enter</em> valid "
@@ -197,14 +201,14 @@ msgstr ""
 "Ce site est uniquement à des fins éducatives, <em>ne saisissez pas</em> de "
 "données personnelles valides."
 
-#: .\weather_zone\settings.py:198
+#: .\weather_zone\settings.py:200
 msgid "English"
 msgstr "Anglais"
 
-#: .\weather_zone\settings.py:199
+#: .\weather_zone\settings.py:201
 msgid "German"
 msgstr "Allemand"
 
-#: .\weather_zone\settings.py:200
+#: .\weather_zone\settings.py:202
 msgid "French"
 msgstr "Français"
