@@ -155,19 +155,20 @@ class MetEireannProvider(Provider):
     to_q: str       # To date/time query parameter
     legends: dict   # Legends
 
-    def __init__(self, name: str, url: str, lat_q: str, lng_q: str,
-                 from_q: str, to_q: str):
+    def __init__(self, name: str, friendly_name: str, url: str,
+                 lat_q: str, lng_q: str, from_q: str, to_q: str):
         """
         Constructor
 
         :param name: Name of provider
+        :param friendly_name: User friendly name of provider
         :param url: URL of provider
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
         :param from_q: From date/time query parameter
         :param to_q: To date/time query parameter
         """
-        super().__init__(name, url)
+        super().__init__(name, friendly_name, url)
         self.lat_q = lat_q
         self.lng_q = lng_q
         self.from_q = from_q
@@ -212,7 +213,7 @@ class MetEireannProvider(Provider):
 
         # request forecast
         forecast = Forecast(geo_address)
-        forecast.provider = self.name
+        forecast.provider = self.friendly_name
         try:
             response = requests.get(
                 self.url, params=params, headers=get_request_headers(),

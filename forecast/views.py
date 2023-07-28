@@ -73,6 +73,16 @@ def title_unit_wrapper(title: str, unit: Units = None):
     return add_title_unit
 
 
+def add_provider(forecast: Forecast, ar: AttribRow):
+    """
+    Add provider to title
+    :param forecast: forecast
+    :param ar: AttribRow
+    :return: title
+    """
+    return forecast.provider
+
+
 def measurement_unit_wrapper(format: str):
     """"
     Wrapper to add measurement unit to value
@@ -124,7 +134,7 @@ DISPLAY_ITEMS = [
     # format function: Callable[[Forecast, AttribRow, str], str]
     # type
     AttribRow(
-        '', ForecastEntry.START_KEY,
+        add_provider, ForecastEntry.START_KEY,
         lambda f, a, x: x.strftime('%a<br>%d %b'), TYPE_HDR),
     AttribRow(
         '', ForecastEntry.START_KEY,

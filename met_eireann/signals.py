@@ -47,6 +47,7 @@ def registry_open_handler(sender, **kwargs):
     config = settings.FORECAST_APPS_SETTINGS.get(THIS_APP)
     provider = MetEireannProvider(**{
         'name': THIS_APP,
+        'friendly_name': 'Met Éireann',
         'url': config.get('url'),
         'lat_q': config.get('latitude'),
         'lng_q': config.get('longitude'),
