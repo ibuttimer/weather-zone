@@ -34,6 +34,7 @@ import xmltodict
 
 from django.conf import settings
 
+from base import get_request_headers
 from utils import dict_drill, ensure_list
 
 from forecast import Forecast, ForecastEntry, GeoAddress, Location
@@ -214,7 +215,8 @@ class MetEireannProvider(Provider):
         forecast.provider = self.name
         try:
             response = requests.get(
-                self.url, params=params, timeout=settings.REQUEST_TIMEOUT)
+                self.url, params=params, headers=get_request_headers(),
+                timeout=settings.REQUEST_TIMEOUT)
             if response.status_code == HTTPStatus.OK:
                 parse_forecast(response.text, forecast)
 

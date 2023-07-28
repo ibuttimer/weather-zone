@@ -1,3 +1,6 @@
+"""
+Requests related functions
+"""
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -20,9 +23,39 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .requests import get_request_headers
+import platform
+
+from django.conf import settings
+
+from weather_zone.constants import APP_NAME
+
+from .app_info import get_version
 
 
-__all__ = [
-    'get_request_headers'
-]
+_USER_AGENT = None
+
+
+def get_user_agent():
+    """
+    Get the user agent string
+    :return: User agent string
+    """
+    global _USER_AGENT
+    if _USER_AGENT is None:
+        uname = platform.uname()
+
+        _USER_AGENT = (f"{APP_NAME}/{get_version()} "
+                       f"({uname.system}; {uname.version}; {uname.machine})")
+
+    return _USER_AGENT
+
+
+def get_request_headers():
+    """
+    Get the request headers
+    :return: Request headers
+    """
+    return {
+        'User-Agent': get_user_agent(),
+        'Accept': '*/*',
+    }

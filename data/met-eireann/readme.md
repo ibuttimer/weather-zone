@@ -5,7 +5,7 @@ The Met Éireann API is based on a package originally developed by Met Norway.
 
 Differences applied by the patch file:
 - Alternative names for some of the icons; e.g. Met Norway `clearsky` is also known as Met Éireann `sun`.
-- Additional of night specific icons; e.g. Met Éireann `dark_lightcloud` is a night specific icon for Met Norway `fair`.
+- Addition of night specific icons; e.g. Met Éireann `dark_lightcloud` is a night specific icon for Met Norway `fair`.
 
     The `old_id` field of all `dark_xxx` variants is set to the base old_id value plus 100.    
 
