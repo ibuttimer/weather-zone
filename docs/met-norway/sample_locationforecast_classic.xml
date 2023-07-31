@@ -1,0 +1,2261 @@
+<weatherdata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.api.met.no/schemas/weatherapi-0.4.xsd" created="2023-07-27T13:59:13Z">
+  <meta>
+    <model name="met_public_forecast" termin="2023-07-27T14:00:00Z" runended="2023-07-27T13:43:18Z" nextrun="2023-07-27T14:43:18Z" from="2023-07-27T13:00:00Z" to="2023-08-06T12:00:00Z"></model>
+  </meta>
+  <product class="pointData">
+    <time datatype="forecast" from="2023-07-27T13:00:00Z" to="2023-07-27T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.0"></temperature>
+        <windDirection id="dd" deg="161.3" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="6.0"></windGust>
+        <humidity unit="percent" value="48.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.7"></pressure>
+        <cloudiness id="NN" percent="38.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="37.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.7"></mediumClouds>
+        <highClouds id="HIGH" percent="0.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T14:00:00Z" to="2023-07-27T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.8"></temperature>
+        <windDirection id="dd" deg="160.8" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.9" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="6.1"></windGust>
+        <humidity unit="percent" value="50.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.5"></pressure>
+        <cloudiness id="NN" percent="36.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="36.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="1.7"></mediumClouds>
+        <highClouds id="HIGH" percent="0.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.8"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T13:00:00Z" to="2023-07-27T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T15:00:00Z" to="2023-07-27T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.1"></temperature>
+        <windDirection id="dd" deg="158.6" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="6.0"></windGust>
+        <humidity unit="percent" value="48.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.5"></pressure>
+        <cloudiness id="NN" percent="32.5"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="31.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="2.0"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.8"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T14:00:00Z" to="2023-07-27T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T16:00:00Z" to="2023-07-27T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.8"></temperature>
+        <windDirection id="dd" deg="173.4" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.8" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.6"></windGust>
+        <humidity unit="percent" value="48.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.6"></pressure>
+        <cloudiness id="NN" percent="39.6"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="34.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="10.4"></mediumClouds>
+        <highClouds id="HIGH" percent="0.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T15:00:00Z" to="2023-07-27T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T17:00:00Z" to="2023-07-27T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.2"></temperature>
+        <windDirection id="dd" deg="159.7" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.8" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.5"></windGust>
+        <humidity unit="percent" value="49.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.6"></pressure>
+        <cloudiness id="NN" percent="27.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="19.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="10.3"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="7.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T16:00:00Z" to="2023-07-27T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T18:00:00Z" to="2023-07-27T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="17.2"></temperature>
+        <windDirection id="dd" deg="145.3" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.0"></windGust>
+        <humidity unit="percent" value="54.7"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.8"></pressure>
+        <cloudiness id="NN" percent="32.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="16.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="19.6"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T17:00:00Z" to="2023-07-27T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T12:00:00Z" to="2023-07-27T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <minTemperature id="TTT" unit="celsius" value="17.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.1"></maxTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T19:00:00Z" to="2023-07-27T19:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="15.8"></temperature>
+        <windDirection id="dd" deg="117.4" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="4.0"></windGust>
+        <humidity unit="percent" value="64.1"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.0"></pressure>
+        <cloudiness id="NN" percent="54.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="23.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="42.4"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T18:00:00Z" to="2023-07-27T19:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T13:00:00Z" to="2023-07-27T19:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="15.8"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.1"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T20:00:00Z" to="2023-07-27T20:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.6"></temperature>
+        <windDirection id="dd" deg="92.0" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.2" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="3.7"></windGust>
+        <humidity unit="percent" value="68.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.2"></pressure>
+        <cloudiness id="NN" percent="69.0"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="29.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="54.6"></mediumClouds>
+        <highClouds id="HIGH" percent="5.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T19:00:00Z" to="2023-07-27T20:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T14:00:00Z" to="2023-07-27T20:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.6"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.1"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T21:00:00Z" to="2023-07-27T21:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.5"></temperature>
+        <windDirection id="dd" deg="81.8" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.9"></windGust>
+        <humidity unit="percent" value="72.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.5"></pressure>
+        <cloudiness id="NN" percent="74.6"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="19.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="32.9"></mediumClouds>
+        <highClouds id="HIGH" percent="57.3"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T20:00:00Z" to="2023-07-27T21:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T15:00:00Z" to="2023-07-27T21:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.8"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T22:00:00Z" to="2023-07-27T22:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.7"></temperature>
+        <windDirection id="dd" deg="89.1" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.3"></windGust>
+        <humidity unit="percent" value="77.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.7"></pressure>
+        <cloudiness id="NN" percent="97.5"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="12.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="30.3"></mediumClouds>
+        <highClouds id="HIGH" percent="97.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T21:00:00Z" to="2023-07-27T22:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T16:00:00Z" to="2023-07-27T22:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.7"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.2"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T23:00:00Z" to="2023-07-27T23:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.2"></temperature>
+        <windDirection id="dd" deg="72.6" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.6" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.0"></windGust>
+        <humidity unit="percent" value="82.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.8"></pressure>
+        <cloudiness id="NN" percent="99.7"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="14.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="54.0"></mediumClouds>
+        <highClouds id="HIGH" percent="99.6"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T22:00:00Z" to="2023-07-27T23:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T17:00:00Z" to="2023-07-27T23:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.2"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T00:00:00Z" to="2023-07-28T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.1"></temperature>
+        <windDirection id="dd" deg="78.2" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.1"></windGust>
+        <humidity unit="percent" value="81.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.8"></pressure>
+        <cloudiness id="NN" percent="96.1"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="32.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="72.2"></mediumClouds>
+        <highClouds id="HIGH" percent="92.3"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T23:00:00Z" to="2023-07-28T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T18:00:00Z" to="2023-07-28T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.1"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="15.8"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T01:00:00Z" to="2023-07-28T01:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.8"></temperature>
+        <windDirection id="dd" deg="61.3" name="NE"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="3.1"></windGust>
+        <humidity unit="percent" value="83.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.9"></pressure>
+        <cloudiness id="NN" percent="90.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="46.8"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="72.4"></mediumClouds>
+        <highClouds id="HIGH" percent="65.6"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T00:00:00Z" to="2023-07-28T01:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.2"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T19:00:00Z" to="2023-07-28T01:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.8"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.6"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T02:00:00Z" to="2023-07-28T02:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.5"></temperature>
+        <windDirection id="dd" deg="34.4" name="NE"></windDirection>
+        <windSpeed id="ff" mps="0.7" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="3.8"></windGust>
+        <humidity unit="percent" value="90.7"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.0"></pressure>
+        <cloudiness id="NN" percent="93.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="64.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="75.5"></mediumClouds>
+        <highClouds id="HIGH" percent="77.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T01:00:00Z" to="2023-07-28T02:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.3"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T20:00:00Z" to="2023-07-28T02:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.7"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.5"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T03:00:00Z" to="2023-07-28T03:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.2"></temperature>
+        <windDirection id="dd" deg="45.0" name="NE"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="3.0"></windGust>
+        <humidity unit="percent" value="93.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.3"></pressure>
+        <cloudiness id="NN" percent="95.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="72.8"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="94.0"></mediumClouds>
+        <highClouds id="HIGH" percent="24.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T02:00:00Z" to="2023-07-28T03:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.6"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T21:00:00Z" to="2023-07-28T03:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.3"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.7"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T04:00:00Z" to="2023-07-28T04:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.4"></temperature>
+        <windDirection id="dd" deg="30.9" name="NE"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="4.4"></windGust>
+        <humidity unit="percent" value="94.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.7"></pressure>
+        <cloudiness id="NN" percent="97.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="93.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="95.6"></mediumClouds>
+        <highClouds id="HIGH" percent="7.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.8"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T03:00:00Z" to="2023-07-28T04:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.5"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T22:00:00Z" to="2023-07-28T04:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="2.1"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.2"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T05:00:00Z" to="2023-07-28T05:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.4"></temperature>
+        <windDirection id="dd" deg="40.1" name="NE"></windDirection>
+        <windSpeed id="ff" mps="2.8" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="7.0"></windGust>
+        <humidity unit="percent" value="90.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.2"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="100.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="98.8"></mediumClouds>
+        <highClouds id="HIGH" percent="56.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T04:00:00Z" to="2023-07-28T05:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.3" minvalue="0.0" maxvalue="1.2"></precipitation>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-27T23:00:00Z" to="2023-07-28T05:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="3.2"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.1"></maxTemperature>
+        <symbol id="Drizzle" number="46" code="lightrain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T06:00:00Z" to="2023-07-28T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="10.5"></temperature>
+        <windDirection id="dd" deg="322.5" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="7.6"></windGust>
+        <humidity unit="percent" value="98.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.7"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <fog id="FOG" percent="0.1"></fog>
+        <lowClouds id="LOW" percent="93.8"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="95.1"></mediumClouds>
+        <highClouds id="HIGH" percent="50.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T05:00:00Z" to="2023-07-28T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="1.8" minvalue="0.0" maxvalue="1.8"></precipitation>
+        <symbol id="Rain" number="10" code="heavyrain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T00:00:00Z" to="2023-07-28T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.4" minvalue="0.0" maxvalue="4.9"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="11.8"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T07:00:00Z" to="2023-07-28T07:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="10.2"></temperature>
+        <windDirection id="dd" deg="320.1" name="NW"></windDirection>
+        <windSpeed id="ff" mps="0.2" beaufort="0" name="Stille"></windSpeed>
+        <windGust id="ff_gust" mps="2.8"></windGust>
+        <humidity unit="percent" value="98.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.9"></pressure>
+        <cloudiness id="NN" percent="95.4"></cloudiness>
+        <fog id="FOG" percent="0.3"></fog>
+        <lowClouds id="LOW" percent="71.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="88.9"></mediumClouds>
+        <highClouds id="HIGH" percent="14.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T06:00:00Z" to="2023-07-28T07:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="1.8" minvalue="0.0" maxvalue="2.3"></precipitation>
+        <symbol id="Rain" number="10" code="heavyrain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T01:00:00Z" to="2023-07-28T07:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="4.6" minvalue="0.1" maxvalue="6.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="11.5"></maxTemperature>
+        <symbol id="Rain" number="10" code="heavyrain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T08:00:00Z" to="2023-07-28T08:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.4"></temperature>
+        <windDirection id="dd" deg="317.8" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="3.3"></windGust>
+        <humidity unit="percent" value="92.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1004.3"></pressure>
+        <cloudiness id="NN" percent="69.3"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="54.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="41.0"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T07:00:00Z" to="2023-07-28T08:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.2" minvalue="0.0" maxvalue="1.0"></precipitation>
+        <symbol id="Drizzle" number="46" code="lightrain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T02:00:00Z" to="2023-07-28T08:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="4.8" minvalue="0.1" maxvalue="6.9"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="11.4"></maxTemperature>
+        <symbol id="Rain" number="10" code="heavyrain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T09:00:00Z" to="2023-07-28T09:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.4"></temperature>
+        <windDirection id="dd" deg="240.8" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="4.9"></windGust>
+        <humidity unit="percent" value="77.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1004.3"></pressure>
+        <cloudiness id="NN" percent="54.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="47.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="12.7"></mediumClouds>
+        <highClouds id="HIGH" percent="1.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.8"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T08:00:00Z" to="2023-07-28T09:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.4"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T03:00:00Z" to="2023-07-28T09:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="4.8" minvalue="0.1" maxvalue="6.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.4"></maxTemperature>
+        <symbol id="RainSun" number="41" code="heavyrainshowers_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T10:00:00Z" to="2023-07-28T10:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="15.5"></temperature>
+        <windDirection id="dd" deg="211.4" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.5"></windGust>
+        <humidity unit="percent" value="66.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1004.0"></pressure>
+        <cloudiness id="NN" percent="49.4"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="45.8"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="2.9"></mediumClouds>
+        <highClouds id="HIGH" percent="3.8"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T09:00:00Z" to="2023-07-28T10:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.2"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T04:00:00Z" to="2023-07-28T10:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="4.7" minvalue="0.1" maxvalue="6.2"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="15.5"></maxTemperature>
+        <symbol id="RainSun" number="41" code="heavyrainshowers_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T11:00:00Z" to="2023-07-28T11:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="16.9"></temperature>
+        <windDirection id="dd" deg="220.3" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.8"></windGust>
+        <humidity unit="percent" value="58.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.5"></pressure>
+        <cloudiness id="NN" percent="42.5"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="42.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.4"></mediumClouds>
+        <highClouds id="HIGH" percent="0.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T10:00:00Z" to="2023-07-28T11:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T05:00:00Z" to="2023-07-28T11:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="4.1" minvalue="0.0" maxvalue="5.2"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.9"></maxTemperature>
+        <symbol id="LightRainSun" number="5" code="rainshowers_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T12:00:00Z" to="2023-07-28T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.0"></temperature>
+        <windDirection id="dd" deg="222.1" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.9"></windGust>
+        <humidity unit="percent" value="53.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.3"></pressure>
+        <cloudiness id="NN" percent="73.7"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="36.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.1"></mediumClouds>
+        <highClouds id="HIGH" percent="59.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.7"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T11:00:00Z" to="2023-07-28T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T06:00:00Z" to="2023-07-28T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.3" minvalue="0.0" maxvalue="3.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.0"></maxTemperature>
+        <symbol id="LightRainSun" number="5" code="rainshowers_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T13:00:00Z" to="2023-07-28T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.0"></temperature>
+        <windDirection id="dd" deg="229.4" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.9"></windGust>
+        <humidity unit="percent" value="50.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.1"></pressure>
+        <cloudiness id="NN" percent="55.4"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="35.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.7"></mediumClouds>
+        <highClouds id="HIGH" percent="29.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.8"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T12:00:00Z" to="2023-07-28T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T07:00:00Z" to="2023-07-28T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.7"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.0"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T14:00:00Z" to="2023-07-28T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.2"></temperature>
+        <windDirection id="dd" deg="227.5" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.6"></windGust>
+        <humidity unit="percent" value="50.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.0"></pressure>
+        <cloudiness id="NN" percent="56.6"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="34.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.9"></mediumClouds>
+        <highClouds id="HIGH" percent="32.3"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="8.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T13:00:00Z" to="2023-07-28T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T08:00:00Z" to="2023-07-28T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.8"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.2"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T15:00:00Z" to="2023-07-28T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.3"></temperature>
+        <windDirection id="dd" deg="207.5" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.5"></windGust>
+        <humidity unit="percent" value="50.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.9"></pressure>
+        <cloudiness id="NN" percent="49.3"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="35.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="1.0"></mediumClouds>
+        <highClouds id="HIGH" percent="15.9"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T14:00:00Z" to="2023-07-28T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T09:00:00Z" to="2023-07-28T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="15.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.3"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T16:00:00Z" to="2023-07-28T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.1"></temperature>
+        <windDirection id="dd" deg="186.2" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.6"></windGust>
+        <humidity unit="percent" value="53.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.7"></pressure>
+        <cloudiness id="NN" percent="16.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="16.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.7"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T15:00:00Z" to="2023-07-28T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.3"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T10:00:00Z" to="2023-07-28T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.8"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="16.9"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.3"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T17:00:00Z" to="2023-07-28T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.7"></temperature>
+        <windDirection id="dd" deg="153.0" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.9" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.3"></windGust>
+        <humidity unit="percent" value="57.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.6"></pressure>
+        <cloudiness id="NN" percent="10.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="9.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.3"></mediumClouds>
+        <highClouds id="HIGH" percent="0.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T16:00:00Z" to="2023-07-28T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.4"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T11:00:00Z" to="2023-07-28T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.5"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="18.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.3"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T18:00:00Z" to="2023-07-28T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="17.6"></temperature>
+        <windDirection id="dd" deg="136.3" name="SE"></windDirection>
+        <windSpeed id="ff" mps="2.3" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.9"></windGust>
+        <humidity unit="percent" value="64.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.7"></pressure>
+        <cloudiness id="NN" percent="27.4"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="19.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.8"></mediumClouds>
+        <highClouds id="HIGH" percent="13.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T17:00:00Z" to="2023-07-28T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.9"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T12:00:00Z" to="2023-07-28T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="3.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="17.6"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.3"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T19:00:00Z" to="2023-07-28T19:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="16.2"></temperature>
+        <windDirection id="dd" deg="129.7" name="SE"></windDirection>
+        <windSpeed id="ff" mps="2.0" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.7"></windGust>
+        <humidity unit="percent" value="70.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.2"></pressure>
+        <cloudiness id="NN" percent="51.4"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="26.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="20.2"></mediumClouds>
+        <highClouds id="HIGH" percent="32.9"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T18:00:00Z" to="2023-07-28T19:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T13:00:00Z" to="2023-07-28T19:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="4.2"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="16.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.3"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T20:00:00Z" to="2023-07-28T20:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.7"></temperature>
+        <windDirection id="dd" deg="118.3" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="4.8"></windGust>
+        <humidity unit="percent" value="80.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.2"></pressure>
+        <cloudiness id="NN" percent="25.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="5.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="20.4"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.7"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T19:00:00Z" to="2023-07-28T20:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T14:00:00Z" to="2023-07-28T20:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="4.3"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.7"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.3"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T21:00:00Z" to="2023-07-28T21:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.6"></temperature>
+        <windDirection id="dd" deg="115.5" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="3.3"></windGust>
+        <humidity unit="percent" value="88.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.4"></pressure>
+        <cloudiness id="NN" percent="31.0"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="3.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="29.2"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T20:00:00Z" to="2023-07-28T21:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T15:00:00Z" to="2023-07-28T21:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="4.2"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.6"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.1"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T22:00:00Z" to="2023-07-28T22:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.8"></temperature>
+        <windDirection id="dd" deg="90.5" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.8" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.4"></windGust>
+        <humidity unit="percent" value="91.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.6"></pressure>
+        <cloudiness id="NN" percent="19.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="2.8"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="17.4"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T21:00:00Z" to="2023-07-28T22:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T16:00:00Z" to="2023-07-28T22:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="3.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.8"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.7"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T23:00:00Z" to="2023-07-28T23:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.2"></temperature>
+        <windDirection id="dd" deg="79.6" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.4"></windGust>
+        <humidity unit="percent" value="93.1"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.6"></pressure>
+        <cloudiness id="NN" percent="5.1"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="1.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="3.3"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T22:00:00Z" to="2023-07-28T23:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T17:00:00Z" to="2023-07-28T23:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="2.4"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.6"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T00:00:00Z" to="2023-07-29T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.6"></temperature>
+        <windDirection id="dd" deg="69.2" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.1"></windGust>
+        <humidity unit="percent" value="93.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.8"></pressure>
+        <cloudiness id="NN" percent="10.4"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="2.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="7.3"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T23:00:00Z" to="2023-07-29T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T18:00:00Z" to="2023-07-29T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.4"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.6"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.2"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T01:00:00Z" to="2023-07-29T01:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.1"></temperature>
+        <windDirection id="dd" deg="71.1" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.2" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.6"></windGust>
+        <humidity unit="percent" value="92.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.9"></pressure>
+        <cloudiness id="NN" percent="18.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="5.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="13.6"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T00:00:00Z" to="2023-07-29T01:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T19:00:00Z" to="2023-07-29T01:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.1"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.7"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T02:00:00Z" to="2023-07-29T02:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="10.7"></temperature>
+        <windDirection id="dd" deg="87.0" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.6"></windGust>
+        <humidity unit="percent" value="96.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.9"></pressure>
+        <cloudiness id="NN" percent="19.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="5.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="14.3"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T01:00:00Z" to="2023-07-29T02:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T20:00:00Z" to="2023-07-29T02:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.7"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.6"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T03:00:00Z" to="2023-07-29T03:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="10.5"></temperature>
+        <windDirection id="dd" deg="67.9" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.3"></windGust>
+        <humidity unit="percent" value="97.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.8"></pressure>
+        <cloudiness id="NN" percent="12.7"></cloudiness>
+        <fog id="FOG" percent="0.2"></fog>
+        <lowClouds id="LOW" percent="4.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="8.0"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T02:00:00Z" to="2023-07-29T03:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T21:00:00Z" to="2023-07-29T03:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.8"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T04:00:00Z" to="2023-07-29T04:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="10.8"></temperature>
+        <windDirection id="dd" deg="75.5" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.4"></windGust>
+        <humidity unit="percent" value="97.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.9"></pressure>
+        <cloudiness id="NN" percent="7.3"></cloudiness>
+        <fog id="FOG" percent="0.1"></fog>
+        <lowClouds id="LOW" percent="4.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="2.1"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T03:00:00Z" to="2023-07-29T04:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T22:00:00Z" to="2023-07-29T04:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.2"></maxTemperature>
+        <symbol id="Sun" number="1" code="clearsky_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T05:00:00Z" to="2023-07-29T05:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.2"></temperature>
+        <windDirection id="dd" deg="62.3" name="NE"></windDirection>
+        <windSpeed id="ff" mps="0.5" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.0"></windGust>
+        <humidity unit="percent" value="92.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1004.0"></pressure>
+        <cloudiness id="NN" percent="3.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="2.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.4"></mediumClouds>
+        <highClouds id="HIGH" percent="0.3"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T04:00:00Z" to="2023-07-29T05:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-28T23:00:00Z" to="2023-07-29T05:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.2"></maxTemperature>
+        <symbol id="Sun" number="1" code="clearsky_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T06:00:00Z" to="2023-07-29T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.0"></temperature>
+        <windDirection id="dd" deg="267.8" name="W"></windDirection>
+        <windSpeed id="ff" mps="0.4" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.0"></windGust>
+        <humidity unit="percent" value="82.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.9"></pressure>
+        <cloudiness id="NN" percent="3.0"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="0.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.1"></mediumClouds>
+        <highClouds id="HIGH" percent="2.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T05:00:00Z" to="2023-07-29T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T00:00:00Z" to="2023-07-29T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.0"></maxTemperature>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T07:00:00Z" to="2023-07-29T07:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="15.5"></temperature>
+        <windDirection id="dd" deg="245.2" name="SW"></windDirection>
+        <windSpeed id="ff" mps="0.6" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="2.9"></windGust>
+        <humidity unit="percent" value="74.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.6"></pressure>
+        <cloudiness id="NN" percent="5.3"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="1.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.1"></mediumClouds>
+        <highClouds id="HIGH" percent="4.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T06:00:00Z" to="2023-07-29T07:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T01:00:00Z" to="2023-07-29T07:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="15.5"></maxTemperature>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T08:00:00Z" to="2023-07-29T08:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="17.0"></temperature>
+        <windDirection id="dd" deg="185.7" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="4.0"></windGust>
+        <humidity unit="percent" value="69.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.5"></pressure>
+        <cloudiness id="NN" percent="10.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="5.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.3"></mediumClouds>
+        <highClouds id="HIGH" percent="5.9"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T07:00:00Z" to="2023-07-29T08:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T02:00:00Z" to="2023-07-29T08:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.0"></maxTemperature>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T09:00:00Z" to="2023-07-29T09:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.3"></temperature>
+        <windDirection id="dd" deg="204.3" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.1"></windGust>
+        <humidity unit="percent" value="64.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.4"></pressure>
+        <cloudiness id="NN" percent="23.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="19.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.4"></mediumClouds>
+        <highClouds id="HIGH" percent="5.8"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T08:00:00Z" to="2023-07-29T09:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T03:00:00Z" to="2023-07-29T09:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.8"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.3"></maxTemperature>
+        <symbol id="Sun" number="1" code="clearsky_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T10:00:00Z" to="2023-07-29T10:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.4"></temperature>
+        <windDirection id="dd" deg="184.8" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="5.9"></windGust>
+        <humidity unit="percent" value="60.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.2"></pressure>
+        <cloudiness id="NN" percent="59.9"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="59.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.4"></mediumClouds>
+        <highClouds id="HIGH" percent="1.8"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T09:00:00Z" to="2023-07-29T10:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T04:00:00Z" to="2023-07-29T10:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.4"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T11:00:00Z" to="2023-07-29T11:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.4"></temperature>
+        <windDirection id="dd" deg="160.7" name="S"></windDirection>
+        <windSpeed id="ff" mps="2.2" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="6.7"></windGust>
+        <humidity unit="percent" value="62.1"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.1"></pressure>
+        <cloudiness id="NN" percent="63.5"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="63.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.1"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.7"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T10:00:00Z" to="2023-07-29T11:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T05:00:00Z" to="2023-07-29T11:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="19.4"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T12:00:00Z" to="2023-07-29T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="20.4"></temperature>
+        <windDirection id="dd" deg="161.6" name="S"></windDirection>
+        <windSpeed id="ff" mps="2.3" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="7.1"></windGust>
+        <humidity unit="percent" value="56.1"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.7"></pressure>
+        <cloudiness id="NN" percent="49.5"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="49.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.0"></mediumClouds>
+        <highClouds id="HIGH" percent="0.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T11:00:00Z" to="2023-07-29T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T06:00:00Z" to="2023-07-29T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="15.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="20.4"></maxTemperature>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T13:00:00Z" to="2023-07-29T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="21.0"></temperature>
+        <windDirection id="dd" deg="160.9" name="S"></windDirection>
+        <windSpeed id="ff" mps="2.6" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="7.8"></windGust>
+        <humidity unit="percent" value="51.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.4"></pressure>
+        <cloudiness id="NN" percent="36.0"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="32.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="0.3"></mediumClouds>
+        <highClouds id="HIGH" percent="4.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T12:00:00Z" to="2023-07-29T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T07:00:00Z" to="2023-07-29T13:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="17.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="21.0"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T14:00:00Z" to="2023-07-29T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="21.4"></temperature>
+        <windDirection id="dd" deg="151.1" name="SE"></windDirection>
+        <windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="8.6"></windGust>
+        <humidity unit="percent" value="46.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.1"></pressure>
+        <cloudiness id="NN" percent="24.2"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="20.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="4.0"></mediumClouds>
+        <highClouds id="HIGH" percent="1.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="9.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T13:00:00Z" to="2023-07-29T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.3"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T08:00:00Z" to="2023-07-29T14:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="18.3"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="21.4"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T15:00:00Z" to="2023-07-29T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="21.1"></temperature>
+        <windDirection id="dd" deg="142.7" name="SE"></windDirection>
+        <windSpeed id="ff" mps="3.2" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="8.9"></windGust>
+        <humidity unit="percent" value="48.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.8"></pressure>
+        <cloudiness id="NN" percent="35.1"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="22.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="10.3"></mediumClouds>
+        <highClouds id="HIGH" percent="12.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T14:00:00Z" to="2023-07-29T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.5"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T09:00:00Z" to="2023-07-29T15:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.7"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="19.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="21.4"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T16:00:00Z" to="2023-07-29T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="20.5"></temperature>
+        <windDirection id="dd" deg="147.3" name="SE"></windDirection>
+        <windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"></windSpeed>
+        <windGust id="ff_gust" mps="9.4"></windGust>
+        <humidity unit="percent" value="56.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.9"></pressure>
+        <cloudiness id="NN" percent="73.3"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="38.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="15.9"></mediumClouds>
+        <highClouds id="HIGH" percent="54.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T15:00:00Z" to="2023-07-29T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="LightCloud" number="2" code="fair_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T10:00:00Z" to="2023-07-29T16:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="2.4"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="19.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="21.4"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T17:00:00Z" to="2023-07-29T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="19.3"></temperature>
+        <windDirection id="dd" deg="145.4" name="SE"></windDirection>
+        <windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"></windSpeed>
+        <windGust id="ff_gust" mps="9.9"></windGust>
+        <humidity unit="percent" value="58.1"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.1"></pressure>
+        <cloudiness id="NN" percent="91.8"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="29.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="10.3"></mediumClouds>
+        <highClouds id="HIGH" percent="86.7"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T16:00:00Z" to="2023-07-29T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T11:00:00Z" to="2023-07-29T17:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="2.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="19.3"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="21.4"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T18:00:00Z" to="2023-07-29T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.2"></temperature>
+        <windDirection id="dd" deg="151.6" name="SE"></windDirection>
+        <windSpeed id="ff" mps="2.8" beaufort="2" name="Svak vind"></windSpeed>
+        <windGust id="ff_gust" mps="9.3"></windGust>
+        <humidity unit="percent" value="62.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.1"></pressure>
+        <cloudiness id="NN" percent="90.4"></cloudiness>
+        <fog id="FOG" percent="0.0"></fog>
+        <lowClouds id="LOW" percent="17.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="1.0"></mediumClouds>
+        <highClouds id="HIGH" percent="87.6"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.7"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T17:00:00Z" to="2023-07-29T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T12:00:00Z" to="2023-07-29T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="2.9"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="18.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="21.4"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T00:00:00Z" to="2023-07-30T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.9"></temperature>
+        <windDirection id="dd" deg="301.5" name="NW"></windDirection>
+        <windSpeed id="ff" mps="0.8" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="94.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.9"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="18.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="57.8"></mediumClouds>
+        <highClouds id="HIGH" percent="100.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-29T18:00:00Z" to="2023-07-30T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.9"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.3"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T06:00:00Z" to="2023-07-30T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.2"></temperature>
+        <windDirection id="dd" deg="85.0" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.8" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="93.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.9"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="99.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="73.4"></mediumClouds>
+        <highClouds id="HIGH" percent="96.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T00:00:00Z" to="2023-07-30T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.2"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.9"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.2"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T12:00:00Z" to="2023-07-30T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="15.4"></temperature>
+        <windDirection id="dd" deg="121.7" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"></windSpeed>
+        <humidity unit="percent" value="87.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.2"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="83.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="84.8"></mediumClouds>
+        <highClouds id="HIGH" percent="97.7"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="13.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T06:00:00Z" to="2023-07-30T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.6" minvalue="0.0" maxvalue="5.5"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.2"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="15.9"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T18:00:00Z" to="2023-07-30T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.7"></temperature>
+        <windDirection id="dd" deg="111.0" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="94.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.1"></pressure>
+        <cloudiness id="NN" percent="99.2"></cloudiness>
+        <lowClouds id="LOW" percent="32.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="32.0"></mediumClouds>
+        <highClouds id="HIGH" percent="95.3"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T12:00:00Z" to="2023-07-30T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="3.4" minvalue="0.1" maxvalue="8.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.5"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T00:00:00Z" to="2023-07-31T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.3"></temperature>
+        <windDirection id="dd" deg="307.0" name="NW"></windDirection>
+        <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="98.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.0"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="89.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="34.0"></mediumClouds>
+        <highClouds id="HIGH" percent="66.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-30T18:00:00Z" to="2023-07-31T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="4.1"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.3"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.7"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T06:00:00Z" to="2023-07-31T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.9"></temperature>
+        <windDirection id="dd" deg="110.6" name="E"></windDirection>
+        <windSpeed id="ff" mps="0.8" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="96.7"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.5"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="100.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="25.0"></mediumClouds>
+        <highClouds id="HIGH" percent="72.7"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.5"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T00:00:00Z" to="2023-07-31T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.6" minvalue="0.0" maxvalue="5.4"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="11.9"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T12:00:00Z" to="2023-07-31T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="16.3"></temperature>
+        <windDirection id="dd" deg="135.7" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="73.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.3"></pressure>
+        <cloudiness id="NN" percent="97.7"></cloudiness>
+        <lowClouds id="LOW" percent="37.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="19.9"></mediumClouds>
+        <highClouds id="HIGH" percent="89.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T06:00:00Z" to="2023-07-31T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="4.5"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.9"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.6"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T18:00:00Z" to="2023-07-31T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.6"></temperature>
+        <windDirection id="dd" deg="94.2" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="90.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.6"></pressure>
+        <cloudiness id="NN" percent="93.7"></cloudiness>
+        <lowClouds id="LOW" percent="13.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="36.7"></mediumClouds>
+        <highClouds id="HIGH" percent="83.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="13.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T12:00:00Z" to="2023-07-31T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.5" minvalue="0.0" maxvalue="4.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.2"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T00:00:00Z" to="2023-08-01T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.5"></temperature>
+        <windDirection id="dd" deg="308.8" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="96.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.9"></pressure>
+        <cloudiness id="NN" percent="89.8"></cloudiness>
+        <lowClouds id="LOW" percent="72.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="11.7"></mediumClouds>
+        <highClouds id="HIGH" percent="3.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-07-31T18:00:00Z" to="2023-08-01T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.8"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.6"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T06:00:00Z" to="2023-08-01T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.0"></temperature>
+        <windDirection id="dd" deg="65.9" name="NE"></windDirection>
+        <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="96.8"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.0"></pressure>
+        <cloudiness id="NN" percent="99.2"></cloudiness>
+        <lowClouds id="LOW" percent="91.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="56.2"></mediumClouds>
+        <highClouds id="HIGH" percent="15.6"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T00:00:00Z" to="2023-08-01T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="3.2" minvalue="0.0" maxvalue="5.4"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.0"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T12:00:00Z" to="2023-08-01T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="16.1"></temperature>
+        <windDirection id="dd" deg="91.3" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.9" beaufort="2" name="Svak vind"></windSpeed>
+        <humidity unit="percent" value="79.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.0"></pressure>
+        <cloudiness id="NN" percent="96.9"></cloudiness>
+        <lowClouds id="LOW" percent="65.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="36.7"></mediumClouds>
+        <highClouds id="HIGH" percent="61.7"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.7"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T06:00:00Z" to="2023-08-01T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="3.8" minvalue="0.0" maxvalue="6.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.3"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T18:00:00Z" to="2023-08-01T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.4"></temperature>
+        <windDirection id="dd" deg="89.8" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.2" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="86.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.1"></pressure>
+        <cloudiness id="NN" percent="85.2"></cloudiness>
+        <lowClouds id="LOW" percent="17.2"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="33.6"></mediumClouds>
+        <highClouds id="HIGH" percent="73.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T12:00:00Z" to="2023-08-01T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="6.1"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.3"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.9"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T00:00:00Z" to="2023-08-02T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="10.7"></temperature>
+        <windDirection id="dd" deg="310.1" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="96.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.5"></pressure>
+        <cloudiness id="NN" percent="89.8"></cloudiness>
+        <lowClouds id="LOW" percent="46.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="7.0"></mediumClouds>
+        <highClouds id="HIGH" percent="5.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-01T18:00:00Z" to="2023-08-02T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.1"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.7"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.4"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T06:00:00Z" to="2023-08-02T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.9"></temperature>
+        <windDirection id="dd" deg="278.1" name="W"></windDirection>
+        <windSpeed id="ff" mps="1.2" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="90.4"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.6"></pressure>
+        <cloudiness id="NN" percent="68.7"></cloudiness>
+        <lowClouds id="LOW" percent="41.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="8.6"></mediumClouds>
+        <highClouds id="HIGH" percent="2.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T00:00:00Z" to="2023-08-02T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.5"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="11.9"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T12:00:00Z" to="2023-08-02T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="17.7"></temperature>
+        <windDirection id="dd" deg="110.0" name="E"></windDirection>
+        <windSpeed id="ff" mps="1.9" beaufort="2" name="Svak vind"></windSpeed>
+        <humidity unit="percent" value="79.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.6"></pressure>
+        <cloudiness id="NN" percent="97.7"></cloudiness>
+        <lowClouds id="LOW" percent="57.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="29.7"></mediumClouds>
+        <highClouds id="HIGH" percent="71.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="14.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T06:00:00Z" to="2023-08-02T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="1.9" minvalue="0.0" maxvalue="5.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.9"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.1"></maxTemperature>
+        <symbol id="LightRainSun" number="5" code="rainshowers_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T18:00:00Z" to="2023-08-02T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="15.2"></temperature>
+        <windDirection id="dd" deg="158.5" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="89.6"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.3"></pressure>
+        <cloudiness id="NN" percent="78.9"></cloudiness>
+        <lowClouds id="LOW" percent="15.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="32.0"></mediumClouds>
+        <highClouds id="HIGH" percent="47.7"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="13.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T12:00:00Z" to="2023-08-02T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="1.9" minvalue="0.0" maxvalue="1.9"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.7"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.7"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T00:00:00Z" to="2023-08-03T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.6"></temperature>
+        <windDirection id="dd" deg="307.9" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="95.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.1"></pressure>
+        <cloudiness id="NN" percent="52.0"></cloudiness>
+        <lowClouds id="LOW" percent="23.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="5.1"></mediumClouds>
+        <highClouds id="HIGH" percent="1.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.9"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-02T18:00:00Z" to="2023-08-03T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.6"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="15.7"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T06:00:00Z" to="2023-08-03T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.0"></temperature>
+        <windDirection id="dd" deg="302.5" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.2" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="89.7"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.3"></pressure>
+        <cloudiness id="NN" percent="80.1"></cloudiness>
+        <lowClouds id="LOW" percent="21.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="4.7"></mediumClouds>
+        <highClouds id="HIGH" percent="10.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T00:00:00Z" to="2023-08-03T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="10.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.0"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T12:00:00Z" to="2023-08-03T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="18.2"></temperature>
+        <windDirection id="dd" deg="136.7" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"></windSpeed>
+        <humidity unit="percent" value="80.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.8"></pressure>
+        <cloudiness id="NN" percent="99.2"></cloudiness>
+        <lowClouds id="LOW" percent="40.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="53.1"></mediumClouds>
+        <highClouds id="HIGH" percent="99.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="15.0"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T06:00:00Z" to="2023-08-03T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.3" minvalue="0.0" maxvalue="6.1"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.8"></maxTemperature>
+        <symbol id="LightRainSun" number="5" code="rainshowers_day"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T18:00:00Z" to="2023-08-03T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.5"></temperature>
+        <windDirection id="dd" deg="164.7" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="92.4"></humidity>
+        <pressure id="pr" unit="hPa" value="999.6"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="15.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="55.9"></mediumClouds>
+        <highClouds id="HIGH" percent="96.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="13.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T12:00:00Z" to="2023-08-03T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.4" minvalue="0.0" maxvalue="6.3"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.2"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T00:00:00Z" to="2023-08-04T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.0"></temperature>
+        <windDirection id="dd" deg="305.0" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="96.0"></humidity>
+        <pressure id="pr" unit="hPa" value="1000.7"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="14.5"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="53.5"></mediumClouds>
+        <highClouds id="HIGH" percent="96.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-03T18:00:00Z" to="2023-08-04T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.9"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T06:00:00Z" to="2023-08-04T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.0"></temperature>
+        <windDirection id="dd" deg="306.4" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="95.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1001.5"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="81.6"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="54.3"></mediumClouds>
+        <highClouds id="HIGH" percent="98.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T00:00:00Z" to="2023-08-04T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.7"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.3"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.0"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T12:00:00Z" to="2023-08-04T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="17.5"></temperature>
+        <windDirection id="dd" deg="145.6" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="72.5"></humidity>
+        <pressure id="pr" unit="hPa" value="999.6"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="28.1"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="58.6"></mediumClouds>
+        <highClouds id="HIGH" percent="98.4"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T06:00:00Z" to="2023-08-04T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="2.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="18.3"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T18:00:00Z" to="2023-08-04T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.5"></temperature>
+        <windDirection id="dd" deg="244.6" name="SW"></windDirection>
+        <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="93.9"></humidity>
+        <pressure id="pr" unit="hPa" value="999.3"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="13.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="39.5"></mediumClouds>
+        <highClouds id="HIGH" percent="100.0"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="13.7"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T12:00:00Z" to="2023-08-04T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="3.3" minvalue="0.0" maxvalue="5.4"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.5"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.7"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T00:00:00Z" to="2023-08-05T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.4"></temperature>
+        <windDirection id="dd" deg="303.6" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <humidity unit="percent" value="98.2"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.0"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="85.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="95.3"></mediumClouds>
+        <highClouds id="HIGH" percent="96.1"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.2"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-04T18:00:00Z" to="2023-08-05T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="3.3" minvalue="0.0" maxvalue="5.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.4"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.5"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T06:00:00Z" to="2023-08-05T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="12.9"></temperature>
+        <windDirection id="dd" deg="270.0" name="W"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="97.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1002.7"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="96.9"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="86.7"></mediumClouds>
+        <highClouds id="HIGH" percent="75.8"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="12.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T00:00:00Z" to="2023-08-05T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="3.3" minvalue="0.0" maxvalue="5.9"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.7"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="12.9"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T12:00:00Z" to="2023-08-05T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="15.9"></temperature>
+        <windDirection id="dd" deg="149.5" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="74.3"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.1"></pressure>
+        <cloudiness id="NN" percent="98.0"></cloudiness>
+        <lowClouds id="LOW" percent="43.4"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="47.3"></mediumClouds>
+        <highClouds id="HIGH" percent="64.8"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T06:00:00Z" to="2023-08-05T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="1.5"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="12.9"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.7"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T18:00:00Z" to="2023-08-05T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="14.2"></temperature>
+        <windDirection id="dd" deg="143.0" name="SE"></windDirection>
+        <windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="93.5"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.0"></pressure>
+        <cloudiness id="NN" percent="94.5"></cloudiness>
+        <lowClouds id="LOW" percent="18.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="40.2"></mediumClouds>
+        <highClouds id="HIGH" percent="87.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="13.3"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T12:00:00Z" to="2023-08-05T18:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="2.9" minvalue="0.0" maxvalue="2.9"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="14.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="16.9"></maxTemperature>
+        <symbol id="LightRain" number="9" code="rain"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-06T00:00:00Z" to="2023-08-06T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="11.3"></temperature>
+        <windDirection id="dd" deg="299.8" name="NW"></windDirection>
+        <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="91.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.7"></pressure>
+        <cloudiness id="NN" percent="83.6"></cloudiness>
+        <lowClouds id="LOW" percent="29.7"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="10.9"></mediumClouds>
+        <highClouds id="HIGH" percent="10.2"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="10.1"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-05T18:00:00Z" to="2023-08-06T00:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.5"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.3"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="14.2"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-06T06:00:00Z" to="2023-08-06T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="13.0"></temperature>
+        <windDirection id="dd" deg="268.7" name="W"></windDirection>
+        <windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"></windSpeed>
+        <humidity unit="percent" value="89.7"></humidity>
+        <pressure id="pr" unit="hPa" value="1006.7"></pressure>
+        <cloudiness id="NN" percent="100.0"></cloudiness>
+        <lowClouds id="LOW" percent="36.3"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="44.9"></mediumClouds>
+        <highClouds id="HIGH" percent="96.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.4"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-06T00:00:00Z" to="2023-08-06T06:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="11.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="13.0"></maxTemperature>
+        <symbol id="PartlyCloud" number="3" code="partlycloudy_night"></symbol>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-06T12:00:00Z" to="2023-08-06T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <temperature id="TTT" unit="celsius" value="17.0"></temperature>
+        <windDirection id="dd" deg="164.5" name="S"></windDirection>
+        <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"></windSpeed>
+        <humidity unit="percent" value="69.9"></humidity>
+        <pressure id="pr" unit="hPa" value="1003.9"></pressure>
+        <cloudiness id="NN" percent="99.6"></cloudiness>
+        <lowClouds id="LOW" percent="32.0"></lowClouds>
+        <mediumClouds id="MEDIUM" percent="71.5"></mediumClouds>
+        <highClouds id="HIGH" percent="87.5"></highClouds>
+        <dewpointTemperature id="TD" unit="celsius" value="11.6"></dewpointTemperature>
+      </location>
+    </time>
+    <time datatype="forecast" from="2023-08-06T06:00:00Z" to="2023-08-06T12:00:00Z">
+      <location altitude="496" latitude="60.1" longitude="9.58">
+        <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.6"></precipitation>
+        <minTemperature id="TTT" unit="celsius" value="13.0"></minTemperature>
+        <maxTemperature id="TTT" unit="celsius" value="17.5"></maxTemperature>
+        <symbol id="Cloud" number="4" code="cloudy"></symbol>
+      </location>
+    </time>
+  </product>
+</weatherdata>

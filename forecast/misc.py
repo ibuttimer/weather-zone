@@ -57,7 +57,7 @@ class RangeArg(Enum):
         if self == RangeArg.ALL:
             start, end = (None, None)
         else:
-            start = datetime.now(tz=timezone.utc)
+            start = datetime.now().astimezone()     # local timezone
             if 'tomorrow' in self.value:
                 start += timedelta(days=1)
                 start = start.replace(hour=0, minute=0, second=0, microsecond=0)

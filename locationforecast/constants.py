@@ -34,6 +34,7 @@ APP_ENV_PREFIX = f'{THIS_APP.upper()}_'
 
 # provider names
 MET_EIREANN = 'met_eireann'
+MET_NORWAY_CLASSIC = 'met_norway_classic'
 
 # legend data keys and attributes
 OLD_ID_PROP = 'old_id'
@@ -41,7 +42,6 @@ VARIANTS_PROP = 'variants'
 
 # forcast data tags (standardised to lower case)
 # and attributes (following conversion to dict by xmltodict)
-DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 CREATED_PATH = ['weatherdata', '@created']
 FORECAST_DATA_PATH = ['weatherdata', 'product', 'time']
 DATATYPE_ATTRIB = '@datatype'
@@ -74,6 +74,7 @@ NAME_ATTRIB = '@name'
 DEG_ATTRIB = '@deg'
 MPS_ATTRIB = '@mps'
 PERCENT_ATTRIB = '@percent'
+ATTRIB_MARKER = '@'     # char xmltodict prepends to xml tag attributes
 LITERAL_MARKER = '$'
 PERCENT_LITERAL = f'{LITERAL_MARKER}percent'
 PROBABILITY_ATTRIB = '@probability'

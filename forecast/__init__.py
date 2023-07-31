@@ -25,7 +25,8 @@ from .constants import (
     QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
 )
 from .dto import (
-    Forecast, ForecastEntry, GeoAddress, Location
+    Forecast, ForecastEntry, GeoAddress, Location,
+    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON
 )
 from .iprovider import IProvider
 from .provider import Provider
@@ -45,6 +46,8 @@ __all__ = [
     'ForecastEntry',
     'GeoAddress',
     'Location',
+    'TYPE_WEATHER_ICON',
+    'TYPE_WIND_DIR_ICON',
 
     'IProvider',
     'Provider',

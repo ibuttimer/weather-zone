@@ -24,6 +24,7 @@ This file is used to create the views for the forecast app.
 #  SOFTWARE.
 #
 from collections import namedtuple
+from typing import Callable
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -52,7 +53,8 @@ from .forms import AddressForm
 from .geocoding import geocode_address
 from .dto import (
     GeoAddress, Forecast, AttribRow, ForecastEntry, TYPE_WEATHER_ICON,
-    TYPE_HDR, TYPE_WIND_DIR_ICON)
+    TYPE_HDR, TYPE_WIND_DIR_ICON
+)
 from .misc import RangeArg
 from .registry import Registry
 
@@ -87,33 +89,34 @@ def add_provider(forecast: Forecast, ar: AttribRow):
     return forecast.provider
 
 
-def measurement_unit_wrapper(format: str):
+def measurement_unit_wrapper(fmt: str):
     """"
     Wrapper to add measurement unit to value
-    :param format: format string for value
+    :param fmt: format string for value
     :return: function to add measurement unit to value
     """
-    def add_measurement_unit(forecast: Forecast, ar: AttribRow, measurement: str):
+    def add_measurement_unit(
+            forecast: Forecast, ar: AttribRow, measurement: str):
         """
         Add unit to measurement
         :param forecast: forecast
         :param ar: AttribRow
-        :param measurement: measurement
-        :return: measurement
+        :param measurement: value of measurement
+        :return: formatted measurement
         """
         unit = forecast.get_units(ar.attribute)
-        if format:
-            measurement = f'{{0:{format}}}'.format(measurement)
+        if fmt:
+            measurement = f'{{0:{fmt}}}'.format(measurement)
         return f'{measurement}{unit}' if unit else measurement
 
     return add_measurement_unit
 
 
-def speed_conversion_wrapper(to_unit: Units, format: str = None):
+def speed_conversion_wrapper(to_unit: Units, fmt: str = None):
     """"
     Wrapper to add value speed conversion
     :param to_unit: unit to convert to
-    :param format: format string for value
+    :param fmt: format string for value
     :return: function to add value speed conversion
     """
     def forecast_speed_conversion(
@@ -127,7 +130,7 @@ def speed_conversion_wrapper(to_unit: Units, format: str = None):
         """
         from_unit = Units.from_str(forecast.get_units(ar.attribute))
         measurement = speed_conversion(measurement, from_unit, to_unit)
-        return f'{{0:{format}}}'.format(measurement) if format else measurement
+        return f'{{0:{fmt}}}'.format(measurement) if fmt else measurement
 
     return forecast_speed_conversion
 
@@ -138,10 +141,10 @@ DISPLAY_ITEMS = [
     # format function: Callable[[Forecast, AttribRow, str], str]
     # type
     AttribRow(
-        add_provider, ForecastEntry.START_KEY,
+        add_provider, ForecastEntry.END_KEY,
         lambda f, a, x: x.strftime('%a<br>%d %b'), TYPE_HDR),
     AttribRow(
-        '', ForecastEntry.START_KEY,
+        '', ForecastEntry.END_KEY,
         lambda f, a, x: x.strftime('%H:%M'), 'hdr'),
     AttribRow('', ForecastEntry.ICON_KEY, type=TYPE_WEATHER_ICON),
     AttribRow(
@@ -157,15 +160,33 @@ DISPLAY_ITEMS = [
     AttribRow(
         title_unit_wrapper(_('Wind Speed'), unit=Units.KPH),
         ForecastEntry.WIND_SPEED_KEY,
-        speed_conversion_wrapper(Units.KPH, format='.0f')),
+        speed_conversion_wrapper(Units.KPH, fmt='.0f')),
     AttribRow(
         _('Wind Direction'), ForecastEntry.WIND_DIR_ICON_KEY,
         type=TYPE_WIND_DIR_ICON),
     AttribRow(
         title_unit_wrapper(_('Wind Gust'), unit=Units.KPH),
         ForecastEntry.WIND_GUST_KEY,
-        speed_conversion_wrapper(Units.KPH, format='.0f')),
+        speed_conversion_wrapper(Units.KPH, fmt='.0f')),
 ]
+
+
+def get_display_item_attribute_key(filter_fxn: Callable) -> str:
+    """
+    Get display item attribute key for matching filter function
+    :param filter_fxn: function to filter display items
+    :return: display item type key
+    """
+    item_list = list(filter(filter_fxn, DISPLAY_ITEMS))
+    return None if item_list is None or len(item_list) == 0 else \
+        item_list[0].attribute
+
+
+WEATHER_ICON_ATTRIB = get_display_item_attribute_key(
+    lambda ar: ar.type == TYPE_WEATHER_ICON)
+WIND_DIR_ICON_ATTRIB = get_display_item_attribute_key(
+    lambda ar: ar.type == TYPE_WIND_DIR_ICON)
+
 
 class ForecastAddress(View):
     """
@@ -282,9 +303,17 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     )
     dates = time_rng.as_dates()
 
+    forecast_kwargs = {}
+    for k, v in [
+        (TYPE_WEATHER_ICON, WEATHER_ICON_ATTRIB),
+        (TYPE_WIND_DIR_ICON, WIND_DIR_ICON_ATTRIB)
+    ]:
+        if v:
+            forecast_kwargs[k] = v
+
     forecast = generate_forecast(
         geo_address, provider=Registry.get_registry().provider_names()[0],
-        start=dates.start, end=dates.end)
+        start=dates.start, end=dates.end, **forecast_kwargs)
 
     template_path, context = forecast_render_info(forecast)
 
@@ -297,8 +326,13 @@ def forecast_render_info(forecast: Forecast):
     :param forecast: Forecast
     :return: tuple of template path and context
     """
+    # filter display items to only those available in forecast
+    display_items = list(filter(
+        lambda x: x.attribute in forecast.forecast_attribs,
+        DISPLAY_ITEMS
+    ))
     # transform forecast entries into a list of attribute lists
-    forecast.set_attrib_series(DISPLAY_ITEMS)
+    forecast.set_attrib_series(display_items)
 
     title = _("Location forecast")
     context = {
@@ -306,7 +340,7 @@ def forecast_render_info(forecast: Forecast):
         PAGE_HEADING_CTX: title,
         PAGE_SUB_HEADING_CTX: forecast.address.formatted_address,
         FORECAST_CTX: forecast,
-        ROW_TYPES_CTX: list(map(lambda x: x.type, DISPLAY_ITEMS))
+        ROW_TYPES_CTX: list(map(lambda x: x.type, display_items))
     }
 
     return app_template_path(THIS_APP, "forecast.html"), context

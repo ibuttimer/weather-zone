@@ -24,6 +24,7 @@ Forecast provider
 #  SOFTWARE.
 #
 from abc import ABC
+from zoneinfo import ZoneInfo
 
 from .iprovider import IProvider
 
@@ -32,21 +33,24 @@ class Provider(IProvider, ABC):
     """
     Forecast provider
     """
-    name: str   # Name of provider
+    name: str       # Name of provider
     friendly_name: str   # user friendly of provider
-    url: str    # URL of provider
+    url: str        # URL of provider
+    tz: ZoneInfo    # timezone
 
-    def __init__(self, name: str, friendly_name: str, url: str):
+    def __init__(self, name: str, friendly_name: str, url: str, tz: str):
         """
         Constructor
 
         :param name: Name of provider
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
+        :param tz: Timezone identifier of provider
         """
         self.name = name
         self.friendly_name = friendly_name
         self.url = url
+        self.tz = ZoneInfo(tz or "UTC")
 
     def __str__(self):
         return f"{self.name}, {self.url}"

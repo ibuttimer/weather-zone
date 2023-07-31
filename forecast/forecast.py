@@ -32,24 +32,26 @@ from .registry import Registry
 
 def generate_forecast(
         geo_address: GeoAddress, start: datetime = None,
-        end: datetime = None, provider: str = None) -> Forecast:
+        end: datetime = None, provider: str = None, **kwargs) -> Forecast:
     """
     Get a forecast
     :param geo_address: geographic address
     :param start: forecast start date; default is current time
     :param end: forecast end date; default is end of available forecast
     :param provider: forecast provider; default is all providers
+    :param kwargs: Additional arguments
     :return: Forecast
     """
     registry = Registry.get_registry()
     if provider is None:
         # get all providers
         for forcaster in registry.providers:
-            loc_forecast = forcaster.get_geo_forecast(geo_address, start, end)
+            loc_forecast = \
+                forcaster.get_geo_forecast(geo_address, start, end, **kwargs)
 
     else:
         # get specific provider
         loc_forecast = registry.get(provider) \
-            .get_geo_forecast(geo_address, start, end)
+            .get_geo_forecast(geo_address, start, end, **kwargs)
 
     return loc_forecast

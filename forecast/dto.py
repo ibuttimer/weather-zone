@@ -26,7 +26,7 @@ Data transfer objects for forecast module
 from collections import namedtuple
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Set, Callable
 
 AttribRow = namedtuple('AttribRow',
                        # display text or callable, attribute name,
@@ -251,6 +251,8 @@ class Forecast:
     # attribute series forecast, key is display name, value is list of values
     attrib_series: Dict[str, List[Any]]
     cached: bool  # is this a cached forecast?
+    forecast_attribs: Set[str]  # set of available forecast attributes
+    missing_attribs: Set[str]   # set of missing attributes
 
     def __init__(self, address: GeoAddress):
         self.address = address
@@ -260,6 +262,8 @@ class Forecast:
         self.time_series = []
         self.attrib_series: {}
         self.cached = False
+        self.forecast_attribs = set()
+        self.missing_attribs = set()
 
     def set_units(self, units: dict):
         """
@@ -276,20 +280,28 @@ class Forecast:
         """
         return self.units.get(key, '')
 
-    def set_attrib_series(self, attrib_rows: List[AttribRow]):
+    def set_attrib_series(self, display_items: List[AttribRow]):
         """
         Set the attribute series, i.e. a series of the display name and a
         list of values for each specified attribute.
         e.g. [['Temperature', 12.3, 14.5, 16.7], ['Humidity', 0.5, 0.6, 0.7]]
 
-        :param attrib_rows: Attribute rows to generate series
+        :param display_items: Attribute rows to generate series
         Note 1: the AttribRow text field may be a
                 Callable[[Forecast, AttribRow], str].
              2: the AttribRow format_fxn field may be a
                 Callable[[Forecast, AttribRow, Any], str].
         """
         self.attrib_series = []
-        for item in attrib_rows:
+        for item in display_items:
+
+            # skip if attribute to display is not part of forecast, or
+            # expected attribute was not provided
+            # if (item.attribute not in self.forecast_attribs or
+            #         item.attribute in self.missing_attribs):
+            if item.attribute in self.missing_attribs:
+                continue
+
             row = [item.text(self, item) if callable(item.text) else item.text]
             for entry in self.time_series:
                 value = getattr(entry, item.attribute)

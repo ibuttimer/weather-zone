@@ -58,10 +58,8 @@ from .provider import (
 )
 
 
-DARK_LEGEND_OFFSET = 100    # offset of dark variant legends
-
-# Met Eireann forecast attributes
-ME_ATTRIBUTES = {
+# Met Norway forecast attributes
+MN_ATTRIBUTES = {
     TEMPERATURE_TAG: ForecastAttrib.of_unit_val(
         ForecastEntry.TEMPERATURE_KEY, DFLT_TEMP_UNIT),
     WIND_DIRECTION_TAG: [
@@ -79,9 +77,8 @@ ME_ATTRIBUTES = {
     PRECIPITATION_TAG: [
         ForecastAttrib.of_unit_val(
             ForecastEntry.PRECIPITATION_KEY, DLFT_HEIGHT_UNIT),
-        ForecastAttrib(
-            ForecastEntry.PRECIPITATION_PROB_KEY, PERCENT_LITERAL,
-            PROBABILITY_ATTRIB, DLFT_PERCENT_UNIT)
+        # Met Norway doesn't provide precipitation probability in
+        # locationforecast classic ver 2.0
     ],
     SYMBOL_TAG: [
         ForecastAttrib.of_no_unit(ForecastEntry.SYMBOL_KEY, NUM_ATTRIB),
@@ -90,16 +87,13 @@ ME_ATTRIBUTES = {
 }
 
 
-class MetEireannProvider(LocationforecastProvider):
+class MetNorwayProvider(LocationforecastProvider):
     """
     Forecast provider
     """
-    from_q: str     # From date/time query parameter
-    to_q: str       # To date/time query parameter
 
     def __init__(self, name: str, friendly_name: str, url: str,
-                 lat_q: str, lng_q: str, from_q: str, to_q: str,
-                 tz: tzinfo):
+                 lat_q: str, lng_q: str, tz: str):
         """
         Constructor
 
@@ -108,45 +102,7 @@ class MetEireannProvider(LocationforecastProvider):
         :param url: URL of provider
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
-        :param from_q: From date/time query parameter
-        :param to_q: To date/time query parameter
         :param tz: Timezone identifier of provider
         """
         super().__init__(
-            name, friendly_name, url, lat_q, lng_q, tz, ME_ATTRIBUTES)
-        self.from_q = from_q
-        self.to_q = to_q
-
-    def url_params(self, lat: float, lng: float, start: datetime = None,
-                   end: datetime = None, **kwargs) -> dict:
-        """
-        Get query params of forecast url for a location
-
-        :param lat: Latitude of the location
-        :param lng: Longitude of the location
-        :param start: forecast start date; default is current time
-        :param end: forecast end date; default is end of available forecast
-        :return: url
-        """
-        # https://data.gov.ie/dataset/met-eireann-weather-forecast-api
-        # http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=<LATITUDE>;long=<LONGITUDE>;from=2018-11-10T02:00;to=2018-11-12T12:00
-        params = super().url_params(lat, lng)
-        for q, v in [(self.from_q, start), (self.to_q, end)]:
-            if v is not None:
-                params[q] = v.strftime('%Y-%m-%dT%H:%M')
-        return params
-
-    def get_id_variant(self, legend: Dict) -> Tuple[int, str]:
-        """
-        Get the id and variant addendum for icon filename
-        :param legend: legend to get id and variant from
-        :return: tuple of id and variant addendum
-        """
-        addendum = DAY_LEGEND_ADDENDUM if legend.get(VARIANTS_PROP, None) \
-            else NO_LEGEND_ADDENDUM
-        old_id = int(legend.get(OLD_ID_PROP))
-        if old_id > DARK_LEGEND_OFFSET:
-            old_id -= DARK_LEGEND_OFFSET
-            assert old_id > 0
-            addendum = NIGHT_LEGEND_ADDENDUM
-        return old_id, addendum
+            name, friendly_name, url, lat_q, lng_q, tz, MN_ATTRIBUTES)
