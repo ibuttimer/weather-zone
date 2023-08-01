@@ -32,10 +32,6 @@ THIS_APP = Path(__file__).resolve().parent.name
 # prefix for environment variables
 APP_ENV_PREFIX = f'{THIS_APP.upper()}_'
 
-# provider names
-MET_EIREANN = 'met_eireann'
-MET_NORWAY_CLASSIC = 'met_norway_classic'
-
 # legend data keys and attributes
 OLD_ID_PROP = 'old_id'
 VARIANTS_PROP = 'variants'

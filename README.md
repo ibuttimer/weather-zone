@@ -53,7 +53,7 @@ In the `weather-zone` folder, run the following command to install the necessary
 | FONTAWESOME_URL                        | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
 | REQUESTS_TIMEOUT                       | Requests timeout in seconds                                                                                                                                                        |
 | FORECAST_PROVIDERS                     | List of forecast providers to use, see [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable).                                                        |
-| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#FORECAST_PROVIDERS-environment-variable).                 |
+| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#locationforecast_provider-id-environment-variables).      |
 |                                        | **Development-specific configuration**                                                                                                                                             |
 | CACHED_GEOCODE_RESULT                  | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                |
 | CACHED_MET_EIREANN_RESULT              | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                             |
@@ -70,7 +70,10 @@ The `locationforecast` application may be configured with multiple providers whi
 
 The `FORECAST_PROVIDERS` environment variable is a comma-separated list of providers to use, of the form `<provider app name>_<provider id>`.
 
-E.g. the following configures two providers; `met_eireann` and `met_norway_classic`
+The convention is to name the provider class in the form `<provider id>Provider` where `<provider id>` is camel-cased, e.g. `met_eireann` becomes `MetEireannProvider`.
+And the module name should be `<provider id>.py` e.g. `met_eireann.py`.
+
+E.g. the following configures two providers; `met_eireann` and `met_norway_classic`, which will load the `MetEireannProvider` and `MetNorwayClassicProvider` classes respectively.
 ````shell
 FORECAST_PROVIDERS=locationforecast_met_eireann,locationforecast_met_norway_classic
 ````
@@ -104,6 +107,8 @@ E.g. the following configure the `met_eireann` provider;
 ````shell
 LOCATIONFORECAST_MET_EIREANN="name=Met Éireann;url=http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast;latitude=lat;longitude=long;from=from;to=to;tz=UTC"
 ````
+**Note:** Keys not required by a particular provider should be omitted.
+
 > See [Met Éireann Timezone anomaly](docs/readme.md#met-éireann-timezone-anomaly) for more details on the `tz` setting.
 
 #### Environment variables

@@ -23,31 +23,31 @@ Signal processing for locationforecast app
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
+import importlib
+import re
+
 from django.conf import settings
 from django.dispatch import receiver
 
 from forecast import registry_open, Registry
 from weather_zone import provider_settings_name
 
-from .constants import THIS_APP, MET_EIREANN, MET_NORWAY_CLASSIC
-from .met_eireann import MetEireannProvider
-from .met_norway import MetNorwayProvider
+from .constants import THIS_APP
 
 
-# provider to config key mapping
-MN_PROVIDER_CFG_KEYS = {
+PROVIDER_CFG_KEYS = {
     'friendly_name': 'name',
     'url': 'url',
     'lat_q': 'latitude',
     'lng_q': 'longitude',
-    'tz': 'tz',
-}
-ME_PROVIDER_CFG_KEYS = MN_PROVIDER_CFG_KEYS.copy()
-ME_PROVIDER_CFG_KEYS.update({
     'from_q': 'from',
     'to_q': 'to',
-})
+    'tz': 'tz',
+}
+
 PROVIDER_NAME = 'name'
+
+ID_CAMEL_CAPITAL = re.compile(r'_([a-zA-Z]){1}')
 
 
 @receiver(registry_open)
@@ -63,38 +63,63 @@ def registry_open_handler(sender, **kwargs):
 
     print(f"Registry open signal received from {sender}")
 
-    # create Met Eireann provider
-    config = settings.FORECAST_APPS_SETTINGS.get(
-        provider_settings_name(THIS_APP, MET_EIREANN)
-    )
-    provider_args = {
-        key: config.get(ME_PROVIDER_CFG_KEYS[key])
-        for key in ME_PROVIDER_CFG_KEYS
-    }
-    provider_args[PROVIDER_NAME] = MET_EIREANN
+    # FORECAST_PROVIDERS=locationforecast_met_eireann,locationforecast_met_norway_classic
+    for app_provider in settings.FORECAST_PROVIDERS:
+        # convention is `<provider app name>_<provider id>`
+        provider_id = app_provider[len(THIS_APP) + 1:]
+        provider_classname = get_provider_classname(
+            app_provider[len(THIS_APP):])
 
-    provider = MetEireannProvider(**provider_args)
+        # create provider instance
+        config = settings.FORECAST_APPS_SETTINGS.get(
+            provider_settings_name(THIS_APP, provider_id)
+        )
+        provider_args = {
+            k: v for k, v in [
+                (key, config.get(PROVIDER_CFG_KEYS[key], None)) for key in PROVIDER_CFG_KEYS
+            ] if v is not None
+        }
+        provider_args[PROVIDER_NAME] = provider_id
 
-    if settings.CACHED_MET_EIREANN_RESULT:
-        provider.cached_result = settings.CACHED_MET_EIREANN_RESULT
-    registry.add(provider.name, provider)
+        # instantiate provider
+        provider = get_class(
+            f'{THIS_APP}.{provider_id}', provider_classname)(**provider_args)
 
-    print(f"registered: {provider.name} provider")
+        cached_result_setting = f'CACHED_{provider_id.upper()}_RESULT'
+        cached_result = getattr(settings, cached_result_setting, None)
+        if cached_result:
+            provider.cached_result = cached_result
+        registry.add(provider.name, provider)
 
-    # create Met Norway classic provider
-    config = settings.FORECAST_APPS_SETTINGS.get(
-        provider_settings_name(THIS_APP, MET_NORWAY_CLASSIC)
-    )
-    provider_args = {
-        key: config.get(MN_PROVIDER_CFG_KEYS[key])
-        for key in MN_PROVIDER_CFG_KEYS
-    }
-    provider_args[PROVIDER_NAME] = MET_NORWAY_CLASSIC
+        print(f"registered: {provider.name} provider")
 
-    provider = MetNorwayProvider(**provider_args)
 
-    if settings.CACHED_MET_NORWAY_CLASSIC_RESULT:
-        provider.cached_result = settings.CACHED_MET_NORWAY_CLASSIC_RESULT
-    registry.add(provider.name, provider)
+def get_provider_classname(provider_id: str):
+    """
+    Convert provider id to class name
+    :param provider_id:
+    :return: classname of provider
+    """
+    idx = 0
+    match = True
+    while match:
+        match = ID_CAMEL_CAPITAL.search(provider_id, idx)
+        if match:
+            idx = match.start()
+            replacement = match.group(1).upper()
+            provider_id = f"{provider_id[:idx]}{replacement}" \
+                          f"{provider_id[match.end():]}"
+            idx += len(replacement)
 
-    print(f"registered: {provider.name} provider")
+    return f'{provider_id}Provider'
+
+
+def get_class(module_name: str, class_name: str):
+    """
+    Get class from module
+    :param module_name: path of module
+    :param class_name: name of class
+    :return:
+    """
+    module = importlib.import_module(module_name)
+    return getattr(module, class_name)

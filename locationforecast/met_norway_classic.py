@@ -87,7 +87,7 @@ MN_ATTRIBUTES = {
 }
 
 
-class MetNorwayProvider(LocationforecastProvider):
+class MetNorwayClassicProvider(LocationforecastProvider):
     """
     Forecast provider
     """

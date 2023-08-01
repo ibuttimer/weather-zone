@@ -271,7 +271,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # read in forecast provider settings; list of <provider app name>_<provider id>
 FORECAST_PROVIDERS = env.list('FORECAST_PROVIDERS', default=[])
 # providers should provide provider-specific settings via following variable:
-# - <PROVIDER APP NAME>_SETTINGS : dict of settings
+# - <provider app name>_<provider id> : dict of settings
+
+# providers should provide provider-specific settings via following variable:
+# - <PROVIDER APP NAME> : dict of settings
 #   e.g. 'url=http://example.com;username=foo;password=bar'
 FORECAST_APPS_SETTINGS = {}
 for provider in FORECAST_PROVIDERS:
