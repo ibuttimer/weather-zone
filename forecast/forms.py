@@ -33,7 +33,7 @@ from django_countries.widgets import CountrySelectWidget
 
 from utils import FormMixin
 
-from .misc import RangeArg, get_range_choices
+from .misc import RangeArg, get_range_choices, get_provider_choices
 
 LINE1_FIELD = 'line1'
 LINE2_FIELD = 'line2'
@@ -42,6 +42,7 @@ LINE4_FIELD = 'state'
 POSTCODE_FIELD = 'postcode'
 COUNTRY_FIELD = 'country'
 TIME_RANGE_FIELD = 'time_range'
+PROVIDER_FIELD = 'provider'
 
 
 class AddressForm(FormMixin, forms.Form):
@@ -58,6 +59,7 @@ class AddressForm(FormMixin, forms.Form):
     POSTCODE_FIELD = POSTCODE_FIELD
     COUNTRY_FIELD = COUNTRY_FIELD
     TIME_RANGE_FIELD = TIME_RANGE_FIELD
+    PROVIDER_FIELD = PROVIDER_FIELD
 
     line1 = forms.CharField(label=_('Line 1'), max_length=MAX_ADDR_LINE_LEN,
                             required=False)
@@ -74,6 +76,9 @@ class AddressForm(FormMixin, forms.Form):
     # choices set during init
     time_range = forms.ChoiceField(
         label=_("Time range"), required=True, choices=get_range_choices())
+    # choices set during init
+    provider = forms.ChoiceField(
+        label=_("Provider"), required=True, choices=get_provider_choices())
 
     @dataclass
     class Meta:
@@ -86,10 +91,10 @@ class AddressForm(FormMixin, forms.Form):
         # fields in order of display
         fields = addr_fields.copy()
         fields.extend([
-            TIME_RANGE_FIELD
+            TIME_RANGE_FIELD, PROVIDER_FIELD
         ])
         select_fields = [
-            COUNTRY_FIELD, TIME_RANGE_FIELD
+            COUNTRY_FIELD, TIME_RANGE_FIELD, PROVIDER_FIELD
         ]
         widgets = {
             # https://pypi.org/project/django-countries/#countryselectwidget

@@ -288,7 +288,7 @@ class Forecast:
 
         :param display_items: Attribute rows to generate series
         Note 1: the AttribRow text field may be a
-                Callable[[Forecast, AttribRow], str].
+                Callable[[Forecast, AttribRow, Any, int, Any], str].
              2: the AttribRow format_fxn field may be a
                 Callable[[Forecast, AttribRow, Any], str].
         """
@@ -303,14 +303,23 @@ class Forecast:
                 continue
 
             row = [item.text(self, item) if callable(item.text) else item.text]
-            for entry in self.time_series:
+            prev_value = None
+            for idx, entry in enumerate(self.time_series):
                 value = getattr(entry, item.attribute)
                 if item.format_fxn:
-                    # pass in the forecast, the AttribRow and the value
-                    value = item.format_fxn(self, item, value)
+                    # pass in the forecast, AttribRow, value, index and
+                    # previous value to
+                    # Callable[[Forecast, AttribRow, Any, int, Any], str]
+                    display_value = (
+                        item.format_fxn(self, item, value, idx, prev_value))
                 elif item.type == TYPE_WEATHER_ICON:
-                    value = ImageData(value, entry.alt_text)
+                    display_value = ImageData(value, entry.alt_text)
                 elif item.type == TYPE_WIND_DIR_ICON:
-                    value = ImageData(value, entry.wind_cardinal)
-                row.append(value)
+                    display_value = ImageData(value, entry.wind_cardinal)
+                else:
+                    display_value = value
+
+                row.append(display_value)
+                prev_value = value
+
             self.attrib_series.append(row)

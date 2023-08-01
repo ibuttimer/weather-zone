@@ -45,6 +45,7 @@ QUERY_PARAM_LONG = "lng"
 QUERY_PARAM_FROM = "from"
 QUERY_PARAM_TO = "to"
 QUERY_TIME_RANGE = "time_rng"
+QUERY_PROVIDER = "provider"
 
 # context variables
 FORECAST_MENU_CTX = "forecast_menu"
@@ -52,6 +53,7 @@ FORECAST_MENU_CTX = "forecast_menu"
 ADDRESS_FORM_CTX = "address_form"
 SUBMIT_URL_CTX = "submit_url"
 FORECAST_CTX = "forecast"
+FORECAST_LIST_CTX = "forecast_list"
 ROW_TYPES_CTX = "row_types"
 TITLE_CTX = 'title'
 PAGE_HEADING_CTX = 'page_heading'

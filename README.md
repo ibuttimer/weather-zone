@@ -43,23 +43,68 @@ In the `weather-zone` folder, run the following command to install the necessary
 ```
 
 ###### Table 1: Configuration settings
-| Key                        | Value                                                                                                                                                                              |
-|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ENV_FILE                   | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                            |
-| PORT                       | Port application is served on; default 8000                                                                                                                                        |
-| DEBUG                      | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                        |
-| SECRET_KEY                 | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation) |
-| DATABASE_URL               | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                      |
-| FONTAWESOME_URL            | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
-| REQUESTS_TIMEOUT           | Requests timeout in seconds                                                                                                                                                        |
-|                            | **Development-specific configuration**                                                                                                                                             |
-| CACHED_GEOCODE_RESULT      | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                |
-| CACHED_MET_EIREANN_RESULT  | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                             |
+| Key                                    | Value                                                                                                                                                                              |
+|----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ENV_FILE                               | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                            |
+| PORT                                   | Port application is served on; default 8000                                                                                                                                        |
+| DEBUG                                  | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                        |
+| SECRET_KEY                             | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation) |
+| DATABASE_URL                           | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                      |
+| FONTAWESOME_URL                        | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
+| REQUESTS_TIMEOUT                       | Requests timeout in seconds                                                                                                                                                        |
+| FORECAST_PROVIDERS                     | List of forecast providers to use, see [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable).                                                        |
+| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#FORECAST_PROVIDERS-environment-variable).                 |
+|                                        | **Development-specific configuration**                                                                                                                                             |
+| CACHED_GEOCODE_RESULT                  | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                |
+| CACHED_MET_EIREANN_RESULT              | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                             |
+
 
 # TODO add STORAGE_PROVIDER environment variables
 
 #### Boolean environment variables
 Set environment variables evaluating a boolean value, should be set to any of `true`, `on`, `ok`, `y`, `yes` or `1` to set true, otherwise the variable is evaluated as false.
+
+#### FORECAST_PROVIDERS environment variable
+The `locationforecast` application may be configured with multiple providers which utilise the
+[Locationforecast](https://api.met.no/weatherapi/locationforecast/2.0/documentation) weather forecast API developed by Met Norway.
+
+The `FORECAST_PROVIDERS` environment variable is a comma-separated list of providers to use, of the form `<provider app name>_<provider id>`.
+
+E.g. the following configures two providers; `met_eireann` and `met_norway_classic`
+````shell
+FORECAST_PROVIDERS=locationforecast_met_eireann,locationforecast_met_norway_classic
+````
+
+See [Locationforecast](docs/readme.md#locationforecast) for more details on the providers.
+
+
+#### LOCATIONFORECAST_*&lt;provider id&gt;* environment variables
+The configuration for each provider in the [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable) 
+must be provided by an environment variable of the following format:
+
+- Environment variable name
+
+    LOCATIONFORECAST_*&lt;provider id&gt;*; where `<provider id>` is the id of the provider, e.g. `met_eireann`.
+  
+- Environment variable value
+
+    A semicolon-seperated list of key-value pairs as outlined in the following table.
+
+| Key       | Description                                                                                                                               |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| name      | Display name of provider                                                                                                                  |
+| url       | API url. See [Using unsafe characters in URLs](https://django-environ.readthedocs.io/en/latest/tips.html#using-unsafe-characters-in-urls) |
+| latitude  | Latitude query parameter name, e.g. `latitude=lat`                                                                                        |
+| longitude | Longitude query parameter name, e.g. `longitude=long`                                                                                     |
+| from      | From date/time query parameter name                                                                                                       |
+| to        | To date/time query parameter name                                                                                                         |
+| tz        | A valid [IANA](https://www.iana.org/time-zones) timezone; e.g. `tz=Europe/Dublin`                                                         |
+
+E.g. the following configure the `met_eireann` provider;
+````shell
+LOCATIONFORECAST_MET_EIREANN="name=Met Éireann;url=http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast;latitude=lat;longitude=long;from=from;to=to;tz=UTC"
+````
+> See [Met Éireann Timezone anomaly](docs/readme.md#met-éireann-timezone-anomaly) for more details on the `tz` setting.
 
 #### Environment variables
 Set environment variables corresponding to the keys in [Table 1: Configuration settings](#table-1-configuration-settings).

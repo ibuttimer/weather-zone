@@ -1,28 +1,25 @@
 # Locationforecast
 [Locationforecast](https://api.met.no/weatherapi/locationforecast/2.0/documentation) is a weather forecast API provided by Met Norway.
 
-The current version is 2.0. (Version 1.9 is deprecated and documentation is unavailable).
+## Met Norway
+The Met Norway weather forcast API is based on Version 2.0 of [Locationforecast](https://api.met.no/weatherapi/locationforecast/2.0/documentation).
+(Version 1.9 is deprecated and documentation is unavailable).
 
 One of the main differences between the two version is that Version 2.0 defaults to JSON format for data, while version 1.9 provides information in xml format.
 Version 2.0 does provide xml data (with minor changes from Version 1.9) via the `classic` endpoint.  
 
-#### Weather icons
-##### Latest version
-The latest version of the weather icons are available at [Weathericon 2.0](https://api.met.no/weatherapi/weathericon/2.0/documentation).
-The [icons](met-norway/weathericon.tgz) are named according to the `legend` code in the weather forecast.
-##### Previous version
-The [previous version of the weather icons](https://nrkno.github.io/yr-weather-symbols/), and are named according to the `old_id` in the weather forecast.
-
-#### Weather legends
-The legends are available at https://api.met.no/weatherapi/weathericon/2.0/legends
-
 ## Met Éireann
 The Met Éireann weather forcast API is based on the Version 1.9 of [Locationforecast](https://api.met.no/weatherapi/locationforecast/2.0/documentation).
 
-### API differences
-#### Weather Symbol tag
+### Met Éireann Timezone anomaly
+> **Note:** The Met Éireann applications (both web and mobile) seem to ignore the UTC designation in the date/time values returned by the API.
+> In order to display the same forecast as the Met Éireann applications, the Met Éireann provider should be configured with the `UTC` timezone
+> rather than the `Europe/Dublin`.
+
+## API differences
+### Weather Symbol tag
 The `symbol` tag is used to provide information about the weather forecast.
-##### Met Éireann Symbol tag
+#### Met Éireann Symbol tag
 The `symbol` tag has the following attributes:
 - `id`
  
@@ -37,7 +34,7 @@ The `symbol` tag has the following attributes:
 <symbol id="Sun" number="1"/>
 ```
 
-##### Met Norway (Classic) Symbol tag
+#### Met Norway (Classic) Symbol tag
 The `symbol` tag is the same as the one from [Met Éireann Symbol tag](#met-éireann-symbol-tag) with the addition of the following attribute:
 - `code`
 
@@ -49,8 +46,10 @@ The `symbol` tag is the same as the one from [Met Éireann Symbol tag](#met-éir
 <symbol id="Sun" number="1" code="clearsky_day"></symbol>
 ```
 
-#### Weather legends
-There differences in the weather legends between the Met Éareann and Met Norway versions of the Locationforcast. 
+### Weather legends
+The legends are available at https://api.met.no/weatherapi/weathericon/2.0/legends.
+
+There differences in the weather legends between the Met Éireann and Met Norway versions of the Locationforcast. 
 These difference are applied by the [me-legends.json](../data/locationforecast/me-legends.json) patch file.
 
 Differences applied by the patch file:
@@ -63,3 +62,10 @@ Please see [The Met Éireann Location Forecast API](https://www.met.ie/Open_Data
 
 [legends.json](../data/locationforecast/legends.json) is the base file downloaded from https://api.met.no/weatherapi/weathericon/2.0/legends.
 [me-legends.json](../data/locationforecast/me-legends.json) is the patch file used to apply the Met Éireann specific changes to the base file.
+
+### Weather icons
+#### Latest version
+The latest version of the weather icons are available at [Weathericon 2.0](https://api.met.no/weatherapi/weathericon/2.0/documentation).
+The [icons](met-norway/weathericon.tgz) are named according to the `legend` code in the weather forecast.
+#### Previous version
+The [previous version of the weather icons](https://nrkno.github.io/yr-weather-symbols/), and are named according to the `old_id` in the weather forecast.

@@ -24,7 +24,8 @@ This file is used to create the views for the forecast app.
 #  SOFTWARE.
 #
 from collections import namedtuple
-from typing import Callable
+from datetime import datetime
+from typing import Callable, List
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -38,14 +39,14 @@ from weather_zone.constants import (
 )
 from utils import (
     GET, app_template_path, reverse_q, namespaced_url, Crud,
-    redirect_on_success_or_render,
+    redirect_on_success_or_render, html_tag
 )
 
 from .constants import (
     THIS_APP, ADDRESS_FORM_CTX, SUBMIT_URL_CTX, ADDRESS_ROUTE_NAME,
-    SUBMIT_BTN_TEXT_CTX, TITLE_CTX, PAGE_HEADING_CTX,
-    FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE,
-    PAGE_SUB_HEADING_CTX
+    SUBMIT_BTN_TEXT_CTX, TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX,
+    FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME,
+    QUERY_TIME_RANGE, QUERY_PROVIDER
 )
 from .convert import Units, speed_conversion
 from .forecast import generate_forecast
@@ -55,7 +56,7 @@ from .dto import (
     GeoAddress, Forecast, AttribRow, ForecastEntry, TYPE_WEATHER_ICON,
     TYPE_HDR, TYPE_WIND_DIR_ICON
 )
-from .misc import RangeArg
+from .misc import RangeArg, ALL_PROVIDERS
 from .registry import Registry
 
 
@@ -86,7 +87,9 @@ def add_provider(forecast: Forecast, ar: AttribRow):
     :param ar: AttribRow
     :return: title
     """
-    return forecast.provider
+    return html_tag('span', tag_content=forecast.provider, **{
+        'class': 'span__provider-name'
+    })
 
 
 def measurement_unit_wrapper(fmt: str):
@@ -96,7 +99,8 @@ def measurement_unit_wrapper(fmt: str):
     :return: function to add measurement unit to value
     """
     def add_measurement_unit(
-            forecast: Forecast, ar: AttribRow, measurement: str):
+            forecast: Forecast, ar: AttribRow, measurement: str,
+            index: int, prev_measurement: str) -> str:
         """
         Add unit to measurement
         :param forecast: forecast
@@ -120,7 +124,8 @@ def speed_conversion_wrapper(to_unit: Units, fmt: str = None):
     :return: function to add value speed conversion
     """
     def forecast_speed_conversion(
-            forecast: Forecast, ar: AttribRow, measurement: float):
+            forecast: Forecast, ar: AttribRow, measurement: float,
+            index: int, prev_measurement: float) -> str:
         """
         Convert speed measurement for forecast display
         :param forecast: Forecast
@@ -135,20 +140,42 @@ def speed_conversion_wrapper(to_unit: Units, fmt: str = None):
     return forecast_speed_conversion
 
 
+def forecast_date(forecast: Forecast, ar: AttribRow, value: datetime,
+                  index: int, prev_value: datetime) -> str:
+    """
+    Format the forecast date for display
+    :param forecast: forecast
+    :param ar: AttribRow
+    :param value: value to format
+    :param index: index of value
+    :param prev_value: previous value
+    :return: formatted date
+    """
+    # only display date if it is different from previous date
+    return value.strftime('%a<br>%d %b') \
+        if value.date() != (prev_value.date() if prev_value else None) else ''
+
+
 DISPLAY_ITEMS = [
     # display text: str or Callable[[Forecast, AttribRow], str]
     # attribute name
-    # format function: Callable[[Forecast, AttribRow, str], str]
+    # format function: Callable[[Forecast, AttribRow, Any, int, Any], str]
+    #    where;
+    #       Forecast is the forecast object
+    #       AttribRow is the attribute row object
+    #       Any is the value to display
+    #       int is the index of the value
+    #       Any is the previous value displayed
     # type
     AttribRow(
-        add_provider, ForecastEntry.END_KEY,
-        lambda f, a, x: x.strftime('%a<br>%d %b'), TYPE_HDR),
+        add_provider, ForecastEntry.END_KEY, forecast_date, TYPE_HDR),
     AttribRow(
         '', ForecastEntry.END_KEY,
-        lambda f, a, x: x.strftime('%H:%M'), 'hdr'),
+        lambda f, a, x, i, p: x.strftime('%H:%M'), 'hdr'),
     AttribRow('', ForecastEntry.ICON_KEY, type=TYPE_WEATHER_ICON),
     AttribRow(
-        title_unit_wrapper(_('Temperature')), ForecastEntry.TEMPERATURE_KEY),
+        title_unit_wrapper(_('Temperature')), ForecastEntry.TEMPERATURE_KEY,
+        measurement_unit_wrapper('.0f')),
     AttribRow(
         title_unit_wrapper(_('Precipitation')),
         ForecastEntry.PRECIPITATION_KEY),
@@ -192,7 +219,6 @@ class ForecastAddress(View):
     """
     Class-based view for address forecast
     """
-
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """
         GET method for Address
@@ -238,6 +264,8 @@ class ForecastAddress(View):
             query_kwargs = geo_address.as_dict()
             query_kwargs[QUERY_TIME_RANGE] = get_field(
                 AddressForm.TIME_RANGE_FIELD)
+            query_kwargs[QUERY_PROVIDER] = get_field(
+                AddressForm.PROVIDER_FIELD)
             url = reverse_q(
                 namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
                 query_kwargs=query_kwargs
@@ -303,6 +331,10 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     )
     dates = time_rng.as_dates()
 
+    provider = request.GET.get(QUERY_PROVIDER, None)    # default is all
+    if provider == ALL_PROVIDERS:
+        provider = None    # default is all
+
     forecast_kwargs = {}
     for k, v in [
         (TYPE_WEATHER_ICON, WEATHER_ICON_ATTRIB),
@@ -311,37 +343,46 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if v:
             forecast_kwargs[k] = v
 
-    forecast = generate_forecast(
-        geo_address, provider=Registry.get_registry().provider_names()[0],
+    forecasts = generate_forecast(
+        geo_address, provider=provider,
         start=dates.start, end=dates.end, **forecast_kwargs)
 
-    template_path, context = forecast_render_info(forecast)
+    template_path, context = forecast_render_info(forecasts)
 
     return render(request, template_path, context=context)
 
 
-def forecast_render_info(forecast: Forecast):
+def forecast_render_info(forecasts: List[Forecast]):
     """
-    Get info to render a forecast
-    :param forecast: Forecast
+    Get info to render a list of forecasts
+    :param forecasts: Forecast list
     :return: tuple of template path and context
     """
-    # filter display items to only those available in forecast
-    display_items = list(filter(
-        lambda x: x.attribute in forecast.forecast_attribs,
-        DISPLAY_ITEMS
-    ))
-    # transform forecast entries into a list of attribute lists
-    forecast.set_attrib_series(display_items)
+    formatted_addr = None
+    forecast_list = []
+    for forecast in forecasts:
+        # filter display items to only those available in forecast
+        display_items = list(filter(
+            lambda x: x.attribute in forecast.forecast_attribs,
+            DISPLAY_ITEMS
+        ))
+        # transform forecast entries into a list of attribute lists
+        forecast.set_attrib_series(display_items)
+
+        forecast_list.append({
+            FORECAST_CTX: forecast,
+            ROW_TYPES_CTX: list(map(lambda x: x.type, display_items))
+        })
+
+        if not formatted_addr:
+            formatted_addr = forecast.address.formatted_address
 
     title = _("Location forecast")
     context = {
         TITLE_CTX: title,
         PAGE_HEADING_CTX: title,
-        PAGE_SUB_HEADING_CTX: forecast.address.formatted_address,
-        FORECAST_CTX: forecast,
-        ROW_TYPES_CTX: list(map(lambda x: x.type, display_items))
+        PAGE_SUB_HEADING_CTX: formatted_addr,
+        FORECAST_LIST_CTX: forecast_list
     }
 
     return app_template_path(THIS_APP, "forecast.html"), context
-

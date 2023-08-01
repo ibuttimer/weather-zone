@@ -26,12 +26,15 @@ Miscellaneous functions
 from collections import namedtuple
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-from typing import Tuple
+from typing import Tuple, List
 
 from django.utils.translation import gettext_lazy as _
 
+from .registry import Registry
 
 DateRange = namedtuple('DateRange', ['start', 'end'])
+
+ALL_PROVIDERS = 'all'
 
 
 class RangeArg(Enum):
@@ -97,3 +100,18 @@ def get_range_choices() -> Tuple[Tuple[str, str]]:
         (RangeArg.TOMORROW_PLUS_3.value, _('Tomorrow 4 days')),
         (RangeArg.ALL.value, _('All available')),
     ])
+
+
+def get_provider_choices() -> List[Tuple[str, str]]:
+    """
+    Get the provider choices for a select field
+
+    :return: Provider choices
+    """
+    registry = Registry.get_registry()
+    choices = [(ALL_PROVIDERS, _('All'))]
+    choices.extend([
+        (name, registry.get(name).friendly_name)
+        for name in registry.provider_names()
+    ])
+    return tuple(choices)

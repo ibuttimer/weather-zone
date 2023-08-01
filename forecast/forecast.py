@@ -24,7 +24,7 @@ Forecasting module
 #  SOFTWARE.
 #
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from .dto import GeoAddress, Forecast
 from .registry import Registry
@@ -32,9 +32,9 @@ from .registry import Registry
 
 def generate_forecast(
         geo_address: GeoAddress, start: datetime = None,
-        end: datetime = None, provider: str = None, **kwargs) -> Forecast:
+        end: datetime = None, provider: str = None, **kwargs) -> List[Forecast]:
     """
-    Get a forecast
+    Get a list of forecasts
     :param geo_address: geographic address
     :param start: forecast start date; default is current time
     :param end: forecast end date; default is end of available forecast
@@ -43,15 +43,14 @@ def generate_forecast(
     :return: Forecast
     """
     registry = Registry.get_registry()
-    if provider is None:
-        # get all providers
-        for forcaster in registry.providers:
-            loc_forecast = \
-                forcaster.get_geo_forecast(geo_address, start, end, **kwargs)
+    forecasts = []
+    providers = [provider] if provider is not None \
+        else registry.provider_names()
 
-    else:
-        # get specific provider
-        loc_forecast = registry.get(provider) \
-            .get_geo_forecast(geo_address, start, end, **kwargs)
+    for provider in providers:
+        forecasts.append(
+            registry.get(provider).get_geo_forecast(
+                geo_address, start, end, **kwargs)
+        )
 
-    return loc_forecast
+    return forecasts
