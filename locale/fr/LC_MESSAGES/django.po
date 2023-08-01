@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-27 16:33+0100\n"
+"POT-Creation-Date: 2023-08-01 11:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,123 +49,131 @@ msgstr "Fixé"
 msgid "Set language"
 msgstr "Définir la langue"
 
-#: .\forecast\forms.py:62
+#: .\forecast\forms.py:64
 msgid "Line 1"
 msgstr "Ligne 1"
 
-#: .\forecast\forms.py:64
+#: .\forecast\forms.py:66
 msgid "Line 2"
 msgstr "Ligne 1"
 
-#: .\forecast\forms.py:66
+#: .\forecast\forms.py:68
 msgid "City"
 msgstr "Ville"
 
-#: .\forecast\forms.py:68
+#: .\forecast\forms.py:70
 msgid "State/Province/Region"
 msgstr "Etat/Province/Région"
 
-#: .\forecast\forms.py:70
+#: .\forecast\forms.py:72
 msgid "Postcode"
 msgstr "Code postal"
 
-#: .\forecast\forms.py:72
+#: .\forecast\forms.py:74
 msgid "(Select country)"
 msgstr "(Choisissez le pays)"
 
-#: .\forecast\forms.py:76
+#: .\forecast\forms.py:78
 msgid "Time range"
 msgstr "Intervalle de temps"
 
-#: .\forecast\forms.py:131
+#: .\forecast\forms.py:81
+msgid "Provider"
+msgstr "Fournisseur"
+
+#: .\forecast\forms.py:136
 msgid "No fields entered"
 msgstr "Aucun champ saisi"
 
-#: .\forecast\misc.py:89
+#: .\forecast\misc.py:92
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: .\forecast\misc.py:90
+#: .\forecast\misc.py:93
 msgid "Tomorrow"
 msgstr "Demain"
 
-#: .\forecast\misc.py:91
+#: .\forecast\misc.py:94
 msgid "Next 2 days"
 msgstr "2 prochains jours"
 
-#: .\forecast\misc.py:92
+#: .\forecast\misc.py:95
 msgid "Next 3 days"
 msgstr "3 prochains jours"
 
-#: .\forecast\misc.py:93
+#: .\forecast\misc.py:96
 msgid "Next 4 days"
 msgstr "4 prochains jours"
 
-#: .\forecast\misc.py:94
+#: .\forecast\misc.py:97
 msgid "Next 5 days"
 msgstr "5 prochains jours"
 
-#: .\forecast\misc.py:95
+#: .\forecast\misc.py:98
 msgid "Tomorrow 2 days"
 msgstr "Demain 2 jours"
 
-#: .\forecast\misc.py:96
+#: .\forecast\misc.py:99
 msgid "Tomorrow 3 days"
 msgstr "Demain 3 jours"
 
-#: .\forecast\misc.py:97
+#: .\forecast\misc.py:100
 msgid "Tomorrow 4 days"
 msgstr "Demain 4 jours"
 
-#: .\forecast\misc.py:98
+#: .\forecast\misc.py:101
 msgid "All available"
 msgstr "Tous disponibles"
 
-#: .\forecast\views.py:134
+#: .\forecast\misc.py:112
+msgid "All"
+msgstr "Tous"
+
+#: .\forecast\views.py:177
 msgid "Temperature"
 msgstr "Température"
 
-#: .\forecast\views.py:136
+#: .\forecast\views.py:180
 #, fuzzy
 #| msgid "Forecast"
 msgid "Precipitation"
 msgstr "Lieu de prévision"
 
-#: .\forecast\views.py:139
+#: .\forecast\views.py:183
 msgid "Precipitation Probability"
 msgstr "Probabilité de précipitation"
 
-#: .\forecast\views.py:141
+#: .\forecast\views.py:185
 msgid "Humidity"
 msgstr "Humidité"
 
-#: .\forecast\views.py:144
+#: .\forecast\views.py:188
 msgid "Wind Speed"
 msgstr "Vitesse du vent"
 
-#: .\forecast\views.py:148
+#: .\forecast\views.py:192
 msgid "Wind Direction"
 msgstr "Direction du vent"
 
-#: .\forecast\views.py:151
+#: .\forecast\views.py:195
 msgid "Wind Gust"
 msgstr "Rafale de vent"
 
-#: .\forecast\views.py:230
+#: .\forecast\views.py:293
 #, fuzzy
 #| msgid "Forecast"
 msgid "Forecast location"
 msgstr "Lieu de prévision"
 
-#: .\forecast\views.py:231
+#: .\forecast\views.py:294
 msgid "Address of forecast location"
 msgstr "Adresse du lieu de prévision"
 
-#: .\forecast\views.py:232
+#: .\forecast\views.py:295
 msgid "Submit"
 msgstr "Soumettre"
 
-#: .\forecast\views.py:288
+#: .\forecast\views.py:380
 msgid "Location forecast"
 msgstr "Prévision de localisation"
 
@@ -201,14 +209,14 @@ msgstr ""
 "Ce site est uniquement à des fins éducatives, <em>ne saisissez pas</em> de "
 "données personnelles valides."
 
-#: .\weather_zone\settings.py:200
+#: .\weather_zone\settings.py:199
 msgid "English"
 msgstr "Anglais"
 
-#: .\weather_zone\settings.py:201
+#: .\weather_zone\settings.py:200
 msgid "German"
 msgstr "Allemand"
 
-#: .\weather_zone\settings.py:202
+#: .\weather_zone\settings.py:201
 msgid "French"
 msgstr "Français"
