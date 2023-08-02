@@ -1,0 +1,136 @@
+{
+  "description": "FIPS (Federal Information Processing Standards) codes for Met Éireann Land Weather Warning Descriptions",
+  "source": "https://www.met.ie/Open_Data/Warnings/Met_Eireann_Warning_description_June2020.pdf",
+  "codes": {
+    "EI01": {
+      "short_name": "Carlow",
+      "med_name": "Co. Carlow",
+      "long_name": "County Carlow"
+    },
+    "EI02": {
+      "short_name": "Cavan",
+      "med_name": "Co. Cavan",
+      "long_name": "County Cavan"
+    },
+    "EI03": {
+      "short_name": "Clare",
+      "med_name": "Co. Clare",
+      "long_name": "County Clare"
+    },
+    "EI04": {
+      "short_name": "Cork",
+      "med_name": "Co. Cork",
+      "long_name": "County Cork"
+    },
+    "EI06": {
+      "short_name": "Donegal",
+      "med_name": "Co. Donegal",
+      "long_name": "County Donegal"
+    },
+    "EI07": {
+      "short_name": "Dublin",
+      "med_name": "Co. Dublin",
+      "long_name": "County Dublin"
+    },
+    "EI10": {
+      "short_name": "Galway",
+      "med_name": "Co. Galway",
+      "long_name": "County Galway"
+    },
+    "EI11": {
+      "short_name": "Kerry",
+      "med_name": "Co. Kerry",
+      "long_name": "County Kerry"
+    },
+    "EI12": {
+      "short_name": "Kildare",
+      "med_name": "Co. Kildare",
+      "long_name": "County Kildare"
+    },
+    "EI13": {
+      "short_name": "Kilkenny",
+      "med_name": "Co. Kilkenny",
+      "long_name": "County Kilkenny"
+    },
+    "EI14": {
+      "short_name": "Leitrim",
+      "med_name": "Co. Leitrim",
+      "long_name": "County Leitrim"
+    },
+    "EI15": {
+      "short_name": "Laois",
+      "med_name": "Co. Laois",
+      "long_name": "County Laois"
+    },
+    "EI16": {
+      "short_name": "Limerick",
+      "med_name": "Co. Limerick",
+      "long_name": "County Limerick"
+    },
+    "EI18": {
+      "short_name": "Longford",
+      "med_name": "Co. Longford",
+      "long_name": "County Longford"
+    },
+    "EI19": {
+      "short_name": "Louth",
+      "med_name": "Co. Louth",
+      "long_name": "County Louth"
+    },
+    "EI20": {
+      "short_name": "Mayo",
+      "med_name": "Co. Mayo",
+      "long_name": "County Mayo"
+    },
+    "EI21": {
+      "short_name": "Meath",
+      "med_name": "Co. Meath",
+      "long_name": "County Meath"
+    },
+    "EI22": {
+      "short_name": "Monaghan",
+      "med_name": "Co. Monaghan",
+      "long_name": "County Monaghan"
+    },
+    "EI23": {
+      "short_name": "Offaly",
+      "med_name": "Co. Offaly",
+      "long_name": "County Offaly"
+    },
+    "EI24": {
+      "short_name": "Roscommon",
+      "med_name": "Co. Roscommon",
+      "long_name": "County Roscommon"
+    },
+    "EI25": {
+      "short_name": "Sligo",
+      "med_name": "Co. Sligo",
+      "long_name": "County Sligo"
+    },
+    "EI26": {
+      "short_name": "Tipperary",
+      "med_name": "Co. Tipperary",
+      "long_name": "County Tipperary"
+    },
+    "EI27": {
+      "short_name": "Waterford",
+      "med_name": "Co. Waterford",
+      "long_name": "County Waterford"
+    },
+    "EI29": {
+      "short_name": "Westmeath",
+      "med_name": "Co. Westmeath",
+      "long_name": "County Westmeath"
+    },
+    "EI30": {
+      "short_name": "Wexford",
+      "med_name": "Co. Wexford",
+      "long_name": "County Wexford"
+    },
+    "EI31": {
+      "short_name": "Wicklow",
+      "med_name": "Co. Wicklow",
+      "long_name": "County Wicklow"
+    }
+  }
+}

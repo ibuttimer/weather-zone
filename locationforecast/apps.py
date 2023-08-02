@@ -1,5 +1,5 @@
 """
-This module is used to configure the locationforecast app.
+This module is used to configure the app.
 """
 #  MIT License
 #
@@ -30,7 +30,7 @@ from weather_zone import LOCATIONFORECAST_APP_NAME
 
 class LocationforecastConfig(AppConfig):
     """
-    This class is used to configure the locationforecast app.
+    This class is used to configure the app.
     """
     default_auto_field = 'django.db.models.BigAutoField'
     name = LOCATIONFORECAST_APP_NAME

@@ -27,6 +27,7 @@ from datetime import datetime
 from typing import Optional, List
 
 from .dto import GeoAddress, Forecast
+from .provider import ProviderType
 from .registry import Registry
 
 
@@ -38,14 +39,14 @@ def generate_forecast(
     :param geo_address: geographic address
     :param start: forecast start date; default is current time
     :param end: forecast end date; default is end of available forecast
-    :param provider: forecast provider; default is all providers
+    :param provider: name of forecast provider; default is all providers
     :param kwargs: Additional arguments
     :return: Forecast
     """
     registry = Registry.get_registry()
     forecasts = []
     providers = [provider] if provider is not None \
-        else registry.provider_names()
+        else registry.provider_names(ptype=ProviderType.FORECAST)
 
     for provider in providers:
         forecasts.append(

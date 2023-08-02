@@ -1,5 +1,5 @@
 """
-Interface for forecast _providers
+Interface for forecast providers
 """
 #  MIT License
 #
@@ -23,11 +23,21 @@ Interface for forecast _providers
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-
 from abc import ABC, abstractmethod
 from datetime import datetime
+from enum import Enum, auto
 
-from .dto import Forecast, GeoAddress
+from .dto import Forecast, GeoAddress, Warnings
+
+
+class ProviderType(Enum):
+    """
+    Forecast provider types
+    """
+    UNKNOWN = auto()
+    FORECAST = auto()
+    WARNING = auto()
+    FORECAST_WARNING = auto()
 
 
 class IProvider(ABC):
@@ -59,4 +69,12 @@ class IProvider(ABC):
         :param end: forecast end date; default is end of available forecast
         :param kwargs: Additional arguments
         :return: Forecast
+        """
+
+    @abstractmethod
+    def get_warnings(self, **kwargs) -> Warnings:
+        """
+        Get weather warnings
+
+        :return: Warnings
         """

@@ -114,14 +114,11 @@ def load_legends() -> LegendStore:
     Load legends
     :return: LegendStore
     """
-    # load legends from json file
-    with open(BASE_LEGENDS_URL, 'r', encoding='UTF8') as file:
-        legends = json.load(file)
+    legends = {}
 
-    # patch legends from json file
-    with open(PATCH_LEGENDS_URL, 'r', encoding='UTF8') as file:
-        patch_legends = json.load(file)
-        legends.update(patch_legends)
+    for filepath in [BASE_LEGENDS_URL, PATCH_LEGENDS_URL]:
+        with open(filepath, 'r', encoding='UTF8') as file:
+            legends.update(json.load(file))
 
     # convert keys to lower case
     for key in legends.keys():

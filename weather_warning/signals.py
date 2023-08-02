@@ -1,3 +1,6 @@
+"""
+Signal processing for weather_warning app
+"""
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -20,46 +23,36 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .constants import (
-    ADDRESS_ROUTE_NAME, LAT_LONG_ROUTE_NAME,
-    QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
-)
-from .dto import (
-    Forecast, ForecastEntry, GeoAddress, Location,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON,
-    Warnings
-)
-from .iprovider import IProvider, ProviderType
-from .loader import load_provider
-from .provider import Provider
-from .registry import Registry
-from .signals import registry_open
+from django.conf import settings
+from django.dispatch import receiver
+
+from forecast import registry_open, Registry, load_provider, Provider
+from weather_zone import provider_settings_name
+
+from .constants import THIS_APP
 
 
-__all__ = [
-    'ADDRESS_ROUTE_NAME',
-    'LAT_LONG_ROUTE_NAME',
-    'QUERY_PARAM_LAT',
-    'QUERY_PARAM_LONG',
-    'QUERY_PARAM_FROM',
-    'QUERY_PARAM_TO',
+# map of all possible provider config keys (excluding Provider.NAME_PROP)
+# to the keys used in the settings
+PROVIDER_CFG_KEYS = {
+    Provider.FRIENDLY_NAME_PROP: 'name',
+    Provider.URL_PROP: 'url',
+    Provider.TZ_PROP: 'tz',
+}
 
-    'Forecast',
-    'ForecastEntry',
-    'GeoAddress',
-    'Location',
-    'TYPE_WEATHER_ICON',
-    'TYPE_WIND_DIR_ICON',
-    'Warnings',
 
-    'IProvider',
-    'ProviderType',
+@receiver(registry_open)
+def registry_open_handler(sender, **kwargs):
+    """
+    Handler for registry open signal
+    :param sender: sender which sent the signal
+    :param kwargs: keyword arguments including
+        registry: registry that was opened
+    :return:
+    """
+    registry: Registry = kwargs.get('registry')
 
-    'load_provider',
+    print(f"{THIS_APP}: Registry open signal received from {sender}")
 
-    'Provider',
-
-    'Registry',
-
-    'registry_open',
-]
+    load_provider(registry, settings.WARNING_PROVIDERS, THIS_APP,
+                  'WARNING_APPS_SETTINGS', PROVIDER_CFG_KEYS)

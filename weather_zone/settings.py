@@ -16,7 +16,8 @@ import environ
 from django.utils.translation import gettext_lazy as _
 
 from .constants import (
-    BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME
+    BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME,
+    WARNING_APP_NAME
 )
 from .misc import provider_settings_name
 
@@ -82,8 +83,13 @@ INSTALLED_APPS = [
 FORECAST_APPS = [
     LOCATIONFORECAST_APP_NAME,
 ]
+# warning provider apps
+WARNING_APPS = [
+    WARNING_APP_NAME,
+]
 # weather_zone apps
 WZ_APPS = FORECAST_APPS.copy()
+WZ_APPS.extend(WARNING_APPS)
 WZ_APPS.extend([
     # forecast app must be registered after provider apps
     FORECAST_APP_NAME,
@@ -272,14 +278,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 FORECAST_PROVIDERS = env.list('FORECAST_PROVIDERS', default=[])
 # providers should provide provider-specific settings via following variable:
 # - <provider app name>_<provider id> : dict of settings
-
-# providers should provide provider-specific settings via following variable:
-# - <PROVIDER APP NAME> : dict of settings
 #   e.g. 'url=http://example.com;username=foo;password=bar'
 FORECAST_APPS_SETTINGS = {}
 for provider in FORECAST_PROVIDERS:
     # https://django-environ.readthedocs.io/en/latest/tips.html#complex-dict-format
     FORECAST_APPS_SETTINGS[provider.upper()] = env.dict(
+        provider.upper(), cast={'value': str}, default={}
+    )
+
+# read in warning provider settings; list of <provider app name>_<provider id>
+WARNING_PROVIDERS = env.list('WARNING_PROVIDERS', default=[])
+# providers should provide provider-specific settings via following variable:
+# - <provider app name>_<provider id> : dict of settings
+#   e.g. 'url=http://example.com;username=foo;password=bar'
+WARNING_APPS_SETTINGS = {}
+for provider in WARNING_PROVIDERS:
+    # https://django-environ.readthedocs.io/en/latest/tips.html#complex-dict-format
+    WARNING_APPS_SETTINGS[provider.upper()] = env.dict(
         provider.upper(), cast={'value': str}, default={}
     )
 

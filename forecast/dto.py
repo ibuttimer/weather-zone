@@ -323,3 +323,10 @@ class Forecast:
                 prev_value = value
 
             self.attrib_series.append(row)
+
+
+class Warnings:
+    """
+    Weather warnings
+    """
+    created: datetime  # date/time warnings was created

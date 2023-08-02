@@ -26,19 +26,27 @@ Forecast provider
 from abc import ABC
 from zoneinfo import ZoneInfo
 
-from .iprovider import IProvider
+from .iprovider import IProvider, ProviderType
 
 
 class Provider(IProvider, ABC):
     """
     Forecast provider
     """
-    name: str       # Name of provider
-    friendly_name: str   # user friendly of provider
-    url: str        # URL of provider
-    tz: ZoneInfo    # timezone
+    NAME_PROP = 'name'
+    FRIENDLY_NAME_PROP = 'friendly_name'
+    URL_PROP = 'url'
+    TZ_PROP = 'tz'
+    PTYPE_PROP = 'ptype'
 
-    def __init__(self, name: str, friendly_name: str, url: str, tz: str):
+    name: str               # Name of provider
+    friendly_name: str      # user friendly of provider
+    url: str                # URL of provider
+    tz: ZoneInfo            # timezone
+    ptype: ProviderType     # provider type
+
+    def __init__(self, name: str, friendly_name: str, url: str, tz: str,
+                 ptype: ProviderType = ProviderType.UNKNOWN):
         """
         Constructor
 
@@ -46,14 +54,16 @@ class Provider(IProvider, ABC):
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
         :param tz: Timezone identifier of provider
+        :param ptype: type of Provider
         """
         self.name = name
         self.friendly_name = friendly_name
         self.url = url
         self.tz = ZoneInfo(tz or "UTC")
+        self.ptype = ptype
 
     def __str__(self):
-        return f"{self.name}, {self.url}"
+        return f"{self.name}, {self.ptype}, {self.url}"
 
     def get_name(self) -> str:
         """
@@ -82,3 +92,19 @@ class Provider(IProvider, ABC):
         with open(filepath, 'r') as f:
             response = f.read()
         return response
+
+    def is_forecast(self) -> bool:
+        """
+        Is this a forecast provider
+
+        :return: True if forecast provider, otherwise False
+        """
+        return self.ptype == ProviderType.FORECAST
+
+    def is_warning(self) -> bool:
+        """
+        Is this a warning provider
+
+        :return: True if warning provider, otherwise False
+        """
+        return self.ptype == ProviderType.WARNING

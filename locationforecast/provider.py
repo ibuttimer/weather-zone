@@ -42,7 +42,7 @@ from utils import dict_drill, ensure_list
 
 from forecast import (
     Forecast, ForecastEntry, GeoAddress, Location, Provider,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON
+    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, ProviderType, Warnings
 )
 
 from .constants import (
@@ -54,7 +54,6 @@ from .constants import (
     ATTRIB_MARKER
 )
 from .legends import LegendStore, load_legends
-
 
 NO_LEGEND_ADDENDUM = ''
 DAY_LEGEND_ADDENDUM = 'd'
@@ -155,9 +154,12 @@ class LocationforecastProvider(Provider):
     """
     Forecast provider
     """
-    lat_q: str      # Latitude query parameter
-    lng_q: str      # Longitude query parameter
-    attributes: Dict[str, ForecastAttrib]   # forecast parsing attributes
+    LATITUDE_PROP = 'lat_q'
+    LONGITUDE_PROP = 'lng_q'
+
+    lat_q: str  # Latitude query parameter
+    lng_q: str  # Longitude query parameter
+    attributes: Dict[str, ForecastAttrib]  # forecast parsing attributes
     cached_result: str  # cached result; used for development
 
     legends: LegendStore  # Legends
@@ -176,7 +178,7 @@ class LocationforecastProvider(Provider):
         :param tz: Timezone identifier of provider
         :param attributes: Attributes to use to parse forecast
         """
-        super().__init__(name, friendly_name, url, tz)
+        super().__init__(name, friendly_name, url, tz, ProviderType.FORECAST)
         self.lat_q = lat_q
         self.lng_q = lng_q
         self.attributes = attributes
@@ -275,6 +277,15 @@ class LocationforecastProvider(Provider):
 
         return forecast
 
+    def get_warnings(self, **kwargs) -> Warnings:
+        """
+        Get weather warnings
+
+        :return: Warnings
+        """
+        raise NotImplementedError(
+            f'{self.name} does not support weather warnings')
+
     def get_id_variant(self, legend: Dict) -> Tuple[int, str]:
         """
         Get the id and variant addendum for icon filename
@@ -329,9 +340,6 @@ class LocationforecastProvider(Provider):
             ]
 
         return WIND_DIR_ICON_URL.format(name=name)
-
-    def __str__(self):
-        return f"{self.name}, {self.url}"
 
 
 def parse_forecast(data: str, forecast: Forecast,

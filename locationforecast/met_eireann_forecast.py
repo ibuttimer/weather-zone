@@ -90,10 +90,13 @@ ME_ATTRIBUTES = {
 }
 
 
-class MetEireannProvider(LocationforecastProvider):
+class MetEireannForecastProvider(LocationforecastProvider):
     """
-    Forecast provider
+    Met Éireann forecast provider
     """
+    FROM_PROP = 'from_q'
+    TO_PROP = 'to_q'
+
     from_q: str     # From date/time query parameter
     to_q: str       # To date/time query parameter
 

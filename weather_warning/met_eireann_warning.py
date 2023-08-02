@@ -20,46 +20,22 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .constants import (
-    ADDRESS_ROUTE_NAME, LAT_LONG_ROUTE_NAME,
-    QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
-)
-from .dto import (
-    Forecast, ForecastEntry, GeoAddress, Location,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON,
-    Warnings
-)
-from .iprovider import IProvider, ProviderType
-from .loader import load_provider
-from .provider import Provider
-from .registry import Registry
-from .signals import registry_open
+from datetime import datetime
+
+from forecast import Warnings
+from .provider import WarningsProvider
 
 
-__all__ = [
-    'ADDRESS_ROUTE_NAME',
-    'LAT_LONG_ROUTE_NAME',
-    'QUERY_PARAM_LAT',
-    'QUERY_PARAM_LONG',
-    'QUERY_PARAM_FROM',
-    'QUERY_PARAM_TO',
+class MetEireannWarningProvider(WarningsProvider):
+    """
+    Met Éireann weather warning provider
+    """
 
-    'Forecast',
-    'ForecastEntry',
-    'GeoAddress',
-    'Location',
-    'TYPE_WEATHER_ICON',
-    'TYPE_WIND_DIR_ICON',
-    'Warnings',
+    def get_warnings(self, **kwargs) -> Warnings:
+        """
+        Get weather warnings
 
-    'IProvider',
-    'ProviderType',
-
-    'load_provider',
-
-    'Provider',
-
-    'Registry',
-
-    'registry_open',
-]
+        :return: Warnings
+        """
+        warnings = Warnings()
+        return warnings

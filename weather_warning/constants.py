@@ -1,3 +1,6 @@
+"""
+Constants for weather_warning app
+"""
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -20,46 +23,11 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .constants import (
-    ADDRESS_ROUTE_NAME, LAT_LONG_ROUTE_NAME,
-    QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
-)
-from .dto import (
-    Forecast, ForecastEntry, GeoAddress, Location,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON,
-    Warnings
-)
-from .iprovider import IProvider, ProviderType
-from .loader import load_provider
-from .provider import Provider
-from .registry import Registry
-from .signals import registry_open
+from pathlib import Path
 
 
-__all__ = [
-    'ADDRESS_ROUTE_NAME',
-    'LAT_LONG_ROUTE_NAME',
-    'QUERY_PARAM_LAT',
-    'QUERY_PARAM_LONG',
-    'QUERY_PARAM_FROM',
-    'QUERY_PARAM_TO',
+# name of this app
+THIS_APP = Path(__file__).resolve().parent.name
 
-    'Forecast',
-    'ForecastEntry',
-    'GeoAddress',
-    'Location',
-    'TYPE_WEATHER_ICON',
-    'TYPE_WIND_DIR_ICON',
-    'Warnings',
-
-    'IProvider',
-    'ProviderType',
-
-    'load_provider',
-
-    'Provider',
-
-    'Registry',
-
-    'registry_open',
-]
+# prefix for environment variables
+APP_ENV_PREFIX = f'{THIS_APP.upper()}_'

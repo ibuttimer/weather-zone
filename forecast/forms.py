@@ -33,7 +33,9 @@ from django_countries.widgets import CountrySelectWidget
 
 from utils import FormMixin
 
+from .iprovider import ProviderType
 from .misc import RangeArg, get_range_choices, get_provider_choices
+
 
 LINE1_FIELD = 'line1'
 LINE2_FIELD = 'line2'
@@ -78,7 +80,9 @@ class AddressForm(FormMixin, forms.Form):
         label=_("Time range"), required=True, choices=get_range_choices())
     # choices set during init
     provider = forms.ChoiceField(
-        label=_("Provider"), required=True, choices=get_provider_choices())
+        label=_("Provider"), required=True, choices=get_provider_choices(
+            ptype=ProviderType.FORECAST
+        ))
 
     @dataclass
     class Meta:

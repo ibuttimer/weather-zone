@@ -1,3 +1,6 @@
+"""
+This module is used to configure the app.
+"""
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -20,46 +23,18 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .constants import (
-    ADDRESS_ROUTE_NAME, LAT_LONG_ROUTE_NAME,
-    QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
-)
-from .dto import (
-    Forecast, ForecastEntry, GeoAddress, Location,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON,
-    Warnings
-)
-from .iprovider import IProvider, ProviderType
-from .loader import load_provider
-from .provider import Provider
-from .registry import Registry
-from .signals import registry_open
+from django.apps import AppConfig
+
+from weather_zone import WARNING_APP_NAME
 
 
-__all__ = [
-    'ADDRESS_ROUTE_NAME',
-    'LAT_LONG_ROUTE_NAME',
-    'QUERY_PARAM_LAT',
-    'QUERY_PARAM_LONG',
-    'QUERY_PARAM_FROM',
-    'QUERY_PARAM_TO',
+class WeatherWarningConfig(AppConfig):
+    """
+    This class is used to configure the app.
+    """
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = WARNING_APP_NAME
 
-    'Forecast',
-    'ForecastEntry',
-    'GeoAddress',
-    'Location',
-    'TYPE_WEATHER_ICON',
-    'TYPE_WIND_DIR_ICON',
-    'Warnings',
-
-    'IProvider',
-    'ProviderType',
-
-    'load_provider',
-
-    'Provider',
-
-    'Registry',
-
-    'registry_open',
-]
+    def ready(self):
+        # Implicitly connect signal handlers decorated with @receiver.
+        from . import signals

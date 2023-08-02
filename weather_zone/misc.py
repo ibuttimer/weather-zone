@@ -26,7 +26,9 @@ Miscellaneous functions
 
 def provider_settings_name(app_name: str, provider_name: str) -> str:
     """
-    Convert a provider name to a settings name
+    Convert a provider name to a settings name;
+    e.g. 'weather_warning' & 'met_eireann' -> 'WEATHER_WARNING_MET_EIREANN'
+
     :param app_name: application name
     :param provider_name: provider name
     :return: settings name

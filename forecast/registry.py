@@ -25,7 +25,8 @@ Provides a registry of forecast providers
 #
 from typing import TypeVar, Optional, List, Any
 
-from .iprovider import IProvider
+from .iprovider import IProvider, ProviderType
+
 
 TypeRegistry = TypeVar('TypeRegistry', bound='Registry')
 
@@ -95,13 +96,22 @@ class Registry:
             raise ValueError(f"Provider '{name}' not registered")
         return self._providers[name] if registered else None
 
-    def provider_names(self) -> List[str]:
+    def provider_names(self, ptype: ProviderType = None) -> List[str]:
         """
         Get the provider names
 
+        :param ptype: Provider type to filter on; default None
         :return: Provider names
         """
-        return list(self._providers.keys())
+        if ptype is None:
+            providers = self._providers
+        else:
+            types = [ProviderType.FORECAST, ProviderType.WARNING] \
+                if ptype == ProviderType.FORECAST_WARNING else [ptype]
+            providers = {
+                k: v for k, v in self._providers.items() if v.ptype in types}
+
+        return list(providers.keys())
 
     @property
     def providers(self) -> List[IProvider]:

@@ -1,0 +1,111 @@
+{
+  "description": "EMMA (European Multi service Meteorological Awareness) codes for Met Éireann Sea Area Weather Warning Descriptions",
+  "source": "https://www.met.ie/Open_Data/Warnings/Met_Eireann_Warning_description_June2020.pdf",
+  "codes": {
+    "EI805": {
+      "short_name": "Malin-Fair",
+      "med_name": "",
+      "long_name": "Malin Head to Fair Head"
+    },
+    "EI806": {
+      "short_name": "Fair-Belfast",
+      "med_name": "",
+      "long_name": "Fair Head to Belfast Lough"
+    },
+    "EI807": {
+      "short_name": "Belfast-Strang",
+      "med_name": "",
+      "long_name": "Belfast Lough to Strangford Lough"
+    },
+    "EI808": {
+      "short_name": "Strang-Carl",
+      "med_name": "",
+      "long_name": "Strangford Lough to Carlingford Lough"
+    },
+    "EI809": {
+      "short_name": "Carling-Howth",
+      "med_name": "",
+      "long_name": "Carlingford Lough to Howth Head"
+    },
+    "EI810": {
+      "short_name": "Howth-Wicklow",
+      "med_name": "",
+      "long_name": "Howth Head to Wicklow Head"
+    },
+    "EI811": {
+      "short_name": "Wicklow-Carns",
+      "med_name": "",
+      "long_name": "Wicklow Head to Carnsore Point"
+    },
+    "EI812": {
+      "short_name": "Carns-Hook",
+      "med_name": "",
+      "long_name": "Carnsore Point to Hook Head"
+    },
+    "EI813": {
+      "short_name": "Hook-Dungarvan",
+      "med_name": "",
+      "long_name": "Hook Head to Dungarvan"
+    },
+    "EI814": {
+      "short_name": "Dungarvan-Roches",
+      "med_name": "",
+      "long_name": "Dungarvan to Roches Point"
+    },
+    "EI815": {
+      "short_name": "Roches-Mizen",
+      "med_name": "",
+      "long_name": "Roches Point to Mizen Head"
+    },
+    "EI816": {
+      "short_name": "Mizen-Valentia",
+      "med_name": "",
+      "long_name": "Mizen Head to Valentia"
+    },
+    "EI817": {
+      "short_name": "Valentia-Loop",
+      "med_name": "",
+      "long_name": "Valentia to Loop Head"
+    },
+    "EI818": {
+      "short_name": "Loop-Slyne",
+      "med_name": "",
+      "long_name": "Loop Head to Slyne Head"
+    },
+    "EI819": {
+      "short_name": "Slyne-Erris",
+      "med_name": "",
+      "long_name": "Slyne Head to Erris Head"
+    },
+    "EI820": {
+      "short_name": "Erris-Rossan",
+      "med_name": "",
+      "long_name": "Erris Head to Rossan Point"
+    },
+    "EI821": {
+      "short_name": "Rossan-BloodyF",
+      "med_name": "",
+      "long_name": "Rossan Point to Bloody Foreland"
+    },
+    "EI822": {
+      "short_name": "BloodF-Malin",
+      "med_name": "",
+      "long_name": "Bloody Foreland to Malin Head"
+    },
+    "EI825": {
+      "short_name": "IrishSea-IOM-N",
+      "med_name": "",
+      "long_name": "Irish Sea North of Isle"
+    },
+    "EI824": {
+      "short_name": "IrishSea-IOM-S",
+      "med_name": "",
+      "long_name": "Irish Sea South of Isle of Man"
+    },
+    "EI823": {
+      "short_name": "IrishSea-South",
+      "med_name": "",
+      "long_name": "Irish Sea South of Anglesey"
+    }
+  }
+}

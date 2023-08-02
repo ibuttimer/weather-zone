@@ -30,7 +30,9 @@ from typing import Tuple, List
 
 from django.utils.translation import gettext_lazy as _
 
+from .iprovider import ProviderType
 from .registry import Registry
+
 
 DateRange = namedtuple('DateRange', ['start', 'end'])
 
@@ -102,16 +104,17 @@ def get_range_choices() -> Tuple[Tuple[str, str]]:
     ])
 
 
-def get_provider_choices() -> List[Tuple[str, str]]:
+def get_provider_choices(ptype: ProviderType) -> List[Tuple[str, str]]:
     """
     Get the provider choices for a select field
 
+    :param ptype: Provider type to get choices for
     :return: Provider choices
     """
     registry = Registry.get_registry()
     choices = [(ALL_PROVIDERS, _('All'))]
     choices.extend([
         (name, registry.get(name).friendly_name)
-        for name in registry.provider_names()
+        for name in registry.provider_names(ptype=ptype)
     ])
     return tuple(choices)
