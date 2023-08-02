@@ -38,6 +38,7 @@ PROVIDER_CFG_KEYS = {
     Provider.FRIENDLY_NAME_PROP: 'name',
     Provider.URL_PROP: 'url',
     Provider.TZ_PROP: 'tz',
+    Provider.COUNTRY_PROP: 'country',
 }
 
 

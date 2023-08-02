@@ -57,7 +57,8 @@ class WarningsProvider(Provider):
 
     regions: RegionStore  # Legends
 
-    def __init__(self, name: str, friendly_name: str, url: str, tz: str):
+    def __init__(self, name: str, friendly_name: str, url: str, tz: str,
+                 country: str):
         """
         Constructor
 
@@ -65,8 +66,10 @@ class WarningsProvider(Provider):
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
         :param tz: Timezone identifier of provider
+        :param country: ISO 3166-1 alpha-2 country code of provider
         """
-        super().__init__(name, friendly_name, url, tz, ProviderType.WARNING)
+        super().__init__(
+            name, friendly_name, url, tz, country, ProviderType.WARNING)
         self.cached_result = None
         WarningsProvider.init_regions()
 

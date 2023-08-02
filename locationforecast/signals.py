@@ -44,6 +44,7 @@ PROVIDER_CFG_KEYS = {
     MetEireannForecastProvider.FROM_PROP: 'from',
     MetEireannForecastProvider.TO_PROP: 'to',
     Provider.TZ_PROP: 'tz',
+    Provider.COUNTRY_PROP: 'country',
 }
 
 

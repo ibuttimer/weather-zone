@@ -165,7 +165,7 @@ class LocationforecastProvider(Provider):
     legends: LegendStore  # Legends
 
     def __init__(self, name: str, friendly_name: str, url: str,
-                 lat_q: str, lng_q: str, tz: str,
+                 lat_q: str, lng_q: str, tz: str, country: str,
                  attributes: Dict[str, ForecastAttrib]):
         """
         Constructor
@@ -176,9 +176,11 @@ class LocationforecastProvider(Provider):
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
         :param tz: Timezone identifier of provider
+        :param country: ISO 3166-1 alpha-2 country code of provider
         :param attributes: Attributes to use to parse forecast
         """
-        super().__init__(name, friendly_name, url, tz, ProviderType.FORECAST)
+        super().__init__(
+            name, friendly_name, url, tz, country, ProviderType.FORECAST)
         self.lat_q = lat_q
         self.lng_q = lng_q
         self.attributes = attributes

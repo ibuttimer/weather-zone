@@ -102,7 +102,7 @@ class MetEireannForecastProvider(LocationforecastProvider):
 
     def __init__(self, name: str, friendly_name: str, url: str,
                  lat_q: str, lng_q: str, from_q: str, to_q: str,
-                 tz: tzinfo):
+                 tz: str, country: str):
         """
         Constructor
 
@@ -114,9 +114,10 @@ class MetEireannForecastProvider(LocationforecastProvider):
         :param from_q: From date/time query parameter
         :param to_q: To date/time query parameter
         :param tz: Timezone identifier of provider
+        :param country: ISO 3166-1 alpha-2 country code of provider
         """
         super().__init__(
-            name, friendly_name, url, lat_q, lng_q, tz, ME_ATTRIBUTES)
+            name, friendly_name, url, lat_q, lng_q, tz, country, ME_ATTRIBUTES)
         self.from_q = from_q
         self.to_q = to_q
 

@@ -26,6 +26,8 @@ Forecast provider
 from abc import ABC
 from zoneinfo import ZoneInfo
 
+from django_countries.fields import Country
+
 from .iprovider import IProvider, ProviderType
 
 
@@ -37,16 +39,18 @@ class Provider(IProvider, ABC):
     FRIENDLY_NAME_PROP = 'friendly_name'
     URL_PROP = 'url'
     TZ_PROP = 'tz'
+    COUNTRY_PROP = 'country'
     PTYPE_PROP = 'ptype'
 
     name: str               # Name of provider
     friendly_name: str      # user friendly of provider
     url: str                # URL of provider
     tz: ZoneInfo            # timezone
+    country: Country        # country
     ptype: ProviderType     # provider type
 
     def __init__(self, name: str, friendly_name: str, url: str, tz: str,
-                 ptype: ProviderType = ProviderType.UNKNOWN):
+                 country: str, ptype: ProviderType = ProviderType.UNKNOWN):
         """
         Constructor
 
@@ -54,16 +58,18 @@ class Provider(IProvider, ABC):
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
         :param tz: Timezone identifier of provider
+        :param country: ISO 3166-1 alpha-2 country code of provider
         :param ptype: type of Provider
         """
         self.name = name
         self.friendly_name = friendly_name
         self.url = url
         self.tz = ZoneInfo(tz or "UTC")
+        self.country = Country(country)
         self.ptype = ptype
 
     def __str__(self):
-        return f"{self.name}, {self.ptype}, {self.url}"
+        return f"{self.name}, {self.country.code}, {self.ptype}, {self.url}"
 
     def get_name(self) -> str:
         """
