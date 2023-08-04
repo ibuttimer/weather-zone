@@ -14,3 +14,8 @@
 .span__provider-name {
     color: var(--accent2);
 }
+
+.img__warning-icon {
+    width: 20px;
+    height: 20px;
+}

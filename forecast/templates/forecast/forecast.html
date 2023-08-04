@@ -6,6 +6,7 @@
 {#                                  'forecast' as Forecast #}
 {#                                  'row_types' as list of row types #}
 {#                                ] #}
+{#                                'warning_list' as List[WeatherWarnings] #}
 {#                                'title' as title for page #}
 {#                                'page_heading' as heading for page #}
 {#                                'page_sub_heading' as sub-heading for page #}
@@ -21,6 +22,46 @@
 {% block head_title %}{{ title }}{% endblock %}
 
 {% block content %}
+    <div class="row mt-2 mb-2 d-flex align-items-center">
+        {% for warnings in warning_list %}
+        <div class="col-sm-2">
+            <p class="fw-bold">
+                <span class="span__provider-name">{{ warnings.provider }}</span> <span>{% translate 'Warnings' %}</span>
+            </p>
+        </div>
+            {% if warnings.marine_count %}
+            <div class="col-sm-2">
+                <p>
+                    <span>{% translate 'Marine' %}</span>
+                    <span>
+                        <img src="{% static warnings.highest_marine_level_icon %}" alt="{% translate 'Marine warning icon' %}" class="img__warning-icon">
+                    </span>
+                </p>
+            </div>
+            {% endif %}
+            {% if warnings.weather_count %}
+            <div class="col-sm-2">
+                <p>
+                    <span>{% translate 'Weather' %}</span>
+                    <span>
+                        <img src="{% static warnings.highest_weather_level_icon %}" alt="{% translate 'Weather warning icon' %}" class="img__warning-icon">
+                    </span>
+                </p>
+            </div>
+            {% endif %}
+            {% if warnings.environmental_count %}
+            <div class="col-sm-2">
+                <p>
+                    <span>{% translate 'Environmental' %}</span>
+                    <span>
+                        <img src="{% static warnings.highest_environmental_level_icon %}" alt="{% translate 'Environmental warning icon' %}" class="img__warning-icon">
+                    </span>
+                </p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
     <div class="row mt-2 mb-2">
         {% if page_heading or page_sub_heading %}
             <div class="col-12 text-center">

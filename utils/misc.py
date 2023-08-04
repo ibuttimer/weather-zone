@@ -25,7 +25,7 @@ from collections import namedtuple
 #  DEALINGS IN THE SOFTWARE.
 #
 from enum import Enum
-from typing import Union, List, Any, Callable, Optional, TypeVar, Tuple
+from typing import Union, List, Any, Callable, Optional, TypeVar, Tuple, Dict
 
 import environ
 
@@ -120,18 +120,24 @@ def find_index(
 DictVal = namedtuple('DictVal', ['found', 'value'])
 
 
-def dict_drill(obj: dict, *args, default = None) -> DictVal:
+def dict_drill(obj: Dict, *args, default: Any = None,
+               set_new: bool = False, new_value: Any = None) -> DictVal:
     """
     Drill into a dict object to retrieve a value
     :param obj: dict object
     :param args: attrib names
     :param default: default value to return if not found
+    :param set_new: if True and found, set new value
+    :param new_value: value to set
     :return: tuple of success flag and value
     """
     success = False
+    last_idx = len(args) - 1
     value = obj
-    for key in args:
+    for idx, key in enumerate(args):
         if key in value:
+            if set_new and idx == last_idx:
+                value[key] = new_value
             value = value[key]
         else:
             value = default

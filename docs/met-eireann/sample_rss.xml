@@ -10,48 +10,48 @@ Note: Moderate means ‘Status Yellow’, Severe means ‘Status Orange’ and e
     <language>en</language>
     <item>
       <title>Blight Advisory for Ireland</title>
-      <link>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm010_Blight.xml</link>
+      <link>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm010_Blight.xml</link>
       <description>A potato blight advisory is in effect. For details please see the Farming Commentary under the Forecasts tab.</description>
       <author>forecasts@met.ie (Met Éireann)</author>
       <category>Environmental</category>
-      <guid>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm010_Blight.xml</guid>
+      <guid>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm010_Blight.xml</guid>
       <pubDate>Tue, 01 Aug 2023 11:05:22 GMT</pubDate>
     </item>
     <item>
-      <title>Small Craft warning from Carlingford Lough to Roche's Point to Rossan Point</title>
-      <link>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm022_SmallCraft.xml</link>
-      <description>Southeast winds veering southwest will reach force 6 at times</description>
-      <author>forecasts@met.ie (Met Éireann)</author>
-      <category>Marine</category>
-      <guid>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm022_SmallCraft.xml</guid>
-      <pubDate>Tue, 01 Aug 2023 10:48:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>Gale warning from Roche's Point to Mizen Head to Loop Head</title>
-      <link>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm017_GaleStorm.xml</link>
-      <description>Southwest winds veering northwest will reach gale force 8 at times</description>
-      <author>forecasts@met.ie (Met Éireann)</author>
-      <category>Marine</category>
-      <guid>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm017_GaleStorm.xml</guid>
-      <pubDate>Tue, 01 Aug 2023 10:48:49 GMT</pubDate>
-    </item>
-    <item>
       <title>Small Craft warning for all coasts of Ireland</title>
-      <link>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm023_SmallCraft.xml</link>
-      <description>Cyclonic variable winds becoming mainly northerly by noon on Wednesday will reach force 6 or higher at times</description>
+      <link>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm021_SmallCraft.xml</link>
+      <description>Northerly winds will reach force 6 or higher at times</description>
       <author>forecasts@met.ie (Met Éireann)</author>
       <category>Marine</category>
-      <guid>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm023_SmallCraft.xml</guid>
-      <pubDate>Tue, 01 Aug 2023 10:48:49 GMT</pubDate>
+      <guid>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm021_SmallCraft.xml</guid>
+      <pubDate>Wed, 02 Aug 2023 10:57:17 GMT</pubDate>
     </item>
     <item>
-      <title>Small Craft warning from Mizen Head to Erris Head to Belfast Lough</title>
-      <link>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm024_SmallCraft.xml</link>
-      <description>North to northwest winds will reach force 6 or higher at times.</description>
+      <title>Small Craft warning from Roche's Point to Bloody Foreland to Carnsore Point</title>
+      <link>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm022_SmallCraft.xml</link>
+      <description>North to northwest winds will reach force 6 at times. </description>
       <author>forecasts@met.ie (Met Éireann)</author>
       <category>Marine</category>
-      <guid>https://cap.met.ie//2.49.0.1.372.0.230801134243.N_Norm024_SmallCraft.xml</guid>
-      <pubDate>Tue, 01 Aug 2023 13:42:43 GMT</pubDate>
+      <guid>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm022_SmallCraft.xml</guid>
+      <pubDate>Wed, 02 Aug 2023 10:57:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>Small Craft warning from Malin Head to Strangford Lough to Carnsore Point</title>
+      <link>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm023_SmallCraft.xml</link>
+      <description>Northwest winds will occasionally reach force 6. </description>
+      <author>forecasts@met.ie (Met Éireann)</author>
+      <category>Marine</category>
+      <guid>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm023_SmallCraft.xml</guid>
+      <pubDate>Wed, 02 Aug 2023 14:27:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>Small Craft warning from Hook Head to Mizen Head to Erris Head</title>
+      <link>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm024_SmallCraft.xml</link>
+      <description>Southerly winds will increase to force 6 or higher.</description>
+      <author>forecasts@met.ie (Met Éireann)</author>
+      <category>Marine</category>
+      <guid>https://cap.met.ie//2.49.0.1.372.0.230802142715.N_Norm024_SmallCraft.xml</guid>
+      <pubDate>Wed, 02 Aug 2023 14:27:15 GMT</pubDate>
     </item>
     <atom:link href="https://www.met.ie/warningsxml/rss.xml" rel="self" 
        type="application/rss+xml" />

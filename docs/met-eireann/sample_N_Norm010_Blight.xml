@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="https://cap.met.ie/cap-en-style.xsl"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
-  <identifier>2.49.0.1.372.0.230801134243.N_Norm010_Blight</identifier>
+  <identifier>2.49.0.1.372.0.230802142715.N_Norm010_Blight</identifier>
   <sender>forecasts@met.ie</sender>
-  <sent>2023-08-01T14:42:43+01:00</sent>
+  <sent>2023-08-02T15:27:15+01:00</sent>
   <status>Actual</status>
   <msgType>Alert</msgType>
   <scope>Public</scope>
@@ -16,8 +16,8 @@
     <urgency>Immediate</urgency>
     <severity>Moderate</severity>
     <certainty>Likely</certainty>
-    <effective>2023-08-01T14:42:43+01:00</effective>
-    <onset>2023-08-01T14:42:33+01:00</onset>
+    <effective>2023-08-02T15:27:15+01:00</effective>
+    <onset>2023-08-02T15:27:05+01:00</onset>
     <expires>2023-08-03T15:00:00+01:00</expires>
     <senderName>Met Éireann</senderName>
     <headline>Blight Advisory for Ireland</headline>

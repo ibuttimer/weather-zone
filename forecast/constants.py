@@ -54,6 +54,7 @@ ADDRESS_FORM_CTX = "address_form"
 SUBMIT_URL_CTX = "submit_url"
 FORECAST_CTX = "forecast"
 FORECAST_LIST_CTX = "forecast_list"
+WARNING_LIST_CTX = "warning_list"
 ROW_TYPES_CTX = "row_types"
 TITLE_CTX = 'title'
 PAGE_HEADING_CTX = 'page_heading'

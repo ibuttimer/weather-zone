@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="https://cap.met.ie/cap-en-style.xsl"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
-  <identifier>2.49.0.1.372.0.230802142715.N_Norm022_SmallCraft</identifier>
+  <identifier>2.49.0.1.372.0.230802142715.N_Norm023_SmallCraft</identifier>
   <sender>forecasts@met.ie</sender>
   <sent>2023-08-02T15:27:15+01:00</sent>
   <status>Actual</status>
@@ -17,11 +17,11 @@
     <severity>Moderate</severity>
     <certainty>Likely</certainty>
     <effective>2023-08-02T15:27:15+01:00</effective>
-    <onset>2023-08-03T00:00:00+01:00</onset>
-    <expires>2023-08-04T00:00:00+01:00</expires>
+    <onset>2023-08-04T00:00:00+01:00</onset>
+    <expires>2023-08-04T06:00:00+01:00</expires>
     <senderName>Met Éireann</senderName>
-    <headline>Small Craft warning from Roche's Point to Bloody Foreland to Carnsore Point</headline>
-    <description>North to northwest winds will reach force 6 at times. </description>
+    <headline>Small Craft warning from Malin Head to Strangford Lough to Carnsore Point</headline>
+    <description>Northwest winds will occasionally reach force 6. </description>
     <instruction></instruction>
     <parameter>
       <valueName>awareness_level</valueName>
@@ -32,22 +32,14 @@
       <value>1; Wind</value>
     </parameter>
     <area>
-      <areaDesc>from Roche's Point to Bloody Foreland to Carnsore Point</areaDesc>
+      <areaDesc>from Malin Head to Strangford Lough to Carnsore Point</areaDesc>
       <geocode>
         <valueName>EMMA_ID</valueName>
         <value>EI807</value>
       </geocode>
       <geocode>
         <valueName>EMMA_ID</valueName>
-        <value>EI822</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
         <value>EI809</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
-        <value>EI820</value>
       </geocode>
       <geocode>
         <valueName>EMMA_ID</valueName>
@@ -59,35 +51,11 @@
       </geocode>
       <geocode>
         <valueName>EMMA_ID</valueName>
-        <value>EI818</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
         <value>EI805</value>
       </geocode>
       <geocode>
         <valueName>EMMA_ID</valueName>
-        <value>EI816</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
-        <value>EI815</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
-        <value>EI821</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
-        <value>EI819</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
         <value>EI808</value>
-      </geocode>
-      <geocode>
-        <valueName>EMMA_ID</valueName>
-        <value>EI817</value>
       </geocode>
       <geocode>
         <valueName>EMMA_ID</valueName>

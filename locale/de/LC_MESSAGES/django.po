@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 11:21+0100\n"
+"POT-Creation-Date: 2023-08-03 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,10 +36,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\base\context_processors.py:68
-#, fuzzy
 #| msgid "Set language"
 msgid "Change language"
-msgstr "Sprache einstellen"
+msgstr "Sprache ändern"
 
 #: .\base\templates\base\set_language.html:35
 msgid "Set"
@@ -49,95 +48,122 @@ msgstr "Setzen"
 msgid "Set language"
 msgstr "Sprache einstellen"
 
-#: .\forecast\forms.py:64
+#: .\forecast\forms.py:66
 msgid "Line 1"
 msgstr "Linie 1"
 
-#: .\forecast\forms.py:66
+#: .\forecast\forms.py:68
 msgid "Line 2"
 msgstr "Linie 2"
 
-#: .\forecast\forms.py:68
+#: .\forecast\forms.py:70
 msgid "City"
 msgstr "Stadt"
 
-#: .\forecast\forms.py:70
+#: .\forecast\forms.py:72
 msgid "State/Province/Region"
 msgstr "Staat/Provinz/Region"
 
-#: .\forecast\forms.py:72
+#: .\forecast\forms.py:74
 msgid "Postcode"
 msgstr "Postleitzahl"
 
-#: .\forecast\forms.py:74
+#: .\forecast\forms.py:76
 msgid "(Select country)"
 msgstr "(Land auswählen)"
 
-#: .\forecast\forms.py:78
+#: .\forecast\forms.py:80
 msgid "Time range"
 msgstr "Zeitspanne"
 
-#: .\forecast\forms.py:81
+#: .\forecast\forms.py:83
 msgid "Provider"
 msgstr "Anbieter"
 
-#: .\forecast\forms.py:136
+#: .\forecast\forms.py:140
 msgid "No fields entered"
 msgstr "Keine Felder eingegeben"
 
-#: .\forecast\misc.py:92
+#: .\forecast\misc.py:94
 msgid "Today"
 msgstr "Heute"
 
-#: .\forecast\misc.py:93
+#: .\forecast\misc.py:95
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#: .\forecast\misc.py:94
+#: .\forecast\misc.py:96
 msgid "Next 2 days"
 msgstr "Nächste 2 Tage"
 
-#: .\forecast\misc.py:95
+#: .\forecast\misc.py:97
 msgid "Next 3 days"
 msgstr "Nächste 3 Tage"
 
-#: .\forecast\misc.py:96
+#: .\forecast\misc.py:98
 msgid "Next 4 days"
 msgstr "Nächste 4 Tage"
 
-#: .\forecast\misc.py:97
+#: .\forecast\misc.py:99
 msgid "Next 5 days"
 msgstr "Nächste 5 Tage"
 
-#: .\forecast\misc.py:98
+#: .\forecast\misc.py:100
 msgid "Tomorrow 2 days"
 msgstr "Morgen 2 Tage"
 
-#: .\forecast\misc.py:99
+#: .\forecast\misc.py:101
 msgid "Tomorrow 3 days"
 msgstr "Morgen 3 Tage"
 
-#: .\forecast\misc.py:100
+#: .\forecast\misc.py:102
 msgid "Tomorrow 4 days"
 msgstr "Morgen 4 Tage"
 
-#: .\forecast\misc.py:101
+#: .\forecast\misc.py:103
 msgid "All available"
 msgstr "Alles Verfügbar"
 
-#: .\forecast\misc.py:112
+#: .\forecast\misc.py:115
 msgid "All"
 msgstr "Alle"
+
+#: .\forecast\templates\forecast\forecast.html:29
+msgid "Warnings"
+msgstr "Warnungen"
+
+#: .\forecast\templates\forecast\forecast.html:35
+msgid "Marine"
+msgstr "Marineinfanterist"
+
+#: .\forecast\templates\forecast\forecast.html:37
+msgid "Marine warning icon"
+msgstr "Symbol für Meereswarnung"
+
+#: .\forecast\templates\forecast\forecast.html:45
+msgid "Weather"
+msgstr "Wetter"
+
+#: .\forecast\templates\forecast\forecast.html:47
+msgid "Weather warning icon"
+msgstr "Wetterwarnungssymbol"
+
+#: .\forecast\templates\forecast\forecast.html:55
+msgid "Environmental"
+msgstr "Umweltfreundlich"
+
+#: .\forecast\templates\forecast\forecast.html:57
+msgid "Environmental warning icon"
+msgstr "Symbol für Umweltwarnung"
 
 #: .\forecast\views.py:177
 msgid "Temperature"
 msgstr "Temperatur"
 
 #: .\forecast\views.py:180
-#, fuzzy
 #| msgid "Forecast"
 msgid "Precipitation"
-msgstr "Prognosestandort"
+msgstr "Niederschlag"
 
 #: .\forecast\views.py:183
 msgid "Precipitation Probability"
@@ -160,7 +186,6 @@ msgid "Wind Gust"
 msgstr "Windböe"
 
 #: .\forecast\views.py:293
-#, fuzzy
 #| msgid "Forecast"
 msgid "Forecast location"
 msgstr "Prognosestandort"
@@ -173,7 +198,7 @@ msgstr "Adresse des prognostizierten Standorts"
 msgid "Submit"
 msgstr "Einreichen"
 
-#: .\forecast\views.py:380
+#: .\forecast\views.py:383
 msgid "Location forecast"
 msgstr "Standortprognose"
 
@@ -209,14 +234,90 @@ msgstr ""
 "Diese Website dient nur zu Bildungszwecken. Geben Sie <em>keine gültigen "
 "persönlichen Daten</em> ein."
 
-#: .\weather_zone\settings.py:199
+#: .\weather_warning\misc.py:44
+msgid "Minor"
+msgstr "Gering"
+
+#: .\weather_warning\misc.py:45
+msgid "Moderate"
+msgstr "Mäßig"
+
+#: .\weather_warning\misc.py:46
+msgid "Severe"
+msgstr "Schwer"
+
+#: .\weather_warning\misc.py:47
+msgid "Extreme"
+msgstr "Extrem"
+
+#: .\weather_warning\misc.py:140
+#| msgid "Wind Gust"
+msgid "Winwd"
+msgstr "Wind"
+
+#: .\weather_warning\misc.py:141
+msgid "Snow/Ice"
+msgstr "Schnee/Eis"
+
+#: .\weather_warning\misc.py:142
+msgid "Thunderstorm"
+msgstr "Gewitter"
+
+#: .\weather_warning\misc.py:143
+msgid "Fog"
+msgstr "Nebel"
+
+#: .\weather_warning\misc.py:144
+#| msgid "Temperature"
+msgid "High temperature"
+msgstr "Hohe temperatur"
+
+#: .\weather_warning\misc.py:145
+#| msgid "Temperature"
+msgid "Low temperature"
+msgstr "Niedrige temperatur"
+
+#: .\weather_warning\misc.py:146
+msgid "Coastal event"
+msgstr "Küstenveranstaltung"
+
+#: .\weather_warning\misc.py:147
+#| msgid "Forecast"
+msgid "Forest fire"
+msgstr "Waldbrand"
+
+#: .\weather_warning\misc.py:148
+msgid "Avalanches"
+msgstr "Lawinen"
+
+#: .\weather_warning\misc.py:149
+msgid "Rain"
+msgstr "Regen"
+
+#: .\weather_warning\misc.py:150
+msgid "Flooding"
+msgstr "Überschwemmung"
+
+#: .\weather_warning\misc.py:151
+msgid "Rain/Flood"
+msgstr "Regen/Überschwemmung"
+
+#: .\weather_warning\misc.py:152
+msgid "Blight"
+msgstr "Kartoffelfäule"
+
+#: .\weather_warning\misc.py:153
+msgid "Advisory"
+msgstr "Beratend"
+
+#: .\weather_zone\settings.py:205
 msgid "English"
 msgstr "Englisch"
 
-#: .\weather_zone\settings.py:200
+#: .\weather_zone\settings.py:206
 msgid "German"
 msgstr "Deutsch"
 
-#: .\weather_zone\settings.py:201
+#: .\weather_zone\settings.py:207
 msgid "French"
 msgstr "Französisch"

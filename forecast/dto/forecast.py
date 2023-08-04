@@ -26,7 +26,10 @@ Data transfer objects for forecast module
 from collections import namedtuple
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Dict, Any, Tuple, Set, Callable
+from typing import List, Dict, Any, Tuple, Set, Callable, Optional
+
+from weather_warning.misc import Severity
+
 
 AttribRow = namedtuple('AttribRow',
                        # display text or callable, attribute name,
@@ -47,11 +50,13 @@ class GeoAddress:
     Geocoded address
     """
     FORMATTED_ADDRESS_FIELD = 'formatted_address'
+    COUNTRY_FIELD = 'country'
     LAT_FIELD = 'lat'
     LNG_FIELD = 'lng'
     IS_VALID_FIELD = 'is_valid'
 
     formatted_address: str
+    country: str        # ISO 3166-1 alpha-2 country code
     lat: float
     lng: float
     is_valid: bool
@@ -59,10 +64,11 @@ class GeoAddress:
     def as_dict(self) -> Dict[str, Any]:
         """
         Convert a GeoAddress to a map
-        :return: map of GeoAddress
+        :return: GeoAddress map
         """
         return {
             GeoAddress.FORMATTED_ADDRESS_FIELD: self.formatted_address,
+            GeoAddress.COUNTRY_FIELD: self.country,
             GeoAddress.LAT_FIELD: self.lat,
             GeoAddress.LNG_FIELD: self.lng,
             GeoAddress.IS_VALID_FIELD: self.is_valid
@@ -76,6 +82,7 @@ class GeoAddress:
         """
         return [
             (GeoAddress.FORMATTED_ADDRESS_FIELD, ''),
+            (GeoAddress.COUNTRY_FIELD, ''),
             (GeoAddress.LAT_FIELD, 0.0),
             (GeoAddress.LNG_FIELD, 0.0),
             (GeoAddress.IS_VALID_FIELD, False)
@@ -254,10 +261,10 @@ class Forecast:
     forecast_attribs: Set[str]  # set of available forecast attributes
     missing_attribs: Set[str]   # set of missing attributes
 
-    def __init__(self, address: GeoAddress):
+    def __init__(self, address: GeoAddress, provider: str = ''):
         self.address = address
         self.created = datetime.now()
-        self.provider = ''
+        self.provider = provider
         self.units = {}
         self.time_series = []
         self.attrib_series: {}
@@ -323,10 +330,3 @@ class Forecast:
                 prev_value = value
 
             self.attrib_series.append(row)
-
-
-class Warnings:
-    """
-    Weather warnings
-    """
-    created: datetime  # date/time warnings was created

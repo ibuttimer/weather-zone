@@ -84,8 +84,7 @@ class WarningsProvider(Provider):
             WarningsProvider.regions = load_regions()
         return WarningsProvider.regions
 
-    def url_params(self, lat: float, lng: float, start: datetime = None,
-                   end: datetime = None, **kwargs) -> dict:
+    def url_params(self, **kwargs) -> dict:
         """
         Get query params of weather warnings url
 

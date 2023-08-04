@@ -1,0 +1,147 @@
+{
+  "alert": {
+    "@xmlns": "urn:oasis:names:tc:emergency:cap:1.2",
+    "identifier": "2.49.0.1.372.0.230803052032.N_Norm010_Blight",
+    "sender": "forecasts@met.ie",
+    "sent": "2023-08-03T06:20:32+01:00",
+    "status": "Actual",
+    "msgType": "Alert",
+    "scope": "Public",
+    "incidents": null,
+    "info": {
+      "language": "en-GB",
+      "category": "Env",
+      "event": "Blight",
+      "responseType": "Monitor",
+      "urgency": "Immediate",
+      "severity": "Moderate",
+      "certainty": "Likely",
+      "effective": "2023-08-03T06:20:32+01:00",
+      "onset": "2023-08-03T06:20:24+01:00",
+      "expires": "2023-08-03T15:00:00+01:00",
+      "senderName": "Met Éireann",
+      "headline": "Blight Advisory for Ireland",
+      "description": "A potato blight advisory is in effect. For details please see the Farming Commentary under the Forecasts tab.",
+      "instruction": null,
+      "parameter": [
+        {
+          "valueName": "awareness_level",
+          "value": "2; yellow; Moderate"
+        },
+        {
+          "valueName": "awareness_type",
+          "value": "21; blight"
+        }
+      ],
+      "area": {
+        "areaDesc": "Ireland",
+        "geocode": [
+          {
+            "valueName": "FIPS",
+            "value": "EI30"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI21"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI31"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI23"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI19"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI18"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI01"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI15"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI29"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI13"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI12"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI07"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI02"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI22"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI06"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI26"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI27"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI16"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI03"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI04"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI11"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI25"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI24"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI14"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI20"
+          },
+          {
+            "valueName": "FIPS",
+            "value": "EI10"
+          }
+        ]
+      }
+    }
+  }
+}

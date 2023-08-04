@@ -45,16 +45,16 @@ from utils import (
 from .constants import (
     THIS_APP, ADDRESS_FORM_CTX, SUBMIT_URL_CTX, ADDRESS_ROUTE_NAME,
     SUBMIT_BTN_TEXT_CTX, TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX,
-    FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX, DISPLAY_ROUTE_NAME,
-    QUERY_TIME_RANGE, QUERY_PROVIDER
+    FORECAST_LIST_CTX, FORECAST_CTX, WARNING_LIST_CTX, ROW_TYPES_CTX,
+    DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER
 )
 from .convert import Units, speed_conversion
-from .forecast import generate_forecast
+from .forecast import generate_forecast, generate_warnings
 from .forms import AddressForm
 from .geocoding import geocode_address
-from .dto import (
-    GeoAddress, Forecast, AttribRow, ForecastEntry, TYPE_WEATHER_ICON,
-    TYPE_HDR, TYPE_WIND_DIR_ICON
+from forecast.dto import (
+    GeoAddress, Forecast, AttribRow, ForecastEntry, WeatherWarnings,
+    TYPE_WEATHER_ICON, TYPE_HDR, TYPE_WIND_DIR_ICON
 )
 from .misc import RangeArg, ALL_PROVIDERS
 from .registry import Registry
@@ -347,15 +347,18 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
         geo_address, provider=provider,
         start=dates.start, end=dates.end, **forecast_kwargs)
 
-    template_path, context = forecast_render_info(forecasts)
+    warnings = generate_warnings(geo_address, provider=provider)
+
+    template_path, context = forecast_render_info(forecasts, warnings)
 
     return render(request, template_path, context=context)
 
 
-def forecast_render_info(forecasts: List[Forecast]):
+def forecast_render_info(forecasts: List[Forecast], warnings: List[WeatherWarnings]):
     """
     Get info to render a list of forecasts
     :param forecasts: Forecast list
+    :param warnings: WeatherWarnings list
     :return: tuple of template path and context
     """
     formatted_addr = None
@@ -382,7 +385,8 @@ def forecast_render_info(forecasts: List[Forecast]):
         TITLE_CTX: title,
         PAGE_HEADING_CTX: title,
         PAGE_SUB_HEADING_CTX: formatted_addr,
-        FORECAST_LIST_CTX: forecast_list
+        FORECAST_LIST_CTX: forecast_list,
+        WARNING_LIST_CTX: warnings
     }
 
     return app_template_path(THIS_APP, "forecast.html"), context

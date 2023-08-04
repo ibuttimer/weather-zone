@@ -31,9 +31,15 @@ from django.conf import settings
 
 from utils import dict_drill
 
-from .dto import GeoAddress
+from forecast.dto import GeoAddress
 
 MULTI_SPACE_RE = re.compile(r'\s+')
+
+# https://developers.google.com/maps/documentation/geocoding/requests-geocoding#GeocodingResponses
+FORMATTED_ADDR_DATA_PATH = ['formatted_address']
+ADDR_COMPONENTS_DATA_PATH = ['address_components']
+LATITUDE_DATA_PATH = ['geometry', 'location', 'lat']
+LONGITUDE_DATA_PATH = ['geometry', 'location', 'lng']
 
 
 class GoogleMapsClient:
@@ -51,7 +57,7 @@ class GoogleMapsClient:
 def geocode_address(address: List[str]) -> GeoAddress:
     """
     Geocode an address
-    :param address: address to geocode
+    :param address: list of address fields
     :return: geocoded address
     """
     # https://developers.google.com/maps/documentation/geocoding/overview
@@ -68,12 +74,21 @@ def geocode_address(address: List[str]) -> GeoAddress:
 
     is_valid = len(geocode_result) > 0
     result = geocode_result[0] if is_valid else {}
+
+    # determine country
+    country = next(
+        filter(lambda c: 'country' in c['types'],
+               dict_drill(
+                   result, *ADDR_COMPONENTS_DATA_PATH, default=[]).value),
+        {'short_name': ''})['short_name']
+
     return GeoAddress(
         formatted_address=dict_drill(
-            result, 'formatted_address', default='').value,
+            result, *FORMATTED_ADDR_DATA_PATH, default='').value,
+        country=country,
         lat=dict_drill(
-            result, 'geometry', 'location', 'lat', default=0.0).value,
+            result, *LATITUDE_DATA_PATH, default=0.0).value,
         lng=dict_drill(
-            result, 'geometry', 'location', 'lng', default=0.0).value,
+            result, *LONGITUDE_DATA_PATH, default=0.0).value,
         is_valid=is_valid
     )

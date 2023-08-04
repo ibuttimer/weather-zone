@@ -68,33 +68,14 @@ class Provider(IProvider, ABC):
         self.country = Country(country)
         self.ptype = ptype
 
-    def __str__(self):
-        return f"{self.name}, {self.country.code}, {self.ptype}, {self.url}"
-
-    def get_name(self) -> str:
-        """
-        Get the name of the provider
-
-        :return: Name of provider
-        """
-        return self.name
-
-    def get_url(self) -> str:
-        """
-        Get the url of the provider
-
-        :return: URL of provider
-        """
-        return self.url
-
-    def read_cached_resp(self, filepath: str) -> str:
+    @staticmethod
+    def read_cached_resp(filepath: str) -> str:
         """
         Read cached response
 
         :param filepath: Path to cached response
         :return: Cached response
         """
-        response = None
         with open(filepath, 'r') as f:
             response = f.read()
         return response
@@ -105,7 +86,9 @@ class Provider(IProvider, ABC):
 
         :return: True if forecast provider, otherwise False
         """
-        return self.ptype == ProviderType.FORECAST
+        return self.ptype in [
+            ProviderType.FORECAST, ProviderType.FORECAST_WARNING
+        ]
 
     def is_warning(self) -> bool:
         """
@@ -113,4 +96,18 @@ class Provider(IProvider, ABC):
 
         :return: True if warning provider, otherwise False
         """
-        return self.ptype == ProviderType.WARNING
+        return self.ptype in [
+            ProviderType.WARNING, ProviderType.FORECAST_WARNING
+        ]
+
+    def is_country_supported(self, country: str) -> bool:
+        """
+        Is the country supported by this provider
+
+        :param country: ISO 3166-1 alpha-2 country code
+        :return: True if supported, otherwise False
+        """
+        return self.country.code == country
+
+    def __str__(self):
+        return f"{self.name}, {self.country.code}, {self.ptype}, {self.url}"

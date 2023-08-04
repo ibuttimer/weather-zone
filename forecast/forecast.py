@@ -26,7 +26,7 @@ Forecasting module
 from datetime import datetime
 from typing import Optional, List
 
-from .dto import GeoAddress, Forecast
+from forecast.dto import GeoAddress, Forecast, WeatherWarnings
 from .provider import ProviderType
 from .registry import Registry
 
@@ -55,3 +55,28 @@ def generate_forecast(
         )
 
     return forecasts
+
+
+def generate_warnings(geo_address: GeoAddress,
+                      provider: str = None, **kwargs) -> List[WeatherWarnings]:
+    """
+    Get a list of weather warnings
+    :param geo_address: geographic address
+    :param provider: name of forecast provider; default is all providers
+    :param kwargs: Additional arguments
+    :return: list of weather warnings
+    """
+    registry = Registry.get_registry()
+    warnings = []
+    providers = [provider] if provider is not None \
+        else registry.provider_names(ptype=ProviderType.WARNING)
+
+    for name in providers:
+        provider = registry.get(name)
+        # filter providers by country
+        if provider.is_country_supported(geo_address.country):
+            warnings.append(
+                provider.get_warnings(**kwargs)
+            )
+
+    return warnings

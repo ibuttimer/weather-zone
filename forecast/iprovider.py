@@ -27,7 +27,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from enum import Enum, auto
 
-from .dto import Forecast, GeoAddress, Warnings
+from .dto import Forecast, GeoAddress, WeatherWarnings
 
 
 class ProviderType(Enum):
@@ -72,9 +72,9 @@ class IProvider(ABC):
         """
 
     @abstractmethod
-    def get_warnings(self, **kwargs) -> Warnings:
+    def get_warnings(self, **kwargs) -> WeatherWarnings:
         """
         Get weather warnings
 
-        :return: Warnings
+        :return: WeatherWarnings
         """

@@ -42,7 +42,7 @@ from utils import dict_drill, ensure_list
 
 from forecast import (
     Forecast, ForecastEntry, GeoAddress, Location, Provider,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, ProviderType, Warnings
+    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, ProviderType, WeatherWarnings
 )
 
 from .constants import (
@@ -241,8 +241,7 @@ class LocationforecastProvider(Provider):
         wind_dir_icon_attrib = kwargs.get(TYPE_WIND_DIR_ICON, None)
 
         # request forecast
-        forecast = Forecast(geo_address)
-        forecast.provider = self.friendly_name
+        forecast = Forecast(geo_address, provider=self.friendly_name)
 
         forecast_resp = None
         if self.cached_result:
@@ -279,11 +278,11 @@ class LocationforecastProvider(Provider):
 
         return forecast
 
-    def get_warnings(self, **kwargs) -> Warnings:
+    def get_warnings(self, **kwargs) -> WeatherWarnings:
         """
         Get weather warnings
 
-        :return: Warnings
+        :return: WeatherWarnings
         """
         raise NotImplementedError(
             f'{self.name} does not support weather warnings')

@@ -55,5 +55,12 @@ def registry_open_handler(sender, **kwargs):
 
     print(f"{THIS_APP}: Registry open signal received from {sender}")
 
+    def finalise_config(provider: Provider):
+        cached_result_setting = f'CACHED_{provider.name.upper()}_RESULT'
+        cached_result = getattr(settings, cached_result_setting, None)
+        if cached_result:
+            provider.cached_result = cached_result
+
     load_provider(registry, settings.WARNING_PROVIDERS, THIS_APP,
-                  'WARNING_APPS_SETTINGS', PROVIDER_CFG_KEYS)
+                  'WARNING_APPS_SETTINGS', PROVIDER_CFG_KEYS,
+                  finish_cfg=finalise_config)
