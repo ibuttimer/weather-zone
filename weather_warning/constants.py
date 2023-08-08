@@ -25,9 +25,21 @@ Constants for weather_warning app
 #
 from pathlib import Path
 
+from utils import append_slash, url_path
 
 # name of this app
 THIS_APP = Path(__file__).resolve().parent.name
 
 # prefix for environment variables
 APP_ENV_PREFIX = f'{THIS_APP.upper()}_'
+
+
+# routes related
+COUNTRY_URL = url_path("country", "<str:country>")
+PROVIDER_URL = url_path("provider", "<str:provider>")
+
+COUNTRY_ROUTE_NAME = "country"
+PROVIDER_ROUTE_NAME = "provider"
+
+# general context
+WARNING_LIST_CTX = "warning_list"

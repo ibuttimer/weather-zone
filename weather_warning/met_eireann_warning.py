@@ -34,8 +34,8 @@ from django.conf import settings
 from base import get_request_headers
 from forecast import WeatherWarnings
 from forecast.dto import WarningEntry
-from utils import dict_drill
-from .misc import Severity
+from utils import dict_drill, ensure_list
+from .misc import Severity, Category
 
 from .provider import WarningsProvider
 from .misc import Severity
@@ -64,6 +64,7 @@ WARNINGENTRY_KEY_DATA_PATH = {
         'awareness_level': WarningEntry.AWARENESS_LEVEL_KEY,
         'awareness_type': WarningEntry.AWARENESS_TYPE_KEY,
     },
+    ('alert', 'info', 'area', 'areaDesc'): WarningEntry.AREA_DESC_KEY,
     ('alert', 'info', 'area', 'geocode'): WarningEntry.AREAS_KEY,
 }
 
@@ -87,7 +88,8 @@ class MetEireannWarningProvider(WarningsProvider):
         params = self.url_params(**kwargs)
 
         # request forecast
-        weather_warnings = WeatherWarnings(provider=self.friendly_name)
+        weather_warnings = WeatherWarnings(provider_id=self.name,
+                                           provider=self.friendly_name)
 
         if self.cached_result:
             # cached mode
@@ -101,15 +103,17 @@ class MetEireannWarningProvider(WarningsProvider):
         # load summary
         summary = reader(url, params)
         if summary:
-            # load warnings
-            for item in dict_drill(
-                    summary, *SUMMARY_ITEMS_DATA_PATH, default=[]).value:
+            # load warnings (dict if only 1 else list)
+            items = dict_drill(
+                summary, *SUMMARY_ITEMS_DATA_PATH, default=[]).value
+            for item in ensure_list(items):
 
                 link = warning_link(self, item)     # link to details
 
                 warning_info = reader(link, params)
                 if warning_info:
-                    # take category from summary as in the details 'marine' is 'met'
+                    # take category from summary as in the details 'marine' is
+                    # 'met'
                     dict_drill(
                         warning_info, *ITEM_CATEGORY_DATA_PATH, set_new=True,
                         new_value=dict_drill(
@@ -120,7 +124,7 @@ class MetEireannWarningProvider(WarningsProvider):
 
                     severity = Severity.from_awareness(warning.awareness_level)
                     warning.icon = severity.get_small_crafts_icon() \
-                        if warning.is_small_craft() else severity.get_icon()
+                        if warning.is_small_craft else severity.get_icon()
 
                     weather_warnings.add_warning(warning)
 
@@ -148,8 +152,9 @@ def parse_warning(provider: WarningsProvider, data: Dict) -> WarningEntry:
             val_map = we_k
             for param in val:
                 val_name, val_value = read_value_name_val(param)
-                we_k = val_map.get(val_name)
-                values[we_k] = val_value
+                we_k = val_map.get(val_name, None)
+                if we_k:
+                    values[we_k] = val_value
             we_k = None
         elif we_k == WarningEntry.AREAS_KEY:
             # read affected areas
@@ -162,6 +167,10 @@ def parse_warning(provider: WarningsProvider, data: Dict) -> WarningEntry:
                     else 'long_name']
                 )
             val = areas
+        elif we_k == WarningEntry.CATEGORY_KEY:
+            val = Category.from_name(val)
+        elif we_k == WarningEntry.SEVERITY_KEY:
+            val = Severity.from_name(val)
 
         if we_k:
             values[we_k] = val

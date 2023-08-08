@@ -2,14 +2,18 @@
 
 <!-- forecast.html start -->
 {# --- template variable defines for includes --- #}
-{# address form template expects: 'forecast_list' as List[ #}
-{#                                  'forecast' as Forecast #}
-{#                                  'row_types' as list of row types #}
-{#                                ] #}
-{#                                'warning_list' as List[WeatherWarnings] #}
-{#                                'title' as title for page #}
-{#                                'page_heading' as heading for page #}
-{#                                'page_sub_heading' as sub-heading for page #}
+{# forecast template expects: 'forecast_list' as List[ #}
+{#                              'forecast' as Forecast #}
+{#                              'row_types' as list of row types #}
+{#                             ] #}
+{#                             'warning_list' as List[ #}
+{#                              'warning' as WeatherWarnings #}
+{#                              'warning_url' as warnings url of provider #}
+{#                              'warning_url_aria' as aria for warnings url of provider #}
+{#                             ] #}
+{#                             'title' as title for page #}
+{#                             'page_heading' as heading for page #}
+{#                             'page_sub_heading' as sub-heading for page #}
 
 {% load i18n %}
 {% load static %}
@@ -23,42 +27,52 @@
 
 {% block content %}
     <div class="row mt-2 mb-2 d-flex align-items-center">
-        {% for warnings in warning_list %}
-        <div class="col-sm-2">
-            <p class="fw-bold">
-                <span class="span__provider-name">{{ warnings.provider }}</span> <span>{% translate 'Warnings' %}</span>
-            </p>
-        </div>
-            {% if warnings.marine_count %}
+        {% for entry in warning_list %}
+            {% with warnings=entry.warning  warning_url=entry.warning_url  warning_url_aria=entry.warning_url_aria %}
             <div class="col-sm-2">
-                <p>
-                    <span>{% translate 'Marine' %}</span>
-                    <span>
-                        <img src="{% static warnings.highest_marine_level_icon %}" alt="{% translate 'Marine warning icon' %}" class="img__warning-icon">
-                    </span>
-                </p>
+                <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                    <p class="fw-bold">
+                        <span class="span__provider-name">{{ warnings.provider }}</span> <span>{% translate 'Warnings' %}</span>
+                    </p>
+                </a>
             </div>
-            {% endif %}
-            {% if warnings.weather_count %}
-            <div class="col-sm-2">
-                <p>
-                    <span>{% translate 'Weather' %}</span>
-                    <span>
-                        <img src="{% static warnings.highest_weather_level_icon %}" alt="{% translate 'Weather warning icon' %}" class="img__warning-icon">
-                    </span>
-                </p>
-            </div>
-            {% endif %}
-            {% if warnings.environmental_count %}
-            <div class="col-sm-2">
-                <p>
-                    <span>{% translate 'Environmental' %}</span>
-                    <span>
-                        <img src="{% static warnings.highest_environmental_level_icon %}" alt="{% translate 'Environmental warning icon' %}" class="img__warning-icon">
-                    </span>
-                </p>
-            </div>
-            {% endif %}
+                {% if warnings.weather_count %}
+                <div class="col-sm-2">
+                    <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                        <p>
+                            <span>{% translate 'Weather' %}</span>
+                            <span>
+                                <img src="{% static warnings.highest_weather_level_icon %}" alt="{% translate 'Weather warning icon' %}" class="img__warning-hdr-icon">
+                            </span>
+                        </p>
+                    </a>
+                </div>
+                {% endif %}
+                {% if warnings.marine_count %}
+                <div class="col-sm-2">
+                    <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                        <p>
+                            <span>{% translate 'Marine' %}</span>
+                            <span>
+                                <img src="{% static warnings.highest_marine_level_icon %}" alt="{% translate 'Marine warning icon' %}" class="img__warning-hdr-icon">
+                            </span>
+                        </p>
+                    </a>
+                </div>
+                {% endif %}
+                {% if warnings.environmental_count %}
+                <div class="col-sm-2">
+                    <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                        <p>
+                            <span>{% translate 'Environmental' %}</span>
+                            <span>
+                                <img src="{% static warnings.highest_environmental_level_icon %}" alt="{% translate 'Environmental warning icon' %}" class="img__warning-hdr-icon">
+                            </span>
+                        </p>
+                    </a>
+                </div>
+                {% endif %}
+            {% endwith %}
         {% endfor %}
     </div>
 
@@ -74,7 +88,7 @@
     <article id="article-content" class="row d-flex justify-content-center">
         {% for entry in forecast_list %}
             {% with forecast=entry.forecast  row_types=entry.row_types %}
-            <row class="col-sm-12">
+            <div class="col-sm-12">
                 <table class="table">
                   {% for row in forecast.attrib_series %}
                     {% lookup_value row_types forloop.counter0 as val_type %}
@@ -116,13 +130,13 @@
                     </tbody>
                  {% endfor %}
                 </table>
-            </row>
+            </div>
             {% if forecast.cached %}
-            <row class="col-lg-10 col-md-11 col-sm-12">
+            <div class="col-lg-10 col-md-11 col-sm-12">
                 <div class="col-12 text-start">
                     <p class="text-warning">(Cached data)</p>
                 </div>
-            </row>
+            </div>
             {% endif %}
             {% endwith %}
         {% endfor %}

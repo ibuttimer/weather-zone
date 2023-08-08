@@ -38,3 +38,7 @@ REDIRECT_TO_CTX = 'redirect_to'
 SET_LANGUAGE_CTX = 'set_language'
 LANG_COUNTRY_CTX = 'lang_country'
 ARIA_CHANGE_LANG_CTX = 'change_lang'
+
+TITLE_CTX = 'title'
+PAGE_HEADING_CTX = 'page_heading'
+PAGE_SUB_HEADING_CTX = 'page_sub_heading'

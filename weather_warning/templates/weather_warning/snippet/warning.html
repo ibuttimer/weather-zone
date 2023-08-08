@@ -1,0 +1,42 @@
+<!-- warning.html start -->
+{# --- template variable defines for includes --- #}
+{# warnings template expects: 'warning_items' as List[ #}
+{#                              WarningItem #}
+{#                            ] #}
+{#                            'warning_count' as number of warnings #}
+{#                            'warning_header' as warnings type header #}
+
+{% load i18n %}
+{% load static %}
+
+<div class="row mb-2 div__warning-banner">
+    <div class="col-sm-12">
+        <h2>{{ warning_header }}</h2>
+    </div>
+</div>
+{% if warning_count %}
+    {% for warning in warning_items %}
+        <div class="row mt-2">
+            <div class="col-md-1">
+                <span>
+                    <img src="{% static warning.icon %}" alt="{% translate 'Weather warning icon' %}" class="img__warning-icon">
+                    <strong class="sr-only">
+                        {{ warning.icon_aria }}
+                    </strong>
+                </span>
+            </div>
+            <div class="col-md-11">
+                <h3>{{ warning.title }}</h3>
+                <p>{{ warning.description|safe }}</p>
+                <p class="fw-bold">{% translate 'Valid:' %} {{ warning.onset }} {% translate 'to' %} {{ warning.expires }}</p>
+                <p class="fw-bold">{% translate 'Issued:' %} {{ warning.sent }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+<div class="col-lg-10 col-md-11 col-sm-12">
+    <div class="col-12 text-start">
+        <p class="text-warning">{% translate 'No warnings' %}</p>
+    </div>
+</div>
+{% endif %}

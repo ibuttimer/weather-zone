@@ -25,7 +25,7 @@ Constants for forecast app
 #
 from pathlib import Path
 
-from utils import append_slash, url_path, Crud
+from utils import append_slash, url_path
 
 # name of this app
 THIS_APP = Path(__file__).resolve().parent.name
@@ -52,11 +52,11 @@ FORECAST_MENU_CTX = "forecast_menu"
 
 ADDRESS_FORM_CTX = "address_form"
 SUBMIT_URL_CTX = "submit_url"
-FORECAST_CTX = "forecast"
 FORECAST_LIST_CTX = "forecast_list"
-WARNING_LIST_CTX = "warning_list"
+FORECAST_CTX = "forecast"
 ROW_TYPES_CTX = "row_types"
-TITLE_CTX = 'title'
-PAGE_HEADING_CTX = 'page_heading'
-PAGE_SUB_HEADING_CTX = 'page_sub_heading'
+WARNING_LIST_CTX = "warning_list"
+WARNING_CTX = "warning"
+WARNING_URL_CTX = "warning_url"
+WARNING_URL_ARIA_CTX = "warning_url_aria"
 SUBMIT_BTN_TEXT_CTX = 'submit_btn_text'

@@ -38,6 +38,13 @@ class Severity(Enum):
     SEVERE = (3, 'Severe', 'orange')
     EXTREME = (4, 'Extreme', 'red')
 
+    # severity fields values: Minor/Moderate/Severe/Extreme
+    # awareness_level parameter values:
+    #   1; green; Minor
+    #   2; yellow; Moderate
+    #   3; orange; Severe
+    #   4; red; Extreme
+
     @classmethod
     def make_translations(cls):
         cls._translations = {
@@ -45,6 +52,12 @@ class Severity(Enum):
             cls.MODERATE: _('Moderate'),
             cls.SEVERE: _('Severe'),
             cls.EXTREME: _('Extreme'),
+        }
+        cls._status_translations = {
+            cls.MINOR: _('Status Green'),
+            cls.MODERATE: _('Status Yellow'),
+            cls.SEVERE: _('Status Orange'),
+            cls.EXTREME: _('Status Red'),
         }
 
     @property
@@ -63,12 +76,16 @@ class Severity(Enum):
     def colour(self):
         return self.value[2]
 
+    @property
+    def status(self):
+        return self._status_translations[self]
+
     def awareness_value(self):
         """
         Get the xml value for the Severity enum
         :return:
         """
-        return f'{self.value[0]}; {self.value[2]}; {self.value[1]}'
+        return f'{self.number}; {self.colour}; {self.name}'
 
     @classmethod
     def from_awareness(cls, value: str) -> 'Severity':
@@ -84,35 +101,34 @@ class Severity(Enum):
         raise ValueError(f'No Severity enum for awareness {value}')
 
     @classmethod
-    def from_severity(cls, value: str) -> 'Severity':
+    def from_name(cls, value: str) -> 'Severity':
         """
-        Get the Severity enum from a severity value
+        Get the Severity enum from a name
         :param value:
         :return:
         """
         value = value.lower()
         for item in cls:
-            if item.value[1].lower() == value:
+            if item.name.lower() == value:
                 return item
-        raise ValueError(f'No Severity enum for severity {value}')
+        raise ValueError(f'No Severity enum for name {value}')
 
     def get_icon(self):
         """
         Get the icon for the Severity enum
         :return:
         """
-        return WARNING_ICON_URL.format(colour=self.value[2])
+        return WARNING_ICON_URL.format(colour=self.colour)
 
     def get_small_crafts_icon(self):
         """
         Get the small crafts icon for the Severity enum
         :return:
         """
-        return SMALL_CRAFT_ICON_URL.format(colour=self.value[2])
+        return SMALL_CRAFT_ICON_URL.format(colour=self.colour)
 
 
 Severity.make_translations()
-
 
 
 class AwarenessType(Enum):
@@ -154,6 +170,18 @@ class AwarenessType(Enum):
         }
 
     @property
+    def number(self):
+        return self.value[0]
+
+    @property
+    def name(self):
+        return self.value[1]
+
+    @property
+    def id(self):
+        return self.value[2]
+
+    @property
     def translation(self):
         return self._translations[self]
 
@@ -162,7 +190,7 @@ class AwarenessType(Enum):
         Get the xml value for the Awareness enum
         :return:
         """
-        return f'{self.value[0]}; {self.value[2]}'
+        return f'{self.number}; {self.id}'
 
     @classmethod
     def from_value(cls, value: str) -> 'AwarenessType':
@@ -179,3 +207,48 @@ class AwarenessType(Enum):
 
 
 AwarenessType.make_translations()
+
+
+class Category(Enum):
+    """
+    Category of a warning
+    """
+    MARINE = (1, 'Marine')
+    ENVIRONMENTAL = (2, 'Environmental')
+    WEATHER = (3, 'Weather')
+
+    @classmethod
+    def make_translations(cls):
+        cls._translations = {
+            cls.MARINE: _('Marine'),
+            cls.ENVIRONMENTAL: _('Environmental'),
+            cls.WEATHER: _('Weather'),
+        }
+
+    @property
+    def translation(self):
+        return self._translations[self]
+
+    @property
+    def number(self):
+        return self.value[0]
+
+    @property
+    def name(self):
+        return self.value[1]
+
+    @classmethod
+    def from_name(cls, value: str) -> 'Category':
+        """
+        Get the Category enum from a name
+        :param value:
+        :return:
+        """
+        value = value.lower()
+        for item in cls:
+            if item.name.lower() == value:
+                return item
+        raise ValueError(f'No Category enum for name {value}')
+
+
+Category.make_translations()

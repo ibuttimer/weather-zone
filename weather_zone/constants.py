@@ -57,6 +57,9 @@ ADMIN_URL = append_slash("admin")
 # Forecast routes related
 FORECAST_URL = append_slash("forecast")
 
+# Weather warning routes related
+WARNING_URL = append_slash("warning")
+
 # context related
 HOME_MENU_CTX = "home_menu"
 HELP_MENU_CTX = "help_menu"

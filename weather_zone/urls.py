@@ -42,12 +42,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .constants import (
-    ADMIN_URL, FORECAST_URL, FORECAST_APP_NAME, BASE_APP_NAME
+    ADMIN_URL, FORECAST_URL, WARNING_URL,
+    FORECAST_APP_NAME, WARNING_APP_NAME, BASE_APP_NAME
 )
 
 urlpatterns = [
     path(ADMIN_URL, admin.site.urls),
 
     path(FORECAST_URL, include(f'{FORECAST_APP_NAME}.urls')),
+    path(WARNING_URL, include(f'{WARNING_APP_NAME}.urls')),
     path('', include(f'{BASE_APP_NAME}.urls')),
 ]

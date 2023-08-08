@@ -1,6 +1,7 @@
 """
 Provides a registry of forecast providers
 """
+from datetime import datetime
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -25,6 +26,7 @@ Provides a registry of forecast providers
 #
 from typing import TypeVar, Optional, List, Any
 
+from .dto import Forecast, GeoAddress, WeatherWarnings
 from .iprovider import IProvider, ProviderType
 
 
@@ -106,7 +108,9 @@ class Registry:
         if ptype is None:
             providers = self._providers
         else:
-            types = [ProviderType.FORECAST, ProviderType.WARNING] \
+            types = [ProviderType.FORECAST, ProviderType.FORECAST_WARNING] \
+                if ptype == ProviderType.FORECAST else \
+                [ProviderType.WARNING, ProviderType.FORECAST_WARNING] \
                 if ptype == ProviderType.FORECAST_WARNING else [ptype]
             providers = {
                 k: v for k, v in self._providers.items() if v.ptype in types}
@@ -121,3 +125,64 @@ class Registry:
         :return: Providers
         """
         return list(self._providers.values())
+
+    def generate_forecast(
+            self, geo_address: GeoAddress, start: datetime = None,
+            end: datetime = None, provider: str = None,
+            **kwargs) -> List[Forecast]:
+        """
+        Get a list of forecasts
+        :param geo_address: geographic address
+        :param start: forecast start date; default is current time
+        :param end: forecast end date; default is end of available forecast
+        :param provider: name of forecast provider; default is all providers
+        :param kwargs: Additional arguments
+        :return: Forecast
+        """
+        forecasts = []
+        providers = [provider] if provider is not None \
+            else self.provider_names(ptype=ProviderType.FORECAST)
+
+        for name in providers:
+            forecasts.append(
+                self.get(name).get_geo_forecast(
+                    geo_address, start, end, **kwargs)
+            )
+
+        return forecasts
+
+    def generate_warnings(self, country: str, provider_name: str = None,
+                          **kwargs) -> List[WeatherWarnings]:
+        """
+        Get a list of weather warnings
+        :param country: ISO 3166-1 alpha-2 country code
+        :param provider_name: name of forecast provider; default is all providers
+        :param kwargs: Additional arguments
+        :return: list of weather warnings
+        """
+        warnings = []
+        providers = self.provider_names(ptype=ProviderType.WARNING)
+        if provider_name is not None and provider_name in providers:
+            providers = [provider_name]
+
+        for name in providers:
+            provider = self.get(name)
+            # filter providers by country
+            if provider.is_country_supported(country):
+                warnings.append(
+                    provider.get_warnings(**kwargs)
+                )
+
+        return warnings
+
+    def generate_warnings_summary(self, country: str, provider: str = None,
+                          **kwargs) -> List[WeatherWarnings]:
+        """
+        Get a summary of weather warnings
+        :param country: ISO 3166-1 alpha-2 country code
+        :param provider: name of forecast provider; default is all providers
+        :param kwargs: Additional arguments
+        :return: list of weather warnings
+        """
+        # TODO generate_warnings_summary for forecast page header
+        return []

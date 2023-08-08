@@ -34,9 +34,11 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django_countries import countries
 
+from weather_warning.constants import COUNTRY_ROUTE_NAME
 from weather_zone.constants import (
-    LOCATIONFORECAST_APP_NAME
+    WARNING_APP_NAME
 )
+from base import TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX
 from utils import (
     GET, app_template_path, reverse_q, namespaced_url, Crud,
     redirect_on_success_or_render, html_tag
@@ -44,12 +46,12 @@ from utils import (
 
 from .constants import (
     THIS_APP, ADDRESS_FORM_CTX, SUBMIT_URL_CTX, ADDRESS_ROUTE_NAME,
-    SUBMIT_BTN_TEXT_CTX, TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX,
-    FORECAST_LIST_CTX, FORECAST_CTX, WARNING_LIST_CTX, ROW_TYPES_CTX,
+    SUBMIT_BTN_TEXT_CTX,
+    FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX,
+    WARNING_LIST_CTX, WARNING_CTX, WARNING_URL_CTX, WARNING_URL_ARIA_CTX,
     DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER
 )
 from .convert import Units, speed_conversion
-from .forecast import generate_forecast, generate_warnings
 from .forms import AddressForm
 from .geocoding import geocode_address
 from forecast.dto import (
@@ -343,18 +345,22 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if v:
             forecast_kwargs[k] = v
 
-    forecasts = generate_forecast(
+    registry = Registry.get_registry()
+
+    forecasts = registry.generate_forecast(
         geo_address, provider=provider,
         start=dates.start, end=dates.end, **forecast_kwargs)
 
-    warnings = generate_warnings(geo_address, provider=provider)
+    warnings = registry.generate_warnings(geo_address.country,
+                                          provider=provider)
 
     template_path, context = forecast_render_info(forecasts, warnings)
 
     return render(request, template_path, context=context)
 
 
-def forecast_render_info(forecasts: List[Forecast], warnings: List[WeatherWarnings]):
+def forecast_render_info(forecasts: List[Forecast],
+                         warnings: List[WeatherWarnings]):
     """
     Get info to render a list of forecasts
     :param forecasts: Forecast list
@@ -362,6 +368,9 @@ def forecast_render_info(forecasts: List[Forecast], warnings: List[WeatherWarnin
     :return: tuple of template path and context
     """
     formatted_addr = None
+    country_code = None
+
+    # generate list of forecasts
     forecast_list = []
     for forecast in forecasts:
         # filter display items to only those available in forecast
@@ -379,6 +388,23 @@ def forecast_render_info(forecasts: List[Forecast], warnings: List[WeatherWarnin
 
         if not formatted_addr:
             formatted_addr = forecast.address.formatted_address
+            country_code = forecast.address.country
+
+    # generate list of warnings
+    warning_list = []
+    for warning in warnings:
+        warning_list.append({
+            WARNING_CTX: warning,
+            WARNING_URL_CTX: reverse_q(
+                namespaced_url(WARNING_APP_NAME, COUNTRY_ROUTE_NAME),
+                args=[country_code], query_kwargs={
+                    QUERY_PROVIDER: warning.provider_id
+                }
+            ),
+            WARNING_URL_ARIA_CTX: _("view %(provider)s weather warnings.") % {
+                "provider": warning.provider
+            }
+        })
 
     title = _("Location forecast")
     context = {
@@ -386,7 +412,7 @@ def forecast_render_info(forecasts: List[Forecast], warnings: List[WeatherWarnin
         PAGE_HEADING_CTX: title,
         PAGE_SUB_HEADING_CTX: formatted_addr,
         FORECAST_LIST_CTX: forecast_list,
-        WARNING_LIST_CTX: warnings
+        WARNING_LIST_CTX: warning_list
     }
 
     return app_template_path(THIS_APP, "forecast.html"), context

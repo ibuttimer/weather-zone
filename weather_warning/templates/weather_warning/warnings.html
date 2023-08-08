@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+<!-- warnings.html start -->
+{# --- template variable defines for includes --- #}
+{# warnings template expects: 'warning_list' as List[ #}
+{#                              'warning' as WeatherWarningsDo #}
+{#                            ] #}
+{#                            'title' as title for page #}
+{#                            'page_heading' as heading for page #}
+{#                            'page_sub_heading' as sub-heading for page #}
+
+{% load i18n %}
+{% load static %}
+{% load form_auto_id  lookup_value %}
+
+{% block extra_css %}
+    <link href="{% static 'css/forecast/styles-forecast.css' %}" rel="stylesheet" type="text/css">
+{% endblock extra_css %}
+
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="row mt-2 mb-2">
+        {% if page_heading or page_sub_heading %}
+            <div class="col-12 text-center">
+                {% if page_heading %}<h3>{{ page_heading | safe }}</h3>{% endif %}
+                {% if page_sub_heading %}<h4>{{ page_sub_heading | safe }}</h4>{% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <article id="article-content" class="row d-flex justify-content-center">
+        {% for warnings in warning_list %}
+            <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <h5>{{ warnings.provider }}</h5>
+                </div>
+            </div>
+            {% with warning_count=warnings.weather_count  warning_items=warnings.weather_warning_items %}
+                {# --- template variable defines for includes --- #}
+                {# warnings template expects: 'warning_items' as List[ #}
+                {#                              WarningItem #}
+                {#                            ] #}
+                {#                            'warning_count' as number of warnings #}
+                {#                            'warning_header' as warnings type header #}
+                {% translate 'Weather Warnings' as warning_header %}
+                {% include 'weather_warning/snippet/warning.html' %}
+            {% endwith %}
+            {% with warning_count=warnings.marine_count  warning_items=warnings.marine_warning_items %}
+                {% translate 'Marine Warnings' as warning_header %}
+                {% include 'weather_warning/snippet/warning.html' %}
+            {% endwith %}
+            {% with warning_count=warnings.environmental_count  warning_items=warnings.environmental_warning_items %}
+                {% translate 'Environmental Warnings' as warning_header %}
+                {% include 'weather_warning/snippet/warning.html' %}
+            {% endwith %}
+
+            {% if warnings.cached %}
+            <div class="col-lg-10 col-md-11 col-sm-12">
+                <div class="col-12 text-start">
+                    <p class="text-warning">(Cached data)</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </article>
+{% endblock %}
+<!-- warnings.html end -->

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-03 17:25+0100\n"
+"POT-Creation-Date: 2023-08-08 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\base\context_processors.py:68
-#| msgid "Set language"
 msgid "Change language"
 msgstr "Sprache ändern"
 
@@ -128,77 +127,81 @@ msgstr "Alles Verfügbar"
 msgid "All"
 msgstr "Alle"
 
-#: .\forecast\templates\forecast\forecast.html:29
+#: .\forecast\templates\forecast\forecast.html:35
 msgid "Warnings"
 msgstr "Warnungen"
 
-#: .\forecast\templates\forecast\forecast.html:35
-msgid "Marine"
-msgstr "Marineinfanterist"
-
-#: .\forecast\templates\forecast\forecast.html:37
-msgid "Marine warning icon"
-msgstr "Symbol für Meereswarnung"
-
-#: .\forecast\templates\forecast\forecast.html:45
+#: .\forecast\templates\forecast\forecast.html:43 .\weather_warning\misc.py:225
 msgid "Weather"
 msgstr "Wetter"
 
-#: .\forecast\templates\forecast\forecast.html:47
+#: .\forecast\templates\forecast\forecast.html:45
+#: .\weather_warning\templates\weather_warning\snippet\warning.html:22
 msgid "Weather warning icon"
 msgstr "Wetterwarnungssymbol"
 
-#: .\forecast\templates\forecast\forecast.html:55
+#: .\forecast\templates\forecast\forecast.html:55 .\weather_warning\misc.py:223
+msgid "Marine"
+msgstr "Marineinfanterist"
+
+#: .\forecast\templates\forecast\forecast.html:57
+msgid "Marine warning icon"
+msgstr "Symbol für Meereswarnung"
+
+#: .\forecast\templates\forecast\forecast.html:67 .\weather_warning\misc.py:224
 msgid "Environmental"
 msgstr "Umweltfreundlich"
 
-#: .\forecast\templates\forecast\forecast.html:57
+#: .\forecast\templates\forecast\forecast.html:69
 msgid "Environmental warning icon"
 msgstr "Symbol für Umweltwarnung"
 
-#: .\forecast\views.py:177
+#: .\forecast\views.py:179
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: .\forecast\views.py:180
-#| msgid "Forecast"
+#: .\forecast\views.py:182
 msgid "Precipitation"
 msgstr "Niederschlag"
 
-#: .\forecast\views.py:183
+#: .\forecast\views.py:185
 msgid "Precipitation Probability"
 msgstr "Niederschlagswahrscheinlichkeit"
 
-#: .\forecast\views.py:185
+#: .\forecast\views.py:187
 msgid "Humidity"
 msgstr "Feuchtigkeit"
 
-#: .\forecast\views.py:188
+#: .\forecast\views.py:190
 msgid "Wind Speed"
 msgstr "Windgeschwindigkeit"
 
-#: .\forecast\views.py:192
+#: .\forecast\views.py:194
 msgid "Wind Direction"
 msgstr "Windrichtung"
 
-#: .\forecast\views.py:195
+#: .\forecast\views.py:197
 msgid "Wind Gust"
 msgstr "Windböe"
 
-#: .\forecast\views.py:293
-#| msgid "Forecast"
+#: .\forecast\views.py:295
 msgid "Forecast location"
 msgstr "Prognosestandort"
 
-#: .\forecast\views.py:294
+#: .\forecast\views.py:296
 msgid "Address of forecast location"
 msgstr "Adresse des prognostizierten Standorts"
 
-#: .\forecast\views.py:295
+#: .\forecast\views.py:297
 msgid "Submit"
 msgstr "Einreichen"
 
-#: .\forecast\views.py:383
+#: .\forecast\views.py:404
+#, python-format
+msgid "view %(provider)s weather warnings."
+msgstr "Wetterwarnungen von %(provider)s anzeigen."
+
+#: .\forecast\views.py:409
 msgid "Location forecast"
 msgstr "Standortprognose"
 
@@ -234,81 +237,139 @@ msgstr ""
 "Diese Website dient nur zu Bildungszwecken. Geben Sie <em>keine gültigen "
 "persönlichen Daten</em> ein."
 
-#: .\weather_warning\misc.py:44
+#: .\weather_warning\dto.py:104
+#, python-format
+msgid "%(severity)s. %(desc)s"
+msgstr ""
+
+#: .\weather_warning\dto.py:108
+#, python-format
+msgid "%(severity)s - %(title)s"
+msgstr ""
+
+#: .\weather_warning\misc.py:51
 msgid "Minor"
 msgstr "Gering"
 
-#: .\weather_warning\misc.py:45
+#: .\weather_warning\misc.py:52
 msgid "Moderate"
 msgstr "Mäßig"
 
-#: .\weather_warning\misc.py:46
+#: .\weather_warning\misc.py:53
 msgid "Severe"
 msgstr "Schwer"
 
-#: .\weather_warning\misc.py:47
+#: .\weather_warning\misc.py:54
 msgid "Extreme"
 msgstr "Extrem"
 
-#: .\weather_warning\misc.py:140
-#| msgid "Wind Gust"
-msgid "Winwd"
+#: .\weather_warning\misc.py:57
+msgid "Status Green"
+msgstr "Status Grün"
+
+#: .\weather_warning\misc.py:58
+msgid "Status Yellow"
+msgstr "Status Gelb"
+
+#: .\weather_warning\misc.py:59
+msgid "Status Orange"
+msgstr "Status Orange"
+
+#: .\weather_warning\misc.py:60
+msgid "Status Red"
+msgstr "Status Rot"
+
+#: .\weather_warning\misc.py:156
+msgid "Wind"
 msgstr "Wind"
 
-#: .\weather_warning\misc.py:141
+#: .\weather_warning\misc.py:157
 msgid "Snow/Ice"
 msgstr "Schnee/Eis"
 
-#: .\weather_warning\misc.py:142
+#: .\weather_warning\misc.py:158
 msgid "Thunderstorm"
 msgstr "Gewitter"
 
-#: .\weather_warning\misc.py:143
+#: .\weather_warning\misc.py:159
 msgid "Fog"
 msgstr "Nebel"
 
-#: .\weather_warning\misc.py:144
-#| msgid "Temperature"
+#: .\weather_warning\misc.py:160
 msgid "High temperature"
 msgstr "Hohe temperatur"
 
-#: .\weather_warning\misc.py:145
-#| msgid "Temperature"
+#: .\weather_warning\misc.py:161
 msgid "Low temperature"
 msgstr "Niedrige temperatur"
 
-#: .\weather_warning\misc.py:146
+#: .\weather_warning\misc.py:162
 msgid "Coastal event"
 msgstr "Küstenveranstaltung"
 
-#: .\weather_warning\misc.py:147
-#| msgid "Forecast"
+#: .\weather_warning\misc.py:163
 msgid "Forest fire"
 msgstr "Waldbrand"
 
-#: .\weather_warning\misc.py:148
+#: .\weather_warning\misc.py:164
 msgid "Avalanches"
 msgstr "Lawinen"
 
-#: .\weather_warning\misc.py:149
+#: .\weather_warning\misc.py:165
 msgid "Rain"
 msgstr "Regen"
 
-#: .\weather_warning\misc.py:150
+#: .\weather_warning\misc.py:166
 msgid "Flooding"
 msgstr "Überschwemmung"
 
-#: .\weather_warning\misc.py:151
+#: .\weather_warning\misc.py:167
 msgid "Rain/Flood"
 msgstr "Regen/Überschwemmung"
 
-#: .\weather_warning\misc.py:152
+#: .\weather_warning\misc.py:168
 msgid "Blight"
 msgstr "Kartoffelfäule"
 
-#: .\weather_warning\misc.py:153
+#: .\weather_warning\misc.py:169
 msgid "Advisory"
 msgstr "Beratend"
+
+#: .\weather_warning\templates\weather_warning\snippet\warning.html:31
+msgid "Valid:"
+msgstr "Gültig:"
+
+#: .\weather_warning\templates\weather_warning\snippet\warning.html:31
+msgid "to"
+msgstr "zu"
+
+#: .\weather_warning\templates\weather_warning\snippet\warning.html:32
+msgid "Issued:"
+msgstr "Ausgegeben:"
+
+#: .\weather_warning\templates\weather_warning\snippet\warning.html:39
+msgid "No warnings"
+msgstr "Keine Warnungen"
+
+#: .\weather_warning\templates\weather_warning\warnings.html:46
+msgid "Weather Warnings"
+msgstr "Wetterwarnungen"
+
+#: .\weather_warning\templates\weather_warning\warnings.html:50
+msgid "Marine Warnings"
+msgstr "Symbol für Meereswarnung"
+
+#: .\weather_warning\templates\weather_warning\warnings.html:54
+msgid "Environmental Warnings"
+msgstr "Meereswarnungen"
+
+#: .\weather_warning\views.py:83
+msgid "Weather warnings"
+msgstr "Wetterwarnungen"
+
+#: .\weather_warning\views.py:84
+msgid "No weather warnings"
+msgstr "Keine Wetterwarnungen"
 
 #: .\weather_zone\settings.py:205
 msgid "English"
@@ -321,3 +382,7 @@ msgstr "Deutsch"
 #: .\weather_zone\settings.py:207
 msgid "French"
 msgstr "Französisch"
+
+#~| msgid "Wind Gust"
+#~ msgid "Winwd"
+#~ msgstr "Wind"
