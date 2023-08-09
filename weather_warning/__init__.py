@@ -22,9 +22,7 @@
 #
 
 from .dto import WarningItem
-from .misc import Severity
 
 __all__ = [
     'WarningItem',
-    'Severity',
 ]

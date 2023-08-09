@@ -33,13 +33,11 @@ import xmltodict
 from django.conf import settings
 
 from base import get_request_headers
-from forecast import WeatherWarnings
+from forecast import WeatherWarnings, Severity, Category
 from forecast.dto import WarningEntry
 from utils import dict_drill, ensure_list
-from .misc import Severity, Category
 
 from .provider import WarningsProvider
-from .misc import Severity
 
 
 ENCODING_REGEX = re.compile(r'encoding="([^"]+)"')

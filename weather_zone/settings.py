@@ -13,11 +13,14 @@ import os
 from pathlib import Path
 import environ
 
+from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
+from forecast import ADDRESS_ROUTE_NAME
 from .constants import (
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME,
-    WARNING_APP_NAME, USER_APP_NAME
+    WARNING_APP_NAME, USER_APP_NAME,
+    LOGIN_URL as USER_LOGIN_URL, LOGIN_ROUTE_NAME, HOME_ROUTE_NAME
 )
 from .misc import provider_settings_name
 
@@ -141,14 +144,27 @@ TEMPLATES = [
                 # app-specific context processors
                 f'{MAIN_APP}.context_processors.app_context',
                 f'{BASE_APP_NAME}.context_processors.base_context',
+                f'{USER_APP_NAME}.context_processors.user_context',
                 f'{FORECAST_APP_NAME}.context_processors.forecast_context',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'weather_zone.wsgi.application'
+# email
+if DEVELOPMENT:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_SEND_EMAIL = env('DEFAULT_SEND_EMAIL')
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    DEFAULT_SEND_EMAIL = EMAIL_HOST_USER
 
+WSGI_APPLICATION = 'weather_zone.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -205,9 +221,50 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+MIN_PASSWORD_LEN = 8
+
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-user-model
 AUTH_USER_MODEL = f'{USER_APP_NAME}.User'
 
+# https://docs.djangoproject.com/en/4.2/ref/settings/#login-url
+LOGIN_URL = USER_LOGIN_URL
+# https://docs.djangoproject.com/en/4.2/ref/settings/#login-redirect-url
+LOGIN_REDIRECT_URL = f'{FORECAST_APP_NAME}:{ADDRESS_ROUTE_NAME}'
+# https://docs.djangoproject.com/en/4.2/ref/settings/#logout-redirect-url
+LOGOUT_REDIRECT_URL = HOME_ROUTE_NAME
+
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+# needs route name (default value of settings.LOGIN_URL
+# i.e. a url doesn't work [except '/'?])
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_ROUTE_NAME
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = HOME_ROUTE_NAME
+
+# https://django-allauth.readthedocs.io/en/latest/forms.html
+ACCOUNT_FORMS = {
+    'signup': f'{USER_APP_NAME}.forms.UserSignupForm',
+    'login': f'{USER_APP_NAME}.forms.UserLoginForm',
+    'reset_password': f'{USER_APP_NAME}.forms.UserResetPasswordForm',
+    'change_password': f'{USER_APP_NAME}.forms.UserChangePasswordForm',
+    'add_email': f'{USER_APP_NAME}.forms.UserAddEmailForm',
+}
+# https://django-allauth.readthedocs.io/en/latest/forms.html#socialaccount-forms
+SOCIALACCOUNT_FORMS = {
+    'signup': f'{USER_APP_NAME}.forms.UserSocialSignupForm',
+}
+
+# https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-MESSAGE_TAGS
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

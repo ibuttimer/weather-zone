@@ -27,9 +27,7 @@ from typing import List
 
 from django.utils.translation import gettext as _
 
-from forecast import WeatherWarnings, WarningEntry
-
-from .misc import Severity
+from forecast import WeatherWarnings, WarningEntry, Severity
 
 
 @dataclass

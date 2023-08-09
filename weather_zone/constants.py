@@ -23,7 +23,7 @@ Constants for the weather_zone package
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from utils import append_slash
+from utils import append_slash, url_path
 
 APP_NAME = "Weather-Zone"
 COPYRIGHT_YEAR = 2023
@@ -55,6 +55,27 @@ ROBOTS_ROUTE_NAME = "robots.txt"
 # Admin routes related
 ADMIN_URL = append_slash("admin")
 
+# Accounts routes related
+ACCOUNTS_URL = append_slash("accounts")
+
+# mounting allauth on 'accounts' and copying paths from
+# allauth/account/urls.py
+LOGIN_URL = url_path(ACCOUNTS_URL, "login")
+LOGOUT_URL = url_path(ACCOUNTS_URL, "logout")
+REGISTER_URL = url_path(ACCOUNTS_URL, "signup")
+# excluding mount prefix as used to override allauth
+CHANGE_PASSWORD_URL = url_path("password", "change")
+MANAGE_EMAIL_URL = url_path(ACCOUNTS_URL, "email")
+# copying route names from allauth/account/urls.py
+LOGIN_ROUTE_NAME = "account_login"
+LOGOUT_ROUTE_NAME = "account_logout"
+REGISTER_ROUTE_NAME = "account_signup"
+CHANGE_PASSWORD_ROUTE_NAME = "account_change_password"
+MANAGE_EMAIL_ROUTE_NAME = "account_email"
+
+# User routes related
+USERS_URL = append_slash("users")
+
 # Forecast routes related
 FORECAST_URL = append_slash("forecast")
 
@@ -63,6 +84,9 @@ WARNING_URL = append_slash("warning")
 
 # context related
 HOME_MENU_CTX = "home_menu"
+USER_MENU_CTX = "user_menu"
+SIGN_IN_MENU_CTX = "sign_in_menu"
+REGISTER_MENU_CTX = "register_menu"
 HELP_MENU_CTX = "help_menu"
 ABOUT_MENU_CTX = "about_menu"
 

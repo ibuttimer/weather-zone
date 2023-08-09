@@ -28,8 +28,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Set, Callable, Optional
 
-from weather_warning.misc import Severity
-
 
 AttribRow = namedtuple('AttribRow',
                        # display text or callable, attribute name,

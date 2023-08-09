@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-08 10:13+0100\n"
+"POT-Creation-Date: 2023-08-09 15:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,106 @@ msgstr ""
 
 #: .\base\views.py:121
 msgid "Set language"
+msgstr ""
+
+#: .\forecast\enums.py:51
+msgid "Minor"
+msgstr ""
+
+#: .\forecast\enums.py:52
+msgid "Moderate"
+msgstr ""
+
+#: .\forecast\enums.py:53
+msgid "Severe"
+msgstr ""
+
+#: .\forecast\enums.py:54
+msgid "Extreme"
+msgstr ""
+
+#: .\forecast\enums.py:57
+msgid "Status Green"
+msgstr ""
+
+#: .\forecast\enums.py:58
+msgid "Status Yellow"
+msgstr ""
+
+#: .\forecast\enums.py:59
+msgid "Status Orange"
+msgstr ""
+
+#: .\forecast\enums.py:60
+msgid "Status Red"
+msgstr ""
+
+#: .\forecast\enums.py:156
+msgid "Wind"
+msgstr ""
+
+#: .\forecast\enums.py:157
+msgid "Snow/Ice"
+msgstr ""
+
+#: .\forecast\enums.py:158
+msgid "Thunderstorm"
+msgstr ""
+
+#: .\forecast\enums.py:159
+msgid "Fog"
+msgstr ""
+
+#: .\forecast\enums.py:160
+msgid "High temperature"
+msgstr ""
+
+#: .\forecast\enums.py:161
+msgid "Low temperature"
+msgstr ""
+
+#: .\forecast\enums.py:162
+msgid "Coastal event"
+msgstr ""
+
+#: .\forecast\enums.py:163
+msgid "Forest fire"
+msgstr ""
+
+#: .\forecast\enums.py:164
+msgid "Avalanches"
+msgstr ""
+
+#: .\forecast\enums.py:165
+msgid "Rain"
+msgstr ""
+
+#: .\forecast\enums.py:166
+msgid "Flooding"
+msgstr ""
+
+#: .\forecast\enums.py:167
+msgid "Rain/Flood"
+msgstr ""
+
+#: .\forecast\enums.py:168
+msgid "Blight"
+msgstr ""
+
+#: .\forecast\enums.py:169
+msgid "Advisory"
+msgstr ""
+
+#: .\forecast\enums.py:223 .\forecast\templates\forecast\forecast.html:55
+msgid "Marine"
+msgstr ""
+
+#: .\forecast\enums.py:224 .\forecast\templates\forecast\forecast.html:67
+msgid "Environmental"
+msgstr ""
+
+#: .\forecast\enums.py:225 .\forecast\templates\forecast\forecast.html:43
+msgid "Weather"
 msgstr ""
 
 #: .\forecast\forms.py:66
@@ -131,25 +231,13 @@ msgstr ""
 msgid "Warnings"
 msgstr ""
 
-#: .\forecast\templates\forecast\forecast.html:43 .\weather_warning\misc.py:225
-msgid "Weather"
-msgstr ""
-
 #: .\forecast\templates\forecast\forecast.html:45
 #: .\weather_warning\templates\weather_warning\snippet\warning.html:22
 msgid "Weather warning icon"
 msgstr ""
 
-#: .\forecast\templates\forecast\forecast.html:55 .\weather_warning\misc.py:223
-msgid "Marine"
-msgstr ""
-
 #: .\forecast\templates\forecast\forecast.html:57
 msgid "Marine warning icon"
-msgstr ""
-
-#: .\forecast\templates\forecast\forecast.html:67 .\weather_warning\misc.py:224
-msgid "Environmental"
 msgstr ""
 
 #: .\forecast\templates\forecast\forecast.html:69
@@ -205,6 +293,136 @@ msgstr ""
 msgid "Location forecast"
 msgstr ""
 
+#: .\templates\account\email_confirm.html:7
+#: .\templates\account\email_confirm.html:19
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:29
+#, python-format
+msgid ""
+"\n"
+"                    Please confirm that <a href=\"mailto:%(email)s\">"
+"%(email)s</a>\n"
+"                    is an e-mail address for user <em>%(user_display)s</"
+"em>.\n"
+"                "
+msgstr ""
+
+#: .\templates\account\email_confirm.html:39 .\templates\account\logout.html:27
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:42
+msgid "Confirm"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:52
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid.\n"
+"                    Please <a href=\"%(email_url)s\">issue a new e-mail "
+"confirmation request</a>.\n"
+"                "
+msgstr ""
+
+#: .\templates\account\login.html:8 .\templates\account\login.html:19
+#: .\templates\account\login.html:72 .\templates\base.html:121
+msgid "Sign In"
+msgstr ""
+
+#: .\templates\account\login.html:24
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"        <a href=\"%(signup_url)s\">register</a> first."
+msgstr ""
+
+#: .\templates\account\login.html:69
+msgid "Forgot Password?"
+msgstr ""
+
+#: .\templates\account\logout.html:5 .\templates\account\logout.html:12
+#: .\templates\account\logout.html:30 .\templates\base.html:109
+msgid "Sign Out"
+msgstr ""
+
+#: .\templates\account\logout.html:18
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: .\templates\account\messages\cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+
+#: .\templates\account\messages\email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr ""
+
+#: .\templates\account\messages\email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr ""
+
+#: .\templates\account\messages\email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr ""
+
+#: .\templates\account\messages\logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr ""
+
+#: .\templates\account\messages\logged_out.txt:2
+msgid "You have signed out."
+msgstr ""
+
+#: .\templates\account\messages\password_changed.txt:2
+msgid "Password successfully changed."
+msgstr ""
+
+#: .\templates\account\messages\password_set.txt:2
+msgid "Password successfully set."
+msgstr ""
+
+#: .\templates\account\messages\primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr ""
+
+#: .\templates\account\messages\unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr ""
+
+#: .\templates\account\signup.html:6 .\templates\account\signup.html:17
+#: .\templates\account\signup.html:46 .\templates\base.html:116
+msgid "Register"
+msgstr ""
+
+#: .\templates\account\signup.html:23
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: .\templates\account\verification_sent.html:5
+#: .\templates\account\verification_sent.html:11
+msgid "Verify Your Email Address"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:17
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalise the signup process.\n"
+"                If you do not see the verification e-mail in your inbox, "
+"check your spam folder.\n"
+"                Please contact us if you do not receive the verification e-"
+"mail within a few minutes.\n"
+"                "
+msgstr ""
+
 #: .\templates\base.html:61
 msgid "Home"
 msgstr ""
@@ -225,7 +443,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: .\templates\base.html:176
+#: .\templates\base.html:200
 msgid "Version"
 msgstr ""
 
@@ -235,102 +453,54 @@ msgid ""
 "personal details."
 msgstr ""
 
-#: .\weather_warning\dto.py:104
+#: .\user\apps.py:33
+msgid "User Management"
+msgstr ""
+
+#: .\user\forms.py:68 .\user\forms.py:121
+msgid "Password"
+msgstr ""
+
+#: .\user\forms.py:73
+msgid "Confirm password"
+msgstr ""
+
+#: .\user\forms.py:79 .\user\forms.py:141
+msgid "First name"
+msgstr ""
+
+#: .\user\forms.py:82
+msgid "User first name"
+msgstr ""
+
+#: .\user\forms.py:86 .\user\forms.py:145
+msgid "Last name"
+msgstr ""
+
+#: .\user\forms.py:89
+msgid "User last name"
+msgstr ""
+
+#: .\user\forms.py:149
+msgid "Email"
+msgstr ""
+
+#: .\user\forms.py:153
+msgid "Email address"
+msgstr ""
+
+#: .\user\models.py:64
+msgid "previous login"
+msgstr ""
+
+#: .\weather_warning\dto.py:102
 #, python-format
 msgid "%(severity)s. %(desc)s"
 msgstr ""
 
-#: .\weather_warning\dto.py:108
+#: .\weather_warning\dto.py:106
 #, python-format
 msgid "%(severity)s - %(title)s"
-msgstr ""
-
-#: .\weather_warning\misc.py:51
-msgid "Minor"
-msgstr ""
-
-#: .\weather_warning\misc.py:52
-msgid "Moderate"
-msgstr ""
-
-#: .\weather_warning\misc.py:53
-msgid "Severe"
-msgstr ""
-
-#: .\weather_warning\misc.py:54
-msgid "Extreme"
-msgstr ""
-
-#: .\weather_warning\misc.py:57
-msgid "Status Green"
-msgstr ""
-
-#: .\weather_warning\misc.py:58
-msgid "Status Yellow"
-msgstr ""
-
-#: .\weather_warning\misc.py:59
-msgid "Status Orange"
-msgstr ""
-
-#: .\weather_warning\misc.py:60
-msgid "Status Red"
-msgstr ""
-
-#: .\weather_warning\misc.py:156
-msgid "Wind"
-msgstr ""
-
-#: .\weather_warning\misc.py:157
-msgid "Snow/Ice"
-msgstr ""
-
-#: .\weather_warning\misc.py:158
-msgid "Thunderstorm"
-msgstr ""
-
-#: .\weather_warning\misc.py:159
-msgid "Fog"
-msgstr ""
-
-#: .\weather_warning\misc.py:160
-msgid "High temperature"
-msgstr ""
-
-#: .\weather_warning\misc.py:161
-msgid "Low temperature"
-msgstr ""
-
-#: .\weather_warning\misc.py:162
-msgid "Coastal event"
-msgstr ""
-
-#: .\weather_warning\misc.py:163
-msgid "Forest fire"
-msgstr ""
-
-#: .\weather_warning\misc.py:164
-msgid "Avalanches"
-msgstr ""
-
-#: .\weather_warning\misc.py:165
-msgid "Rain"
-msgstr ""
-
-#: .\weather_warning\misc.py:166
-msgid "Flooding"
-msgstr ""
-
-#: .\weather_warning\misc.py:167
-msgid "Rain/Flood"
-msgstr ""
-
-#: .\weather_warning\misc.py:168
-msgid "Blight"
-msgstr ""
-
-#: .\weather_warning\misc.py:169
-msgid "Advisory"
 msgstr ""
 
 #: .\weather_warning\templates\weather_warning\snippet\warning.html:31
@@ -369,14 +539,14 @@ msgstr ""
 msgid "No weather warnings"
 msgstr ""
 
-#: .\weather_zone\settings.py:205
+#: .\weather_zone\settings.py:285
 msgid "English"
 msgstr ""
 
-#: .\weather_zone\settings.py:206
+#: .\weather_zone\settings.py:286
 msgid "German"
 msgstr ""
 
-#: .\weather_zone\settings.py:207
+#: .\weather_zone\settings.py:287
 msgid "French"
 msgstr ""

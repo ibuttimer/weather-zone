@@ -29,6 +29,7 @@ from .dto import (
     TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON,
     WeatherWarnings, WarningEntry
 )
+from .enums import Severity, Category
 from .iprovider import IProvider, ProviderType
 from .loader import load_provider
 from .misc import ALL_PROVIDERS
@@ -54,6 +55,9 @@ __all__ = [
     'TYPE_WIND_DIR_ICON',
     'WeatherWarnings',
     'WarningEntry',
+
+    'Severity',
+    'Category',
 
     'IProvider',
     'ProviderType',

@@ -43,20 +43,26 @@ In the `weather-zone` folder, run the following command to install the necessary
 ```
 
 ###### Table 1: Configuration settings
-| Key                                    | Value                                                                                                                                                                              |
-|----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ENV_FILE                               | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                            |
-| PORT                                   | Port application is served on; default 8000                                                                                                                                        |
-| DEBUG                                  | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                        |
-| SECRET_KEY                             | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation) |
-| DATABASE_URL                           | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                      |
-| FONTAWESOME_URL                        | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                               |
-| REQUESTS_TIMEOUT                       | Requests timeout in seconds                                                                                                                                                        |
-| FORECAST_PROVIDERS                     | List of forecast providers to use, see [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable).                                                        |
-| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#locationforecast_provider-id-environment-variables).      |
-|                                        | **Development-specific configuration**                                                                                                                                             |
-| CACHED_GEOCODE_RESULT                  | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                |
-| CACHED_MET_EIREANN_RESULT              | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                             |
+| Key                                    | Value                                                                                                                                                                                |
+|----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ENV_FILE                               | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                              |
+| PORT                                   | Port application is served on; default 8000                                                                                                                                          |
+| DEBUG                                  | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                          |
+| SECRET_KEY                             | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)   |
+| DATABASE_URL                           | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                        |
+| FONTAWESOME_URL                        | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                                 |
+| REQUESTS_TIMEOUT                       | Requests timeout in seconds                                                                                                                                                          |
+| FORECAST_PROVIDERS                     | List of forecast providers to use, see [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable).                                                          |
+| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#locationforecast_provider-id-environment-variables).        |
+| DEFAULT_SEND_EMAIL                     | Email address to send emails from. Only valid when development mode is enabled, in production mode emails are sent from `EMAIL_HOST_USER`                                            |
+| EMAIL_HOST                             | SMTP server to send email. Only valid when production mode is enabled.                                                                                                               |
+| EMAIL_USE_TLS                          | Use Transport Layer Security (TLS) flag; see [Boolean environment variables](#boolean-environment-variables), default true. Only valid when production mode is enabled.              |
+| EMAIL_PORT                             | SMTP server port. Only valid when production mode is enabled.                                                                                                                        |
+| EMAIL_HOST_USER                        | Email user account to send email. Only valid when production mode is enabled.                                                                                                        |
+| EMAIL_HOST_PASSWORD                    | Email user account password. Only valid when production mode is enabled.                                                                                                             |
+|                                        | **Development-specific configuration**                                                                                                                                               |
+| CACHED_GEOCODE_RESULT                  | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                  |
+| CACHED_MET_EIREANN_RESULT              | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                               |
 
 
 # TODO add STORAGE_PROVIDER environment variables
@@ -120,6 +126,17 @@ A convenient method of generating a secret key is to run the following command a
 ```shell
 $ python -c "import secrets; print(secrets.token_urlsafe())"
 ```
+
+#### Email
+Procedures differ depending on the email provider used.
+for example, in order to configure Gmail as the email provider, the following actions must be performed.
+
+* Login to [Gmail](https://mail.google.com/)
+* Goto the Google Account settings and select [Security](https://myaccount.google.com/security)
+* Under `How you sign in to Google` ensure 2-Step Verification is enabled
+* Search for `App passwords` and create a new app password
+* Copy the generated app password, and store securely
+
 
 ### Before first run
 Before running the application for the first time following cloning from the repository and setting up a new database,

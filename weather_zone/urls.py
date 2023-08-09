@@ -42,12 +42,17 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .constants import (
-    ADMIN_URL, FORECAST_URL, WARNING_URL,
-    FORECAST_APP_NAME, WARNING_APP_NAME, BASE_APP_NAME
+    ADMIN_URL, FORECAST_URL, WARNING_URL, ACCOUNTS_URL, USERS_URL,
+    FORECAST_APP_NAME, WARNING_APP_NAME, BASE_APP_NAME, USER_APP_NAME
 )
 
 urlpatterns = [
     path(ADMIN_URL, admin.site.urls),
+
+    # urls_auth precedes allauth so that its urls override allauth's
+    path(ACCOUNTS_URL, include(f'{USER_APP_NAME}.urls_auth')),
+    path(ACCOUNTS_URL, include('allauth.urls')),
+    path(USERS_URL, include(f'{USER_APP_NAME}.urls')),
 
     path(FORECAST_URL, include(f'{FORECAST_APP_NAME}.urls')),
     path(WARNING_URL, include(f'{WARNING_APP_NAME}.urls')),
