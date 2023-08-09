@@ -27,7 +27,7 @@ from .constants import (
     LANGUAGE_URL, LANGUAGE_ROUTE_NAME,
     SITEMAP_URL,
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME,
-    WARNING_APP_NAME
+    WARNING_APP_NAME, USER_APP_NAME
 )
 from .misc import provider_settings_name
 
@@ -45,13 +45,14 @@ __all__ = [
     'ROBOTS_URL',
     'ROBOTS_ROUTE_NAME',
     'LANGUAGE_URL',
-    'LANGUAGE_ROUTE_NAME'
+    'LANGUAGE_ROUTE_NAME',
     'SITEMAP_URL',
 
     'BASE_APP_NAME',
     'FORECAST_APP_NAME',
     'LOCATIONFORECAST_APP_NAME',
     'WARNING_APP_NAME',
+    'USER_APP_NAME',
 
     'provider_settings_name',
 ]

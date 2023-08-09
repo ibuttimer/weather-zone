@@ -28,6 +28,7 @@ from .html import add_navbar_attr, NavbarAttr, html_tag
 from .misc import (
     is_boolean_true, Crud, ensure_list, find_index, dict_drill
 )
+from .models import ModelMixin, ModelFacadeMixin
 from .url_path import (
     append_slash, namespaced_url, app_template_path, url_path, reverse_q,
     GET, PATCH, POST, DELETE
@@ -46,6 +47,9 @@ __all__ = [
     'ensure_list',
     'find_index',
     'dict_drill',
+
+    'ModelMixin',
+    'ModelFacadeMixin',
 
     'append_slash',
     'namespaced_url',

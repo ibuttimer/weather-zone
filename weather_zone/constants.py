@@ -34,6 +34,7 @@ BASE_APP_NAME = "base"
 FORECAST_APP_NAME = "forecast"
 LOCATIONFORECAST_APP_NAME = "locationforecast"
 WARNING_APP_NAME = "weather_warning"
+USER_APP_NAME = "user"
 
 # Base routes related
 HOME_URL = "/"

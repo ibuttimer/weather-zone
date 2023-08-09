@@ -17,9 +17,10 @@ from django.utils.translation import gettext_lazy as _
 
 from .constants import (
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME,
-    WARNING_APP_NAME
+    WARNING_APP_NAME, USER_APP_NAME
 )
 from .misc import provider_settings_name
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,6 +78,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # The following apps are required by 'allauth':
+    #   django.contrib.auth, django.contrib.messages
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    USER_APP_NAME,
 ]
 
 # forecast provider apps
@@ -163,6 +172,17 @@ if not TEST:
     })
 
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# 'allauth' site id
+SITE_ID = int(env('SITE_ID'))
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -184,6 +204,9 @@ AUTH_PASSWORD_VALIDATORS = [
                 'NumericPasswordValidator',
     },
 ]
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-user-model
+AUTH_USER_MODEL = f'{USER_APP_NAME}.User'
 
 
 # Internationalization

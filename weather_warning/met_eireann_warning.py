@@ -20,12 +20,13 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from datetime import datetime
+from datetime import datetime, timezone
 from http import HTTPStatus
 import json
 from typing import Dict, Tuple
 import re
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import requests
 import xmltodict
@@ -68,7 +69,8 @@ WARNINGENTRY_KEY_DATA_PATH = {
     ('alert', 'info', 'area', 'geocode'): WarningEntry.AREAS_KEY,
 }
 
-WARNING_PUBLISHED_FMT = "%a, %d %b %Y %H:%M:%S %Z"
+# published date and header modified dates are always in GMT (ignoring DST)
+WARNING_PUBLISHED_FMT = "%a, %d %b %Y %H:%M:%S GMT"
 
 CACHED_FILE_MARKER = 'file://'
 
@@ -109,6 +111,8 @@ class MetEireannWarningProvider(WarningsProvider):
             for item in ensure_list(items):
 
                 link = warning_link(self, item)     # link to details
+
+                pub_date = gmt_datetime(item)
 
                 warning_info = reader(link, params)
                 if warning_info:
@@ -253,3 +257,15 @@ def warning_link(provider: WarningsProvider, item: Dict) -> str:
         file = link[len(CACHED_FILE_MARKER):]
         link = str(Path(provider.cached_result).with_name(file))
     return link
+
+
+def gmt_datetime(item: Dict) -> datetime:
+    """
+    Extract the published date (GMT) from the given item
+    :param item: dict of warning data summary
+    :return: GMT datetime
+    """
+    dt_str = dict_drill(item, 'pubDate', default='').value
+    date_time = datetime.min if not dt_str else datetime.strptime(
+        dt_str, WARNING_PUBLISHED_FMT).replace(tzinfo=ZoneInfo("GMT"))
+    return date_time
