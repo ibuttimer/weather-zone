@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-09 15:23+0100\n"
+"POT-Creation-Date: 2023-08-10 10:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -293,9 +293,111 @@ msgstr "Wetterwarnungen von %(provider)s anzeigen."
 msgid "Location forecast"
 msgstr "Standortprognose"
 
+#: .\templates\account\email\account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie oder eine andere Person versucht haben, "
+"sich mit der E-Mail-Adresse %(email)s für ein Konto anzumelden.\n"
+"Es existiert jedoch bereits ein Konto mit dieser E-Mail-Adresse. Falls Sie "
+"dies vergessen haben, verwenden Sie bitte das Verfahren Passwort vergessen, "
+"um Ihr Konto wiederherzustellen: %(password_reset_url)s"
+
+#: .\templates\account\email\account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr "Konto existiert bereits"
+
+#: .\templates\account\email\base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr "Hallo von %(site_name)s!"
+
+#: .\templates\account\email\base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Vielen Dank, dass Sie %(site_name)s verwenden!\n"
+"%(site_domain)s"
+
+#: .\templates\account\email\email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+"Sie erhalten diese E-Mail, weil der Benutzer %(user_display)s Ihre E-Mail-"
+"Adresse angegeben hat, um ein Konto bei %(site_domain)s zu registrieren.\n"
+"\n"
+"Um zu bestätigen, dass dies korrekt ist, gehen Sie zu %(activate_url)s"
+
+#: .\templates\account\email\email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr "Bitte bestätigen Sie Ihre E-Mail-Adresse"
+
+#: .\templates\account\email\password_reset_key_message.txt:4
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie oder jemand anderes eine angefordert hat "
+"Passwort für Ihr Benutzerkonto.\n"
+"Es kann getrost ignoriert werden, wenn Sie kein Zurücksetzen des Passworts "
+"angefordert haben. Klicken Sie auf den Link unten, um Ihr Passwort "
+"zurückzusetzen."
+
+#: .\templates\account\email\password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Falls Sie es vergessen haben: Ihr Benutzername ist %(username)s."
+
+#: .\templates\account\email\password_reset_key_subject.txt:3
+#: .\templates\account\email\unknown_account_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "E-Mail zum Zurücksetzen des Passworts"
+
+#: .\templates\account\email\unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie oder eine andere Person ein Passwort für "
+"Ihr Benutzerkonto angefordert hat. Wir haben jedoch keinen Datensatz eines "
+"Benutzers mit der E-Mail-Adresse %(email)s in unserer Datenbank.\n"
+"\n"
+"Diese E-Mail kann getrost ignoriert werden, wenn Sie keine Passwort-"
+"Zurücksetzung angefordert haben.\n"
+"\n"
+"Wenn Sie es waren, können Sie sich über den untenstehenden Link für ein "
+"Konto anmelden."
+
 #: .\templates\account\email_confirm.html:7
 #: .\templates\account\email_confirm.html:19
-#| msgid "Email address"
 msgid "Confirm Email Address"
 msgstr "E-Mail-Adresse Bestätigen"
 
@@ -322,11 +424,7 @@ msgid "Confirm"
 msgstr "Bestätigen"
 
 #: .\templates\account\email_confirm.html:52
-#| msgid ""
-#| "                    This e-mail confirmation link expired or is invalid.\n"
-#| "                    Please <a href=\"%(email_url)s\">issue a new e-mail "
-#| "confirmation request</a>.\n"
-#| "                "
+#, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid.\n"
 "                    Please <a href=\"%(email_url)s\">issue a new e-mail "
@@ -351,6 +449,7 @@ msgstr ""
 "\">registrieren</a> zuerst"
 
 #: .\templates\account\login.html:69
+#: .\templates\account\password_change.html:34
 msgid "Forgot Password?"
 msgstr "Passwort vergessen?"
 
@@ -401,13 +500,81 @@ msgid "Password successfully set."
 msgstr "Passwort erfolgreich festgelegt."
 
 #: .\templates\account\messages\primary_email_set.txt:2
-#| msgid "Email address"
 msgid "Primary e-mail address set."
 msgstr "Primäre E-Mail-Adresse festgelegt."
 
 #: .\templates\account\messages\unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
 msgstr "Ihre primäre E-Mail-Adresse muss bestätigt werden."
+
+#: .\templates\account\password_change.html:5
+#: .\templates\account\password_change.html:11
+#: .\templates\account\password_change.html:37
+#: .\templates\account\password_reset_from_key.html:4
+#: .\templates\account\password_reset_from_key.html:10
+#: .\templates\account\password_reset_from_key.html:37
+#: .\templates\account\password_reset_from_key_done.html:4
+#: .\templates\account\password_reset_from_key_done.html:10
+msgid "Change Password"
+msgstr "Kennwort Ändern"
+
+#: .\templates\account\password_reset.html:7
+#: .\templates\account\password_reset.html:18
+#: .\templates\account\password_reset_done.html:6
+#: .\templates\account\password_reset_done.html:12
+msgid "Password Reset"
+msgstr "Passwort Zurücksetzen"
+
+#: .\templates\account\password_reset.html:32
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Passwort vergessen? Geben Sie unten Ihre E-Mail-Adresse ein und wir senden "
+"Ihnen eine E-Mail, mit der Sie es zurücksetzen können."
+
+#: .\templates\account\password_reset.html:51
+msgid "Reset My Password"
+msgstr "Setze mein Passwort zurück"
+
+#: .\templates\account\password_reset.html:56
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Bitte kontaktieren Sie uns, wenn Sie Probleme beim Zurücksetzen Ihres "
+"Passworts haben."
+
+#: .\templates\account\password_reset_done.html:25
+msgid ""
+"\n"
+"                    We have sent you an e-mail. If you have not received it "
+"please check your spam folder.\n"
+"                    Otherwise please contact us if you do not receive it in "
+"a few minutes.\n"
+"                "
+msgstr ""
+"\n"
+"Wir haben Ihnen eine E-Mail geschickt. Wenn Sie es nicht erhalten haben, "
+"überprüfen Sie bitte Ihren Spam-Ordner. Andernfalls kontaktieren Sie uns "
+"bitte, wenn Sie es nicht innerhalb weniger Minuten erhalten."
+
+#: .\templates\account\password_reset_from_key.html:10
+msgid "Bad Token"
+msgstr "Schlechtes Zeichen"
+
+#: .\templates\account\password_reset_from_key.html:17
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Der Link zum Zurücksetzen des Passworts war ungültig, möglicherweise weil er "
+"bereits ungültig war gebraucht. Bitte fordern Sie eine <a href="
+"\"%(passwd_reset_url)s\">neue Passwortzurücksetzung</a> an."
+
+#: .\templates\account\password_reset_from_key_done.html:15
+msgid "Your password is now changed."
+msgstr "Ihr Passwort ist nun geändert."
 
 #: .\templates\account\signup.html:6 .\templates\account\signup.html:17
 #: .\templates\account\signup.html:46 .\templates\base.html:116
@@ -462,6 +629,11 @@ msgstr "Hilfe"
 #: .\templates\base.html:80
 msgid "About"
 msgstr "Über"
+
+#: .\templates\base.html:105
+#| msgid "Change Password"
+msgid "Change password"
+msgstr "Kennwort ändern"
 
 #: .\templates\base.html:200
 msgid "Version"

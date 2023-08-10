@@ -27,11 +27,11 @@ from weather_zone.constants import (
     CHANGE_PASSWORD_URL, CHANGE_PASSWORD_ROUTE_NAME
 )
 
-# from .views import UserPasswordChangeView
+from .views import UserPasswordChangeView
 
 
 urlpatterns = [
     # standard app urls
-    # path(CHANGE_PASSWORD_URL, UserPasswordChangeView.as_view(),
-    #      name=CHANGE_PASSWORD_ROUTE_NAME),
+    path(CHANGE_PASSWORD_URL, UserPasswordChangeView.as_view(),
+         name=CHANGE_PASSWORD_ROUTE_NAME),
 ]
