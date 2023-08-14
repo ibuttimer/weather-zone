@@ -61,3 +61,7 @@ WARNING_CTX = "warning"
 WARNING_URL_CTX = "warning_url"
 WARNING_URL_ARIA_CTX = "warning_url_aria"
 SUBMIT_BTN_TEXT_CTX = 'submit_btn_text'
+
+# provider selection
+ALL_PROVIDERS = 'all'
+COUNTRY_PROVIDERS = 'country'

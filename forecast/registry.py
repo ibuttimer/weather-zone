@@ -24,14 +24,14 @@ Provides a registry of forecast providers
 #  SOFTWARE.
 #
 from datetime import datetime
-from typing import TypeVar, Optional, List, Any
+from typing import TypeVar, Optional, List, Any, Callable
 
 from broker import Broker, ServiceType
 from utils import SingletonMixin, ensure_list
 
 from .dto import Forecast, GeoAddress, WeatherWarnings
 from .iprovider import IProvider
-
+from .constants import COUNTRY_PROVIDERS
 
 TypeRegistry = TypeVar('TypeRegistry', bound='Registry')
 
@@ -87,15 +87,19 @@ class Registry(SingletonMixin):
         return self._broker.get(name, ServiceType.weather_types(),
                                 raise_not_reg=raise_not_reg)
 
-    def provider_names(self, stype: ServiceType = None) -> List[str]:
+    def provider_names(self, stype: ServiceType = None,
+                       filter_func: Callable = None) -> List[str]:
         """
         Get the provider names
 
         :param stype: Provider type to filter on; default None
+        :param filter_func: Filter function to apply to providers; default None
         :return: Provider names
         """
         return self._broker.provider_names(
-            ServiceType.weather_types() if stype is None else ensure_list(stype)
+            service_type=ServiceType.weather_types() if stype is None
+            else ensure_list(stype),
+            filter_func=filter_func
         )
 
     @property
@@ -123,8 +127,16 @@ class Registry(SingletonMixin):
         :return: Forecast
         """
         forecasts = []
+
+        if provider.lower() == COUNTRY_PROVIDERS:
+            filter_func = lambda p: p.is_country_supported(geo_address.country)
+            provider = None
+        else:
+            filter_func = None
+
         providers = [provider] if provider is not None \
-            else self.provider_names(stype=ServiceType.FORECAST)
+            else self.provider_names(stype=ServiceType.FORECAST,
+                                     filter_func=filter_func)
 
         for name in providers:
             forecasts.append(

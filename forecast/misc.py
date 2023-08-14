@@ -31,12 +31,11 @@ from typing import Tuple, List
 from django.utils.translation import gettext_lazy as _
 
 from broker import ServiceType
+from .constants import ALL_PROVIDERS
 from .registry import Registry
 
 
 DateRange = namedtuple('DateRange', ['start', 'end'])
-
-ALL_PROVIDERS = 'all'
 
 
 class RangeArg(Enum):

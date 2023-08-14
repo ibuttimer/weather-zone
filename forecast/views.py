@@ -63,7 +63,8 @@ from .dto import (
     GeoAddress, Forecast, AttribRow, ForecastEntry, WeatherWarnings,
     TYPE_WEATHER_ICON, TYPE_HDR, TYPE_WIND_DIR_ICON
 )
-from .misc import RangeArg, ALL_PROVIDERS
+from .misc import RangeArg
+from .constants import ALL_PROVIDERS
 from .registry import Registry
 
 
@@ -391,7 +392,7 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     dates = time_rng.as_dates()
 
     provider = request.GET.get(QUERY_PROVIDER, None)    # default is all
-    if provider == ALL_PROVIDERS:
+    if provider.lower() == ALL_PROVIDERS:
         provider = None    # default is all
 
     forecast_kwargs = {}

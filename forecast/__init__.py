@@ -22,7 +22,8 @@
 #
 from .constants import (
     ADDRESS_ROUTE_NAME, LAT_LONG_ROUTE_NAME, QUERY_PROVIDER,
-    QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO
+    QUERY_PARAM_LAT, QUERY_PARAM_LONG, QUERY_PARAM_FROM, QUERY_PARAM_TO,
+    ALL_PROVIDERS
 )
 from .dto import (
     Forecast, ForecastEntry, GeoAddress, Location,
@@ -33,7 +34,6 @@ from .enums import Severity, Category
 from .geocoding import GeoCodeResult
 from .iprovider import IProvider
 from .loader import load_provider
-from .misc import ALL_PROVIDERS
 from .provider import Provider
 from .registry import Registry
 from .signals import registry_open
@@ -65,8 +65,6 @@ __all__ = [
     'IProvider',
 
     'load_provider',
-
-    'ALL_PROVIDERS',
 
     'Provider',
 

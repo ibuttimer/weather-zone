@@ -23,7 +23,7 @@ Provides a Broker of service providers
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from typing import TypeVar, Optional, List, Any, Dict, Union, Tuple
+from typing import TypeVar, Optional, List, Any, Dict, Union, Tuple, Callable
 
 from utils import SingletonMixin, ensure_list
 from .iservice import IService, ServiceType
@@ -134,17 +134,26 @@ class Broker(SingletonMixin):
             if service_type == ServiceType.FORECAST_WARNING else \
             ensure_list(service_type)
 
-    def provider_names(self, service_type: ServiceType = None) -> List[str]:
+    def provider_names(self, service_type: ServiceType = None,
+                       filter_func: Callable = None) -> List[str]:
         """
         Get the provider names
 
+        :param filter_func:
         :param service_type: Service type to filter on; default None
+        :param filter_func: Filter function to apply to providers; default None
         :return: Provider names
         """
+        if filter_func is None:
+            def pass_thru(p: IService) -> bool:
+                return True
+            filter_func = pass_thru
+
         return [
-            k for st, st_providers in self._providers.items()
+            name for st, st_providers in self._providers.items()
             if st in self.types_list(service_type)
-            for k in st_providers.keys()
+            for name, provider in st_providers.items()
+            if filter_func(provider)
         ]
 
     def providers(self, service_type: ServiceType = None) -> List[IService]:
