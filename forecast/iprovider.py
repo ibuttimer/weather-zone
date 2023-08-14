@@ -25,7 +25,6 @@ Interface for forecast providers
 #
 from abc import ABC, abstractmethod
 from datetime import datetime
-from enum import Enum, auto
 
 from .dto import Forecast, GeoAddress, WeatherWarnings
 

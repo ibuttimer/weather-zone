@@ -69,6 +69,7 @@ VALUE_ATTRIB = '@value'
 NAME_ATTRIB = '@name'
 DEG_ATTRIB = '@deg'
 MPS_ATTRIB = '@mps'
+BEAUFORT_ATTRIB = '@beaufort'
 PERCENT_ATTRIB = '@percent'
 ATTRIB_MARKER = '@'     # char xmltodict prepends to xml tag attributes
 LITERAL_MARKER = '$'

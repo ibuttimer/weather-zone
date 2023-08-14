@@ -450,6 +450,8 @@ def parse_forecast(data: str, forecast: Forecast,
                 value = fc_value.get(me_attrib.value)
                 if me_attrib.key in ForecastEntry.FLOAT_KEYS:
                     value = float(value if value else 0)
+                elif me_attrib.key in ForecastEntry.INT_KEYS:
+                    value = int(value if value else 0)
                 setattr(f_cast, me_attrib.key, value)
 
     # set time series

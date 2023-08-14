@@ -148,6 +148,7 @@ class ForecastEntry:
     WIND_DIR_ICON_KEY = "wind_dir_icon"
     WIND_SPEED_KEY = "wind_speed"
     WIND_GUST_KEY = "wind_gust"
+    BEAUFORT_KEY = "beaufort"
     HUMIDITY_KEY = "humidity"
     PRECIPITATION_KEY = "precipitation"
     PRECIPITATION_PROB_KEY = "precipitation_prob"
@@ -160,6 +161,10 @@ class ForecastEntry:
         TEMPERATURE_KEY, WIND_DIR_KEY, WIND_SPEED_KEY, WIND_GUST_KEY,
         HUMIDITY_KEY, PRECIPITATION_KEY, PRECIPITATION_PROB_KEY
     ]
+    # keys that are ints
+    INT_KEYS = [
+        BEAUFORT_KEY
+    ]
 
     start: datetime  # start date/time
     end: datetime  # end date/time
@@ -169,6 +174,7 @@ class ForecastEntry:
     wind_dir_icon: str  # wind direction icon
     wind_speed: float  # wind speed
     wind_gust: float  # wind gust
+    beaufort: int  # beaufort scale
     humidity: float  # humidity
     precipitation: float  # precipitation
     precipitation_prob: float  # precipitation probability
@@ -193,6 +199,7 @@ class ForecastEntry:
             wind_dir_icon='',
             wind_speed=0.0,
             wind_gust=0.0,
+            beaufort=0,
             humidity=0.0,
             precipitation=0.0,
             precipitation_prob=0.0,
