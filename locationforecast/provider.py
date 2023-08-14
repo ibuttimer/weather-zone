@@ -37,7 +37,6 @@ import xmltodict
 from django.conf import settings
 
 from base import get_request_headers
-from forecast.dto import TYPE_WEATHER_ICON
 from utils import dict_drill, ensure_list
 
 from broker import ServiceType
@@ -391,15 +390,16 @@ def parse_forecast(data: str, forecast: Forecast,
         from_dt: datetime = datetime.fromisoformat(entry.get(FROM_ATTRIB))
         to_dt: datetime = datetime.fromisoformat(entry.get(TO_ATTRIB))
 
-        # exclude if entry date/time range outside start/end range
         from_dt_utc = from_dt.astimezone(timezone.utc)
         to_dt_utc = to_dt.astimezone(timezone.utc)
-        if start_dt_utc:
-            if to_dt_utc < start_dt_utc:
-                continue
-        if end_dt_utc:
-            if from_dt_utc > end_dt_utc or to_dt_utc > end_dt_utc:
-                continue
+        if not settings.IGNORE_FORECAST_WINDOW:
+            # exclude if entry date/time range outside start/end range
+            if start_dt_utc:
+                if to_dt_utc < start_dt_utc:
+                    continue
+            if end_dt_utc:
+                if from_dt_utc > end_dt_utc or to_dt_utc > end_dt_utc:
+                    continue
 
         # get forecast entry based on end date/time so that instant forecasts
         # (temp/wind/etc.) are added to the end of period forecasts
