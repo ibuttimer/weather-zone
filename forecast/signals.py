@@ -24,6 +24,27 @@ Signal processing for forecast app
 #  SOFTWARE.
 #
 import django.dispatch
+from django.dispatch import receiver
+
+from broker import broker_open
+
+from .registry import Registry
+
 
 # Signal sent when the registry is opened
 registry_open = django.dispatch.Signal()
+
+
+@receiver(broker_open)
+def broker_open_handler(sender, **kwargs):
+    """
+    Handler for broker open signal
+    :param sender: sender which sent the signal
+    :param kwargs: keyword arguments including
+        registry: registry that was opened
+    :return:
+    """
+    # create the registry instance
+    registry = Registry.get_instance()
+    # send the registry_open signal
+    registry_open.send(sender=registry.__class__, registry=registry)

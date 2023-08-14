@@ -40,8 +40,9 @@ from base import get_request_headers
 from forecast.dto import TYPE_WEATHER_ICON
 from utils import dict_drill, ensure_list
 
+from broker import ServiceType
 from forecast import (
-    Forecast, ForecastEntry, GeoAddress, Location, Provider, ProviderType,
+    Forecast, ForecastEntry, GeoAddress, Location, Provider
 )
 
 from .regions import RegionStore, load_regions
@@ -69,7 +70,7 @@ class WarningsProvider(Provider):
         :param country: ISO 3166-1 alpha-2 country code of provider
         """
         super().__init__(
-            name, friendly_name, url, tz, country, ProviderType.WARNING)
+            name, friendly_name, url, tz, country, ServiceType.WARNING)
         self.cached_result = None
         WarningsProvider.init_regions()
 

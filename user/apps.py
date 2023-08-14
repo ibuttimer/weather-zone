@@ -31,3 +31,7 @@ class UserConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = USER_APP_NAME
     verbose_name = _("User Management")
+
+    def ready(self):
+        # Implicitly connect signal handlers decorated with @receiver.
+        from . import signals

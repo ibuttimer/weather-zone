@@ -1,6 +1,3 @@
-"""
-Module for utility functions
-"""
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -23,48 +20,26 @@ Module for utility functions
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .forms import FormMixin
-from .html import add_navbar_attr, NavbarAttr, html_tag
-from .misc import (
-    is_boolean_true, Crud, ensure_list, find_index, dict_drill, AsDictMixin
-)
-from .models import ModelMixin, ModelFacadeMixin
-from .singleton import SingletonMixin
-from .url_path import (
-    append_slash, namespaced_url, app_template_path, url_path, reverse_q,
-    GET, PATCH, POST, DELETE
-)
-from .views import resolve_req, redirect_on_success_or_render
+from typing import TypeVar
 
-__all__ = [
-    'FormMixin',
 
-    'add_navbar_attr',
-    'NavbarAttr',
-    'html_tag',
+T = TypeVar("T")
 
-    'is_boolean_true',
-    'Crud',
-    'ensure_list',
-    'find_index',
-    'dict_drill',
-    'AsDictMixin',
 
-    'ModelMixin',
-    'ModelFacadeMixin',
+class SingletonMixin:
+    """
+    Provides a singleton implementation
+    """
 
-    'SingletonMixin',
+    _instance: T
 
-    'append_slash',
-    'namespaced_url',
-    'app_template_path',
-    'url_path',
-    'reverse_q',
-    'GET',
-    'PATCH',
-    'POST',
-    'DELETE',
+    @classmethod
+    def get_instance(cls) -> T:
+        """
+        Get the registry
 
-    'resolve_req',
-    'redirect_on_success_or_render',
-]
+        :return: Registry
+        """
+        if not hasattr(cls, '_instance'):
+            cls._instance = cls()
+        return cls._instance

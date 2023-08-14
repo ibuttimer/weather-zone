@@ -34,27 +34,32 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django_countries import countries
 
+from broker import Broker, ServiceType, ICrudService
 from weather_warning.constants import COUNTRY_ROUTE_NAME
 from weather_zone.constants import (
     WARNING_APP_NAME
 )
 from base import TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX
+from user import (
+    USER_FIELD, COUNTRY_FIELD, COMPONENTS_FIELD, FORMATTED_ADDR_FIELD,
+    LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD
+)
 from utils import (
     GET, app_template_path, reverse_q, namespaced_url, Crud,
     redirect_on_success_or_render, html_tag
 )
 
 from .constants import (
-    THIS_APP, ADDRESS_FORM_CTX, SUBMIT_URL_CTX, ADDRESS_ROUTE_NAME,
+    THIS_APP, ADDRESS_FORM_CTX, UNAUTH_SKIP_FIELDS_CTX, SUBMIT_URL_CTX,
     SUBMIT_BTN_TEXT_CTX,
     FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX,
     WARNING_LIST_CTX, WARNING_CTX, WARNING_URL_CTX, WARNING_URL_ARIA_CTX,
-    DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER
+    ADDRESS_ROUTE_NAME, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER
 )
 from .convert import Units, speed_conversion
 from .forms import AddressForm
 from .geocoding import geocode_address
-from forecast.dto import (
+from .dto import (
     GeoAddress, Forecast, AttribRow, ForecastEntry, WeatherWarnings,
     TYPE_WEATHER_ICON, TYPE_HDR, TYPE_WIND_DIR_ICON
 )
@@ -221,6 +226,23 @@ class ForecastAddress(View):
     """
     Class-based view for address forecast
     """
+
+    _address_service: ICrudService
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._address_service = None
+
+    def address_service(self) -> ICrudService:
+        """
+        Get the address service
+        :return: address service
+        """
+        if not self._address_service:
+            self._address_service = Broker.get_instance().get(
+                'AddressService', ServiceType.DB_CRUD)
+        return self._address_service
+
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """
         GET method for Address
@@ -255,12 +277,43 @@ class ForecastAddress(View):
                     field = dict(countries)[field]
                 return field
 
-            geo_address: GeoAddress = geocode_address([
+            geo_address, geocode_result = geocode_address([
                 b for b in map(
                     get_field, AddressForm.Meta.addr_fields
                 ) if b
             ])
             success = geo_address.is_valid
+
+            if success:
+                if request.user.is_authenticated:
+                    save_to_profile = form.cleaned_data.get(
+                        AddressForm.SAVE_TO_PROFILE_FIELD)
+                    set_as_default = form.cleaned_data.get(
+                        AddressForm.SET_AS_DEFAULT_FIELD)
+                else:
+                    save_to_profile = False
+                    set_as_default = False
+
+                if save_to_profile or set_as_default:
+                    # save to profile
+                    addr_kwargs = {
+                        f'{USER_FIELD}': request.user,
+                        f'{LATITUDE_FIELD}': geo_address.lat,
+                        f'{LONGITUDE_FIELD}': geo_address.lng,
+                    }
+                    addr = self.address_service().get(**addr_kwargs)
+                    if addr is None:
+                        # add new address
+                        addr = self.address_service().create(
+                            request.user, geocode_result)
+                    else:
+                        # update existing address
+                        if set_as_default != addr.is_default:
+                            addr_kwargs['update'] = {
+                                f'{IS_DEFAULT_FIELD}': set_as_default
+                            }
+                            updated = self.address_service().update(
+                                **addr_kwargs)
 
             # need to redirect to url with query parameters
             query_kwargs = geo_address.as_dict()
@@ -296,6 +349,10 @@ class ForecastAddress(View):
             PAGE_HEADING_CTX: _("Address of forecast location"),
             SUBMIT_BTN_TEXT_CTX: _("Submit"),
             ADDRESS_FORM_CTX: form,
+            UNAUTH_SKIP_FIELDS_CTX: [
+                AddressForm.SAVE_TO_PROFILE_FIELD,
+                AddressForm.SET_AS_DEFAULT_FIELD
+            ],
             SUBMIT_URL_CTX: self.url()
         }
 
@@ -345,7 +402,7 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
         if v:
             forecast_kwargs[k] = v
 
-    registry = Registry.get_registry()
+    registry = Registry.get_instance()
 
     forecasts = registry.generate_forecast(
         geo_address, provider=provider,

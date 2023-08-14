@@ -69,20 +69,61 @@ class ModelMixin:
         }
 
     @classmethod
+    def get_by_fields(cls, get_or_404: bool = True,
+                      does_not_exit_none: bool = False,
+                      **kwargs) -> Optional[Model]:
+        """
+        Get an entity by the values of fields
+        :param get_or_404: get or 404 flag; default True
+        :param does_not_exit_none: return None if does not exist; default False
+        :param kwargs: fields to get by
+        :return: model
+        :raises: Http404 if get_or_404 is True and no entity found
+        :raises: Model.MultipleObjectsReturned if get_or_404 is False and
+                multiple objects found
+        :raises: Model.DoesNotExist if get_or_404 and does_not_exit_none are
+                False and no entity found
+        """
+        entity = None
+        if get_or_404:
+            entity = get_object_or_404(cls, **kwargs)
+        elif does_not_exit_none:
+            entities = cls.filter_by_fields(**kwargs)
+            num = len(entities)
+            if num == 1:
+                entity = entities[0]
+            elif num > 1:
+                model = entities[0].model
+                raise model.MultipleObjectsReturned(
+                    f"get_by_fields() returned more than one "
+                    f"{model._meta.object_name} -- it returned {num}!"
+                )
+        else:
+            entity = cls.objects.get(**kwargs)
+        return entity
+
+    @classmethod
     def get_by_field(cls, field: str, value: Any,
                      get_or_404: bool = True) -> Model:
         """
         Get an entity by the value of a field
         :param field: field to get by
         :param value: value to match
-        :param get_or_404: get ot 404 flag; default True
+        :param get_or_404: get or 404 flag; default True
         :return: model
         """
-        query_param = {
+        return cls.get_by_fields(get_or_404=get_or_404, **{
             field: value
-        }
-        return get_object_or_404(cls, **query_param) if get_or_404 else \
-            cls.objects.get(**query_param)
+        })
+
+    @classmethod
+    def filter_by_fields(cls, **kwargs) -> QuerySet:
+        """
+        Filter an entity by the values of fields
+        :param kwargs: fields to filter by
+        :return: model
+        """
+        return cls.objects.filter(**kwargs)
 
     @classmethod
     def filter_by_field(cls, field: str, value: Any) -> QuerySet:
@@ -92,7 +133,7 @@ class ModelMixin:
         :param value: value to match
         :return: model
         """
-        return cls.objects.filter(**{
+        return cls.filter_by_fields(**{
             field: value
         })
 

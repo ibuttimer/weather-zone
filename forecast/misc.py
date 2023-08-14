@@ -30,7 +30,7 @@ from typing import Tuple, List
 
 from django.utils.translation import gettext_lazy as _
 
-from .iprovider import ProviderType
+from broker import ServiceType
 from .registry import Registry
 
 
@@ -104,17 +104,17 @@ def get_range_choices() -> Tuple[Tuple[str, str]]:
     ])
 
 
-def get_provider_choices(ptype: ProviderType) -> List[Tuple[str, str]]:
+def get_provider_choices(stype: ServiceType) -> List[Tuple[str, str]]:
     """
     Get the provider choices for a select field
 
-    :param ptype: Provider type to get choices for
+    :param stype: Provider type to get choices for
     :return: Provider choices
     """
-    registry = Registry.get_registry()
+    registry = Registry.get_instance()
     choices = [(ALL_PROVIDERS, _('All'))]
     choices.extend([
         (name, registry.get(name).friendly_name)
-        for name in registry.provider_names(ptype=ptype)
+        for name in registry.provider_names(stype=stype)
     ])
     return tuple(choices)

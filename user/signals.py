@@ -1,5 +1,5 @@
 """
-Module for utility functions
+Signal processing for app
 """
 #  MIT License
 #
@@ -23,48 +23,28 @@ Module for utility functions
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .forms import FormMixin
-from .html import add_navbar_attr, NavbarAttr, html_tag
-from .misc import (
-    is_boolean_true, Crud, ensure_list, find_index, dict_drill, AsDictMixin
-)
-from .models import ModelMixin, ModelFacadeMixin
-from .singleton import SingletonMixin
-from .url_path import (
-    append_slash, namespaced_url, app_template_path, url_path, reverse_q,
-    GET, PATCH, POST, DELETE
-)
-from .views import resolve_req, redirect_on_success_or_render
+from django.conf import settings
+from django.dispatch import receiver
 
-__all__ = [
-    'FormMixin',
+from broker import broker_open, Broker, ServiceType
 
-    'add_navbar_attr',
-    'NavbarAttr',
-    'html_tag',
+from .constants import THIS_APP
+from .services import AddressService
 
-    'is_boolean_true',
-    'Crud',
-    'ensure_list',
-    'find_index',
-    'dict_drill',
-    'AsDictMixin',
 
-    'ModelMixin',
-    'ModelFacadeMixin',
+@receiver(broker_open)
+def broker_open_handler(sender, **kwargs):
+    """
+    Handler for broker open signal
+    :param sender: sender which sent the signal
+    :param kwargs: keyword arguments including
+        registry: registry that was opened
+    :return:
+    """
+    broker: Broker = kwargs.get('broker')
 
-    'SingletonMixin',
+    print(f"{THIS_APP}: Broker open signal received from {sender}")
 
-    'append_slash',
-    'namespaced_url',
-    'app_template_path',
-    'url_path',
-    'reverse_q',
-    'GET',
-    'PATCH',
-    'POST',
-    'DELETE',
-
-    'resolve_req',
-    'redirect_on_success_or_render',
-]
+    # register services
+    broker.add(AddressService.__name__, ServiceType.DB_CRUD,
+               AddressService.get_instance())

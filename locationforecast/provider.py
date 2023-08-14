@@ -40,9 +40,10 @@ from base import get_request_headers
 from forecast.dto import TYPE_WEATHER_ICON
 from utils import dict_drill, ensure_list
 
+from broker import ServiceType
 from forecast import (
     Forecast, ForecastEntry, GeoAddress, Location, Provider,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, ProviderType, WeatherWarnings
+    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, WeatherWarnings
 )
 
 from .constants import (
@@ -180,7 +181,7 @@ class LocationforecastProvider(Provider):
         :param attributes: Attributes to use to parse forecast
         """
         super().__init__(
-            name, friendly_name, url, tz, country, ProviderType.FORECAST)
+            name, friendly_name, url, tz, country, ServiceType.FORECAST)
         self.lat_q = lat_q
         self.lng_q = lng_q
         self.attributes = attributes

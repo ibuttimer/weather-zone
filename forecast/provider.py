@@ -28,7 +28,9 @@ from zoneinfo import ZoneInfo
 
 from django_countries.fields import Country
 
-from .iprovider import IProvider, ProviderType
+from broker import ServiceType
+
+from .iprovider import IProvider
 
 
 class Provider(IProvider, ABC):
@@ -40,17 +42,17 @@ class Provider(IProvider, ABC):
     URL_PROP = 'url'
     TZ_PROP = 'tz'
     COUNTRY_PROP = 'country'
-    PTYPE_PROP = 'ptype'
+    STYPE_PROP = 'stype'
 
     name: str               # Name of provider
     friendly_name: str      # user friendly of provider
     url: str                # URL of provider
     tz: ZoneInfo            # timezone
     country: Country        # country
-    ptype: ProviderType     # provider type
+    stype: ServiceType      # service type
 
     def __init__(self, name: str, friendly_name: str, url: str, tz: str,
-                 country: str, ptype: ProviderType = ProviderType.UNKNOWN):
+                 country: str, stype: ServiceType = ServiceType.UNKNOWN):
         """
         Constructor
 
@@ -59,14 +61,14 @@ class Provider(IProvider, ABC):
         :param url: URL of provider
         :param tz: Timezone identifier of provider
         :param country: ISO 3166-1 alpha-2 country code of provider
-        :param ptype: type of Provider
+        :param stype: type of Provider
         """
         self.name = name
         self.friendly_name = friendly_name
         self.url = url
         self.tz = ZoneInfo(tz or "UTC")
         self.country = Country(country)
-        self.ptype = ptype
+        self.stype = stype
 
     @staticmethod
     def read_cached_resp(filepath: str) -> str:
@@ -86,9 +88,7 @@ class Provider(IProvider, ABC):
 
         :return: True if forecast provider, otherwise False
         """
-        return self.ptype in [
-            ProviderType.FORECAST, ProviderType.FORECAST_WARNING
-        ]
+        return self.stype in ServiceType.forecast_types()
 
     def is_warning(self) -> bool:
         """
@@ -96,9 +96,7 @@ class Provider(IProvider, ABC):
 
         :return: True if warning provider, otherwise False
         """
-        return self.ptype in [
-            ProviderType.WARNING, ProviderType.FORECAST_WARNING
-        ]
+        return self.stype in ServiceType.warning_types()
 
     def is_country_supported(self, country: str) -> bool:
         """
@@ -110,4 +108,4 @@ class Provider(IProvider, ABC):
         return self.country.code == country
 
     def __str__(self):
-        return f"{self.name}, {self.country.code}, {self.ptype}, {self.url}"
+        return f"{self.name}, {self.country.code}, {self.stype}, {self.url}"

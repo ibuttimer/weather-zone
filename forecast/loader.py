@@ -72,7 +72,8 @@ def load_provider(registry: Registry, provider_list: List[str], app_name: str,
 
         # instantiate provider
         provider = get_class(
-            f'{app_name}.{provider_id}', provider_classname)(**provider_args)
+            f'{app_name}.{provider_id}',
+            provider_classname)(**provider_args)
 
         # additional configuration
         if finish_cfg:

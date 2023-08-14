@@ -42,14 +42,18 @@
 
                 <fieldset {% if read_only %} disabled {% endif %}>
                     {% for field in address_form %}
-                        <div class="row mb-3">
-                            <div class="col-sm-4 text-start">
-                                <label for="{% form_auto_id field.name %}" class="col-form-label">{{ field.label }}</label>
+                        {% if not user.is_authenticated and field.name in unauth_skip_fields %}
+                            {# continue #}
+                        {% else %}
+                            <div class="row mb-3">
+                                <div class="col-sm-4 text-start">
+                                    <label for="{% form_auto_id field.name %}" class="col-form-label">{{ field.label }}</label>
+                                </div>
+                                <div {% if field.name == "country" %} class="col-sm-8 d-flex align-items-center" {% else %} class="col-sm-8" {% endif %}>
+                                    {{ field }}
+                                </div>
                             </div>
-                            <div {% if field.name == "country" %} class="col-sm-8 d-flex align-items-center" {% else %} class="col-sm-8" {% endif %}>
-                                {{ field }}
-                            </div>
-                        </div>
+                        {% endif %}
                     {% endfor %}
                 </fieldset>
 

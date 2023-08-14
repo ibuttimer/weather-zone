@@ -1,8 +1,6 @@
 """
 User models
 """
-from dataclasses import dataclass
-
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -25,6 +23,10 @@ from dataclasses import dataclass
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 
+from dataclasses import dataclass
+import zlib
+import json
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
@@ -33,7 +35,9 @@ from django_countries.fields import CountryField
 from utils import ModelMixin
 
 from .constants import (
-    FIRST_NAME, LAST_NAME, PREVIOUS_LOGIN
+    FIRST_NAME, LAST_NAME, PREVIOUS_LOGIN,
+    USER_FIELD, COUNTRY_FIELD, COMPONENTS_FIELD, FORMATTED_ADDR_FIELD,
+    LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD
 )
 
 
@@ -72,58 +76,90 @@ class User(ModelMixin, AbstractUser):
         return self.username
 
 
-# class Address(ModelMixin, models.Model):
-#     """
-#     Address model
-#     """
-#     # field names
-#     USER_FIELD = USER_FIELD
-#     COUNTRY_FIELD = COUNTRY_FIELD
-#     STREET_FIELD = STREET_FIELD
-#     STREET2_FIELD = STREET2_FIELD
-#     CITY_FIELD = CITY_FIELD
-#     STATE_FIELD = STATE_FIELD
-#     POSTCODE_FIELD = POSTCODE_FIELD
-#     IS_DEFAULT_FIELD = IS_DEFAULT_FIELD
-#
-#     ADDRESS_ATTRIB_STREET_MAX_LEN: int = 150
-#     ADDRESS_ATTRIB_STREET2_MAX_LEN: int = 150
-#     ADDRESS_ATTRIB_CITY_MAX_LEN: int = 50
-#     ADDRESS_ATTRIB_STATE_MAX_LEN: int = 50
-#     ADDRESS_ATTRIB_POSTCODE_MAX_LEN: int = 50
-#
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-#     components = models.CharField(
-#         _('address components'), max_length=ADDRESS_ATTRIB_STREET_MAX_LEN,
-#         blank=False)
-#     street2 = models.CharField(
-#         _('street address line 2'), max_length=ADDRESS_ATTRIB_STREET2_MAX_LEN,
-#         blank=True)
-#     city = models.CharField(
-#         _('city'), max_length=ADDRESS_ATTRIB_CITY_MAX_LEN,
-#         blank=True)
-#     state = models.CharField(
-#         _('state'), max_length=ADDRESS_ATTRIB_STATE_MAX_LEN,
-#         blank=True)
-#     postcode = models.CharField(
-#         _('postcode'), max_length=ADDRESS_ATTRIB_POSTCODE_MAX_LEN,
-#         blank=True)
-#     is_default = models.BooleanField(
-#         _('default'), default=False, blank=False, help_text=_(
-#             "Designates that this record represents the user's "
-#             "default address."
-#         ))
-#
-#     @dataclass
-#     class Meta:
-#         """ Model metadata """
-#         ordering = [f'-{IS_DEFAULT_FIELD}']
-#
-#     @classmethod
-#     def boolean_fields(cls) -> list[str]:
-#         """ Get the list of boolean fields """
-#         return [Address.IS_DEFAULT_FIELD]
-#
-#     def __str__(self):
-#         return f'{self.street} {self.country} {str(self.user)}'
+class CompressedJsonTextField(models.BinaryField):
+    """
+    Compressed text field
+    """
+
+    def pre_save(self, model_instance, add):
+        """
+        Prepare the value before being saved to the database
+        :param model_instance:
+        :param add:
+        :return:
+        """
+        json_str = json.dumps(super().pre_save(model_instance, add))
+        byte_data = zlib.compress(json_str.encode())
+        # update the model’s attribute so that code holding references to the
+        # model will always see the correct value
+        # https://docs.djangoproject.com/en/4.2/howto/custom-model-fields/#preprocessing-values-before-saving
+        setattr(model_instance, self.attname, byte_data)
+        return byte_data
+
+    def from_db_value(self, value, expression, connection):
+        """
+        Convert the value after being retrieved from the database
+        :param value:
+        :param expression:
+        :param connection:
+        :return:
+        """
+        if value is not None:
+            value = json.loads(zlib.decompress(value).decode())
+        return value
+
+    def to_python(self, value):
+        # If it's a string, it should be base64-encoded data
+        return json.loads(zlib.decompress(value).decode())
+
+
+class Address(ModelMixin, models.Model):
+    """
+    Address model
+    """
+    # field names
+    USER_FIELD = USER_FIELD
+    COUNTRY_FIELD = COUNTRY_FIELD
+    COMPONENTS_FIELD = COMPONENTS_FIELD
+    FORMATTED_ADDR_FIELD = FORMATTED_ADDR_FIELD
+    LATITUDE_FIELD = LATITUDE_FIELD
+    LONGITUDE_FIELD = LONGITUDE_FIELD
+    IS_DEFAULT_FIELD = IS_DEFAULT_FIELD
+
+    COORDINATE_FIELDS = (LATITUDE_FIELD, LONGITUDE_FIELD,)
+
+    ADDRESS_ATTRIB_COMPONENTS_MAX_LEN: int = 500
+    ADDRESS_ATTRIB_FORMATTED_MAX_LEN: int = 250
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    country = CountryField(blank_label=_('(Select country)'))
+
+    # address components as a JSON string
+    components = CompressedJsonTextField(
+        _('Address components'),
+        max_length=ADDRESS_ATTRIB_COMPONENTS_MAX_LEN, blank=False)
+    formatted_addr = models.CharField(
+        _('Formatted address'),
+        max_length=ADDRESS_ATTRIB_FORMATTED_MAX_LEN, blank=False)
+    latitude = models.FloatField(_('Latitude'), blank=False)
+    longitude = models.FloatField(_('Longitude'), blank=False)
+    is_default = models.BooleanField(
+        _('default'), default=False, blank=False, help_text=_(
+            "Designates that this record represents the user's "
+            "default address."
+        ))
+
+    @dataclass
+    class Meta:
+        """ Model metadata """
+        unique_together = (LATITUDE_FIELD, LONGITUDE_FIELD,)
+        ordering = [f'-{IS_DEFAULT_FIELD}']
+
+    @classmethod
+    def boolean_fields(cls) -> list[str]:
+        """ Get the list of boolean fields """
+        return [Address.IS_DEFAULT_FIELD]
+
+    def __str__(self):
+        return f'{self.formatted_addr} {str(self.user)}'

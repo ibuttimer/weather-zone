@@ -41,6 +41,15 @@ PASSWORD_CONFIRM = "password2"
 OLD_PASSWORD = "oldpassword"
 PREVIOUS_LOGIN = 'previous_login'
 
+# field names of Address model
+USER_FIELD = "user"
+COUNTRY_FIELD = "country"
+COMPONENTS_FIELD = "components"
+FORMATTED_ADDR_FIELD = "formatted_addr"
+LATITUDE_FIELD = "latitude"
+LONGITUDE_FIELD = "longitude"
+IS_DEFAULT_FIELD = "is_default"
+
 # User routes related
 USER_ID_URL = append_slash("<int:pk>")
 USER_USERNAME_URL = append_slash("<str:name>")

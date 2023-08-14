@@ -145,3 +145,19 @@ def dict_drill(obj: Dict, *args, default: Any = None,
     else:
         success = True
     return DictVal(success, value)
+
+
+class AsDictMixin:
+    """
+    Mixin class to provide as_dict method
+    """
+    def as_dict(self) -> Dict[str, Any]:
+        """
+        Convert an object to a map
+        :return: map
+        """
+        return {
+            k: v for k, v in self.__dict__.items()
+            if k not in object.__dict__ and not k.startswith('_')
+               and not callable(v)
+        }

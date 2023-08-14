@@ -64,7 +64,7 @@ def display_warnings(request: HttpRequest, country: str,
     if provider == ALL_PROVIDERS:
         provider = None    # default is all
 
-    registry = Registry.get_registry()
+    registry = Registry.get_instance()
 
     warnings = registry.generate_warnings(country, provider=provider)
 

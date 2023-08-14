@@ -30,16 +30,6 @@ from enum import Enum, auto
 from .dto import Forecast, GeoAddress, WeatherWarnings
 
 
-class ProviderType(Enum):
-    """
-    Forecast provider types
-    """
-    UNKNOWN = auto()
-    FORECAST = auto()
-    WARNING = auto()
-    FORECAST_WARNING = auto()
-
-
 class IProvider(ABC):
     """
     Interface for forecast providers

@@ -30,7 +30,8 @@ from .dto import (
     WeatherWarnings, WarningEntry
 )
 from .enums import Severity, Category
-from .iprovider import IProvider, ProviderType
+from .geocoding import GeoCodeResult
+from .iprovider import IProvider
 from .loader import load_provider
 from .misc import ALL_PROVIDERS
 from .provider import Provider
@@ -59,8 +60,9 @@ __all__ = [
     'Severity',
     'Category',
 
+    'GeoCodeResult',
+
     'IProvider',
-    'ProviderType',
 
     'load_provider',
 

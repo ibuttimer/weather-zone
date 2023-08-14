@@ -28,6 +28,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Set, Callable, Optional
 
+from utils import AsDictMixin
 
 AttribRow = namedtuple('AttribRow',
                        # display text or callable, attribute name,
@@ -43,7 +44,7 @@ TYPE_WIND_DIR_ICON = 'img_wd'   # wind direction icon image
 
 
 @dataclass
-class GeoAddress:
+class GeoAddress(AsDictMixin):
     """
     Geocoded address
     """
@@ -58,19 +59,6 @@ class GeoAddress:
     lat: float
     lng: float
     is_valid: bool
-
-    def as_dict(self) -> Dict[str, Any]:
-        """
-        Convert a GeoAddress to a map
-        :return: GeoAddress map
-        """
-        return {
-            GeoAddress.FORMATTED_ADDRESS_FIELD: self.formatted_address,
-            GeoAddress.COUNTRY_FIELD: self.country,
-            GeoAddress.LAT_FIELD: self.lat,
-            GeoAddress.LNG_FIELD: self.lng,
-            GeoAddress.IS_VALID_FIELD: self.is_valid
-        }
 
     @staticmethod
     def dict_keys() -> List[Tuple[str, Any]]:
@@ -103,9 +91,7 @@ class GeoAddress:
         Generate an empty GeoAddress
         :return: GeoAddress
         """
-        return GeoAddress.from_dict({
-            k: v for k, v in GeoAddress.dict_keys()
-        })
+        return GeoAddress.from_dict(dict(GeoAddress.dict_keys()))
 
 
 @dataclass
@@ -116,17 +102,6 @@ class Location(GeoAddress):
     ALTITUDE_FIELD = 'altitude'
 
     altitude: float
-
-    def as_dict(self) -> Dict[str, Any]:
-        """
-        Convert a Location to a map
-        :return: map of Location
-        """
-        data = super().as_dict()
-        data.update({
-            Location.ALTITUDE_FIELD: self.altitude
-        })
-        return data
 
     @staticmethod
     def dict_keys() -> List[Tuple[str, Any]]:

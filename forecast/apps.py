@@ -26,7 +26,6 @@ This module is used to configure the forecast app.
 from django.apps import AppConfig
 
 from .registry import Registry
-from .signals import registry_open
 
 
 class ForecastConfig(AppConfig):
@@ -40,7 +39,5 @@ class ForecastConfig(AppConfig):
         """
         This method is called when the app is ready.
         """
-        # create the registry instance
-        registry = Registry.get_registry()
-        # send the registry_open signal
-        registry_open.send(sender=registry.__class__, registry=registry)
+        # Implicitly connect signal handlers decorated with @receiver.
+        from . import signals

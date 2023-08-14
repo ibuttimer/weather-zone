@@ -31,6 +31,7 @@ COPYRIGHT = "Ian Buttimer"
 
 # Namespace related
 BASE_APP_NAME = "base"
+BROKER_APP_NAME = "broker"
 FORECAST_APP_NAME = "forecast"
 LOCATIONFORECAST_APP_NAME = "locationforecast"
 WARNING_APP_NAME = "weather_warning"

@@ -1,7 +1,6 @@
 """
 Provides a registry of forecast providers
 """
-from datetime import datetime
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -24,37 +23,28 @@ from datetime import datetime
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
+from datetime import datetime
 from typing import TypeVar, Optional, List, Any
 
+from broker import Broker, ServiceType
+from utils import SingletonMixin, ensure_list
+
 from .dto import Forecast, GeoAddress, WeatherWarnings
-from .iprovider import IProvider, ProviderType
+from .iprovider import IProvider
 
 
 TypeRegistry = TypeVar('TypeRegistry', bound='Registry')
 
 
-class Registry:
+class Registry(SingletonMixin):
     """
-    Provides a registry of forecast providers
+    Provides a singleton registry of forecast providers
     """
 
-    _providers: dict
-
-    _registry: TypeRegistry
+    _broker: Broker
 
     def __init__(self):
-        self._providers = {}
-
-    @staticmethod
-    def get_registry() -> TypeRegistry:
-        """
-        Get the registry
-
-        :return: Registry
-        """
-        if not hasattr(Registry, '_registry'):
-            Registry._registry = Registry()
-        return Registry._registry
+        self._broker = Broker.get_instance()
 
     def is_registered(self, name: str) -> bool:
         """
@@ -63,7 +53,8 @@ class Registry:
         :param name: Name of provider
         :return: True if registered, otherwise False
         """
-        return name in self._providers
+        return self._broker.is_registered(
+            name, *ServiceType.weather_types())
 
     def add(self, name: str, provider: IProvider,
             raise_on_reg: bool = True) -> bool:
@@ -80,7 +71,7 @@ class Registry:
         if registered and raise_on_reg:
             raise ValueError(f"Provider '{name}' already registered")
         if not registered:
-            self._providers[name] = provider
+            self._broker.add(name, provider.stype, provider)
             registered = True
         return registered
 
@@ -93,29 +84,19 @@ class Registry:
                             default True
         :return: Provider
         """
-        registered = self.is_registered(name)
-        if not registered and raise_not_reg:
-            raise ValueError(f"Provider '{name}' not registered")
-        return self._providers[name] if registered else None
+        return self._broker.get(name, ServiceType.weather_types(),
+                                raise_not_reg=raise_not_reg)
 
-    def provider_names(self, ptype: ProviderType = None) -> List[str]:
+    def provider_names(self, stype: ServiceType = None) -> List[str]:
         """
         Get the provider names
 
-        :param ptype: Provider type to filter on; default None
+        :param stype: Provider type to filter on; default None
         :return: Provider names
         """
-        if ptype is None:
-            providers = self._providers
-        else:
-            types = [ProviderType.FORECAST, ProviderType.FORECAST_WARNING] \
-                if ptype == ProviderType.FORECAST else \
-                [ProviderType.WARNING, ProviderType.FORECAST_WARNING] \
-                if ptype == ProviderType.FORECAST_WARNING else [ptype]
-            providers = {
-                k: v for k, v in self._providers.items() if v.ptype in types}
-
-        return list(providers.keys())
+        return self._broker.provider_names(
+            ServiceType.weather_types() if stype is None else ensure_list(stype)
+        )
 
     @property
     def providers(self) -> List[IProvider]:
@@ -124,7 +105,9 @@ class Registry:
 
         :return: Providers
         """
-        return list(self._providers.values())
+        return self._broker.providers(
+            ServiceType.weather_types() if stype is None else ensure_list(stype)
+        )
 
     def generate_forecast(
             self, geo_address: GeoAddress, start: datetime = None,
@@ -141,7 +124,7 @@ class Registry:
         """
         forecasts = []
         providers = [provider] if provider is not None \
-            else self.provider_names(ptype=ProviderType.FORECAST)
+            else self.provider_names(stype=ServiceType.FORECAST)
 
         for name in providers:
             forecasts.append(
@@ -161,7 +144,7 @@ class Registry:
         :return: list of weather warnings
         """
         warnings = []
-        providers = self.provider_names(ptype=ProviderType.WARNING)
+        providers = self.provider_names(stype=ServiceType.WARNING)
         if provider_name is not None and provider_name in providers:
             providers = [provider_name]
 

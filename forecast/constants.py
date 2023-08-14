@@ -51,6 +51,7 @@ QUERY_PROVIDER = "provider"
 FORECAST_MENU_CTX = "forecast_menu"
 
 ADDRESS_FORM_CTX = "address_form"
+UNAUTH_SKIP_FIELDS_CTX = "unauth_skip_fields"
 SUBMIT_URL_CTX = "submit_url"
 FORECAST_LIST_CTX = "forecast_list"
 FORECAST_CTX = "forecast"

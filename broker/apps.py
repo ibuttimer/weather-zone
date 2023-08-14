@@ -1,5 +1,5 @@
 """
-Module for utility functions
+This module is used to configure the app.
 """
 #  MIT License
 #
@@ -23,48 +23,24 @@ Module for utility functions
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .forms import FormMixin
-from .html import add_navbar_attr, NavbarAttr, html_tag
-from .misc import (
-    is_boolean_true, Crud, ensure_list, find_index, dict_drill, AsDictMixin
-)
-from .models import ModelMixin, ModelFacadeMixin
-from .singleton import SingletonMixin
-from .url_path import (
-    append_slash, namespaced_url, app_template_path, url_path, reverse_q,
-    GET, PATCH, POST, DELETE
-)
-from .views import resolve_req, redirect_on_success_or_render
+from django.apps import AppConfig
 
-__all__ = [
-    'FormMixin',
+from .broker import Broker
+from .signals import broker_open
 
-    'add_navbar_attr',
-    'NavbarAttr',
-    'html_tag',
 
-    'is_boolean_true',
-    'Crud',
-    'ensure_list',
-    'find_index',
-    'dict_drill',
-    'AsDictMixin',
+class BrokerConfig(AppConfig):
+    """
+    This class is used to configure the app.
+    """
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'broker'
 
-    'ModelMixin',
-    'ModelFacadeMixin',
-
-    'SingletonMixin',
-
-    'append_slash',
-    'namespaced_url',
-    'app_template_path',
-    'url_path',
-    'reverse_q',
-    'GET',
-    'PATCH',
-    'POST',
-    'DELETE',
-
-    'resolve_req',
-    'redirect_on_success_or_render',
-]
+    def ready(self):
+        """
+        This method is called when the app is ready.
+        """
+        # create the registry instance
+        broker = Broker.get_instance()
+        # send the registry_open signal
+        broker_open.send(sender=broker.__class__, broker=broker)

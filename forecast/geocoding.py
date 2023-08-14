@@ -22,14 +22,14 @@
 #
 import json
 from dataclasses import dataclass
-from typing import List
+from typing import List, Tuple, Dict, Any
 import re
 import googlemaps
 from datetime import datetime
 
 from django.conf import settings
 
-from utils import dict_drill
+from utils import dict_drill, AsDictMixin
 
 from forecast.dto import GeoAddress
 
@@ -40,6 +40,18 @@ FORMATTED_ADDR_DATA_PATH = ['formatted_address']
 ADDR_COMPONENTS_DATA_PATH = ['address_components']
 LATITUDE_DATA_PATH = ['geometry', 'location', 'lat']
 LONGITUDE_DATA_PATH = ['geometry', 'location', 'lng']
+
+
+@dataclass
+class GeoCodeResult(AsDictMixin):
+    """
+    Dataclass for geocode result
+    """
+    components: List[Dict[str, Any]]
+    country: str    # ISO 3166-1 alpha-2 country code
+    formatted_addr: str
+    latitude: float
+    longitude: float
 
 
 class GoogleMapsClient:
@@ -54,11 +66,11 @@ class GoogleMapsClient:
         return cls._instance
 
 
-def geocode_address(address: List[str]) -> GeoAddress:
+def geocode_address(address: List[str]) -> Tuple[GeoAddress, Dict[str, Any]]:
     """
     Geocode an address
     :param address: list of address fields
-    :return: geocoded address
+    :return: tuple of geocoded address and raw geocode result
     """
     # https://developers.google.com/maps/documentation/geocoding/overview
     # https://github.com/googlemaps/google-maps-services-python
@@ -76,13 +88,14 @@ def geocode_address(address: List[str]) -> GeoAddress:
     result = geocode_result[0] if is_valid else {}
 
     # determine country
+    addr_components = dict_drill(
+        result, *ADDR_COMPONENTS_DATA_PATH, default=[]).value
+
     country = next(
-        filter(lambda c: 'country' in c['types'],
-               dict_drill(
-                   result, *ADDR_COMPONENTS_DATA_PATH, default=[]).value),
+        filter(lambda c: 'country' in c['types'], addr_components),
         {'short_name': ''})['short_name']
 
-    return GeoAddress(
+    geo_addr = GeoAddress(
         formatted_address=dict_drill(
             result, *FORMATTED_ADDR_DATA_PATH, default='').value,
         country=country,
@@ -91,4 +104,12 @@ def geocode_address(address: List[str]) -> GeoAddress:
         lng=dict_drill(
             result, *LONGITUDE_DATA_PATH, default=0.0).value,
         is_valid=is_valid
+    )
+
+    return geo_addr, GeoCodeResult(
+        components=addr_components,
+        country=country,
+        formatted_addr=geo_addr.formatted_address,
+        latitude=geo_addr.lat,
+        longitude=geo_addr.lng
     )

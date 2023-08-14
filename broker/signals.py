@@ -1,5 +1,5 @@
 """
-Module for utility functions
+Signal processing for forecast app
 """
 #  MIT License
 #
@@ -23,48 +23,7 @@ Module for utility functions
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .forms import FormMixin
-from .html import add_navbar_attr, NavbarAttr, html_tag
-from .misc import (
-    is_boolean_true, Crud, ensure_list, find_index, dict_drill, AsDictMixin
-)
-from .models import ModelMixin, ModelFacadeMixin
-from .singleton import SingletonMixin
-from .url_path import (
-    append_slash, namespaced_url, app_template_path, url_path, reverse_q,
-    GET, PATCH, POST, DELETE
-)
-from .views import resolve_req, redirect_on_success_or_render
+import django.dispatch
 
-__all__ = [
-    'FormMixin',
-
-    'add_navbar_attr',
-    'NavbarAttr',
-    'html_tag',
-
-    'is_boolean_true',
-    'Crud',
-    'ensure_list',
-    'find_index',
-    'dict_drill',
-    'AsDictMixin',
-
-    'ModelMixin',
-    'ModelFacadeMixin',
-
-    'SingletonMixin',
-
-    'append_slash',
-    'namespaced_url',
-    'app_template_path',
-    'url_path',
-    'reverse_q',
-    'GET',
-    'PATCH',
-    'POST',
-    'DELETE',
-
-    'resolve_req',
-    'redirect_on_success_or_render',
-]
+# Signal sent when the registry is opened
+broker_open = django.dispatch.Signal()

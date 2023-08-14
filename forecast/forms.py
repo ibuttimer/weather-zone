@@ -33,7 +33,7 @@ from django_countries.widgets import CountrySelectWidget
 
 from utils import FormMixin
 
-from .iprovider import ProviderType
+from broker import ServiceType
 from .misc import RangeArg, get_range_choices, get_provider_choices
 
 
@@ -45,6 +45,8 @@ POSTCODE_FIELD = 'postcode'
 COUNTRY_FIELD = 'country'
 TIME_RANGE_FIELD = 'time_range'
 PROVIDER_FIELD = 'provider'
+SAVE_TO_PROFILE_FIELD = "save_to_profile"
+SET_AS_DEFAULT_FIELD = "set_as_default"
 
 
 class AddressForm(FormMixin, forms.Form):
@@ -62,6 +64,8 @@ class AddressForm(FormMixin, forms.Form):
     COUNTRY_FIELD = COUNTRY_FIELD
     TIME_RANGE_FIELD = TIME_RANGE_FIELD
     PROVIDER_FIELD = PROVIDER_FIELD
+    SAVE_TO_PROFILE_FIELD = SAVE_TO_PROFILE_FIELD
+    SET_AS_DEFAULT_FIELD = SET_AS_DEFAULT_FIELD
 
     line1 = forms.CharField(label=_('Line 1'), max_length=MAX_ADDR_LINE_LEN,
                             required=False)
@@ -81,8 +85,12 @@ class AddressForm(FormMixin, forms.Form):
     # choices set during init
     provider = forms.ChoiceField(
         label=_("Provider"), required=True, choices=get_provider_choices(
-            ptype=ProviderType.FORECAST
+            stype=ServiceType.FORECAST
         ))
+    save_to_profile = forms.BooleanField(
+        label=_("Save to profile"), initial=False, required=False)
+    set_as_default = forms.BooleanField(
+        label=_("Set as default"), initial=False, required=False)
 
     @dataclass
     class Meta:
@@ -95,10 +103,14 @@ class AddressForm(FormMixin, forms.Form):
         # fields in order of display
         fields = addr_fields.copy()
         fields.extend([
-            TIME_RANGE_FIELD, PROVIDER_FIELD
+            TIME_RANGE_FIELD, PROVIDER_FIELD, SAVE_TO_PROFILE_FIELD,
+            SET_AS_DEFAULT_FIELD
         ])
         select_fields = [
             COUNTRY_FIELD, TIME_RANGE_FIELD, PROVIDER_FIELD
+        ]
+        check_fields = [
+            SAVE_TO_PROFILE_FIELD, SET_AS_DEFAULT_FIELD
         ]
         widgets = {
             # https://pypi.org/project/django-countries/#countryselectwidget
@@ -113,8 +125,11 @@ class AddressForm(FormMixin, forms.Form):
 
         # add the bootstrap class to the widget
         self.add_form_control(
-            AddressForm.Meta.fields, exclude=AddressForm.Meta.select_fields)
+            AddressForm.Meta.fields,
+            exclude=
+            AddressForm.Meta.select_fields + AddressForm.Meta.check_fields)
         self.add_form_select(AddressForm.Meta.select_fields)
+        self.add_form_check_input(AddressForm.Meta.check_fields)
         # add autocomplete attributes
         # https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
         self.add_attribute(AddressForm.Meta.fields, 'autocomplete', {
