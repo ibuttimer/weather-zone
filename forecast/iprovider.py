@@ -26,6 +26,7 @@ Interface for forecast providers
 from abc import ABC, abstractmethod
 from datetime import datetime
 
+from broker import ServiceType
 from .dto import Forecast, GeoAddress, WeatherWarnings
 
 
@@ -33,6 +34,11 @@ class IProvider(ABC):
     """
     Interface for forecast providers
     """
+
+    stype: ServiceType      # service type
+
+    def __init__(self):
+        self.stype = None
 
     @abstractmethod
     def url_params(self, lat: float, lng: float, start: datetime = None,

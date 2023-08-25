@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+<!-- dflt_forecast.html start -->
+{# --- template variable defines for includes --- #}
+{# default forecast template expects: 'forecast_list' as List[ #}
+{#                                    'forecast' as Forecast #}
+{#                                    'row_types' as list of row types #}
+{#                                    ] #}
+{#                                    'warning_list' as List[ #}
+{#                                    'warning' as WeatherWarnings #}
+{#                                    'warning_url' as warnings url of provider #}
+{#                                    'warning_url_aria' as aria for warnings url of provider #}
+{#                                    ] #}
+{#                                   'title' as title for page #}
+{#                                   'page_heading' as heading for page #}
+{#                                   'page_sub_heading' as sub-heading for page #}
+
+{% load i18n %}
+{% load static %}
+{% load form_auto_id  lookup_value %}
+
+{% block extra_css %}
+    <link href="{% static 'css/forecast/styles-forecast.css' %}" rel="stylesheet" type="text/css">
+{% endblock extra_css %}
+
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="row mt-2 mb-2 d-flex align-items-center">
+        {% for entry in warning_list %}
+            {% with warnings=entry.warning  warning_url=entry.warning_url  warning_url_aria=entry.warning_url_aria %}
+            <div class="col-sm-2">
+                <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                    <p class="fw-bold">
+                        <span class="span__provider-name">{{ warnings.provider }}</span> <span>{% translate 'Warnings' %}</span>
+                    </p>
+                </a>
+            </div>
+                {% if warnings.weather_count %}
+                <div class="col-sm-2">
+                    <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                        <p>
+                            <span>{% translate 'Weather' %}</span>
+                            <span>
+                                <img src="{% static warnings.highest_weather_level_icon %}" alt="{% translate 'Weather warning icon' %}" class="img__warning-hdr-icon">
+                            </span>
+                        </p>
+                    </a>
+                </div>
+                {% endif %}
+                {% if warnings.marine_count %}
+                <div class="col-sm-2">
+                    <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                        <p>
+                            <span>{% translate 'Marine' %}</span>
+                            <span>
+                                <img src="{% static warnings.highest_marine_level_icon %}" alt="{% translate 'Marine warning icon' %}" class="img__warning-hdr-icon">
+                            </span>
+                        </p>
+                    </a>
+                </div>
+                {% endif %}
+                {% if warnings.environmental_count %}
+                <div class="col-sm-2">
+                    <a href="{{ warning_url }}" class="text-decoration-none text-reset" aria-label="{{ warning_url_aria }}">
+                        <p>
+                            <span>{% translate 'Environmental' %}</span>
+                            <span>
+                                <img src="{% static warnings.highest_environmental_level_icon %}" alt="{% translate 'Environmental warning icon' %}" class="img__warning-hdr-icon">
+                            </span>
+                        </p>
+                    </a>
+                </div>
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+
+    <div class="row mt-2 mb-2">
+        {% if page_heading or page_sub_heading %}
+            <div class="col-12 text-center">
+                {% if page_heading %}<h3>{{ page_heading | safe }}</h3>{% endif %}
+                {% if page_sub_heading %}<h4>{{ page_sub_heading | safe }}</h4>{% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <article id="article-content" class="row d-flex justify-content-center">
+        {% for entry in forecast_list %}
+            {% with forecast=entry.forecast  row_types=entry.row_types %}
+            <div class="col-sm-12">
+                <table class="table">
+                  {% for row in forecast.attrib_series %}
+                    {% lookup_value row_types forloop.counter0 as val_type %}
+                    {% if forloop.first %}
+                      <thead>
+                    {% endif %}
+                    {% if val_type == 'hdr' %}
+                        <tr>
+                        {% for value in row %}
+                          <th scope="col">{{ value|safe }}</th>
+                        {% endfor %}
+                        </tr>
+                        {% lookup_value row_types forloop.counter as next_type %}
+                        {% if next_type != 'hdr' %}
+                          </thead>
+                          <tbody>
+                        {% endif %}
+                      {% else %}
+                        <tr>
+                        {% for value in row %}
+                          {% if forloop.first %}<th scope="row">{% else %}<td>{% endif %}
+                            {% if value %}
+                                {% if forloop.first %}
+                                    {{ value|safe }}
+                                {% else %}
+                                    {% if val_type == 'img_wi' %}
+                                        <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-icon">
+                                    {% elif val_type == 'img_wd' %}
+                                        <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-dir">
+                                    {% elif val_type == 'img_ws' %}
+                                        <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-speed">
+                                    {% else %}
+                                        {{ value|safe }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                          {% if forloop.first %}</th>{% else %}</td>{% endif %}
+                        {% endfor %}
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                 {% endfor %}
+                </table>
+            </div>
+            {% if forecast.cached %}
+            <div class="col-lg-10 col-md-11 col-sm-12">
+                <div class="col-12 text-start">
+                    <p class="text-warning">(Cached data)</p>
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </article>
+{% endblock %}
+<!-- dflt_forecast.html end -->

@@ -42,7 +42,7 @@ from utils import dict_drill, ensure_list
 from broker import ServiceType
 from forecast import (
     Forecast, ForecastEntry, GeoAddress, Location, Provider,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, WeatherWarnings
+    AttribRowTypes, WeatherWarnings
 )
 
 from .constants import (
@@ -60,6 +60,7 @@ DAY_LEGEND_ADDENDUM = 'd'
 NIGHT_LEGEND_ADDENDUM = 'n'
 WEATHER_ICON_URL = 'img/weather_icons/{old_id:02d}{addendum}.svg'
 WIND_DIR_ICON_URL = 'img/wind_icons/cardinal-{name}.png'
+WIND_SPEED_ICON_URL = 'img/wind_icons/icons8-beaufort{beaufort}.png'
 
 
 @dataclass
@@ -237,8 +238,9 @@ class LocationforecastProvider(Provider):
 
         params = self.url_params(
             geo_address.lat, geo_address.lng, start=start, end=end, **kwargs)
-        weather_icon_attrib = kwargs.get(TYPE_WEATHER_ICON, None)
-        wind_dir_icon_attrib = kwargs.get(TYPE_WIND_DIR_ICON, None)
+        icon_attribs = list(filter(None, [
+            kwargs.get(typ.value, None) for typ in AttribRowTypes.icon_types()
+        ]))
 
         # request forecast
         forecast = Forecast(geo_address, provider=self.friendly_name)
@@ -264,17 +266,25 @@ class LocationforecastProvider(Provider):
 
             # get icons for each ForecastEntry
             for entry in forecast.time_series:
-                # forecast summary icon
-                entry.icon = self.get_icon(entry.symbol)
-                # wind direction icon
-                entry.wind_dir_icon = self.get_wind_dir_icon(
-                    entry.wind_cardinal, entry.wind_dir)
+                for attrib in icon_attribs:
+                    if attrib == ForecastEntry.ICON_KEY:
+                        # forecast summary icon
+                        value = self.get_icon(entry.symbol)
+                    elif attrib == ForecastEntry.WIND_DIR_ICON_KEY:
+                        # wind direction icon
+                        value = self.get_wind_dir_icon(
+                            entry.wind_cardinal, entry.wind_dir)
+                    elif attrib == ForecastEntry.WIND_SPEED_ICON_KEY:
+                        # wind speed icon
+                        value = self.get_wind_speed_icon(
+                            entry.beaufort)
+                    else:
+                        value = None
+                    if value:
+                        setattr(entry, attrib, value)
 
             if len(forecast.time_series) > 0:
-                if weather_icon_attrib:
-                    forecast.forecast_attribs.add(weather_icon_attrib)
-                if wind_dir_icon_attrib:
-                    forecast.forecast_attribs.add(wind_dir_icon_attrib)
+                forecast.forecast_attribs.update(set(icon_attribs))
 
         return forecast
 
@@ -341,6 +351,15 @@ class LocationforecastProvider(Provider):
             ]
 
         return WIND_DIR_ICON_URL.format(name=name)
+
+    def get_wind_speed_icon(self, beaufort: int) -> str:
+        """
+        Get the icon for wind speed
+
+        :param beaufort: beaufort wind speed
+        :return: icon url
+        """
+        return WIND_SPEED_ICON_URL.format(beaufort=beaufort)
 
 
 def parse_forecast(data: str, forecast: Forecast,

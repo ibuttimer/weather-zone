@@ -20,7 +20,7 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from enum import Enum
+from enum import Enum, auto
 
 from django.utils.translation import gettext_lazy as _
 
@@ -252,3 +252,25 @@ class Category(Enum):
 
 
 Category.make_translations()
+
+
+class ForecastType(Enum):
+    """
+    Forecast type
+    """
+    LOCATION = auto()
+    DEFAULT_ADDR = auto()
+
+
+class AttribRowTypes(Enum):
+    """
+    Attribute row types
+    """
+    HEADER = 'hdr'              # header
+    WEATHER_ICON = 'img_wi'     # weather icon image
+    WIND_DIR_ICON = 'img_wd'    # wind direction icon image
+    WIND_SPEED_ICON = 'img_ws'  # wind speed icon image
+
+    @classmethod
+    def icon_types(cls):
+        return [cls.WEATHER_ICON, cls.WIND_DIR_ICON, cls.WIND_SPEED_ICON]

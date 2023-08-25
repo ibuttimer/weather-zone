@@ -179,8 +179,10 @@ The application structure is as follows:
 ├─ manage.py            - application entry point
 ├─ weather_zone         - main Django application
 ├─ base                 - base Django application
+├─ broker               - service broker application
 ├─ forecast             - application generating forecast data from provider data  
 ├─ locationforecast     - Locationforecast provider application
+├─ static               - static files
 └─ templates            - application templates
 ```
 
@@ -198,6 +200,11 @@ The following resources were used to build the website.
 - [Warning icon](https://icons8.com/icon/KarJz0n4bZSj/general-warning-sign), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), backgound colour changed.
 - [Boat icon](https://icons8.com/icon/66056/sail-boat), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), backgound colour changed.
 - [A icon](https://icons8.com/icon/38670/a), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), backgound colour changed.
+- [Breeze icon](https://icons8.com/icon/DSEt3IYZwWNb/breeze), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
+- [Breeze icon](https://icons8.com/icon/i90FKzAM6LYA/breeze), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
+- [Wind icon](https://icons8.com/icon/74197/wind), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
+- [Storm icon](https://icons8.com/icon/EKkPq7Olo1Hp/storm), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
+- [Tornado icon](https://icons8.com/icon/9309/tornado), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
 
 ### Code
 

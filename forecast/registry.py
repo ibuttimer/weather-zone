@@ -110,7 +110,8 @@ class Registry(SingletonMixin):
         :return: Providers
         """
         return self._broker.providers(
-            ServiceType.weather_types() if stype is None else ensure_list(stype)
+            ServiceType.weather_types() if self.stype is None else
+            ensure_list(self.stype)
         )
 
     def generate_forecast(
@@ -128,8 +129,10 @@ class Registry(SingletonMixin):
         """
         forecasts = []
 
-        if provider.lower() == COUNTRY_PROVIDERS:
-            filter_func = lambda p: p.is_country_supported(geo_address.country)
+        if provider and provider.lower() == COUNTRY_PROVIDERS:
+            def is_supported(prov: IProvider) -> bool:
+                return prov.is_country_supported(geo_address.country)
+            filter_func = is_supported
             provider = None
         else:
             filter_func = None
@@ -171,7 +174,7 @@ class Registry(SingletonMixin):
         return warnings
 
     def generate_warnings_summary(self, country: str, provider: str = None,
-                          **kwargs) -> List[WeatherWarnings]:
+                                  **kwargs) -> List[WeatherWarnings]:
         """
         Get a summary of weather warnings
         :param country: ISO 3166-1 alpha-2 country code

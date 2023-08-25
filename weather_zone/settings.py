@@ -16,7 +16,7 @@ import environ
 from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
-from forecast import ADDRESS_ROUTE_NAME
+from forecast import DASH_ROUTE_NAME
 from .constants import (
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME,
     WARNING_APP_NAME, USER_APP_NAME, BROKER_APP_NAME,
@@ -231,7 +231,7 @@ AUTH_USER_MODEL = f'{USER_APP_NAME}.User'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#login-url
 LOGIN_URL = USER_LOGIN_URL
 # https://docs.djangoproject.com/en/4.2/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = f'{FORECAST_APP_NAME}:{ADDRESS_ROUTE_NAME}'
+LOGIN_REDIRECT_URL = f'{FORECAST_APP_NAME}:{DASH_ROUTE_NAME}'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#logout-redirect-url
 LOGOUT_REDIRECT_URL = HOME_ROUTE_NAME
 

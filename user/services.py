@@ -39,6 +39,11 @@ class AddressService(SingletonMixin, ICrudService):
 
     model: Union[ModelMixin, Model] = Address
 
+    USER_LAT_LNG_FIELDS = {Address.USER_FIELD, Address.LATITUDE_FIELD,
+                           Address.LONGITUDE_FIELD}
+    USER_DFLT_FIELDS = {Address.USER_FIELD, Address.IS_DEFAULT_FIELD}
+    ID_FIELDS = {Address.id_field()}
+
     def create(self, user: User, geocode_result: GeoCodeResult, *args,
                **kwargs) -> Any:
         """
@@ -59,30 +64,38 @@ class AddressService(SingletonMixin, ICrudService):
             addr, save_func=lambda: addr.save())
         return addr
 
-    def get(self, *args, **kwargs) -> Any:
+    def get(self, *args, free_seek: bool = False, **kwargs) -> Any:
         """
         Get an address; returning None if not found.
 
         :param args: arguments
+        :param free_seek: allow free seek; default False
         :param kwargs: keyword arguments to filter by
-            user: user to associate with address
-            latitude: location latitude
-            longitude: location longitude
-            or
-            id: address id
+            non free seek mode:
+                user: user to associate with address
+                latitude: location latitude
+                longitude: location longitude
+                or
+                user: user to associate with address
+                is_default: is default address
+                or
+                id: address id
         :return: Optional[Address]
         :raises: Model.MultipleObjectsReturned if multiple objects found
-        :raises: ValueError any requires arguments are not specified
+        :raises: ValueError any required arguments are not specified
         """
         query_args = kwargs.copy()
         errors = []
-        for field in [
-            Address.USER_FIELD, Address.LATITUDE_FIELD, Address.LONGITUDE_FIELD
-        ]:
-            if field not in kwargs:
-                errors.append(field)
-        if len(errors) > 0 and Address.id_field() not in kwargs:
-            raise ValueError(f'{", ".join(errors)} must be specified')
+
+        if not free_seek:
+            key_set = set(kwargs.keys())
+
+            if not any([
+                self.USER_LAT_LNG_FIELDS.issubset(key_set),
+                self.USER_DFLT_FIELDS.issubset(key_set),
+                self.ID_FIELDS.issubset(key_set),
+            ]):
+                raise ValueError(f'Unknown query: {key_set}')
 
         return self.model.get_by_fields(
             get_or_404=False, does_not_exit_none=True, **query_args)

@@ -35,10 +35,12 @@ THIS_APP = Path(__file__).resolve().parent.name
 ADDRESS_URL = append_slash("address")
 LAT_LONG_URL = append_slash("geo-coordinate")
 DISPLAY_URL = url_path("display")
+DASH_URL = url_path("dash")
 
 ADDRESS_ROUTE_NAME = "address"
 LAT_LONG_ROUTE_NAME = "geo-coordinate"
 DISPLAY_ROUTE_NAME = "display"
+DASH_ROUTE_NAME = "dash"
 
 QUERY_PARAM_LAT = "lat"
 QUERY_PARAM_LONG = "lng"

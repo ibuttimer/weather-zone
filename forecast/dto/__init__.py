@@ -21,8 +21,7 @@
 #  SOFTWARE.
 #
 from .forecast import (
-    Forecast, ForecastEntry, GeoAddress, Location, AttribRow,
-    TYPE_WEATHER_ICON, TYPE_WIND_DIR_ICON, TYPE_HDR
+    Forecast, ForecastEntry, GeoAddress, Location, AttribRow
 )
 from .warning import (
     WeatherWarnings, WarningEntry
@@ -34,9 +33,6 @@ __all__ = [
     'GeoAddress',
     'Location',
     'AttribRow',
-    'TYPE_WEATHER_ICON',
-    'TYPE_WIND_DIR_ICON',
-    'TYPE_HDR',
 
     'WeatherWarnings',
     'WarningEntry',

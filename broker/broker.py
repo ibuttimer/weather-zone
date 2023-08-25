@@ -108,10 +108,9 @@ class Broker(SingletonMixin):
                             default True
         :return: Provider
         """
-        for service_type in self._service_types(service_type):
-            if service_type in self._providers and \
-                    name in self._providers[service_type]:
-                provider = self._providers[service_type][name]
+        for stype in self._service_types(service_type):
+            if stype in self._providers and name in self._providers[stype]:
+                provider = self._providers[stype][name]
                 break
         else:
             provider = None

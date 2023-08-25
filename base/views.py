@@ -22,16 +22,14 @@ Views for base app
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
+from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 
-from weather_zone import (
-    ADMIN_URL, ROBOTS_URL, FORECAST_APP_NAME,
-)
-from forecast import ADDRESS_ROUTE_NAME
-from utils import app_template_path, namespaced_url
+from weather_zone import ADMIN_URL, ROBOTS_URL
+from utils import app_template_path
 
 from .constants import (
     THIS_APP, REDIRECT_TO_CTX, SET_LANGUAGE_CTX
@@ -63,7 +61,7 @@ def get_home(request: HttpRequest) -> HttpResponse:
     """
     return get_landing(request) \
         if not request.user or not request.user.is_authenticated else \
-        redirect(namespaced_url(FORECAST_APP_NAME, ADDRESS_ROUTE_NAME))
+        redirect(settings.LOGIN_REDIRECT_URL)
 
 
 @require_GET

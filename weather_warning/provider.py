@@ -37,7 +37,6 @@ import xmltodict
 from django.conf import settings
 
 from base import get_request_headers
-from forecast.dto import TYPE_WEATHER_ICON
 from utils import dict_drill, ensure_list
 
 from broker import ServiceType
@@ -46,8 +45,6 @@ from forecast import (
 )
 
 from .regions import RegionStore, load_regions
-
-
 
 
 class WarningsProvider(Provider):

@@ -25,7 +25,7 @@ This file is used to create the views for the forecast app.
 #
 from collections import namedtuple
 from datetime import datetime
-from typing import Callable, List
+from typing import Callable, List, Optional
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -57,13 +57,13 @@ from .constants import (
     ADDRESS_ROUTE_NAME, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER
 )
 from .convert import Units, speed_conversion
+from .enums import ForecastType, AttribRowTypes
 from .forms import AddressForm
 from .geocoding import geocode_address
 from .dto import (
-    GeoAddress, Forecast, AttribRow, ForecastEntry, WeatherWarnings,
-    TYPE_WEATHER_ICON, TYPE_HDR, TYPE_WIND_DIR_ICON
+    GeoAddress, Forecast, AttribRow, ForecastEntry, WeatherWarnings
 )
-from .misc import RangeArg
+from .misc import RangeArg, DateRange
 from .constants import ALL_PROVIDERS
 from .registry import Registry
 
@@ -164,7 +164,7 @@ def forecast_date(forecast: Forecast, ar: AttribRow, value: datetime,
         if value.date() != (prev_value.date() if prev_value else None) else ''
 
 
-DISPLAY_ITEMS = [
+FULL_DISPLAY_ITEMS = [
     # display text: str or Callable[[Forecast, AttribRow], str]
     # attribute name
     # format function: Callable[[Forecast, AttribRow, Any, int, Any], str]
@@ -174,13 +174,14 @@ DISPLAY_ITEMS = [
     #       Any is the value to display
     #       int is the index of the value
     #       Any is the previous value displayed
-    # type
+    # type: AttribRowTypes
     AttribRow(
-        add_provider, ForecastEntry.END_KEY, forecast_date, TYPE_HDR),
+        add_provider, ForecastEntry.END_KEY, forecast_date,
+        AttribRowTypes.HEADER),
     AttribRow(
         '', ForecastEntry.END_KEY,
-        lambda f, a, x, i, p: x.strftime('%H:%M'), 'hdr'),
-    AttribRow('', ForecastEntry.ICON_KEY, type=TYPE_WEATHER_ICON),
+        lambda f, a, x, i, p: x.strftime('%H:%M'), AttribRowTypes.HEADER),
+    AttribRow('', ForecastEntry.ICON_KEY, type=AttribRowTypes.WEATHER_ICON),
     AttribRow(
         title_unit_wrapper(_('Temperature')), ForecastEntry.TEMPERATURE_KEY,
         measurement_unit_wrapper('.0f')),
@@ -198,29 +199,47 @@ DISPLAY_ITEMS = [
         speed_conversion_wrapper(Units.KPH, fmt='.0f')),
     AttribRow(
         _('Wind Direction'), ForecastEntry.WIND_DIR_ICON_KEY,
-        type=TYPE_WIND_DIR_ICON),
+        type=AttribRowTypes.WIND_DIR_ICON),
     AttribRow(
         title_unit_wrapper(_('Wind Gust'), unit=Units.KPH),
         ForecastEntry.WIND_GUST_KEY,
         speed_conversion_wrapper(Units.KPH, fmt='.0f')),
 ]
 
+SUMMARY_DISPLAY_ENTRIES = [
+    ForecastEntry.END_KEY, ForecastEntry.ICON_KEY,
+    ForecastEntry.TEMPERATURE_KEY, ForecastEntry.PRECIPITATION_KEY
+]
+SUMMARY_DISPLAY_ITEMS = list(filter(
+    lambda x: x.attribute in SUMMARY_DISPLAY_ENTRIES, FULL_DISPLAY_ITEMS
+))
+SUMMARY_DISPLAY_ITEMS.append(
+    AttribRow(
+        title_unit_wrapper(_('Wind Speed')),
+        ForecastEntry.WIND_SPEED_ICON_KEY, type=AttribRowTypes.WIND_SPEED_ICON)
+)
 
-def get_display_item_attribute_key(filter_fxn: Callable) -> str:
+FORECAST_META = {
+    # title, template, display_attribs
+    ForecastType.LOCATION: (
+        _("Location forecast"), "forecast.html", FULL_DISPLAY_ITEMS),
+    ForecastType.DEFAULT_ADDR: (
+        _("Default address forecast"), "dflt_forecast.html",
+        SUMMARY_DISPLAY_ITEMS),
+}
+
+
+def get_display_item_attribute_key(
+        display_items: List[AttribRow], filter_fxn: Callable) -> Callable:
     """
     Get display item attribute key for matching filter function
+    :param display_items: list of display items
     :param filter_fxn: function to filter display items
     :return: display item type key
     """
-    item_list = list(filter(filter_fxn, DISPLAY_ITEMS))
+    item_list = list(filter(filter_fxn, display_items))
     return None if item_list is None or len(item_list) == 0 else \
         item_list[0].attribute
-
-
-WEATHER_ICON_ATTRIB = get_display_item_attribute_key(
-    lambda ar: ar.type == TYPE_WEATHER_ICON)
-WIND_DIR_ICON_ATTRIB = get_display_item_attribute_key(
-    lambda ar: ar.type == TYPE_WIND_DIR_ICON)
 
 
 class ForecastAddress(View):
@@ -392,16 +411,36 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     dates = time_rng.as_dates()
 
     provider = request.GET.get(QUERY_PROVIDER, None)    # default is all
-    if provider.lower() == ALL_PROVIDERS:
+
+    return _display_forecast(request, geo_address, ForecastType.LOCATION,
+                             dates, provider, *args, **kwargs)
+
+
+def _display_forecast(request: HttpRequest, geo_address: GeoAddress,
+                      forecast_type: ForecastType, dates: DateRange,
+                      provider: str, *args, **kwargs) -> HttpResponse:
+    """
+    Get forecast view function
+    :param request: http request
+    :param geo_address: GeoAddress
+    :param forecast_type: ForecastType enum
+    :param dates: DateRange
+    :param provider: name of forecast provider
+    :param args: additional arbitrary arguments
+    :param kwargs: additional keyword arguments
+    :return: http response
+    """
+    if provider and provider.lower() == ALL_PROVIDERS:
         provider = None    # default is all
 
+    _, _, display_attribs = FORECAST_META.get(forecast_type)
+
     forecast_kwargs = {}
-    for k, v in [
-        (TYPE_WEATHER_ICON, WEATHER_ICON_ATTRIB),
-        (TYPE_WIND_DIR_ICON, WIND_DIR_ICON_ATTRIB)
-    ]:
-        if v:
-            forecast_kwargs[k] = v
+    for row_type in AttribRowTypes.icon_types():
+        key = get_display_item_attribute_key(
+            display_attribs, lambda ar: ar.type == row_type)
+        if key:
+            forecast_kwargs[row_type.value] = key
 
     registry = Registry.get_instance()
 
@@ -412,15 +451,40 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     warnings = registry.generate_warnings(geo_address.country,
                                           provider=provider)
 
-    template_path, context = forecast_render_info(forecasts, warnings)
+    template_path, context = forecast_render_info(forecast_type, forecasts,
+                                                  warnings)
 
     return render(request, template_path, context=context)
 
 
-def forecast_render_info(forecasts: List[Forecast],
+@require_http_methods([GET])
+def display_home(request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    """
+    Get home view function
+    :param request: http request
+    :param args: additional arbitrary arguments
+    :param kwargs: additional keyword arguments
+    :return: http response
+    """
+
+    addr_service: ICrudService = Broker.get_instance().get(
+        'AddressService', ServiceType.DB_CRUD)
+
+    addr = addr_service.get(user=request.user, is_default=True)
+
+    geo_address = GeoAddress.from_address(addr)
+
+    return _display_forecast(request, geo_address, ForecastType.DEFAULT_ADDR,
+                             RangeArg.TODAY.as_dates(), None,
+                             *args, **kwargs)
+
+
+
+def forecast_render_info(forecast_type: ForecastType, forecasts: List[Forecast],
                          warnings: List[WeatherWarnings]):
     """
     Get info to render a list of forecasts
+    :param forecast_type: ForecastType enum
     :param forecasts: Forecast list
     :param warnings: WeatherWarnings list
     :return: tuple of template path and context
@@ -428,20 +492,23 @@ def forecast_render_info(forecasts: List[Forecast],
     formatted_addr = None
     country_code = None
 
+    title, template, display_attribs = FORECAST_META.get(forecast_type)
+
     # generate list of forecasts
     forecast_list = []
     for forecast in forecasts:
         # filter display items to only those available in forecast
         display_items = list(filter(
             lambda x: x.attribute in forecast.forecast_attribs,
-            DISPLAY_ITEMS
+            display_attribs
         ))
         # transform forecast entries into a list of attribute lists
         forecast.set_attrib_series(display_items)
 
         forecast_list.append({
             FORECAST_CTX: forecast,
-            ROW_TYPES_CTX: list(map(lambda x: x.type, display_items))
+            ROW_TYPES_CTX: list(map(
+                lambda x: x.type.value if x.type else x.type, display_items))
         })
 
         if not formatted_addr:
@@ -464,7 +531,6 @@ def forecast_render_info(forecasts: List[Forecast],
             }
         })
 
-    title = _("Location forecast")
     context = {
         TITLE_CTX: title,
         PAGE_HEADING_CTX: title,
@@ -473,4 +539,4 @@ def forecast_render_info(forecasts: List[Forecast],
         WARNING_LIST_CTX: warning_list
     }
 
-    return app_template_path(THIS_APP, "forecast.html"), context
+    return app_template_path(THIS_APP, template), context

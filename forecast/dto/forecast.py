@@ -29,6 +29,15 @@ from datetime import datetime
 from typing import List, Dict, Any, Tuple, Set, Callable, Optional
 
 from utils import AsDictMixin
+from user.constants import (
+    COUNTRY_FIELD as ADDR_COUNTRY_FIELD,
+    FORMATTED_ADDR_FIELD as ADDR_FORMATTED_ADDR_FIELD,
+    LATITUDE_FIELD as ADDR_LATITUDE_FIELD,
+    LONGITUDE_FIELD as ADDR_LONGITUDE_FIELD,
+)
+from ..beaufort import Beaufort
+from ..enums import AttribRowTypes
+
 
 AttribRow = namedtuple('AttribRow',
                        # display text or callable, attribute name,
@@ -36,11 +45,6 @@ AttribRow = namedtuple('AttribRow',
                        ['text', 'attribute', 'format_fxn', 'type'],
                        defaults=[None, None, None, None])
 """ Tuple to hold attribute row data for forecast display """
-
-# AttribRow types
-TYPE_HDR = 'hdr'                # header
-TYPE_WEATHER_ICON = 'img_wi'    # weather icon image
-TYPE_WIND_DIR_ICON = 'img_wd'   # wind direction icon image
 
 
 @dataclass
@@ -54,11 +58,34 @@ class GeoAddress(AsDictMixin):
     LNG_FIELD = 'lng'
     IS_VALID_FIELD = 'is_valid'
 
+    _DEFAULT_VALS = {
+        FORMATTED_ADDRESS_FIELD: '',
+        COUNTRY_FIELD: '',
+        LAT_FIELD: 0.0,
+        LNG_FIELD: 0.0,
+        IS_VALID_FIELD: False
+    }
+
+    _GEOADDRESS_ADDR_KEYS = {
+        FORMATTED_ADDRESS_FIELD: ADDR_FORMATTED_ADDR_FIELD,
+        COUNTRY_FIELD: ADDR_COUNTRY_FIELD,
+        LAT_FIELD: ADDR_LATITUDE_FIELD,
+        LNG_FIELD: ADDR_LONGITUDE_FIELD
+    }
+
     formatted_address: str
     country: str        # ISO 3166-1 alpha-2 country code
     lat: float
     lng: float
     is_valid: bool
+
+    @staticmethod
+    def default_vals() -> Dict[str, Any]:
+        """
+        Get the default values for a GeoAddress map
+        :return: map of keys and corresponding default values
+        """
+        return GeoAddress._DEFAULT_VALS.copy()
 
     @staticmethod
     def dict_keys() -> List[Tuple[str, Any]]:
@@ -67,11 +94,7 @@ class GeoAddress(AsDictMixin):
         :return: list of keys and default values
         """
         return [
-            (GeoAddress.FORMATTED_ADDRESS_FIELD, ''),
-            (GeoAddress.COUNTRY_FIELD, ''),
-            (GeoAddress.LAT_FIELD, 0.0),
-            (GeoAddress.LNG_FIELD, 0.0),
-            (GeoAddress.IS_VALID_FIELD, False)
+            (k, v,) for k, v in GeoAddress.default_vals().items()
         ]
 
     @staticmethod
@@ -84,6 +107,19 @@ class GeoAddress(AsDictMixin):
         return GeoAddress(**{
             k: address.get(k, v) for k, v in GeoAddress.dict_keys()
         })
+
+    @staticmethod
+    def from_address(address: Any) -> 'GeoAddress':
+        """
+        Convert an Address to a GeoAddress
+        :param address: map of GeoAddress
+        :return: GeoAddress
+        """
+        addr_dict = dict(GeoAddress.dict_keys())
+        for geo_k, addr_k in GeoAddress._GEOADDRESS_ADDR_KEYS.items():
+            addr_dict[geo_k] = getattr(address, addr_k)
+        addr_dict[GeoAddress.IS_VALID_FIELD] = True
+        return GeoAddress(**addr_dict)
 
     @staticmethod
     def empty_obj() -> 'GeoAddress':
@@ -147,6 +183,7 @@ class ForecastEntry:
     WIND_CARDINAL_KEY = "wind_cardinal"
     WIND_DIR_ICON_KEY = "wind_dir_icon"
     WIND_SPEED_KEY = "wind_speed"
+    WIND_SPEED_ICON_KEY = "wind_speed_icon"
     WIND_GUST_KEY = "wind_gust"
     BEAUFORT_KEY = "beaufort"
     HUMIDITY_KEY = "humidity"
@@ -173,6 +210,7 @@ class ForecastEntry:
     wind_cardinal: str  # wind cardinal direction
     wind_dir_icon: str  # wind direction icon
     wind_speed: float  # wind speed
+    wind_speed_icon: str  # wind speed icon
     wind_gust: float  # wind gust
     beaufort: int  # beaufort scale
     humidity: float  # humidity
@@ -198,6 +236,7 @@ class ForecastEntry:
             wind_cardinal='',
             wind_dir_icon='',
             wind_speed=0.0,
+            wind_speed_icon='',
             wind_gust=0.0,
             beaufort=0,
             humidity=0.0,
@@ -299,10 +338,14 @@ class Forecast:
                     # Callable[[Forecast, AttribRow, Any, int, Any], str]
                     display_value = (
                         item.format_fxn(self, item, value, idx, prev_value))
-                elif item.type == TYPE_WEATHER_ICON:
+                elif item.type == AttribRowTypes.WEATHER_ICON:
                     display_value = ImageData(value, entry.alt_text)
-                elif item.type == TYPE_WIND_DIR_ICON:
+                elif item.type == AttribRowTypes.WIND_DIR_ICON:
                     display_value = ImageData(value, entry.wind_cardinal)
+                elif item.type == AttribRowTypes.WIND_SPEED_ICON:
+                    display_value = ImageData(
+                        value, Beaufort.from_beaufort(
+                            entry.beaufort).alt_translations_kmh)
                 else:
                     display_value = value
 
