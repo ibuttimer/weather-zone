@@ -40,7 +40,7 @@ from weather_zone.constants import (
     WARNING_APP_NAME
 )
 from base import TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX
-from user import (
+from addresses import (
     USER_FIELD, COUNTRY_FIELD, COMPONENTS_FIELD, FORMATTED_ADDR_FIELD,
     LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD
 )

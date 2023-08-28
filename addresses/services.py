@@ -28,8 +28,9 @@ from django.db.models import Model
 from broker import ICrudService
 from forecast import GeoCodeResult
 from utils import SingletonMixin, ModelMixin
+from user.models import User
 
-from .models import User, Address
+from .models import Address
 
 
 class AddressService(SingletonMixin, ICrudService):

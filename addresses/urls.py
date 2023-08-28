@@ -19,11 +19,25 @@
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
+#
+
+from django.urls import path
+
 from .constants import (
-    USER_ID_ROUTE_NAME,
+    THIS_APP,
+    ADDRESSES_URL, ADDRESSES_ROUTE_NAME,
+    ADDRESS_NEW_URL, ADDRESS_NEW_ROUTE_NAME,
 )
+from . import views
 
 
-__all__ = [
-    'USER_ID_ROUTE_NAME',
+# https://docs.djangoproject.com/en/4.1/topics/http/urls/#url-namespaces-and-included-urlconfs
+app_name = THIS_APP
+
+urlpatterns = [
+    # standard app urls
+    # path(ADDRESSES_URL, views.UserDetailByUsername.as_view(),
+    #      name=ADDRESSES_ROUTE_NAME),
+    # path(ADDRESS_NEW_URL, views.UserDetailByUsername.as_view(),
+    #      name=ADDRESS_NEW_ROUTE_NAME),
 ]

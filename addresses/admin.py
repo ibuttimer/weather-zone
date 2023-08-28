@@ -19,11 +19,15 @@
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
-from .constants import (
-    USER_ID_ROUTE_NAME,
-)
+
+from django.contrib import admin
+
+from user.models import User
+
+from .models import Address
 
 
-__all__ = [
-    'USER_ID_ROUTE_NAME',
-]
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    """ Class representing the Address model in the admin interface """
+    ordering = (Address.USER_FIELD,)

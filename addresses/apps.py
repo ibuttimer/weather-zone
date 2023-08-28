@@ -19,11 +19,19 @@
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
-from .constants import (
-    USER_ID_ROUTE_NAME,
-)
+
+from django.apps import AppConfig
+from django.utils.translation import gettext_lazy as _
+
+from weather_zone import ADDRESSES_APP_NAME
 
 
-__all__ = [
-    'USER_ID_ROUTE_NAME',
-]
+class AddressesConfig(AppConfig):
+    """ Config class for addresses application """
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = ADDRESSES_APP_NAME
+    verbose_name = _("Address Management")
+
+    def ready(self):
+        # Implicitly connect signal handlers decorated with @receiver.
+        from . import signals

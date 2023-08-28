@@ -29,7 +29,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Tuple, Set, Callable, Optional
 
 from utils import AsDictMixin
-from user.constants import (
+from addresses.constants import (
     COUNTRY_FIELD as ADDR_COUNTRY_FIELD,
     FORMATTED_ADDR_FIELD as ADDR_FORMATTED_ADDR_FIELD,
     LATITUDE_FIELD as ADDR_LATITUDE_FIELD,

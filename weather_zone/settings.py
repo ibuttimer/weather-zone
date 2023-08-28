@@ -19,10 +19,9 @@ from django.utils.translation import gettext_lazy as _
 from forecast import DASH_ROUTE_NAME
 from .constants import (
     BASE_APP_NAME, FORECAST_APP_NAME, LOCATIONFORECAST_APP_NAME,
-    WARNING_APP_NAME, USER_APP_NAME, BROKER_APP_NAME,
+    WARNING_APP_NAME, USER_APP_NAME, BROKER_APP_NAME, ADDRESSES_APP_NAME,
     LOGIN_URL as USER_LOGIN_URL, LOGIN_ROUTE_NAME, HOME_ROUTE_NAME
 )
-from .misc import provider_settings_name
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -89,6 +88,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     USER_APP_NAME,
+    ADDRESSES_APP_NAME,
 ]
 
 # forecast provider apps

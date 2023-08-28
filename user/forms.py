@@ -32,6 +32,8 @@ from allauth.account.forms import (
 )
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from django.contrib.auth.models import Group
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
 
 from utils import FormMixin # , get_user_model# error_messages, ErrorMsgs,
 from .models import User

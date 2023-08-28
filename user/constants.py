@@ -24,8 +24,7 @@ User constants
 #  DEALINGS IN THE SOFTWARE.
 from pathlib import Path
 
-from utils import append_slash
-
+from utils import append_slash, url_path
 
 # name of this app
 THIS_APP = Path(__file__).resolve().parent.name
@@ -41,21 +40,9 @@ PASSWORD_CONFIRM = "password2"
 OLD_PASSWORD = "oldpassword"
 PREVIOUS_LOGIN = 'previous_login'
 
-# field names of Address model
-USER_FIELD = "user"
-COUNTRY_FIELD = "country"
-COMPONENTS_FIELD = "components"
-FORMATTED_ADDR_FIELD = "formatted_addr"
-LATITUDE_FIELD = "latitude"
-LONGITUDE_FIELD = "longitude"
-IS_DEFAULT_FIELD = "is_default"
-
 # User routes related
 USER_ID_URL = append_slash("<int:pk>")
 USER_USERNAME_URL = append_slash("<str:name>")
 
 USER_ID_ROUTE_NAME = "user_id"
 USER_USERNAME_ROUTE_NAME = "user_username"
-
-# context related
-USER_CTX = 'user'

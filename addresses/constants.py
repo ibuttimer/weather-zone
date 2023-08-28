@@ -1,3 +1,6 @@
+"""
+User constants
+"""
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -19,11 +22,40 @@
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
-from .constants import (
-    USER_ID_ROUTE_NAME,
-)
+from pathlib import Path
 
+from utils import append_slash, url_path
 
-__all__ = [
-    'USER_ID_ROUTE_NAME',
-]
+# name of this app
+THIS_APP = Path(__file__).resolve().parent.name
+
+# field names of Address model
+USER_FIELD = "user"
+COUNTRY_FIELD = "country"
+COMPONENTS_FIELD = "components"
+FORMATTED_ADDR_FIELD = "formatted_addr"
+LATITUDE_FIELD = "latitude"
+LONGITUDE_FIELD = "longitude"
+IS_DEFAULT_FIELD = "is_default"
+
+# Address routes related
+PK_PARAM_NAME = "pk"
+ADDRESSES_URL = "addresses"
+ADDRESS_NEW_URL = url_path(ADDRESSES_URL, "new")
+ADDRESS_ID_URL = url_path(ADDRESSES_URL, f"<int:{PK_PARAM_NAME}>")
+ADDRESSES_ID_DEFAULT_URL = \
+    url_path(ADDRESSES_URL, f"<int:{PK_PARAM_NAME}>", "default")
+
+# convention is addresses route names begin with 'address'
+ADDRESSES_ROUTE_NAME = "addresses"
+ADDRESS_NEW_ROUTE_NAME = "address_new"
+ADDRESS_ID_ROUTE_NAME = "address_id"
+ADDRESSES_ID_DEFAULT_ROUTE_NAME = "address_id_default"
+
+# Address form related
+LINE1_FIELD = 'line1'
+LINE2_FIELD = 'line2'
+CITY_FIELD = 'city'
+LINE4_FIELD = 'state'
+POSTCODE_FIELD = 'postcode'
+SET_AS_DEFAULT_FIELD = "set_as_default"

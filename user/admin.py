@@ -21,16 +21,10 @@
 #  DEALINGS IN THE SOFTWARE.
 
 from django.contrib import admin
-from .models import User, Address
+from .models import User
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     """ Class representing the User model in the admin interface """
     ordering = (User.USERNAME_FIELD,)
-
-
-@admin.register(Address)
-class UserAdmin(admin.ModelAdmin):
-    """ Class representing the Address model in the admin interface """
-    ordering = (Address.USER_FIELD,)
