@@ -350,7 +350,10 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-MEDIA_ROOT
-MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+if MEDIA_URL.startswith('http'):
+    MEDIA_ROOT = MEDIA_URL
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

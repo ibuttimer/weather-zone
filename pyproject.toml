@@ -9,20 +9,21 @@ packages = [{include = "weather_zone"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^4.2.3"
+django = "^4.2.4"
 django-environ = "^0.10.0"
 googlemaps = "^4.10.0"
 beautifulsoup4 = "^4.12.2"
 lxml = "^4.9.3"
 django-countries = "^7.5.1"
 xmltodict = "^0.13.0"
-psycopg2 = "^2.9.6"
+psycopg2 = "^2.9.7"
 tzdata = "^2023.3"
-django-allauth = "^0.54.0"
+django-allauth = "^0.55.0"
 
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.17.4"
+docutils = "^0.20.1"
 
 [build-system]
 requires = ["poetry-core"]
