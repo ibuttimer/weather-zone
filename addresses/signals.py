@@ -23,12 +23,11 @@ Signal processing for app
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from django.conf import settings
 from django.dispatch import receiver
 
 from broker import broker_open, Broker, ServiceType
 
-from .constants import THIS_APP
+from .constants import THIS_APP, ADDRESS_SERVICE
 from .services import AddressService
 
 
@@ -46,5 +45,5 @@ def broker_open_handler(sender, **kwargs):
     print(f"{THIS_APP}: Broker open signal received from {sender}")
 
     # register services
-    broker.add(AddressService.__name__, ServiceType.DB_CRUD,
+    broker.add(ADDRESS_SERVICE, ServiceType.DB_CRUD,
                AddressService.get_instance())

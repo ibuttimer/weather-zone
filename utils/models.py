@@ -21,13 +21,13 @@
 #  DEALINGS IN THE SOFTWARE.
 
 from inspect import isclass
-from typing import Union, Type, Any, TypeVar, Optional, List, Tuple
+from typing import Union, Type, Any, TypeVar, Optional, List, Dict
 from string import capwords
 
 from django.db.models import Model, QuerySet
 from django.shortcuts import get_object_or_404
 
-TypeModelMixin = TypeVar("ModelMixin", bound="ModelMixin")
+TypeModelMixin = TypeVar("TypeModelMixin", bound="ModelMixin")
 
 
 # sorting related
@@ -146,6 +146,25 @@ class ModelMixin:
         :return: model
         """
         return cls.get_by_field(cls.id_field(), pk, get_or_404=get_or_404)
+
+    @classmethod
+    def field_names(cls) -> List[str]:
+        """
+        Lis of field names
+        """
+        return list(map(lambda fld: fld.name, cls._meta.fields))
+
+    @classmethod
+    def sanitise_param_dict(cls, param_dict: dict) -> Dict[str, Any]:
+        """
+        Get a sanitised copy of a parameter dict
+        :param param_dict: parameter dict
+        :return: sanitised parameter dict
+        """
+        return {
+            key: value for key, value in param_dict.items()
+            if key in cls.field_names()
+        }
 
     @classmethod
     def model_name(cls):

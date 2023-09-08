@@ -20,6 +20,7 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
+import functools
 from abc import ABC, abstractmethod
 from enum import Enum, auto
 from typing import Any, List
@@ -35,7 +36,8 @@ class ServiceType(Enum):
     WARNING = auto()    # warning provider
     FORECAST_WARNING = auto()   # forecast and warning provider
 
-    DB_CRUD = auto()    # database CRUD service
+    SERVICE = auto()    # basic service; IService
+    DB_CRUD = auto()    # database CRUD service; ICrudService
 
     @classmethod
     def forecast_types(cls) -> List['ServiceType']:
@@ -67,7 +69,18 @@ class IService(ABC):
     Interface for service classes
     """
 
-    @abstractmethod
+    @staticmethod
+    def make_api_method(func):
+        """
+        Provides a method of calling a function with the first argument removed,
+        i.e. the self argument.
+        """
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args[1:], **kwargs)
+            return result
+        return wrapper
+
     def execute(self, func: str, *args, **kwargs) -> Any:
         """
         Execute a function in the service
@@ -76,6 +89,12 @@ class IService(ABC):
         :param kwargs: keyword arguments
         :return:
         """
+        if not hasattr(self, func):
+            raise NotImplementedError(f'Unknown function {func}')
+        # class instance is first argument, so if the function does not require
+        # a reference to the class instance, use 'make_api_method' to wrap the
+        # function and remove the first argument
+        return getattr(self, func)(*args, **kwargs)
 
 
 class ICrudService(IService):

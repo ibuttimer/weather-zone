@@ -23,7 +23,7 @@ Constants for the weather_zone package
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from utils import append_slash, url_path
+from utils.url_path import append_slash, url_path
 
 APP_NAME = "Weather-Zone"
 COPYRIGHT_YEAR = 2023
@@ -77,6 +77,9 @@ MANAGE_EMAIL_ROUTE_NAME = "account_email"
 
 # User routes related
 USERS_URL = append_slash("users")
+
+# User routes related
+ADDRESSES_URL = append_slash("addresses")
 
 # Forecast routes related
 FORECAST_URL = append_slash("forecast")

@@ -1,0 +1,35 @@
+<!-- address_dto.html start -->
+{# --- address_dto.html template variable defines for includes --- #}
+{# address dto template expects: 'address_dto' as AddressDto #}
+{#                               'identifier' as individual identifier #}
+{#                               'content_format' as card content format; one of 'list'/'select' #}
+{#                                  'list' - address list, 'select' - address select for shipping #}
+
+{% load i18n  static  attr_append  countries  address_element_id %}
+
+{% address_element_id address_dto 'div' as div_id %}
+{# below md: 1 per row  md-lg: 2 per row  xl+: 3 per row #}
+<div id="{{ div_id }}" class="col-md-6 col-xl-4 mb-4">
+    {% attr_append 'class="card rounded-3 mb-4 h-100"' 'card--new-address' address_dto.add_new as card_class %}
+    {% address_element_id address_dto 'card' as card_id %}
+    {% address_element_id address_dto '' as addr_id %}
+    <div id="{{ card_id }}" {{card_class | safe}}>
+        <div id="{{ addr_id }}" class="card-body d-flex flex-column">
+            {% if address_dto.add_new %}
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <p>Add address</p>
+                        <p><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                </div>
+            {% else %}
+                {% if content_format == 'list' %}
+                    {% include 'addresses/address_list_item.html' %}
+                {% elif content_format == 'select' %}
+                    {% include 'addresses/address_select_item.html' %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- address_dto.html end -->

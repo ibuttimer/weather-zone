@@ -121,6 +121,11 @@ class Address(ModelMixin, models.Model):
         ordering = [f'-{IS_DEFAULT_FIELD}']
 
     @classmethod
+    def numeric_fields(cls) -> list[str]:
+        """ Get the list of numeric fields """
+        return [Address.LATITUDE_FIELD, Address.LONGITUDE_FIELD]
+
+    @classmethod
     def boolean_fields(cls) -> list[str]:
         """ Get the list of boolean fields """
         return [Address.IS_DEFAULT_FIELD]

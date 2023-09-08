@@ -93,9 +93,7 @@ class GeoAddress(AsDictMixin):
         Get the keys for a GeoAddress map
         :return: list of keys and default values
         """
-        return [
-            (k, v,) for k, v in GeoAddress.default_vals().items()
-        ]
+        return list(GeoAddress.default_vals().items())
 
     @staticmethod
     def from_dict(address: Dict[str, Any]) -> 'GeoAddress':

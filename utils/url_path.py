@@ -23,9 +23,12 @@ Miscellaneous URL path utilities
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 #
+from typing import Dict, List
 from urllib.parse import urlencode
 
 from django.urls import reverse as django_reverse
+
+from .enums import QueryArg
 
 
 # Request methods
@@ -99,3 +102,23 @@ def reverse_q(viewname, urlconf=None, args=None, kwargs=None,
     if query_kwargs:
         url = f'{url}?{urlencode(query_kwargs)}'
     return url
+
+def query_search_term(
+        query_params: Dict[str, QueryArg], exclude_queries: List[str] = None,
+        join_by: str = '&'
+) -> str:
+    """
+    Get the query search terms for a client to use to do a http request
+    :param query_params: query params; key is query name, value is query value
+    :param exclude_queries: list of queries to exclude; default None
+    :param join_by: string to join entries; default '&'
+    :return: joined sting
+    """
+    if exclude_queries is None:
+        exclude_queries = []
+
+    return join_by.join([
+        f'{q}={v.value_arg_or_value if isinstance(v, QueryArg) else v}'
+        for q, v in query_params.items()
+        if q not in exclude_queries and
+           (v.was_set if isinstance(v, QueryArg) else True)])

@@ -1,7 +1,6 @@
 """
 Miscellaneous utility functions
 """
-from collections import namedtuple
 #  MIT License
 #
 #  Copyright (c) 2022-2023 Ian Buttimer
@@ -24,8 +23,9 @@ from collections import namedtuple
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 #
+from collections import namedtuple
 from enum import Enum
-from typing import Union, List, Any, Callable, Optional, TypeVar, Tuple, Dict
+from typing import List, Any, Callable, Optional, TypeVar, Dict
 
 import environ
 
@@ -71,11 +71,11 @@ class Crud(Enum):
         return crud
 
 
-def ensure_list(item: Any) -> list[Any]:
+def ensure_list(item: Any) -> List[Any]:
     """
     Ensure argument is returned as a list
-    :param item: item(s) to return as list
-    :return: list
+    :param item: item(s) to return
+    :return: list of item(s)
     """
     return item if isinstance(item, list) else [item]
 
@@ -127,7 +127,7 @@ def dict_drill(obj: Dict, *args, default: Any = None,
     :param obj: dict object
     :param args: attrib names
     :param default: default value to return if not found
-    :param set_new: if True and found, set new value
+    :param set_new: set new value, if True and found
     :param new_value: value to set
     :return: tuple of success flag and value
     """

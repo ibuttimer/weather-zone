@@ -1,6 +1,8 @@
 """
 Constants for base app
 """
+from collections import namedtuple
+from enum import Enum
 #  MIT License
 #
 #  Copyright (c) 2023 Ian Buttimer
@@ -25,7 +27,7 @@ Constants for base app
 #
 from pathlib import Path
 
-from utils import append_slash, url_path
+from utils import Crud
 
 
 # name of this app
@@ -40,5 +42,42 @@ LANG_COUNTRY_CTX = 'lang_country'
 ARIA_CHANGE_LANG_CTX = 'change_lang'
 
 TITLE_CTX = 'title'
+
+TITLE_CLASS_CTX = 'title_class'
+MODAL_LEVEL_CTX = 'modal_level'
+
 PAGE_HEADING_CTX = 'page_heading'
 PAGE_SUB_HEADING_CTX = 'page_sub_heading'
+
+TOAST_POSITION_CTX = 'toast_position'
+
+InfoModalCfg = namedtuple(
+    'InfoModalCfg',
+    ['name', 'title_class', 'title_text'],
+    defaults=['', '', '']
+)
+"""
+Info modal configuration
+name: info modal name
+title_class: class to apply to title
+title_text: title text
+"""
+
+
+class InfoModalLevel(Enum):
+    """ Enum representing info modal levels """
+    NONE = (0, InfoModalCfg(name='none'))
+    DANGER = (1, InfoModalCfg(
+        name='danger', title_class='text-danger', title_text='Danger'))
+    WARN = (2, InfoModalCfg(
+        name='warn', title_class='text-warning', title_text='Warning'))
+    INFO = (3, InfoModalCfg(name='info', title_class='text-info'))
+    QUESTION = (4, InfoModalCfg(name='question'))
+
+
+SUBMIT_BTN_TEXT = {
+    Crud.CREATE: 'Save',
+    Crud.UPDATE: 'Update',
+    Crud.DELETE: 'Delete',
+    Crud.READ: 'Close',
+}

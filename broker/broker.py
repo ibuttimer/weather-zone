@@ -23,7 +23,8 @@ Provides a Broker of service providers
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from typing import TypeVar, Optional, List, Any, Dict, Union, Tuple, Callable
+from re import sub
+from typing import TypeVar, Optional, List, Dict, Union, Tuple, Callable
 
 from utils import SingletonMixin, ensure_list
 from .iservice import IService, ServiceType
@@ -51,7 +52,7 @@ class Broker(SingletonMixin):
         :return: True if registered, otherwise False
         """
         service_types = args if len(args) > 0 else tuple(ServiceType)
-        
+
         for service_type in service_types:
             if service_type in self._providers and \
                     name in self._providers[service_type]:
@@ -60,6 +61,15 @@ class Broker(SingletonMixin):
         else:
             registered = False
         return registered
+
+    @staticmethod
+    def is_valid_identifier(name: str) -> bool:
+        """
+        Check `name` is a valid identifier
+        :param name:
+        :return: True if valid, otherwise False
+        """
+        return name.isidentifier()
 
     def add(self, name: str, service_type: ServiceType, provider: IService,
             raise_on_reg: bool = True) -> bool:
@@ -73,6 +83,8 @@ class Broker(SingletonMixin):
                             default True
         :return: True if added, otherwise False
         """
+        if not self.is_valid_identifier(name):
+            raise ValueError(f"Service provider name '{name}' is invalid")
         registered = self.is_registered(name, service_type)
         if registered and raise_on_reg:
             raise ValueError(f"Service provider '{name}' already registered")
@@ -167,3 +179,28 @@ class Broker(SingletonMixin):
             if st in self.types_list(service_type)
             for v in st_providers.values()
         ]
+
+
+class ServiceCacheMixin:
+    """
+    Interface for cache service instances
+    """
+
+    def service(self, name: str,
+                stype: ServiceType = ServiceType.SERVICE) -> IService:
+        """
+        Get a cached instance of a service
+        :return: instance of service
+        """
+        # convert uppercase letters to '_<x>'
+        ref_name = sub(r'([A-Z])', lambda m: f'_{m.group(1).lower()}', name)
+        if not ref_name.startswith('_'):
+            ref_name = f'_{ref_name}'
+        if not Broker.is_valid_identifier(ref_name):
+            raise ValueError(
+                f"Unable to generate valid service provider name from '{name}'")
+
+        if not hasattr(self, ref_name) or not getattr(self, ref_name):
+            # save the service instance as an attribute
+            setattr(self, ref_name, Broker.get_instance().get(name, stype))
+        return getattr(self, ref_name)

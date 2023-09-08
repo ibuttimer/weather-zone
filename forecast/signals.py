@@ -26,8 +26,10 @@ Signal processing for forecast app
 import django.dispatch
 from django.dispatch import receiver
 
-from broker import broker_open
+from broker import broker_open, Broker, ServiceType
 
+from .constants import THIS_APP
+from .services import GeocodeService
 from .registry import Registry
 
 
@@ -44,6 +46,14 @@ def broker_open_handler(sender, **kwargs):
         registry: registry that was opened
     :return:
     """
+    broker: Broker = kwargs.get('broker')
+
+    print(f"{THIS_APP}: Broker open signal received from {sender}")
+
+    # register services
+    broker.add(GeocodeService.__name__, ServiceType.SERVICE,
+               GeocodeService.get_instance())
+
     # create the registry instance
     registry = Registry.get_instance()
     # send the registry_open signal

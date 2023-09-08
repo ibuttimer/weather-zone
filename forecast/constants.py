@@ -67,3 +67,7 @@ SUBMIT_BTN_TEXT_CTX = 'submit_btn_text'
 # provider selection
 ALL_PROVIDERS = 'all'
 COUNTRY_PROVIDERS = 'country'
+
+# service-specific
+GEOCODE_SERVICE = 'GeocodeService'
+GEOCODE_ADDRESS_FUNC = 'geocode_address'

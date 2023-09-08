@@ -56,6 +56,16 @@ ADDRESSES_ID_DEFAULT_ROUTE_NAME = "address_id_default"
 LINE1_FIELD = 'line1'
 LINE2_FIELD = 'line2'
 CITY_FIELD = 'city'
-LINE4_FIELD = 'state'
+STATE_FIELD = 'state'
 POSTCODE_FIELD = 'postcode'
 SET_AS_DEFAULT_FIELD = "set_as_default"
+
+# context
+ADDRESS_FORM_CTX = 'address_form'
+ADDRESS_LIST_CTX = 'address_list'
+NEW_ENTRY_CTX = 'new_entry'
+COUNT_CTX = 'count'
+
+# service-related
+ADDRESS_SERVICE = 'AddressService'
+MANAGE_DEFAULT_FUNC = 'manage_default'

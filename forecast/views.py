@@ -25,7 +25,7 @@ This file is used to create the views for the forecast app.
 #
 from collections import namedtuple
 from datetime import datetime
-from typing import Callable, List, Optional
+from typing import Callable, List, Optional, Union
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -34,7 +34,9 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django_countries import countries
 
-from broker import Broker, ServiceType, ICrudService
+from addresses import ADDRESS_SERVICE
+from broker import Broker, ServiceType, ICrudService, ServiceCacheMixin, \
+    IService
 from weather_warning.constants import COUNTRY_ROUTE_NAME
 from weather_zone.constants import (
     WARNING_APP_NAME
@@ -242,26 +244,26 @@ def get_display_item_attribute_key(
         item_list[0].attribute
 
 
-class ForecastAddress(View):
+class ForecastAddress(ServiceCacheMixin, View):
     """
     Class-based view for address forecast
     """
 
-    _address_service: ICrudService
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._address_service = None
-
-    def address_service(self) -> ICrudService:
-        """
-        Get the address service
-        :return: address service
-        """
-        if not self._address_service:
-            self._address_service = Broker.get_instance().get(
-                'AddressService', ServiceType.DB_CRUD)
-        return self._address_service
+    # _address_service: Optional[ICrudService]
+    #
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self._address_service = None
+    #
+    # def address_service(self) -> ICrudService:
+    #     """
+    #     Get the address service
+    #     :return: instance of address service
+    #     """
+    #     if not self._address_service:
+    #         self._address_service = Broker.get_instance().get(
+    #             'AddressService', ServiceType.DB_CRUD)
+    #     return self._address_service
 
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """
@@ -290,25 +292,16 @@ class ForecastAddress(View):
         success = False
         url = None
         if form.is_valid():
-            def get_field(field_name: str) -> str:
-                """ Get field from form converting country code to name """
-                field = form.cleaned_data.get(field_name)
-                if field_name == AddressForm.COUNTRY_FIELD and field:
-                    field = dict(countries)[field]
-                return field
 
-            geo_address, geocode_result = geocode_address([
-                b for b in map(
-                    get_field, AddressForm.Meta.addr_fields
-                ) if b
-            ])
+            geo_address, geocode_result = geocode_address(
+                form.get_addr_fields_data())
             success = geo_address.is_valid
 
             if success:
                 if request.user.is_authenticated:
-                    save_to_profile = form.cleaned_data.get(
+                    save_to_profile = form.get_field(
                         AddressForm.SAVE_TO_PROFILE_FIELD)
-                    set_as_default = form.cleaned_data.get(
+                    set_as_default = form.get_field(
                         AddressForm.SET_AS_DEFAULT_FIELD)
                 else:
                     save_to_profile = False
@@ -321,10 +314,14 @@ class ForecastAddress(View):
                         f'{LATITUDE_FIELD}': geo_address.lat,
                         f'{LONGITUDE_FIELD}': geo_address.lng,
                     }
-                    addr = self.address_service().get(**addr_kwargs)
+
+                    address_service: Union[IService, ICrudService] = \
+                        self.service(ADDRESS_SERVICE, stype=ServiceType.DB_CRUD)
+
+                    addr = address_service.get(**addr_kwargs)
                     if addr is None:
                         # add new address
-                        addr = self.address_service().create(
+                        addr = address_service.create(
                             request.user, geocode_result)
                     else:
                         # update existing address
@@ -332,14 +329,14 @@ class ForecastAddress(View):
                             addr_kwargs['update'] = {
                                 f'{IS_DEFAULT_FIELD}': set_as_default
                             }
-                            updated = self.address_service().update(
+                            updated = address_service.update(
                                 **addr_kwargs)
 
             # need to redirect to url with query parameters
             query_kwargs = geo_address.as_dict()
-            query_kwargs[QUERY_TIME_RANGE] = get_field(
+            query_kwargs[QUERY_TIME_RANGE] = form.get_field(
                 AddressForm.TIME_RANGE_FIELD)
-            query_kwargs[QUERY_PROVIDER] = get_field(
+            query_kwargs[QUERY_PROVIDER] = form.get_field(
                 AddressForm.PROVIDER_FIELD)
             url = reverse_q(
                 namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),

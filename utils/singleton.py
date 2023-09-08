@@ -36,9 +36,9 @@ class SingletonMixin:
     @classmethod
     def get_instance(cls) -> T:
         """
-        Get the registry
+        Get the instance
 
-        :return: Registry
+        :return: instance
         """
         if not hasattr(cls, '_instance'):
             cls._instance = cls()

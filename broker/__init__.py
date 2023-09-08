@@ -20,13 +20,14 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from .broker import Broker
+from .broker import Broker, ServiceCacheMixin
 from .iservice import IService, ServiceType, ICrudService
 from .signals import broker_open
 
 
 __all__ = [
     'Broker',
+    'ServiceCacheMixin',
 
     'IService',
     'ServiceType',

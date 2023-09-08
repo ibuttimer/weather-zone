@@ -20,18 +20,17 @@
 #  FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 from dataclasses import dataclass
-from typing import Type
+from typing import Type, List
 
 from django import forms
-from django.conf import settings
-from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
+from django_countries import countries
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
 from utils import FormMixin # , get_user_model# error_messages, ErrorMsgs,
 from .constants import (
-    LINE1_FIELD, LINE2_FIELD, CITY_FIELD, LINE4_FIELD, POSTCODE_FIELD,
+    LINE1_FIELD, LINE2_FIELD, CITY_FIELD, STATE_FIELD, POSTCODE_FIELD,
     COUNTRY_FIELD, SET_AS_DEFAULT_FIELD
 )
 
@@ -46,7 +45,7 @@ class AddressForm(FormMixin, forms.Form):
     LINE1_FIELD = LINE1_FIELD
     LINE2_FIELD = LINE2_FIELD
     CITY_FIELD = CITY_FIELD
-    LINE4_FIELD = LINE4_FIELD
+    STATE_FIELD = STATE_FIELD
     POSTCODE_FIELD = POSTCODE_FIELD
     COUNTRY_FIELD = COUNTRY_FIELD
     SET_AS_DEFAULT_FIELD = SET_AS_DEFAULT_FIELD
@@ -73,7 +72,7 @@ class AddressForm(FormMixin, forms.Form):
         """ Form metadata """
         addr_fields = [
             # address fields in order of display
-            LINE1_FIELD, LINE2_FIELD, CITY_FIELD, LINE4_FIELD,
+            LINE1_FIELD, LINE2_FIELD, CITY_FIELD, STATE_FIELD,
             POSTCODE_FIELD, COUNTRY_FIELD
         ]
         # fields in order of display
@@ -121,20 +120,46 @@ class AddressForm(FormMixin, forms.Form):
             LINE1_FIELD: 'address-line1',
             LINE2_FIELD: 'address-line2',
             CITY_FIELD: 'address-level2',
-            LINE4_FIELD: 'address-level1',
+            STATE_FIELD: 'address-level1',
             POSTCODE_FIELD: 'postal-code',
             COUNTRY_FIELD: 'country'
         })
 
+    def cleaned_addr_field_generator(self):
+        """ Generator for cleaned address fields """
+        idx = 0
+        while idx < len(self._meta_class.addr_fields):
+            yield self.cleaned_data.get(self._meta_class.addr_fields[idx])
+            idx += 1
+
     def clean(self):
         """
         Validate the form
-        :return:
         """
         if not self.empty_permitted:
             # check that at least one line is entered
-            if not any(
-                [self.cleaned_data.get(f) for f in self._meta_class.addr_fields]
-            ):
+            if not any(self.cleaned_addr_field_generator()):
                 raise forms.ValidationError(
                     _("No fields entered"), code="empty")
+
+    def get_field(self, field_name: str) -> str:
+        """
+        Get field from form converting country code to name
+        :param field_name: field name
+        :return: field value
+        """
+        field = self.cleaned_data.get(field_name)
+        if field_name == AddressForm.COUNTRY_FIELD and field:
+            field = dict(countries)[field]
+        return field
+
+    def get_addr_fields_data(self) -> List[str]:
+        """
+        Get the entered address fields data
+        :return: list of data from address fields
+        """
+        return [
+            b for b in map(
+                self.get_field, AddressForm.Meta.addr_fields
+            ) if b
+        ]

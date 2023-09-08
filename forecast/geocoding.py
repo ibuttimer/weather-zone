@@ -22,14 +22,13 @@
 #
 import json
 from dataclasses import dataclass
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any, TypeVar, Optional, Callable
 import re
 import googlemaps
-from datetime import datetime
 
 from django.conf import settings
 
-from utils import dict_drill, AsDictMixin
+from utils import dict_drill, AsDictMixin, ensure_list
 
 from forecast.dto import GeoAddress
 
@@ -38,20 +37,243 @@ MULTI_SPACE_RE = re.compile(r'\s+')
 # https://developers.google.com/maps/documentation/geocoding/requests-geocoding#GeocodingResponses
 FORMATTED_ADDR_DATA_PATH = ['formatted_address']
 ADDR_COMPONENTS_DATA_PATH = ['address_components']
+RESULT_TYPE_PATH = ['types']
 LATITUDE_DATA_PATH = ['geometry', 'location', 'lat']
 LONGITUDE_DATA_PATH = ['geometry', 'location', 'lng']
+
+AddrResult = TypeVar('AddrResult', bound=Dict[str, Any])
+""" Address result type; '{
+         "address_components": [...],
+         "formatted_address": .. }'
+"""
+AddrComponents = TypeVar('AddrComponents', bound=List[Dict[str, Any]])
 
 
 @dataclass
 class GeoCodeResult(AsDictMixin):
     """
-    Dataclass for geocode result
+    Dataclass for geocode result corresponding to address fields of Address
+    model
     """
+    LONG_NAME = 'long_name'
+    SHORT_NAME = 'short_name'
+
+    # types of result component
+    STREET_NUMBER = 'street_number'
+    STREET_ADDRESS = 'street_address'
+    NEIGHBORHOOD = 'neighborhood'
+    POSTAL_CODE = 'postal_code'
+    ROUTE = 'route'
+    LOCALITY = 'locality'
+    STATE = 'administrative_area_level_1'
+    COUNTRY = 'country'
+
     components: List[Dict[str, Any]]
     country: str    # ISO 3166-1 alpha-2 country code
     formatted_addr: str
     latitude: float
     longitude: float
+    res_type: str   # type of result, e.g. 'street_address'
+
+    @classmethod
+    def first_result(cls, results: List[AddrResult]) -> Optional[AddrResult]:
+        """
+        Get the first result from the client results
+        :param results: list of results
+        :return: result or None if no results
+        """
+        return results[0] if len(results) > 0 else None
+
+    @classmethod
+    def result_of_type(cls, results: List[AddrResult],
+                       res_type: str) -> Optional[AddrResult]:
+        """
+        Get the first result of the type specified from the client results
+        :param results: list of results
+        :param res_type: type of result, e.g. 'street_address'
+        :return: result or None if not found
+        """
+        results = list(filter(
+            lambda r: res_type in dict_drill(
+                r, *RESULT_TYPE_PATH, default=[]).value, results))
+        return results[0] if len(results) > 0 else None
+
+    @classmethod
+    def street_address_result(
+            cls, results: List[AddrResult]) -> Optional[AddrResult]:
+        """
+        Get the 'street_address' result from the client results
+        :param results: list of results
+        :return: result or None if no results
+        """
+        return cls.result_of_type(results, cls.STREET_ADDRESS)
+
+    @classmethod
+    def postcode_result(
+            cls, results: List[AddrResult]) -> Optional[AddrResult]:
+        """
+        Get the 'postal_code' result from the client results
+        :param results: list of results
+        :return: result or None if no results
+        """
+        return cls.result_of_type(results, cls.POSTAL_CODE)
+
+    @classmethod
+    def locality_result(
+            cls, results: List[AddrResult]) -> Optional[AddrResult]:
+        """
+        Get the 'locality' result from the client results
+        :param results: list of results
+        :return: result or None if no results
+        """
+        return cls.result_of_type(results, cls.LOCALITY)
+
+    @staticmethod
+    def from_client_result(
+            results: List[AddrResult],
+            select_funcs: List[
+                Callable[[List[AddrResult]], Optional[AddrResult]]
+            ]) -> Optional['GeoCodeResult']:
+        """
+        Create a GeoCodeResult from the client result provided
+        :param results: client result
+        :param select_funcs: list of functions to select the result to convert
+        :return: GeoCodeResult instance or None if no result
+        """
+        result = None
+        for func in ensure_list(select_funcs):
+            result = func(results)
+            if result is not None:
+                break
+
+        if result is not None:
+            components = dict_drill(
+                result, *ADDR_COMPONENTS_DATA_PATH, default=[]).value
+            res_type = dict_drill(
+                result, *RESULT_TYPE_PATH, default=[]).value
+            result = GeoCodeResult(
+                components=components,
+                country=GeoCodeResult.country_code_from_components(components),
+                formatted_addr=dict_drill(
+                    result, *FORMATTED_ADDR_DATA_PATH, default='').value,
+                latitude=dict_drill(
+                    result, *LATITUDE_DATA_PATH, default=0.0).value,
+                longitude=dict_drill(
+                    result, *LONGITUDE_DATA_PATH, default=0.0).value,
+                res_type=res_type[0] if len(res_type) > 0 else ''
+            )
+        return result
+
+    @property
+    def country_name(self) -> str:
+        """
+        Get the name of the country for this GeoCodeResult
+        :return: country name
+        """
+        return GeoCodeResult.country_name_from_components(self.components)
+
+    @property
+    def country_code(self) -> str:
+        """
+        Get the ISO 3166-1 alpha-2 country code for this GeoCodeResult
+        :return: country code
+        """
+        return GeoCodeResult.country_code_from_components(self.components)
+
+    @staticmethod
+    def data_from_components(components: AddrComponents, comp_type: str,
+                             attrib: str = LONG_NAME) -> str:
+        """
+        Extract data from the components
+        :param components: list of components
+        :param comp_type: component type, see
+         https://developers.google.com/maps/documentation/geocoding/requests-geocoding#Types
+        :param attrib: attribute to extract, default 'long_name'
+        https://developers.google.com/maps/documentation/geocoding/requests-geocoding#GeocodingResponses
+        :return: data
+        """
+        return next(
+            filter(lambda c: comp_type in c['types'], components),
+            {attrib: ''})[attrib]
+
+    @staticmethod
+    def country_code_from_components(components: AddrComponents) -> str:
+        """
+        Extract the ISO 3166-1 alpha-2 country code from the components
+        :param components: list of components
+        :return: country code
+        """
+        return GeoCodeResult.data_from_components(
+            components, GeoCodeResult.COUNTRY, attrib=GeoCodeResult.SHORT_NAME)
+
+    @staticmethod
+    def country_name_from_components(components: AddrComponents) -> str:
+        """
+        Extract the country name from the components
+        :param components: list of components
+        :return: country code
+        """
+        return GeoCodeResult.data_from_components(
+            components, GeoCodeResult.COUNTRY)
+
+    @staticmethod
+    def postcode_from_components(components: AddrComponents) -> str:
+        """
+        Extract the postcode from the components
+        :param components: list of components
+        :return: postcode
+        """
+        return GeoCodeResult.data_from_components(
+            components, GeoCodeResult.POSTAL_CODE)
+
+    @staticmethod
+    def state_from_components(components: AddrComponents) -> str:
+        """
+        Extract the state from the components;
+        'administrative_area_level_1' indicates a first-order civil entity
+        below the country level, e.g. a state in the United States
+        :param components: list of components
+        :return: postcode
+        """
+        return GeoCodeResult.data_from_components(
+            components, GeoCodeResult.STATE)
+
+    @staticmethod
+    def locality_from_components(components: AddrComponents) -> str:
+        """
+        Extract the locality from the components;
+        'locality' indicates an incorporated city or town political entity
+        :param components: list of components
+        :return: postcode
+        """
+        return GeoCodeResult.data_from_components(
+            components, GeoCodeResult.LOCALITY)
+
+    @staticmethod
+    def line1_from_components(components: AddrComponents) -> str:
+        """
+        Extract the street number and route from the components
+        'street_number' indicates the precise street number
+        'route' indicates a named route
+        :param components: list of components
+        :return: postcode
+        """
+        street_num = GeoCodeResult.data_from_components(
+            components, GeoCodeResult.STREET_NUMBER)
+        route = GeoCodeResult.data_from_components(
+            components, GeoCodeResult.ROUTE)
+        return f'{street_num} {route}' if street_num else route
+
+    @staticmethod
+    def line2_from_components(components: AddrComponents) -> str:
+        """
+        Extract the neighbourhood from the components
+        'neighborhood' indicates a named neighborhood
+        :param components: list of components
+        :return: postcode
+        """
+        return GeoCodeResult.data_from_components(
+            components, GeoCodeResult.NEIGHBORHOOD)
 
 
 class GoogleMapsClient:
@@ -65,12 +287,34 @@ class GoogleMapsClient:
             cls._instance = googlemaps.Client(key=settings.GOOGLE_API_KEY)
         return cls._instance
 
+    def geocode(self, address=None, place_id=None, components=None, bounds=None,
+                region=None, language=None) -> List[AddrResult]:
+        """
+        Geocode an address.
+        See :py:meth:`googlemaps.Client.geocode` for more information.
+        :param address: The address to geocode.
+        :param place_id: A textual identifier that uniquely identifies a place,
+            returned from a Places search.
+        :param components: A component filter for which you wish to obtain a
+            geocode, for example:
+            ``{'administrative_area': 'TX','country': 'US'}``
+        :param bounds: The bounding box of the viewport within which to bias
+            geocode results more prominently.
+        :param region: The region code, specified as a ccTLD
+            ("top-level domain") two-character value.
+        :param language: The language in which to return results.
+        :return: list of geocoding results.
+        """
+        return self._instance.geocode(
+            address=address, place_id=place_id, components=components,
+            bounds=bounds, region=region, language=language)
 
-def geocode_address(address: List[str]) -> Tuple[GeoAddress, Dict[str, Any]]:
+
+def geocode_address(address: List[str], *args) -> Tuple[GeoAddress, GeoCodeResult]:
     """
     Geocode an address
     :param address: list of address fields
-    :return: tuple of geocoded address and raw geocode result
+    :return: tuple of geocoded address and geocode result
     """
     # https://developers.google.com/maps/documentation/geocoding/overview
     # https://github.com/googlemaps/google-maps-services-python
@@ -80,36 +324,25 @@ def geocode_address(address: List[str]) -> Tuple[GeoAddress, Dict[str, Any]]:
     # request geocode from Google Maps
     if settings.CACHED_GEOCODE_RESULT:
         # HACK: use a cached result
-        geocode_result = json.loads(settings.CACHED_GEOCODE_RESULT)
+        geocode_results = json.loads(settings.CACHED_GEOCODE_RESULT)
     else:
-        geocode_result = GoogleMapsClient().geocode(', '.join(addr))
+        geocode_results = GoogleMapsClient().geocode(', '.join(addr))
 
-    is_valid = len(geocode_result) > 0
-    result = geocode_result[0] if is_valid else {}
-
-    # determine country
-    addr_components = dict_drill(
-        result, *ADDR_COMPONENTS_DATA_PATH, default=[]).value
-
-    country = next(
-        filter(lambda c: 'country' in c['types'], addr_components),
-        {'short_name': ''})['short_name']
+    # get result in decreasing order of specificity
+    geocode_res = GeoCodeResult.from_client_result(
+        geocode_results, [
+            GeoCodeResult.street_address_result,
+            GeoCodeResult.postcode_result,
+            GeoCodeResult.locality_result,
+            GeoCodeResult.first_result
+        ])
 
     geo_addr = GeoAddress(
-        formatted_address=dict_drill(
-            result, *FORMATTED_ADDR_DATA_PATH, default='').value,
-        country=country,
-        lat=dict_drill(
-            result, *LATITUDE_DATA_PATH, default=0.0).value,
-        lng=dict_drill(
-            result, *LONGITUDE_DATA_PATH, default=0.0).value,
-        is_valid=is_valid
-    )
+        formatted_address=geocode_res.formatted_addr,
+        country=geocode_res.country,
+        lat=geocode_res.latitude,
+        lng=geocode_res.longitude,
+        is_valid=True
+    ) if geocode_res is not None else GeoAddress.empty_obj()
 
-    return geo_addr, GeoCodeResult(
-        components=addr_components,
-        country=country,
-        formatted_addr=geo_addr.formatted_address,
-        latitude=geo_addr.lat,
-        longitude=geo_addr.lng
-    )
+    return geo_addr, geocode_res

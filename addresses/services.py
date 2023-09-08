@@ -20,10 +20,10 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from typing import Optional, Any, Callable, Union, Dict
-import json
+from typing import Any, Callable, Union, Dict
 
 from django.db.models import Model
+from django.http import HttpRequest
 
 from broker import ICrudService
 from forecast import GeoCodeResult
@@ -31,6 +31,7 @@ from utils import SingletonMixin, ModelMixin
 from user.models import User
 
 from .models import Address
+from .views import addresses_query
 
 
 class AddressService(SingletonMixin, ICrudService):
@@ -58,11 +59,11 @@ class AddressService(SingletonMixin, ICrudService):
         :return: Optional[Address]
         """
         addr_args = geocode_result.as_dict()
-        addr_args[Address.USER_FIELD] = user
-        addr = Address(**addr_args)
 
-        manage_default(
-            addr, save_func=lambda: addr.save())
+        addr_args[Address.USER_FIELD] = user
+        addr = Address(**Address.sanitise_param_dict(addr_args))
+
+        manage_default(addr, save_func=addr.save)
         return addr
 
     def get(self, *args, free_seek: bool = False, **kwargs) -> Any:
@@ -86,7 +87,6 @@ class AddressService(SingletonMixin, ICrudService):
         :raises: ValueError any required arguments are not specified
         """
         query_args = kwargs.copy()
-        errors = []
 
         if not free_seek:
             key_set = set(kwargs.keys())
@@ -109,27 +109,51 @@ class AddressService(SingletonMixin, ICrudService):
         :param kwargs: keyword arguments to filter by
         :return: number of affected rows
         """
-        return Address.objects.filter(**kwargs).update(**update) \
-            if len(update) > 0 else 0
+        query = Address.objects.filter(**kwargs)
+        affected = 0
+        will_affect = query.count()
+        clear_default = update.get(Address.IS_DEFAULT_FIELD, None) is False
+
+        if will_affect == 1:
+            # only one address to update
+            address = query.first()
+            if address.is_default and clear_default:
+                # need a default address
+                raise ValueError(
+                    'Default address required, set another address as default '
+                    'first')
+
+            affected = query.update(**update)
+            manage_default(address, save_func=address.save)
+
+        if will_affect > 1:
+            if update.get(Address.IS_DEFAULT_FIELD, False):
+                # can't have multiple default addresses
+                raise ValueError('Multiple default addresses not allowed')
+
+            # TODO - check updating multiple addresses will result in no default
+
+            affected = query.update(**update)
+
+        return affected
 
     def delete(self, *args, **kwargs) -> Any:
         pass
 
-    def execute(self, func: str, *args, **kwargs) -> Any:
-        pass
 
-
-def manage_default(instance: Address, save_func: Callable = None):
+def manage_default(instance: Address, request: HttpRequest = None,
+                   save_func: Callable = None):
     """
-    Manage default address for user
+    Manage default address for user.
+    Note: If `request` is None, the address instance user is used.
     :param instance: address being added/updated
+    :param request: http request; default None
     :param save_func: save instance function; default None
     """
     addr_ids = None     # ids of existing addresses
 
-    addr_query = Address.objects.filter(**{
-        f'{Address.USER_FIELD}': instance.user
-    })
+    addr_query = addresses_query(
+        user=request.user if request else instance.user)
     if not addr_query.exists():
         # only address so set as default
         instance.is_default = True
@@ -156,3 +180,7 @@ def manage_default(instance: Address, save_func: Callable = None):
         }).update(**{
             f'{Address.IS_DEFAULT_FIELD}': False
         })
+
+
+# add AddressService-specific methods to AddressService class
+AddressService.manage_default = ICrudService.make_api_method(manage_default)

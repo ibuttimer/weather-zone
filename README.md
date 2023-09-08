@@ -205,6 +205,8 @@ The following resources were used to build the website.
 - [Wind icon](https://icons8.com/icon/74197/wind), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
 - [Storm icon](https://icons8.com/icon/EKkPq7Olo1Hp/storm), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
 - [Tornado icon](https://icons8.com/icon/9309/tornado), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
+- [Nothing Found icon](https://icons8.com/icon/83786/nothing-found), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com).
+
 
 ### Code
 
