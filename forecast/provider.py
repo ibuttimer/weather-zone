@@ -63,6 +63,7 @@ class Provider(IProvider, ABC):
         :param country: ISO 3166-1 alpha-2 country code of provider
         :param stype: type of Provider
         """
+        super().__init__()
         self.name = name
         self.friendly_name = friendly_name
         self.url = url

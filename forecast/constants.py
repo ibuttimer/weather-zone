@@ -30,16 +30,20 @@ from utils import append_slash, url_path
 # name of this app
 THIS_APP = Path(__file__).resolve().parent.name
 
+PK_PARAM_NAME = "pk"
 
 # routes related
 ADDRESS_URL = append_slash("address")
 LAT_LONG_URL = append_slash("geo-coordinate")
 DISPLAY_URL = url_path("display")
+DISPLAY_ADDRESS_URL = url_path(DISPLAY_URL, "address",
+                               f"<int:{PK_PARAM_NAME}>")
 DASH_URL = url_path("dash")
 
 ADDRESS_ROUTE_NAME = "address"
 LAT_LONG_ROUTE_NAME = "geo-coordinate"
 DISPLAY_ROUTE_NAME = "display"
+DISPLAY_ADDRESS_ROUTE_NAME = "display-address"
 DASH_ROUTE_NAME = "dash"
 
 QUERY_PARAM_LAT = "lat"

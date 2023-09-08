@@ -27,6 +27,7 @@ from .constants import (
     ADDRESS_URL, ADDRESS_ROUTE_NAME,
     LAT_LONG_URL, LAT_LONG_ROUTE_NAME,
     DISPLAY_URL, DISPLAY_ROUTE_NAME,
+    DISPLAY_ADDRESS_URL, DISPLAY_ADDRESS_ROUTE_NAME,
     DASH_URL, DASH_ROUTE_NAME,
     THIS_APP,
 )
@@ -42,6 +43,8 @@ urlpatterns = [
     path(ADDRESS_URL, views.ForecastAddress.as_view(), name=ADDRESS_ROUTE_NAME),
     # path(LAT_LONG_URL, views.UserDetailByUsername.as_view(),
     #      name=LAT_LONG_ROUTE_NAME),
+    path(DISPLAY_ADDRESS_URL, views.ForecastAddressById.as_view(),
+         name=DISPLAY_ADDRESS_ROUTE_NAME),
     path(DISPLAY_URL, views.display_forecast, name=DISPLAY_ROUTE_NAME),
     path(DASH_URL, views.display_home, name=DASH_ROUTE_NAME),
 ]

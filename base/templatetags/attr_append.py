@@ -29,12 +29,15 @@ register = template.Library()
 
 
 @register.simple_tag
-def attr_append(base: str, append: str, check: bool = True):
+def attr_append(base: str, on_pass: str, check: bool = True,
+                on_fail: str = None):
     """
     Append string depending on truthy-ness of `check`
     :param base: base string
-    :param append: string to append
+    :param on_pass: string to append if check passes
     :param check: condition to check; default True
+    :param on_fail: string to append if check fails; default None 
     :return: string
     """
-    return f'{base[:-1]} {append}{base[-1]}' if check else base
+    return f'{base[:-1]} {on_pass}{base[-1]}' if check else \
+        f'{base[:-1]} {on_fail}{base[-1]}' if on_fail else base

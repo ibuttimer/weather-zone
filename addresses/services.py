@@ -66,12 +66,14 @@ class AddressService(SingletonMixin, ICrudService):
         manage_default(addr, save_func=addr.save)
         return addr
 
-    def get(self, *args, free_seek: bool = False, **kwargs) -> Any:
+    def get(self, *args, free_seek: bool = False, get_or_404: bool = False,
+            **kwargs) -> Any:
         """
         Get an address; returning None if not found.
 
         :param args: arguments
         :param free_seek: allow free seek; default False
+        :param get_or_404: raise 404 if not found; default False
         :param kwargs: keyword arguments to filter by
             non free seek mode:
                 user: user to associate with address
@@ -99,7 +101,7 @@ class AddressService(SingletonMixin, ICrudService):
                 raise ValueError(f'Unknown query: {key_set}')
 
         return self.model.get_by_fields(
-            get_or_404=False, does_not_exit_none=True, **query_args)
+            get_or_404=get_or_404, does_not_exit_none=True, **query_args)
 
     def update(self, *args, update: Dict, **kwargs) -> Any:
         """

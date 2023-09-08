@@ -30,6 +30,7 @@ from utils import append_slash, url_path
 THIS_APP = Path(__file__).resolve().parent.name
 
 # field names of Address model
+ADDR_ID_FIELD = "id"
 USER_FIELD = "user"
 COUNTRY_FIELD = "country"
 COMPONENTS_FIELD = "components"

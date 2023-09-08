@@ -33,6 +33,8 @@
     <script>
         const ADD_ADDRESS_URL = "{% url 'addresses:address_new' %}";
         const ADD_ADDRESS_SELECTOR = "#{{ addr_id }}";
+        const ADDRESS_FORECAST_URL = "{% url 'forecast:display-address' 0 %}";
+        const ADDRESS_CARD_SELECTOR = ".card--address";
     </script>
     <script type='text/javascript' src="{% static 'js/addresses/address_dto.js' %}"></script>
 {% endblock extra_js_body %}

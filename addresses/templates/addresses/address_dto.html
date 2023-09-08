@@ -10,7 +10,7 @@
 {% address_element_id address_dto 'div' as div_id %}
 {# below md: 1 per row  md-lg: 2 per row  xl+: 3 per row #}
 <div id="{{ div_id }}" class="col-md-6 col-xl-4 mb-4">
-    {% attr_append 'class="card rounded-3 mb-4 h-100"' 'card--new-address' address_dto.add_new as card_class %}
+    {% attr_append 'class="card rounded-3 mb-4 h-100"' 'card--new-address' address_dto.add_new 'card--address' as card_class %}
     {% address_element_id address_dto 'card' as card_id %}
     {% address_element_id address_dto '' as addr_id %}
     <div id="{{ card_id }}" {{card_class | safe}}>

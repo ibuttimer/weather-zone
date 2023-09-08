@@ -28,26 +28,25 @@ from datetime import datetime
 from typing import Callable, List, Optional, Union
 
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.decorators.http import require_http_methods
-from django_countries import countries
 
 from addresses import ADDRESS_SERVICE
-from broker import Broker, ServiceType, ICrudService, ServiceCacheMixin, \
-    IService
+from broker import (
+    Broker, ServiceType, ICrudService, ServiceCacheMixin, IService
+)
 from weather_warning.constants import COUNTRY_ROUTE_NAME
 from weather_zone.constants import (
     WARNING_APP_NAME
 )
 from base import TITLE_CTX, PAGE_HEADING_CTX, PAGE_SUB_HEADING_CTX
 from addresses import (
-    USER_FIELD, COUNTRY_FIELD, COMPONENTS_FIELD, FORMATTED_ADDR_FIELD,
-    LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD
+    ADDR_ID_FIELD, USER_FIELD, LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD
 )
 from utils import (
-    GET, app_template_path, reverse_q, namespaced_url, Crud,
+    GET, app_template_path, reverse_q, namespaced_url,
     redirect_on_success_or_render, html_tag
 )
 
@@ -249,22 +248,6 @@ class ForecastAddress(ServiceCacheMixin, View):
     Class-based view for address forecast
     """
 
-    # _address_service: Optional[ICrudService]
-    #
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self._address_service = None
-    #
-    # def address_service(self) -> ICrudService:
-    #     """
-    #     Get the address service
-    #     :return: instance of address service
-    #     """
-    #     if not self._address_service:
-    #         self._address_service = Broker.get_instance().get(
-    #             'AddressService', ServiceType.DB_CRUD)
-    #     return self._address_service
-
     def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         """
         GET method for Address
@@ -289,8 +272,7 @@ class ForecastAddress(ServiceCacheMixin, View):
 
         form.full_clean()
 
-        success = False
-        url = None
+        success, url, template_path, context = (False, None, None, None)
         if form.is_valid():
 
             geo_address, geocode_result = geocode_address(
@@ -332,27 +314,23 @@ class ForecastAddress(ServiceCacheMixin, View):
                             updated = address_service.update(
                                 **addr_kwargs)
 
-            # need to redirect to url with query parameters
-            query_kwargs = geo_address.as_dict()
-            query_kwargs[QUERY_TIME_RANGE] = form.get_field(
-                AddressForm.TIME_RANGE_FIELD)
-            query_kwargs[QUERY_PROVIDER] = form.get_field(
-                AddressForm.PROVIDER_FIELD)
-            url = reverse_q(
-                namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
-                query_kwargs=query_kwargs
-            )
+                # need to redirect to url with query parameters
+                query_kwargs = geo_address.as_dict()
+                query_kwargs[QUERY_TIME_RANGE] = form.get_field(
+                    AddressForm.TIME_RANGE_FIELD)
+                query_kwargs[QUERY_PROVIDER] = form.get_field(
+                    AddressForm.PROVIDER_FIELD)
+                url = reverse_q(
+                    namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
+                    query_kwargs=query_kwargs
+                )
 
-            template_path, context = (None, None)
-        else:
-            success = False
+        if not success:
             template_path, context = self.address_render_info(form)
 
         return redirect_on_success_or_render(
-            request, success,
-            redirect_to=url,
-            *args, template_path=template_path, context=context,
-            **kwargs
+            request, success, redirect_to=url, *args,
+            template_path=template_path, context=context, **kwargs
         )
 
     def address_render_info(self, form: AddressForm):
@@ -395,7 +373,8 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     :return: http response
     """
     for query in [
-        'formatted_address', 'lat', 'lng', 'is_valid'   # attrib of GeoAddress
+        GeoAddress.FORMATTED_ADDRESS_FIELD, GeoAddress.LAT_FIELD,
+        GeoAddress.LNG_FIELD, GeoAddress.IS_VALID_FIELD
     ]:
         if query not in request.GET.dict():
             raise ValueError(f"Missing query parameter {query}")
@@ -411,6 +390,44 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
 
     return _display_forecast(request, geo_address, ForecastType.LOCATION,
                              dates, provider, *args, **kwargs)
+
+
+class ForecastAddressById(ServiceCacheMixin, View):
+    """
+    Class-based view for address forecast
+    """
+
+    def get(self, request: HttpRequest, pk: int,
+            *args, **kwargs) -> HttpResponse:
+        """
+        Get forecast view function
+        :param request: http request
+        :param pk: id of address
+        :param args: additional arbitrary arguments
+        :param kwargs: additional keyword arguments
+        :return: http response
+        """
+        addr_kwargs = {
+            f'{USER_FIELD}': request.user,
+            f'{ADDR_ID_FIELD}': pk
+        }
+
+        address_service: Union[IService, ICrudService] = \
+            self.service(ADDRESS_SERVICE, stype=ServiceType.DB_CRUD)
+
+        addr = address_service.get(get_or_404=True, **addr_kwargs)
+        geo_address = GeoAddress.from_address(addr)
+
+        # need to redirect to url with query parameters
+        query_kwargs = geo_address.as_dict()
+        query_kwargs[QUERY_TIME_RANGE] = RangeArg.TODAY.value
+        query_kwargs[QUERY_PROVIDER] = ALL_PROVIDERS
+        url = reverse_q(
+            namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
+            query_kwargs=query_kwargs
+        )
+
+        return redirect(url, *args, **kwargs)
 
 
 def _display_forecast(request: HttpRequest, geo_address: GeoAddress,
