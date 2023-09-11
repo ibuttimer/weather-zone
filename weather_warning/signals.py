@@ -26,8 +26,9 @@ Signal processing for weather_warning app
 from django.conf import settings
 from django.dispatch import receiver
 
-from forecast import registry_open, Registry, load_provider, Provider
-from weather_zone import provider_settings_name
+from forecast import (
+    registry_open, Registry, load_provider, Provider, ProviderCfgEntry
+)
 
 from .constants import THIS_APP
 
@@ -35,10 +36,10 @@ from .constants import THIS_APP
 # map of all possible provider config keys (excluding Provider.NAME_PROP)
 # to the keys used in the settings
 PROVIDER_CFG_KEYS = {
-    Provider.FRIENDLY_NAME_PROP: 'name',
-    Provider.URL_PROP: 'url',
-    Provider.TZ_PROP: 'tz',
-    Provider.COUNTRY_PROP: 'country',
+    Provider.FRIENDLY_NAME_PROP: ProviderCfgEntry('name'),
+    Provider.URL_PROP: ProviderCfgEntry('url'),
+    Provider.TZ_PROP: ProviderCfgEntry('tz'),
+    Provider.COUNTRY_PROP: ProviderCfgEntry('country', lambda x: x.split(',')),
 }
 
 

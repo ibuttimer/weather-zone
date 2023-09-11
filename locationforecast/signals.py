@@ -26,8 +26,9 @@ Signal processing for locationforecast app
 from django.conf import settings
 from django.dispatch import receiver
 
-from forecast import registry_open, Registry, load_provider, Provider
-from weather_zone import provider_settings_name
+from forecast import (
+    registry_open, Registry, load_provider, Provider, ProviderCfgEntry
+)
 
 from .constants import THIS_APP
 from .provider import LocationforecastProvider
@@ -37,14 +38,14 @@ from .met_eireann_forecast import MetEireannForecastProvider
 # map of all possible provider config keys (excluding Provider.NAME_PROP)
 # to the keys used in the settings
 PROVIDER_CFG_KEYS = {
-    Provider.FRIENDLY_NAME_PROP: 'name',
-    Provider.URL_PROP: 'url',
-    LocationforecastProvider.LATITUDE_PROP: 'latitude',
-    LocationforecastProvider.LONGITUDE_PROP: 'longitude',
-    MetEireannForecastProvider.FROM_PROP: 'from',
-    MetEireannForecastProvider.TO_PROP: 'to',
-    Provider.TZ_PROP: 'tz',
-    Provider.COUNTRY_PROP: 'country',
+    Provider.FRIENDLY_NAME_PROP: ProviderCfgEntry('name'),
+    Provider.URL_PROP: ProviderCfgEntry('url'),
+    LocationforecastProvider.LATITUDE_PROP: ProviderCfgEntry('latitude'),
+    LocationforecastProvider.LONGITUDE_PROP: ProviderCfgEntry('longitude'),
+    MetEireannForecastProvider.FROM_PROP: ProviderCfgEntry('from'),
+    MetEireannForecastProvider.TO_PROP: ProviderCfgEntry('to'),
+    Provider.TZ_PROP: ProviderCfgEntry('tz'),
+    Provider.COUNTRY_PROP: ProviderCfgEntry('country', lambda x: x.split(',')),
 }
 
 
@@ -68,5 +69,5 @@ def registry_open_handler(sender, **kwargs):
             provider.cached_result = cached_result
 
     load_provider(registry, settings.FORECAST_PROVIDERS, THIS_APP,
-    'FORECAST_APPS_SETTINGS', PROVIDER_CFG_KEYS,
+                  'FORECAST_APPS_SETTINGS', PROVIDER_CFG_KEYS,
                   finish_cfg=finalise_config)

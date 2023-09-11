@@ -24,11 +24,13 @@ Forecast provider
 #  SOFTWARE.
 #
 from abc import ABC
+from typing import List, Union
 from zoneinfo import ZoneInfo
 
 from django_countries.fields import Country
 
 from broker import ServiceType
+from utils import ensure_list
 
 from .iprovider import IProvider
 
@@ -48,11 +50,12 @@ class Provider(IProvider, ABC):
     friendly_name: str      # user friendly of provider
     url: str                # URL of provider
     tz: ZoneInfo            # timezone
-    country: Country        # country
+    country: List[Country]  # supported countries
     stype: ServiceType      # service type
 
     def __init__(self, name: str, friendly_name: str, url: str, tz: str,
-                 country: str, stype: ServiceType = ServiceType.UNKNOWN):
+                 country: Union[str, List[str]],
+                 stype: ServiceType = ServiceType.UNKNOWN):
         """
         Constructor
 
@@ -68,7 +71,7 @@ class Provider(IProvider, ABC):
         self.friendly_name = friendly_name
         self.url = url
         self.tz = ZoneInfo(tz or "UTC")
-        self.country = Country(country)
+        self.country = list(map(Country, ensure_list(country)))
         self.stype = stype
 
     @staticmethod
@@ -79,8 +82,8 @@ class Provider(IProvider, ABC):
         :param filepath: Path to cached response
         :return: Cached response
         """
-        with open(filepath, 'r') as f:
-            response = f.read()
+        with open(filepath, 'r', encoding='UTF8') as file:
+            response = file.read()
         return response
 
     def is_forecast(self) -> bool:
@@ -99,6 +102,13 @@ class Provider(IProvider, ABC):
         """
         return self.stype in ServiceType.warning_types()
 
+    @property
+    def _country_codes(self) -> List[str]:
+        """
+        List of ISO 3166-1 alpha-2 country codes of supported countries
+        """
+        return list(map(lambda x: x.code, self.country))
+
     def is_country_supported(self, country: str) -> bool:
         """
         Is the country supported by this provider
@@ -106,7 +116,7 @@ class Provider(IProvider, ABC):
         :param country: ISO 3166-1 alpha-2 country code
         :return: True if supported, otherwise False
         """
-        return self.country.code == country
+        return country in self._country_codes
 
     def __str__(self):
-        return f"{self.name}, {self.country.code}, {self.stype}, {self.url}"
+        return f"{self.name}, {self._country_codes}, {self.stype}, {self.url}"

@@ -24,6 +24,7 @@ Miscellaneous functions
 #  SOFTWARE.
 #
 
+
 def provider_settings_name(app_name: str, provider_name: str) -> str:
     """
     Convert a provider name to a settings name;

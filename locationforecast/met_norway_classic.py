@@ -23,40 +23,19 @@ Locationforecast forecast provider
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-import os
-from collections import namedtuple
-from datetime import datetime, tzinfo, timezone
-from http import HTTPStatus
-import json
-from typing import Dict, Tuple
+from typing import Union, List
 
-import requests
-import xmltodict
-
-from django.conf import settings
-
-from base import get_request_headers
-from utils import dict_drill, ensure_list
-
-from forecast import Forecast, ForecastEntry, GeoAddress, Location, Provider
-
+from forecast import ForecastEntry
 from .constants import (
-    CREATED_PATH, FORECAST_DATA_PATH, DATATYPE_ATTRIB,
-    FROM_ATTRIB, TO_ATTRIB, FORECAST_PROP, LOCATION_PROP, ALTITUDE_PROP,
-    LATITUDE_PROP, LONGITUDE_PROP, UNIT_ATTRIB, VALUE_ATTRIB, NAME_ATTRIB,
-    DEG_ATTRIB, MPS_ATTRIB, BEAUFORT_ATTRIB, PERCENT_ATTRIB, LITERAL_MARKER,
-    PERCENT_LITERAL, PROBABILITY_ATTRIB, NUM_ATTRIB, ID_ATTRIB, OLD_ID_PROP,
-    VARIANTS_PROP, TEMPERATURE_TAG, WIND_DIRECTION_TAG, WIND_SPEED_TAG,
+    NAME_ATTRIB,
+    DEG_ATTRIB, MPS_ATTRIB, BEAUFORT_ATTRIB, NUM_ATTRIB, ID_ATTRIB,
+    TEMPERATURE_TAG, WIND_DIRECTION_TAG, WIND_SPEED_TAG,
     WIND_GUST_TAG, HUMIDITY_TAG, PRECIPITATION_TAG, SYMBOL_TAG
 )
-from .legends import LegendStore, load_legends
 from .provider import (
-    LocationforecastProvider, ForecastAttrib, NO_LEGEND_ADDENDUM,
-    DAY_LEGEND_ADDENDUM, NIGHT_LEGEND_ADDENDUM,
-    DFLT_TEMP_UNIT, DLFT_PERCENT_UNIT, DLFT_SPEED_UNIT, DLFT_PRESSURE_UNIT,
-    DLFT_HEIGHT_UNIT, DLFT_DEG_UNIT
+    LocationforecastProvider, ForecastAttrib, DFLT_TEMP_UNIT, DLFT_PERCENT_UNIT,
+    DLFT_SPEED_UNIT, DLFT_HEIGHT_UNIT, DLFT_DEG_UNIT
 )
-
 
 # Met Norway forecast attributes
 MN_ATTRIBUTES = {
@@ -97,7 +76,8 @@ class MetNorwayClassicProvider(LocationforecastProvider):
     """
 
     def __init__(self, name: str, friendly_name: str, url: str,
-                 lat_q: str, lng_q: str, tz: str, country: str):
+                 lat_q: str, lng_q: str, tz: str,
+                 country: Union[str, List[str]]):
         """
         Constructor
 

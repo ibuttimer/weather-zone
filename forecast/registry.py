@@ -24,7 +24,7 @@ Provides a registry of forecast providers
 #  SOFTWARE.
 #
 from datetime import datetime
-from typing import TypeVar, Optional, List, Any, Callable
+from typing import TypeVar, Optional, List, Callable
 
 from broker import Broker, ServiceType
 from utils import SingletonMixin, ensure_list
@@ -129,13 +129,14 @@ class Registry(SingletonMixin):
         """
         forecasts = []
 
+        def is_supported(prov: IProvider) -> bool:
+            return prov.is_country_supported(geo_address.country)
+
         if provider and provider.lower() == COUNTRY_PROVIDERS:
-            def is_supported(prov: IProvider) -> bool:
-                return prov.is_country_supported(geo_address.country)
             filter_func = is_supported
             provider = None
         else:
-            filter_func = None
+            filter_func = is_supported
 
         providers = [provider] if provider is not None \
             else self.provider_names(stype=ServiceType.FORECAST,

@@ -23,27 +23,13 @@ Weather warnings provider
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-import os
-from collections import namedtuple
-from dataclasses import dataclass
-from datetime import datetime, tzinfo, timezone
-from http import HTTPStatus
-import json
-from typing import Dict, Tuple
-
-import requests
-import xmltodict
-
-from django.conf import settings
-
-from base import get_request_headers
-from utils import dict_drill, ensure_list
+from datetime import datetime
+from typing import Union, List, Optional
 
 from broker import ServiceType
 from forecast import (
-    Forecast, ForecastEntry, GeoAddress, Location, Provider
+    Forecast, GeoAddress, Provider
 )
-
 from .regions import RegionStore, load_regions
 
 
@@ -51,12 +37,12 @@ class WarningsProvider(Provider):
     """
     Weather warnings provider
     """
-    cached_result: str  # cached result; used for development
+    cached_result: Optional[str]  # cached result; used for development
 
     regions: RegionStore  # Legends
 
     def __init__(self, name: str, friendly_name: str, url: str, tz: str,
-                 country: str):
+                 country: Union[str, List[str]]):
         """
         Constructor
 

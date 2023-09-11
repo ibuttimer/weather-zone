@@ -108,10 +108,11 @@ must be provided by an environment variable of the following format:
 | from      | From date/time query parameter name                                                                                                       |
 | to        | To date/time query parameter name                                                                                                         |
 | tz        | A valid [IANA](https://www.iana.org/time-zones) timezone; e.g. `tz=Europe/Dublin`                                                         |
+| country   | ISO 3166-1 alpha-2 country code for which provider provides forecasts; e.g. `country=IE`                                                  |
 
 E.g. the following configure the `met_eireann` provider;
 ````shell
-LOCATIONFORECAST_MET_EIREANN="name=Met Éireann;url=http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast;latitude=lat;longitude=long;from=from;to=to;tz=UTC"
+LOCATIONFORECAST_MET_EIREANN="name=Met Éireann;url=http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast;latitude=lat;longitude=long;from=from;to=to;tz=UTC;country=IE"
 ````
 **Note:** Keys not required by a particular provider should be omitted.
 

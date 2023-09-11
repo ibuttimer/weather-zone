@@ -145,7 +145,7 @@ class Broker(SingletonMixin):
             if service_type == ServiceType.FORECAST_WARNING else \
             ensure_list(service_type)
 
-    def provider_names(self, service_type: ServiceType = None,
+    def provider_names(self, service_type: List[ServiceType] = None,
                        filter_func: Callable = None) -> List[str]:
         """
         Get the provider names
@@ -167,7 +167,8 @@ class Broker(SingletonMixin):
             if filter_func(provider)
         ]
 
-    def providers(self, service_type: ServiceType = None) -> List[IService]:
+    def providers(self,
+                  service_type: List[ServiceType] = None) -> List[IService]:
         """
         Get the providers
 

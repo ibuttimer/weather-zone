@@ -23,35 +23,27 @@ Locationforecast forecast provider
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-import os
-from collections import namedtuple
 from dataclasses import dataclass
-from datetime import datetime, tzinfo, timezone
+from datetime import datetime, timezone
 from http import HTTPStatus
-import json
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Optional, Union, List
 
 import requests
 import xmltodict
-
 from django.conf import settings
 
 from base import get_request_headers
-from utils import dict_drill, ensure_list
-
 from broker import ServiceType
 from forecast import (
     Forecast, ForecastEntry, GeoAddress, Location, Provider,
     AttribRowTypes, WeatherWarnings
 )
-
+from utils import dict_drill, ensure_list
 from .constants import (
     CREATED_PATH, FORECAST_DATA_PATH, DATATYPE_ATTRIB,
     FROM_ATTRIB, TO_ATTRIB, FORECAST_PROP, LOCATION_PROP, ALTITUDE_PROP,
-    LATITUDE_PROP, LONGITUDE_PROP, UNIT_ATTRIB, VALUE_ATTRIB, NAME_ATTRIB,
-    DEG_ATTRIB, MPS_ATTRIB, PERCENT_ATTRIB, LITERAL_MARKER, PERCENT_LITERAL,
-    PROBABILITY_ATTRIB, NUM_ATTRIB, ID_ATTRIB, OLD_ID_PROP, VARIANTS_PROP,
-    ATTRIB_MARKER
+    LATITUDE_PROP, LONGITUDE_PROP, UNIT_ATTRIB, VALUE_ATTRIB, DEG_ATTRIB,
+    MPS_ATTRIB, PERCENT_ATTRIB, LITERAL_MARKER, OLD_ID_PROP, VARIANTS_PROP
 )
 from .legends import LegendStore, load_legends
 
@@ -161,12 +153,13 @@ class LocationforecastProvider(Provider):
     lat_q: str  # Latitude query parameter
     lng_q: str  # Longitude query parameter
     attributes: Dict[str, ForecastAttrib]  # forecast parsing attributes
-    cached_result: str  # cached result; used for development
+    cached_result: Optional[str]  # cached result; used for development
 
     legends: LegendStore  # Legends
 
     def __init__(self, name: str, friendly_name: str, url: str,
-                 lat_q: str, lng_q: str, tz: str, country: str,
+                 lat_q: str, lng_q: str, tz: str,
+                 country: Union[str, List[str]],
                  attributes: Dict[str, ForecastAttrib]):
         """
         Constructor

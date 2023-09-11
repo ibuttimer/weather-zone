@@ -32,7 +32,7 @@ from .dto import (
 from .enums import Severity, Category, AttribRowTypes
 from .geocoding import GeoCodeResult
 from .iprovider import IProvider
-from .loader import load_provider
+from .loader import load_provider, ProviderCfgEntry
 from .provider import Provider
 from .registry import Registry
 from .signals import registry_open
@@ -67,6 +67,7 @@ __all__ = [
     'IProvider',
 
     'load_provider',
+    'ProviderCfgEntry',
 
     'Provider',
 

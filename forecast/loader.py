@@ -25,7 +25,8 @@ Provider loading
 #
 import importlib
 import re
-from typing import List, Callable
+from typing import List, Callable, Dict
+from collections import namedtuple
 
 from django.conf import settings
 
@@ -34,11 +35,17 @@ from weather_zone import provider_settings_name
 from .provider import Provider
 from .registry import Registry
 
+
 ID_CAMEL_CAPITAL = re.compile(r'_([a-zA-Z]){1}')
 
 
+ProviderCfgEntry = namedtuple(
+    'ProviderCfgEntry', ['name', 'func'], defaults=[None, None])
+
+
 def load_provider(registry: Registry, provider_list: List[str], app_name: str,
-                  app_settings_key: str, provider_cfg_keys: dict,
+                  app_settings_key: str,
+                  provider_cfg_keys: Dict[str, ProviderCfgEntry],
                   finish_cfg: Callable[[Provider], None] = None):
     """
     Load a provider
@@ -62,9 +69,15 @@ def load_provider(registry: Registry, provider_list: List[str], app_name: str,
         config = app_settings.get(
             provider_settings_name(app_name, provider_id)
         )
+
+        def get_cfg(cfg: Dict, name: str):
+            cfg_key, conv_func = provider_cfg_keys.get(name, ProviderCfgEntry())
+            val = cfg.get(cfg_key, None)
+            return conv_func(val) if conv_func else val
+
         provider_args = {
             k: v for k, v in [
-                (key, config.get(provider_cfg_keys[key], None))
+                (key, get_cfg(config, key))
                 for key in provider_cfg_keys
             ] if v is not None
         }
