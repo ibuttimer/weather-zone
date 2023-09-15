@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-10 10:21+0100\n"
+"POT-Creation-Date: 2023-09-15 12:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,16 +35,400 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: .\addresses\apps.py:33
+msgid "Address Management"
+msgstr ""
+
+#: .\addresses\forms.py:53
+msgid "Line 1"
+msgstr ""
+
+#: .\addresses\forms.py:55
+msgid "Line 2"
+msgstr ""
+
+#: .\addresses\forms.py:57
+msgid "City"
+msgstr ""
+
+#: .\addresses\forms.py:59
+msgid "State/Province/Region"
+msgstr ""
+
+#: .\addresses\forms.py:62
+msgid "Postcode"
+msgstr ""
+
+#: .\addresses\forms.py:63 .\addresses\models.py:100
+msgid "(Select country)"
+msgstr ""
+
+#: .\addresses\forms.py:66
+msgid "Set as default"
+msgstr ""
+
+#: .\addresses\forms.py:143 .\forecast\forms.py:103
+msgid "No fields entered"
+msgstr ""
+
+#: .\addresses\models.py:104
+msgid "Address components"
+msgstr ""
+
+#: .\addresses\models.py:107
+msgid "Formatted address"
+msgstr ""
+
+#: .\addresses\models.py:109
+msgid "Latitude"
+msgstr ""
+
+#: .\addresses\models.py:110
+msgid "Longitude"
+msgstr ""
+
+#: .\addresses\models.py:112
+msgid "default"
+msgstr ""
+
+#: .\addresses\models.py:113
+msgid "Designates that this record represents the user's default address."
+msgstr ""
+
+#: .\addresses\templates\addresses\address_list_item.html:25
+msgid "Edit"
+msgstr ""
+
+#: .\addresses\templates\addresses\address_list_item.html:25
+#: .\addresses\templates\addresses\snippet\address_delete_modal.html:25
+#: .\base\templates\base\snippet\entity_delete_modal.html:29
+msgid "Delete"
+msgstr ""
+
+#: .\addresses\templates\addresses\address_list_item.html:25
+msgid "Make Default"
+msgstr ""
+
+#: .\addresses\templates\addresses\address_select_item.html:38
+msgid "Use this address"
+msgstr ""
+
+#: .\addresses\templates\addresses\snippet\address_default_unmodifiable.html:9
+msgid "Default address status may not be modified."
+msgstr ""
+
+#: .\addresses\templates\addresses\snippet\address_default_unmodifiable.html:11
+msgid "Please select another default address."
+msgstr ""
+
+#: .\addresses\templates\addresses\snippet\address_default_unmodifiable.html:13
+msgid "Please add another default address."
+msgstr ""
+
+#: .\addresses\templates\addresses\snippet\default_address_undeletable.html:9
+msgid "Default addresses may not be deleted."
+msgstr ""
+
+#: .\addresses\templates\addresses\snippet\default_address_undeletable.html:11
+msgid "Please select another default address, and then delete this address."
+msgstr ""
+
+#: .\addresses\templates\addresses\snippet\default_address_undeletable.html:13
+msgid "Please add another default address, and then delete this address."
+msgstr ""
+
+#: .\addresses\views\address_by.py:57
+msgid "Update Address"
+msgstr ""
+
+#: .\addresses\views\address_create.py:47
+msgid "New Address"
+msgstr ""
+
+#: .\addresses\views\address_list.py:304
+msgid "No addresses found."
+msgstr ""
+
+#: .\addresses\views\address_mixin.py:38
+msgid "Address already exists"
+msgstr ""
+
+#: .\addresses\views\address_mixin.py:39
+msgid "Unable to save Address"
+msgstr ""
+
 #: .\base\context_processors.py:68
 msgid "Change language"
+msgstr ""
+
+#: .\base\credits.py:35
+msgid "icons by"
+msgstr ""
+
+#: .\base\credits.py:36
+msgid "icon by"
+msgstr ""
+
+#: .\base\credits.py:37
+msgid "icons derived from"
+msgstr ""
+
+#: .\base\credits.py:97
+#, python-format
+msgid "open icon on %(provider)s in another tab"
+msgstr ""
+
+#: .\base\credits.py:106
+#, python-format
+msgid "open %(provider)s in another tab"
+msgstr ""
+
+#: .\base\templates\base\about.html:12 .\templates\base.html:80
+msgid "About"
+msgstr ""
+
+#: .\base\templates\base\help\credits.html:6
+msgid "Credits"
+msgstr ""
+
+#: .\base\templates\base\help\credits.html:8
+msgid "This site was built using the following content:"
+msgstr ""
+
+#: .\base\templates\base\help\info.html:6
+msgid "Information"
 msgstr ""
 
 #: .\base\templates\base\set_language.html:35
 msgid "Set"
 msgstr ""
 
-#: .\base\views.py:121
+#: .\base\templates\base\snippet\info_modal.html:28
+msgid "OK"
+msgstr ""
+
+#: .\base\views.py:93
+#, python-format
+msgid "About %(app_name)s"
+msgstr ""
+
+#: .\base\views.py:95
+#, python-format
+msgid ""
+"%(app_name)s is a weather forecast application utilising multiple third-"
+"party weather forecasters, to provide address-based weather forecasts."
+msgstr ""
+
+#: .\base\views.py:129
 msgid "Set language"
+msgstr ""
+
+#: .\forecast\beaufort.py:156
+msgid "Calm"
+msgstr ""
+
+#: .\forecast\beaufort.py:157
+msgid "Light air"
+msgstr ""
+
+#: .\forecast\beaufort.py:158
+msgid "Light breeze"
+msgstr ""
+
+#: .\forecast\beaufort.py:159
+msgid "Gentle breeze"
+msgstr ""
+
+#: .\forecast\beaufort.py:160
+msgid "Moderate breeze"
+msgstr ""
+
+#: .\forecast\beaufort.py:161
+msgid "Fresh breeze"
+msgstr ""
+
+#: .\forecast\beaufort.py:162
+msgid "Strong breeze"
+msgstr ""
+
+#: .\forecast\beaufort.py:163
+msgid "Near gale"
+msgstr ""
+
+#: .\forecast\beaufort.py:164
+msgid "Gale"
+msgstr ""
+
+#: .\forecast\beaufort.py:165
+msgid "Strong gale"
+msgstr ""
+
+#: .\forecast\beaufort.py:166
+msgid "Storm"
+msgstr ""
+
+#: .\forecast\beaufort.py:167
+msgid "Violent storm"
+msgstr ""
+
+#: .\forecast\beaufort.py:168
+msgid "Hurricane"
+msgstr ""
+
+#: .\forecast\beaufort.py:171
+msgid "Force 0, less than 1 knot"
+msgstr ""
+
+#: .\forecast\beaufort.py:172
+msgid "Force 1, 1-3 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:173
+msgid "Force 2, 4-6 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:174
+msgid "Force 3, 7-10 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:175
+msgid "Force 4, 11-16 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:176
+msgid "Force 5, 17-21 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:177
+msgid "Force 6, 22-27 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:178
+msgid "Force 7, 28-33 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:179
+msgid "Force 8, 34-40 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:180
+msgid "Force 9, 41-47 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:181
+msgid "Force 10, 48-55 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:182
+msgid "Force 11, 56-63 knots"
+msgstr ""
+
+#: .\forecast\beaufort.py:183
+msgid "Force 12, 64 knots or more"
+msgstr ""
+
+#: .\forecast\beaufort.py:186
+msgid "Force 0, less than 1 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:187
+msgid "Force 1, 1-3 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:188
+msgid "Force 2, 4-7 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:189
+msgid "Force 3, 8-12 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:190
+msgid "Force 4, 13-18 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:191
+msgid "Force 5, 19-24 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:192
+msgid "Force 6, 25-31 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:193
+msgid "Force 7, 32-38 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:194
+msgid "Force 8, 36-46 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:195
+msgid "Force 9, 47-54 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:196
+msgid "Force 10, 55-63 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:197
+msgid "Force 11, 64-72 mph"
+msgstr ""
+
+#: .\forecast\beaufort.py:198
+msgid "Force 12, 73 mph or more"
+msgstr ""
+
+#: .\forecast\beaufort.py:201
+msgid "Force 0, less than 1 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:202
+msgid "Force 1, 1-5 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:203
+msgid "Force 2, 6-11 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:204
+msgid "Force 3, 12-19 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:205
+msgid "Force 4, 20-28 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:206
+msgid "Force 5, 29-38 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:207
+msgid "Force 6, 39-49 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:208
+msgid "Force 7, 50-61 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:209
+msgid "Force 8, 62-74 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:210
+msgid "Force 9, 75-88 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:211
+msgid "Force 10, 89-102 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:212
+msgid "Force 11, 103-117 km/h"
+msgstr ""
+
+#: .\forecast\beaufort.py:213
+msgid "Force 12, 117 km/h or more"
 msgstr ""
 
 #: .\forecast\enums.py:51
@@ -135,162 +519,149 @@ msgstr ""
 msgid "Advisory"
 msgstr ""
 
-#: .\forecast\enums.py:223 .\forecast\templates\forecast\forecast.html:55
+#: .\forecast\enums.py:223 .\forecast\templates\forecast\dflt_forecast.html:55
+#: .\forecast\templates\forecast\forecast.html:55
 msgid "Marine"
 msgstr ""
 
-#: .\forecast\enums.py:224 .\forecast\templates\forecast\forecast.html:67
+#: .\forecast\enums.py:224 .\forecast\templates\forecast\dflt_forecast.html:67
+#: .\forecast\templates\forecast\forecast.html:67
 msgid "Environmental"
 msgstr ""
 
-#: .\forecast\enums.py:225 .\forecast\templates\forecast\forecast.html:43
+#: .\forecast\enums.py:225 .\forecast\templates\forecast\dflt_forecast.html:43
+#: .\forecast\templates\forecast\forecast.html:43
 msgid "Weather"
 msgstr ""
 
-#: .\forecast\forms.py:66
-msgid "Line 1"
-msgstr ""
-
-#: .\forecast\forms.py:68
-msgid "Line 2"
-msgstr ""
-
-#: .\forecast\forms.py:70
-msgid "City"
-msgstr ""
-
-#: .\forecast\forms.py:72
-msgid "State/Province/Region"
-msgstr ""
-
-#: .\forecast\forms.py:74
-msgid "Postcode"
-msgstr ""
-
-#: .\forecast\forms.py:76
-msgid "(Select country)"
-msgstr ""
-
-#: .\forecast\forms.py:80
+#: .\forecast\forms.py:57
 msgid "Time range"
 msgstr ""
 
-#: .\forecast\forms.py:83
+#: .\forecast\forms.py:60
 msgid "Provider"
 msgstr ""
 
-#: .\forecast\forms.py:140
-msgid "No fields entered"
+#: .\forecast\forms.py:64
+msgid "Save to profile"
 msgstr ""
 
-#: .\forecast\misc.py:94
+#: .\forecast\misc.py:93
 msgid "Today"
 msgstr ""
 
-#: .\forecast\misc.py:95
+#: .\forecast\misc.py:94
 msgid "Tomorrow"
 msgstr ""
 
-#: .\forecast\misc.py:96
+#: .\forecast\misc.py:95
 msgid "Next 2 days"
 msgstr ""
 
-#: .\forecast\misc.py:97
+#: .\forecast\misc.py:96
 msgid "Next 3 days"
 msgstr ""
 
-#: .\forecast\misc.py:98
+#: .\forecast\misc.py:97
 msgid "Next 4 days"
 msgstr ""
 
-#: .\forecast\misc.py:99
+#: .\forecast\misc.py:98
 msgid "Next 5 days"
 msgstr ""
 
-#: .\forecast\misc.py:100
+#: .\forecast\misc.py:99
 msgid "Tomorrow 2 days"
 msgstr ""
 
-#: .\forecast\misc.py:101
+#: .\forecast\misc.py:100
 msgid "Tomorrow 3 days"
 msgstr ""
 
-#: .\forecast\misc.py:102
+#: .\forecast\misc.py:101
 msgid "Tomorrow 4 days"
 msgstr ""
 
-#: .\forecast\misc.py:103
+#: .\forecast\misc.py:102
 msgid "All available"
 msgstr ""
 
-#: .\forecast\misc.py:115
+#: .\forecast\misc.py:114
 msgid "All"
 msgstr ""
 
+#: .\forecast\templates\forecast\dflt_forecast.html:35
 #: .\forecast\templates\forecast\forecast.html:35
 msgid "Warnings"
 msgstr ""
 
+#: .\forecast\templates\forecast\dflt_forecast.html:45
 #: .\forecast\templates\forecast\forecast.html:45
 #: .\weather_warning\templates\weather_warning\snippet\warning.html:22
 msgid "Weather warning icon"
 msgstr ""
 
+#: .\forecast\templates\forecast\dflt_forecast.html:57
 #: .\forecast\templates\forecast\forecast.html:57
 msgid "Marine warning icon"
 msgstr ""
 
+#: .\forecast\templates\forecast\dflt_forecast.html:69
 #: .\forecast\templates\forecast\forecast.html:69
 msgid "Environmental warning icon"
 msgstr ""
 
-#: .\forecast\views.py:179
+#: .\forecast\views.py:187
 msgid "Temperature"
 msgstr ""
 
-#: .\forecast\views.py:182
+#: .\forecast\views.py:190
 msgid "Precipitation"
 msgstr ""
 
-#: .\forecast\views.py:185
+#: .\forecast\views.py:193
 msgid "Precipitation Probability"
 msgstr ""
 
-#: .\forecast\views.py:187
+#: .\forecast\views.py:195
 msgid "Humidity"
 msgstr ""
 
-#: .\forecast\views.py:190
+#: .\forecast\views.py:198 .\forecast\views.py:219
 msgid "Wind Speed"
 msgstr ""
 
-#: .\forecast\views.py:194
+#: .\forecast\views.py:202
 msgid "Wind Direction"
 msgstr ""
 
-#: .\forecast\views.py:197
+#: .\forecast\views.py:205
 msgid "Wind Gust"
 msgstr ""
 
-#: .\forecast\views.py:295
+#: .\forecast\views.py:226
+msgid "Location forecast"
+msgstr ""
+
+#: .\forecast\views.py:228
+msgid "Default address forecast"
+msgstr ""
+
+#: .\forecast\views.py:343
 msgid "Forecast location"
 msgstr ""
 
-#: .\forecast\views.py:296
+#: .\forecast\views.py:344
 msgid "Address of forecast location"
 msgstr ""
 
-#: .\forecast\views.py:297
+#: .\forecast\views.py:345
 msgid "Submit"
 msgstr ""
 
-#: .\forecast\views.py:404
+#: .\forecast\views.py:543
 #, python-format
 msgid "view %(provider)s weather warnings."
-msgstr ""
-
-#: .\forecast\views.py:409
-msgid "Location forecast"
 msgstr ""
 
 #: .\templates\account\email\account_already_exists_message.txt:4
@@ -576,8 +947,12 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: .\templates\base.html:80
-msgid "About"
+#: .\templates\base.html:102
+msgid "manage addresses"
+msgstr ""
+
+#: .\templates\base.html:102
+msgid "Addresses"
 msgstr ""
 
 #: .\templates\base.html:105
@@ -586,6 +961,10 @@ msgstr ""
 
 #: .\templates\base.html:200
 msgid "Version"
+msgstr ""
+
+#: .\templates\snippet\page_done.html:14
+msgid "Done"
 msgstr ""
 
 #: .\templates\snippet\site_warning.html:9
@@ -598,39 +977,39 @@ msgstr ""
 msgid "User Management"
 msgstr ""
 
-#: .\user\forms.py:68 .\user\forms.py:121
+#: .\user\forms.py:70 .\user\forms.py:123
 msgid "Password"
 msgstr ""
 
-#: .\user\forms.py:73
+#: .\user\forms.py:75
 msgid "Confirm password"
 msgstr ""
 
-#: .\user\forms.py:79 .\user\forms.py:141
+#: .\user\forms.py:81 .\user\forms.py:143
 msgid "First name"
 msgstr ""
 
-#: .\user\forms.py:82
+#: .\user\forms.py:84
 msgid "User first name"
 msgstr ""
 
-#: .\user\forms.py:86 .\user\forms.py:145
+#: .\user\forms.py:88 .\user\forms.py:147
 msgid "Last name"
 msgstr ""
 
-#: .\user\forms.py:89
+#: .\user\forms.py:91
 msgid "User last name"
 msgstr ""
 
-#: .\user\forms.py:149
+#: .\user\forms.py:151
 msgid "Email"
 msgstr ""
 
-#: .\user\forms.py:153
+#: .\user\forms.py:155
 msgid "Email address"
 msgstr ""
 
-#: .\user\models.py:64
+#: .\user\models.py:66
 msgid "previous login"
 msgstr ""
 
@@ -680,14 +1059,14 @@ msgstr ""
 msgid "No weather warnings"
 msgstr ""
 
-#: .\weather_zone\settings.py:285
+#: .\weather_zone\settings.py:288
 msgid "English"
 msgstr ""
 
-#: .\weather_zone\settings.py:286
+#: .\weather_zone\settings.py:289
 msgid "German"
 msgstr ""
 
-#: .\weather_zone\settings.py:287
+#: .\weather_zone\settings.py:290
 msgid "French"
 msgstr ""

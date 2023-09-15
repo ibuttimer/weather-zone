@@ -42,6 +42,8 @@ LANG_COUNTRY_CTX = 'lang_country'
 ARIA_CHANGE_LANG_CTX = 'change_lang'
 
 TITLE_CTX = 'title'
+ABOUT_INFO_CTX = 'about_info'
+CREDITS_CTX = 'credits'
 
 TITLE_CLASS_CTX = 'title_class'
 MODAL_LEVEL_CTX = 'modal_level'

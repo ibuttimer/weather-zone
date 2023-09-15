@@ -28,12 +28,15 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 
-from weather_zone import ADMIN_URL, ROBOTS_URL
+from weather_zone import ADMIN_URL, ROBOTS_URL, APP_NAME
 from utils import app_template_path
 
 from .constants import (
-    THIS_APP, REDIRECT_TO_CTX, SET_LANGUAGE_CTX
+    THIS_APP, REDIRECT_TO_CTX, SET_LANGUAGE_CTX, TITLE_CTX, ABOUT_INFO_CTX,
+    CREDITS_CTX
 )
+from .credits import ICON_CREDITS
+
 
 DISALLOWED_URLS = [
     ADMIN_URL,
@@ -78,6 +81,7 @@ def get_help(request: HttpRequest) -> HttpResponse:
     #               context=context)
     return get_landing(request)
 
+
 @require_GET
 def get_about(request: HttpRequest) -> HttpResponse:
     """
@@ -85,12 +89,18 @@ def get_about(request: HttpRequest) -> HttpResponse:
     :param request: request
     :return: response
     """
-    # context = {}
-    # return render(
-    #     request, app_template_path(THIS_APP, "about.html"),
-    #     context=context
-    # )
-    return get_landing(request)
+    context = {
+        TITLE_CTX: _('About %(app_name)s') % {'app_name': APP_NAME},
+        ABOUT_INFO_CTX: _(
+            '%(app_name)s is a weather forecast application utilising multiple '
+            'third-party weather forecasters, to provide address-based weather '
+            'forecasts.') % {'app_name': APP_NAME},
+        CREDITS_CTX: ICON_CREDITS,
+    }
+    return render(
+        request, app_template_path(THIS_APP, "about.html"),
+        context=context
+    )
 
 
 @require_GET

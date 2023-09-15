@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<section>
+    <div class="row mt-2 mb-3">
+        <div class="col-12">
+            <h3 id="view-credits-help">{% trans "Credits" %}</h3>
+            <p>
+                {% translate "This site was built using the following content:" %}
+            </p>
+
+            <div class="row mb-3">
+                <ul class="list-group list-group-horizontal-md">
+                    {% for credit in credits %}
+                        <li class="list-group-item flex-fill">{{ credit | safe }}</li>
+                        {% if forloop.counter|divisibleby:6 %}
+                            </ul>
+                            <ul class="list-group list-group-horizontal-md">
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+

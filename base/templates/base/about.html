@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<article id="id__about-content">
+
+    <div class="row mt-2">
+        <div class="col-12 text-center">
+            <h1>{% trans "About" %}</h1>
+        </div>
+    </div>
+
+    {% include "base/help/info.html" %}
+    {% include "base/help/credits.html" %}
+
+</article>
+{% endblock %}
