@@ -37,9 +37,13 @@ Including another URLconf
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.defaults import (
+    page_not_found, server_error, permission_denied, bad_request
+)
 
 from .constants import (
     ADMIN_URL, FORECAST_URL, WARNING_URL, ACCOUNTS_URL, USERS_URL,
@@ -61,3 +65,32 @@ urlpatterns = [
     path(WARNING_URL, include(f'{WARNING_APP_NAME}.urls')),
     path('', include(f'{BASE_APP_NAME}.urls')),
 ]
+
+if settings.DEBUG and settings.DEVELOPMENT:
+    # mount custom error pages on paths for dev
+    # based on idea from https://stackoverflow.com/a/57598336/4054609
+
+    def custom_bad_request(request):
+        return bad_request(request, None)
+
+    def custom_permission_denied(request):
+        return permission_denied(request, None)
+
+    def custom_page_not_found(request):
+        return page_not_found(request, None)
+
+    def custom_server_error(request):
+        return server_error(request)
+
+    urlpatterns.extend([
+        path("400/", custom_bad_request),
+        path("403/", custom_permission_denied),
+        path("404/", custom_page_not_found),
+        path("500/", custom_server_error),
+    ])
+
+if settings.DEBUG or settings.DEVELOPMENT:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    # serve the site.webmanifest images
+    urlpatterns += static('/', document_root=settings.STATIC_URL)

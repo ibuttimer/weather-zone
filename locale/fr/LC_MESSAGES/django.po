@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-15 12:27+0100\n"
+"POT-Creation-Date: 2023-09-15 15:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,7 +93,9 @@ msgstr "défaut"
 
 #: .\addresses\models.py:113
 msgid "Designates that this record represents the user's default address."
-msgstr "Indique que cet enregistrement représente l'adresse par défaut de l'utilisateur."
+msgstr ""
+"Indique que cet enregistrement représente l'adresse par défaut de "
+"l'utilisateur."
 
 #: .\addresses\templates\addresses\address_list_item.html:25
 msgid "Edit"
@@ -131,11 +133,14 @@ msgstr "Les adresses par défaut ne peuvent pas être supprimées."
 
 #: .\addresses\templates\addresses\snippet\default_address_undeletable.html:11
 msgid "Please select another default address, and then delete this address."
-msgstr "Veuillez sélectionner une autre adresse par défaut, puis supprimez cette adresse."
+msgstr ""
+"Veuillez sélectionner une autre adresse par défaut, puis supprimez cette "
+"adresse."
 
 #: .\addresses\templates\addresses\snippet\default_address_undeletable.html:13
 msgid "Please add another default address, and then delete this address."
-msgstr "Veuillez ajouter une autre adresse par défaut, puis supprimez cette adresse."
+msgstr ""
+"Veuillez ajouter une autre adresse par défaut, puis supprimez cette adresse."
 
 #: .\addresses\views\address_by.py:57
 msgid "Update Address"
@@ -173,14 +178,17 @@ msgstr "icône par"
 msgid "icons derived from"
 msgstr "icônes dérivées de"
 
-#: .\base\credits.py:97
+#: .\base\credits.py:38
+msgid "icon created by"
+msgstr "icône créée par"
+
+#: .\base\credits.py:122
 #, python-format
 msgid "open icon on %(provider)s in another tab"
 msgstr "ouvrir l'icône sur %(provider)s dans un autre onglet"
 
-#: .\base\credits.py:106
+#: .\base\credits.py:131
 #, python-format
-#| msgid "view %(provider)s weather warnings."
 msgid "open %(provider)s in another tab"
 msgstr "ouvrir %(provider)s dans un autre onglet"
 
@@ -219,7 +227,9 @@ msgid ""
 "%(app_name)s is a weather forecast application utilising multiple third-"
 "party weather forecasters, to provide address-based weather forecasts."
 msgstr ""
-"%(app_name)s est une application de prévisions météorologiques utilisant plusieurs prévisionnistes tiers pour fournir des prévisions météorologiques basées sur des adresses."
+"%(app_name)s est une application de prévisions météorologiques utilisant "
+"plusieurs prévisionnistes tiers pour fournir des prévisions météorologiques "
+"basées sur des adresses."
 
 #: .\base\views.py:129
 msgid "Set language"
@@ -666,6 +676,81 @@ msgstr "Soumettre"
 msgid "view %(provider)s weather warnings."
 msgstr "afficher les avertissements météo %(provider)s."
 
+#: .\templates\400.html:5
+msgid "Bad Request"
+msgstr "Mauvaise Demande"
+
+#: .\templates\400.html:12
+msgid "Whir, beep, beep, bang ... does not compute"
+msgstr "Whir, bip, bip, bang... ne calcule pas"
+
+#: .\templates\400.html:13
+msgid "Sorry, didn't quite understand that &#x1F615;"
+msgstr "Désolé, je n'ai pas bien compris que &#x1F615;"
+
+#: .\templates\400.html:16
+msgid "Please try again, go"
+msgstr "S'il vous plaît réessayez, rentrez"
+
+#: .\templates\400.html:18 .\templates\403.html:18 .\templates\404.html:18
+#: .\templates\500.html:19 .\templates\base.html:61
+msgid "Home"
+msgstr "Maison"
+
+#: .\templates\403.html:5
+msgid "Forbidden"
+msgstr "Interdite"
+
+#: .\templates\403.html:12
+msgid "Thou shalt not pass"
+msgstr "Tu ne passeras pas"
+
+#: .\templates\403.html:13
+msgid "Sorry, you can't go there it's above your pay grade &#x1F5FF;"
+msgstr ""
+"Désolé, vous ne pouvez pas y aller, c'est au-dessus de votre niveau de "
+"salaire &#x1F5FF;"
+
+#: .\templates\403.html:16
+msgid "Please start again, go"
+msgstr "S'il te plaît, recommence, rentre"
+
+#: .\templates\404.html:5
+msgid "Not Found"
+msgstr "Pas trouvé"
+
+#: .\templates\404.html:12
+msgid "We're missing something"
+msgstr "Il nous manque quelque chose"
+
+#: .\templates\404.html:13
+msgid "Sorry, we couldn't find"
+msgstr "Désolé, nous n'avons pas trouvé"
+
+#: .\templates\404.html:16
+msgid "Take me"
+msgstr "Ramène-moi à"
+
+#: .\templates\500.html:5
+msgid "Server Error"
+msgstr "Erreur du serveur"
+
+#: .\templates\500.html:12
+msgid "Well that didn't go well!"
+msgstr "Eh bien, ça ne s'est pas bien passé!"
+
+#: .\templates\500.html:13
+msgid "It's not you it's us &#x1F627;"
+msgstr "Ce n'est pas vous, c'est nous &#x1F627;"
+
+#: .\templates\500.html:16
+msgid "Please try again later,"
+msgstr "Veuillez réessayer plus tard,"
+
+#: .\templates\500.html:18
+msgid "goto home page"
+msgstr "aller à la page d'accueil"
+
 #: .\templates\account\email\account_already_exists_message.txt:4
 #, python-format
 msgid ""
@@ -984,10 +1069,6 @@ msgstr ""
 "vérification dans votre boîte de réception, vérifiez votre dossier spam."
 "Veuillez nous contacter si vous ne recevez pas l'e-mail de vérification dans "
 "quelques minutes."
-
-#: .\templates\base.html:61
-msgid "Home"
-msgstr "Maison"
 
 #: .\templates\base.html:67
 msgid "Forecast"

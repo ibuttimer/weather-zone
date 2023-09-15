@@ -1,0 +1,22 @@
+{% extends "status_code_error.html" %}
+
+{% load static  i18n %}
+
+{% block head_title %}{% translate 'Forbidden' %}{% endblock head_title %}
+
+{% block status_code_error %}
+<div>
+    <img src="{% static 'img/status_code/banned.png' %}" alt="forbidden error icon" height="100" width="100" class="img__center">
+</div>
+
+<h1>{% translate 'Thou shalt not pass' %}</h1>
+<p>{% translate "Sorry, you can't go there it's above your pay grade &#x1F5FF;" %}</p>
+<div>
+    <p>
+        {% translate 'Please start again, go' %}
+        <a href="{% url 'home' %}" aria-label="goto home page">
+            {% translate "Home" %}
+        </a>
+    </p>
+</div>
+{% endblock status_code_error %}

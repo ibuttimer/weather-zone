@@ -207,6 +207,10 @@ The following resources were used to build the website.
 - [Storm icon](https://icons8.com/icon/EKkPq7Olo1Hp/storm), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
 - [Tornado icon](https://icons8.com/icon/9309/tornado), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com), modified via Icons8 web tools.
 - [Nothing Found icon](https://icons8.com/icon/83786/nothing-found), [Universal Multimedia License Agreement for Icons8](https://icons8.com/license), by [Icons8](https://icons8.com).
+- [404 error icon](static/img/no-results.png) created by [Freepik - Flaticon](https://www.flaticon.com/free-icons/404-error)
+- [Explosion icon](static/img/nuclear-explosion.png) created by [Freepik - Flaticon](https://www.flaticon.com/free-icons/explosion)
+- [Stop sign icon](static/img/banned.png) created by [Freepik - Flaticon](https://www.flaticon.com/free-icons/stop-sign)
+- [Confusion icon](static/img/confusion.png) created by [Freepik - Flaticon](https://www.flaticon.com/free-icons/confusion)
 
 
 ### Code

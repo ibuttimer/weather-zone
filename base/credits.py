@@ -35,6 +35,7 @@ IconInfo = namedtuple(
 ICONS_BY = _('icons by')
 ICON_BY = _('icon by')
 ICONS_DERIVED_FROM = _('icons derived from')
+ICON_CREATED_BY = _('icon created by')
 
 ICONS = [
     IconInfo(
@@ -84,10 +85,34 @@ ICONS = [
         icon_url='https://icons8.com/icon/83786/nothing-found',
         provider_url='https://icons8.com'),
     IconInfo(
-        name='Wind direction icons',
+        name='Wind direction',
         provider='South icons created by Freepik - Flaticon',
         conjunction=ICONS_DERIVED_FROM,
         icon_url='https://www.flaticon.com/free-icons/south',
+        provider_url='https://www.flaticon.com'),
+    IconInfo(
+        name='404 error',
+        provider='Freepik - Flaticon',
+        conjunction=ICON_CREATED_BY,
+        icon_url='https://www.flaticon.com/free-icons/404-error',
+        provider_url='https://www.flaticon.com'),
+    IconInfo(
+        name='Explosion',
+        provider='Freepik - Flaticon',
+        conjunction=ICON_CREATED_BY,
+        icon_url='https://www.flaticon.com/free-icons/explosion',
+        provider_url='https://www.flaticon.com'),
+    IconInfo(
+        name='Stop sign',
+        provider='Freepik - Flaticon',
+        conjunction=ICON_CREATED_BY,
+        icon_url='https://www.flaticon.com/free-icons/stop-sign',
+        provider_url='https://www.flaticon.com'),
+    IconInfo(
+        name='Confusion',
+        provider='Freepik - Flaticon',
+        conjunction=ICON_CREATED_BY,
+        icon_url='https://www.flaticon.com/free-icons/confusion',
         provider_url='https://www.flaticon.com'),
 ]
 

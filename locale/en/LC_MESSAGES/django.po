@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-15 12:27+0100\n"
+"POT-Creation-Date: 2023-09-15 15:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,12 +173,16 @@ msgstr ""
 msgid "icons derived from"
 msgstr ""
 
-#: .\base\credits.py:97
+#: .\base\credits.py:38
+msgid "icon created by"
+msgstr ""
+
+#: .\base\credits.py:122
 #, python-format
 msgid "open icon on %(provider)s in another tab"
 msgstr ""
 
-#: .\base\credits.py:106
+#: .\base\credits.py:131
 #, python-format
 msgid "open %(provider)s in another tab"
 msgstr ""
@@ -664,6 +668,79 @@ msgstr ""
 msgid "view %(provider)s weather warnings."
 msgstr ""
 
+#: .\templates\400.html:5
+msgid "Bad Request"
+msgstr ""
+
+#: .\templates\400.html:12
+msgid "Whir, beep, beep, bang ... does not compute"
+msgstr ""
+
+#: .\templates\400.html:13
+msgid "Sorry, didn't quite understand that &#x1F615;"
+msgstr ""
+
+#: .\templates\400.html:16
+msgid "Please try again, go"
+msgstr ""
+
+#: .\templates\400.html:18 .\templates\403.html:18 .\templates\404.html:18
+#: .\templates\500.html:19 .\templates\base.html:61
+msgid "Home"
+msgstr ""
+
+#: .\templates\403.html:5
+msgid "Forbidden"
+msgstr ""
+
+#: .\templates\403.html:12
+msgid "Thou shalt not pass"
+msgstr ""
+
+#: .\templates\403.html:13
+msgid "Sorry, you can't go there it's above your pay grade &#x1F5FF;"
+msgstr ""
+
+#: .\templates\403.html:16
+msgid "Please start again, go"
+msgstr ""
+
+#: .\templates\404.html:5
+msgid "Not Found"
+msgstr ""
+
+#: .\templates\404.html:12
+msgid "We're missing something"
+msgstr ""
+
+#: .\templates\404.html:13
+msgid "Sorry, we couldn't find"
+msgstr ""
+
+#: .\templates\404.html:16
+msgid "Take me"
+msgstr ""
+
+#: .\templates\500.html:5
+msgid "Server Error"
+msgstr ""
+
+#: .\templates\500.html:12
+msgid "Well that didn't go well!"
+msgstr ""
+
+#: .\templates\500.html:13
+msgid "It's not you it's us &#x1F627;"
+msgstr ""
+
+#: .\templates\500.html:16
+msgid "Please try again later,"
+msgstr ""
+
+#: .\templates\500.html:18
+msgid "goto home page"
+msgstr ""
+
 #: .\templates\account\email\account_already_exists_message.txt:4
 #, python-format
 msgid ""
@@ -929,10 +1006,6 @@ msgid ""
 "                Please contact us if you do not receive the verification e-"
 "mail within a few minutes.\n"
 "                "
-msgstr ""
-
-#: .\templates\base.html:61
-msgid "Home"
 msgstr ""
 
 #: .\templates\base.html:67

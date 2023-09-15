@@ -82,7 +82,7 @@ def base_context(request: HttpRequest) -> dict:
 
         # set no robots
         # allauth route names start with 'account_' and have no app name
-        no_robots = called_by.app_name == '' and \
+        no_robots = called_by.app_name == '' and called_by.url_name and \
             called_by.url_name.startswith('account_')
         # admin routes have app name 'admin'
         no_robots = no_robots or called_by.app_name == 'admin'

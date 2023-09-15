@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-15 12:27+0100\n"
+"POT-Creation-Date: 2023-09-15 15:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,8 +76,8 @@ msgid "Address components"
 msgstr "Adresskomponenten"
 
 #: .\addresses\models.py:107
-msgid "Formatierte Adresse"
-msgstr "E-Mail-Addresse"
+msgid "Formatted address"
+msgstr "Formatierte Adresse"
 
 #: .\addresses\models.py:109
 msgid "Latitude"
@@ -93,7 +93,8 @@ msgstr "Standard"
 
 #: .\addresses\models.py:113
 msgid "Designates that this record represents the user's default address."
-msgstr "Gibt an, dass dieser Datensatz die Standardadresse des Benutzers darstellt."
+msgstr ""
+"Gibt an, dass dieser Datensatz die Standardadresse des Benutzers darstellt."
 
 #: .\addresses\templates\addresses\address_list_item.html:25
 msgid "Edit"
@@ -131,11 +132,15 @@ msgstr "Standardadressen dürfen nicht gelöscht werden."
 
 #: .\addresses\templates\addresses\snippet\default_address_undeletable.html:11
 msgid "Please select another default address, and then delete this address."
-msgstr "Bitte wählen Sie eine andere Standardadresse aus und löschen Sie dann diese Adresse."
+msgstr ""
+"Bitte wählen Sie eine andere Standardadresse aus und löschen Sie dann diese "
+"Adresse."
 
 #: .\addresses\templates\addresses\snippet\default_address_undeletable.html:13
 msgid "Please add another default address, and then delete this address."
-msgstr "Bitte fügen Sie eine weitere Standardadresse hinzu und löschen Sie diese Adresse."
+msgstr ""
+"Bitte fügen Sie eine weitere Standardadresse hinzu und löschen Sie diese "
+"Adresse."
 
 #: .\addresses\views\address_by.py:57
 msgid "Update Address"
@@ -173,14 +178,17 @@ msgstr "symbol von"
 msgid "icons derived from"
 msgstr "Symbole abgeleitet von"
 
-#: .\base\credits.py:97
+#: .\base\credits.py:38
+msgid "icon created by"
+msgstr "symbol erstellt von"
+
+#: .\base\credits.py:122
 #, python-format
 msgid "open icon on %(provider)s in another tab"
 msgstr "symbol zum Öffnen von %(provider)s in einem anderen Tab"
 
-#: .\base\credits.py:106
+#: .\base\credits.py:131
 #, python-format
-#| msgid "view %(provider)s weather warnings."
 msgid "open %(provider)s in another tab"
 msgstr "Öffnen Sie %(provider)s in einem anderen Tab"
 
@@ -219,7 +227,9 @@ msgid ""
 "%(app_name)s is a weather forecast application utilising multiple third-"
 "party weather forecasters, to provide address-based weather forecasts."
 msgstr ""
-"%(app_name)s ist eine Wettervorhersageanwendung, die mehrere Wettervorhersager von Drittanbietern nutzt, um adressbasierte Wettervorhersagen bereitzustellen."
+"%(app_name)s ist eine Wettervorhersageanwendung, die mehrere "
+"Wettervorhersager von Drittanbietern nutzt, um adressbasierte "
+"Wettervorhersagen bereitzustellen."
 
 #: .\base\views.py:129
 msgid "Set language"
@@ -666,6 +676,81 @@ msgstr "Einreichen"
 msgid "view %(provider)s weather warnings."
 msgstr "Wetterwarnungen von %(provider)s anzeigen."
 
+#: .\templates\400.html:5
+msgid "Bad Request"
+msgstr "Ungültige Anforderung"
+
+#: .\templates\400.html:12
+msgid "Whir, beep, beep, bang ... does not compute"
+msgstr "Surren, Piepen, Piepen, Knall ... lässt sich nicht berechnen"
+
+#: .\templates\400.html:13
+msgid "Sorry, didn't quite understand that &#x1F615;"
+msgstr "Tut mir leid, das habe ich nicht ganz verstanden &#x1F615;"
+
+#: .\templates\400.html:16
+msgid "Please try again, go"
+msgstr "Bitte versuchen Sie es noch einmal, gehen Sie nach"
+
+#: .\templates\400.html:18 .\templates\403.html:18 .\templates\404.html:18
+#: .\templates\500.html:19 .\templates\base.html:61
+msgid "Home"
+msgstr "Heim"
+
+#: .\templates\403.html:5
+msgid "Forbidden"
+msgstr "Verboten"
+
+#: .\templates\403.html:12
+msgid "Thou shalt not pass"
+msgstr "Du wirst nicht passieren"
+
+#: .\templates\403.html:13
+msgid "Sorry, you can't go there it's above your pay grade &#x1F5FF;"
+msgstr ""
+"Leider können Sie dort nicht hingehen, da die Gehaltsstufe über Ihrer "
+"Gehaltsstufe liegt &#x1F5FF;"
+
+#: .\templates\403.html:16
+msgid "Please start again, go"
+msgstr "Bitte fangen Sie noch einmal an, gehen Sie"
+
+#: .\templates\404.html:5
+msgid "Not Found"
+msgstr "Nicht gefunden"
+
+#: .\templates\404.html:12
+msgid "We're missing something"
+msgstr "Uns fehlt etwas"
+
+#: .\templates\404.html:13
+msgid "Sorry, we couldn't find"
+msgstr "Leider konnten wir es nicht finden"
+
+#: .\templates\404.html:16
+msgid "Take me"
+msgstr "Nimm mich"
+
+#: .\templates\500.html:5
+msgid "Server Error"
+msgstr "Serverfehler"
+
+#: .\templates\500.html:12
+msgid "Well that didn't go well!"
+msgstr "Nun, das ist nicht gut gelaufen!"
+
+#: .\templates\500.html:13
+msgid "It's not you it's us &#x1F627;"
+msgstr "Es liegt nicht an euch, sondern an uns &#x1F627;"
+
+#: .\templates\500.html:16
+msgid "Please try again later,"
+msgstr "Bitte versuchen Sie es später noch einmal,"
+
+#: .\templates\500.html:18
+msgid "goto home page"
+msgstr "Gehe zur Startseite"
+
 #: .\templates\account\email\account_already_exists_message.txt:4
 #, python-format
 msgid ""
@@ -982,10 +1067,6 @@ msgstr ""
 "Bestätigungs-E-Mail nicht in Ihrem Posteingang sehen, überprüfen Sie Ihren "
 "Spam-Ordner.Bitte kontaktieren Sie uns, wenn Sie die Bestätigungs-E-Mail "
 "nicht innerhalb weniger Minuten erhalten."
-
-#: .\templates\base.html:61
-msgid "Home"
-msgstr "Heim"
 
 #: .\templates\base.html:67
 msgid "Forecast"
