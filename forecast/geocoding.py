@@ -32,12 +32,21 @@ from utils import dict_drill, AsDictMixin, ensure_list
 
 from forecast.dto import GeoAddress
 
+from .constants import (
+    COMPONENTS_FIELD, COUNTRY_FIELD, FORMATTED_ADDR_FIELD, LATITUDE_FIELD,
+    LONGITUDE_FIELD, PLACE_ID_FIELD, GLOBAL_PLUS_CODE_FIELD,
+    COMPOUND_PLUS_CODE_FIELD, RES_TYPE_FIELD
+)
+
 MULTI_SPACE_RE = re.compile(r'\s+')
 
 # https://developers.google.com/maps/documentation/geocoding/requests-geocoding#GeocodingResponses
 FORMATTED_ADDR_DATA_PATH = ['formatted_address']
 ADDR_COMPONENTS_DATA_PATH = ['address_components']
+PLACE_ID_PATH = ['place_id']
 RESULT_TYPE_PATH = ['types']
+GLOBAL_PLUS_CODE_PATH = ['plus_code', 'global_code']
+COMPOUND_PLUS_CODE_PATH = ['plus_code', 'compound_code']
 LATITUDE_DATA_PATH = ['geometry', 'location', 'lat']
 LONGITUDE_DATA_PATH = ['geometry', 'location', 'lng']
 
@@ -68,11 +77,24 @@ class GeoCodeResult(AsDictMixin):
     STATE = 'administrative_area_level_1'
     COUNTRY = 'country'
 
+    COMPONENTS_FIELD = COMPONENTS_FIELD
+    COUNTRY_FIELD = COUNTRY_FIELD
+    FORMATTED_ADDR_FIELD = FORMATTED_ADDR_FIELD
+    LATITUDE_FIELD = LATITUDE_FIELD
+    LONGITUDE_FIELD = LONGITUDE_FIELD
+    PLACE_ID_FIELD = PLACE_ID_FIELD
+    GLOBAL_PLUS_CODE_FIELD = GLOBAL_PLUS_CODE_FIELD
+    COMPOUND_PLUS_CODE_FIELD = COMPOUND_PLUS_CODE_FIELD
+    RES_TYPE_FIELD = RES_TYPE_FIELD
+
     components: List[Dict[str, Any]]
     country: str    # ISO 3166-1 alpha-2 country code
     formatted_addr: str
     latitude: float
     longitude: float
+    place_id: str
+    global_plus_code: str
+    compound_plus_code: str
     res_type: str   # type of result, e.g. 'street_address'
 
     @classmethod
@@ -160,6 +182,12 @@ class GeoCodeResult(AsDictMixin):
                     result, *LATITUDE_DATA_PATH, default=0.0).value,
                 longitude=dict_drill(
                     result, *LONGITUDE_DATA_PATH, default=0.0).value,
+                place_id=dict_drill(
+                    result, *PLACE_ID_PATH, default='').value,
+                global_plus_code=dict_drill(
+                    result, *GLOBAL_PLUS_CODE_PATH, default='').value,
+                compound_plus_code=dict_drill(
+                    result, *COMPOUND_PLUS_CODE_PATH, default='').value,
                 res_type=res_type[0] if len(res_type) > 0 else ''
             )
         return result
@@ -310,7 +338,8 @@ class GoogleMapsClient:
             bounds=bounds, region=region, language=language)
 
 
-def geocode_address(address: List[str], *args) -> Tuple[GeoAddress, GeoCodeResult]:
+def geocode_address(address: List[str],
+                    *args) -> Tuple[GeoAddress, GeoCodeResult]:
     """
     Geocode an address
     :param address: list of address fields
@@ -337,12 +366,7 @@ def geocode_address(address: List[str], *args) -> Tuple[GeoAddress, GeoCodeResul
             GeoCodeResult.first_result
         ])
 
-    geo_addr = GeoAddress(
-        formatted_address=geocode_res.formatted_addr,
-        country=geocode_res.country,
-        lat=geocode_res.latitude,
-        lng=geocode_res.longitude,
-        is_valid=True
-    ) if geocode_res is not None else GeoAddress.empty_obj()
+    geo_addr = GeoAddress.from_geocode_result(geocode_res) \
+        if geocode_res is not None else GeoAddress.empty_obj()
 
     return geo_addr, geocode_res

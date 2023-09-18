@@ -38,6 +38,8 @@ FORMATTED_ADDR_FIELD = "formatted_addr"
 LATITUDE_FIELD = "latitude"
 LONGITUDE_FIELD = "longitude"
 IS_DEFAULT_FIELD = "is_default"
+PLACE_ID_FIELD = 'place_id'
+GLOBAL_PLUS_CODE_FIELD = 'global_plus_code'
 
 # Address routes related
 PK_PARAM_NAME = "pk"

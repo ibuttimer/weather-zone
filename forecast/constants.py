@@ -75,3 +75,14 @@ COUNTRY_PROVIDERS = 'country'
 # service-specific
 GEOCODE_SERVICE = 'GeocodeService'
 GEOCODE_ADDRESS_FUNC = 'geocode_address'
+
+# field names of GeoCodeResult
+COMPONENTS_FIELD = 'components'
+COUNTRY_FIELD = 'country'
+FORMATTED_ADDR_FIELD = 'formatted_addr'
+LATITUDE_FIELD = 'latitude'
+LONGITUDE_FIELD = 'longitude'
+PLACE_ID_FIELD = 'place_id'
+GLOBAL_PLUS_CODE_FIELD = 'global_plus_code'
+COMPOUND_PLUS_CODE_FIELD = 'compound_plus_code'
+RES_TYPE_FIELD = 'res_type'

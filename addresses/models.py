@@ -36,11 +36,12 @@ from user.models import User
 
 from .constants import (
     USER_FIELD, COUNTRY_FIELD, COMPONENTS_FIELD, FORMATTED_ADDR_FIELD,
-    LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD
+    LATITUDE_FIELD, LONGITUDE_FIELD, IS_DEFAULT_FIELD, PLACE_ID_FIELD,
+    GLOBAL_PLUS_CODE_FIELD
 )
 
 
-class CompressedJsonTextField(models.BinaryField):
+class CompressedTextField(models.BinaryField):
     """
     Compressed text field
     """
@@ -52,8 +53,7 @@ class CompressedJsonTextField(models.BinaryField):
         :param add:
         :return:
         """
-        json_str = json.dumps(super().pre_save(model_instance, add))
-        byte_data = zlib.compress(json_str.encode())
+        byte_data = zlib.compress(super().pre_save(model_instance, add))
         # update the model’s attribute so that code holding references to the
         # model will always see the correct value
         # https://docs.djangoproject.com/en/4.2/howto/custom-model-fields/#preprocessing-values-before-saving
@@ -69,12 +69,46 @@ class CompressedJsonTextField(models.BinaryField):
         :return:
         """
         if value is not None:
-            value = json.loads(zlib.decompress(value).decode())
+            value = zlib.decompress(value).decode()
         return value
 
     def to_python(self, value):
+        return zlib.decompress(value).decode()
+
+
+class CompressedJsonTextField(CompressedTextField):
+    """
+    Compressed text field
+    """
+
+    def pre_save(self, model_instance, add):
+        """
+        Prepare the value before being saved to the database
+        :param model_instance:
+        :param add:
+        :return:
+        """
+        # get current value
+        value = super(CompressedTextField, self).pre_save(model_instance, add)
+        # update the model’s attribute so that the super class pre_save will
+        # see the byte encoded value
+        setattr(model_instance, self.attname, json.dumps(value).encode())
+        return super().pre_save(model_instance, add)
+
+    def from_db_value(self, value, expression, connection):
+        """
+        Convert the value after being retrieved from the database
+        :param value:
+        :param expression:
+        :param connection:
+        :return:
+        """
+        value = super().from_db_value(value, expression, connection)
+        return json.loads(value) if value is not None else value
+
+    def to_python(self, value):
         # If it's a string, it should be base64-encoded data
-        return json.loads(zlib.decompress(value).decode())
+        return json.loads(super().to_python(value))
 
 
 class Address(ModelMixin, models.Model):
@@ -88,12 +122,16 @@ class Address(ModelMixin, models.Model):
     FORMATTED_ADDR_FIELD = FORMATTED_ADDR_FIELD
     LATITUDE_FIELD = LATITUDE_FIELD
     LONGITUDE_FIELD = LONGITUDE_FIELD
+    PLACE_ID_FIELD = PLACE_ID_FIELD
+    GLOBAL_PLUS_CODE_FIELD = GLOBAL_PLUS_CODE_FIELD
     IS_DEFAULT_FIELD = IS_DEFAULT_FIELD
 
     COORDINATE_FIELDS = (LATITUDE_FIELD, LONGITUDE_FIELD,)
 
     ADDRESS_ATTRIB_COMPONENTS_MAX_LEN: int = 500
     ADDRESS_ATTRIB_FORMATTED_MAX_LEN: int = 250
+    ADDRESS_ATTRIB_PLACE_ID_MAX_LEN: int = 250
+    ADDRESS_ATTRIB_PLUS_CODE_MAX_LEN: int = 15
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -108,6 +146,12 @@ class Address(ModelMixin, models.Model):
         max_length=ADDRESS_ATTRIB_FORMATTED_MAX_LEN, blank=False)
     latitude = models.FloatField(_('Latitude'), blank=False)
     longitude = models.FloatField(_('Longitude'), blank=False)
+    place_id = CompressedTextField(
+        _('Place ID'),
+        max_length=ADDRESS_ATTRIB_PLACE_ID_MAX_LEN, blank=True)
+    global_plus_code = models.CharField(
+        _('Global Plus Code'),
+        max_length=ADDRESS_ATTRIB_PLUS_CODE_MAX_LEN, blank=True)
     is_default = models.BooleanField(
         _('default'), default=False, blank=False, help_text=_(
             "Designates that this record represents the user's "

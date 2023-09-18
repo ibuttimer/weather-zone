@@ -26,7 +26,7 @@ Data transfer objects for forecast module
 from collections import namedtuple
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Dict, Any, Tuple, Set, Callable, Optional
+from typing import List, Dict, Any, Tuple, Set
 
 from utils import AsDictMixin
 from addresses.constants import (
@@ -34,9 +34,20 @@ from addresses.constants import (
     FORMATTED_ADDR_FIELD as ADDR_FORMATTED_ADDR_FIELD,
     LATITUDE_FIELD as ADDR_LATITUDE_FIELD,
     LONGITUDE_FIELD as ADDR_LONGITUDE_FIELD,
+    PLACE_ID_FIELD as ADDR_PLACE_ID_FIELD,
+    GLOBAL_PLUS_CODE_FIELD as ADDR_GLOBAL_PLUS_CODE_FIELD
 )
 from ..beaufort import Beaufort
 from ..enums import AttribRowTypes
+
+from ..constants import (
+    FORMATTED_ADDR_FIELD as GEOCODE_FORMATTED_ADDR_FIELD,
+    COUNTRY_FIELD as GEOCODE_COUNTRY_FIELD,
+    LATITUDE_FIELD as GEOCODE_LATITUDE_FIELD,
+    LONGITUDE_FIELD as GEOCODE_LONGITUDE_FIELD,
+    PLACE_ID_FIELD as GEOCODE_PLACE_ID_FIELD,
+    GLOBAL_PLUS_CODE_FIELD as GEOCODE_GLOBAL_PLUS_CODE_FIELD,
+)
 
 
 AttribRow = namedtuple('AttribRow',
@@ -56,6 +67,9 @@ class GeoAddress(AsDictMixin):
     COUNTRY_FIELD = 'country'
     LAT_FIELD = 'lat'
     LNG_FIELD = 'lng'
+    PLACE_ID_FIELD = 'place_id'
+    GLOBAL_PLUS_CODE_FIELD = 'global_plus_code'
+
     IS_VALID_FIELD = 'is_valid'
 
     _DEFAULT_VALS = {
@@ -63,6 +77,8 @@ class GeoAddress(AsDictMixin):
         COUNTRY_FIELD: '',
         LAT_FIELD: 0.0,
         LNG_FIELD: 0.0,
+        PLACE_ID_FIELD: '',
+        GLOBAL_PLUS_CODE_FIELD: '',
         IS_VALID_FIELD: False
     }
 
@@ -70,13 +86,26 @@ class GeoAddress(AsDictMixin):
         FORMATTED_ADDRESS_FIELD: ADDR_FORMATTED_ADDR_FIELD,
         COUNTRY_FIELD: ADDR_COUNTRY_FIELD,
         LAT_FIELD: ADDR_LATITUDE_FIELD,
-        LNG_FIELD: ADDR_LONGITUDE_FIELD
+        LNG_FIELD: ADDR_LONGITUDE_FIELD,
+        PLACE_ID_FIELD: ADDR_PLACE_ID_FIELD,
+        GLOBAL_PLUS_CODE_FIELD: ADDR_GLOBAL_PLUS_CODE_FIELD
+    }
+
+    _GEOCODERESULT_ADDR_KEYS = {
+        FORMATTED_ADDRESS_FIELD: GEOCODE_FORMATTED_ADDR_FIELD,
+        COUNTRY_FIELD: GEOCODE_COUNTRY_FIELD,
+        LAT_FIELD: GEOCODE_LATITUDE_FIELD,
+        LNG_FIELD: GEOCODE_LONGITUDE_FIELD,
+        PLACE_ID_FIELD: GEOCODE_PLACE_ID_FIELD,
+        GLOBAL_PLUS_CODE_FIELD: GEOCODE_GLOBAL_PLUS_CODE_FIELD
     }
 
     formatted_address: str
     country: str        # ISO 3166-1 alpha-2 country code
     lat: float
     lng: float
+    place_id: str
+    global_plus_code: str
     is_valid: bool
 
     @staticmethod
@@ -107,17 +136,37 @@ class GeoAddress(AsDictMixin):
         })
 
     @staticmethod
-    def from_address(address: Any) -> 'GeoAddress':
+    def _from_address(address: Any, keys_map: dict) -> 'GeoAddress':
         """
         Convert an Address to a GeoAddress
-        :param address: map of GeoAddress
+        :param address: Address model instance or GeoCodeResult
         :return: GeoAddress
         """
         addr_dict = dict(GeoAddress.dict_keys())
-        for geo_k, addr_k in GeoAddress._GEOADDRESS_ADDR_KEYS.items():
+        for geo_k, addr_k in keys_map.items():
             addr_dict[geo_k] = getattr(address, addr_k)
         addr_dict[GeoAddress.IS_VALID_FIELD] = True
         return GeoAddress(**addr_dict)
+
+    @staticmethod
+    def from_address(address: Any) -> 'GeoAddress':
+        """
+        Convert an Address to a GeoAddress
+        :param address: Address model instance
+        :return: GeoAddress
+        """
+        return GeoAddress._from_address(
+            address, GeoAddress._GEOADDRESS_ADDR_KEYS)
+
+    @staticmethod
+    def from_geocode_result(address: 'GeoCodeResult') -> 'GeoAddress':
+        """
+        Convert a GeoCodeResult to a GeoAddress
+        :param address: GeoCodeResult
+        :return: GeoAddress
+        """
+        return GeoAddress._from_address(
+            address, GeoAddress._GEOCODERESULT_ADDR_KEYS)
 
     @staticmethod
     def empty_obj() -> 'GeoAddress':

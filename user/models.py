@@ -24,13 +24,10 @@ User models
 #  DEALINGS IN THE SOFTWARE.
 
 from dataclasses import dataclass
-import zlib
-import json
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
-from django_countries.fields import CountryField
 
 from utils import ModelMixin
 
@@ -72,40 +69,3 @@ class User(ModelMixin, AbstractUser):
 
     def __str__(self):
         return self.username
-
-
-class CompressedJsonTextField(models.BinaryField):
-    """
-    Compressed text field
-    """
-
-    def pre_save(self, model_instance, add):
-        """
-        Prepare the value before being saved to the database
-        :param model_instance:
-        :param add:
-        :return:
-        """
-        json_str = json.dumps(super().pre_save(model_instance, add))
-        byte_data = zlib.compress(json_str.encode())
-        # update the model’s attribute so that code holding references to the
-        # model will always see the correct value
-        # https://docs.djangoproject.com/en/4.2/howto/custom-model-fields/#preprocessing-values-before-saving
-        setattr(model_instance, self.attname, byte_data)
-        return byte_data
-
-    def from_db_value(self, value, expression, connection):
-        """
-        Convert the value after being retrieved from the database
-        :param value:
-        :param expression:
-        :param connection:
-        :return:
-        """
-        if value is not None:
-            value = json.loads(zlib.decompress(value).decode())
-        return value
-
-    def to_python(self, value):
-        # If it's a string, it should be base64-encoded data
-        return json.loads(zlib.decompress(value).decode())
