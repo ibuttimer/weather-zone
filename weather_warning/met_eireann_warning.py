@@ -161,7 +161,7 @@ def parse_warning(provider: WarningsProvider, data: Dict) -> WarningEntry:
         elif we_k == WarningEntry.AREAS_KEY:
             # read affected areas
             areas = []
-            for area in val:
+            for area in ensure_list(val):
                 val_type, name_val = read_value_name_val(area)
                 name_val = provider.regions.get(name_val)
                 areas.append(

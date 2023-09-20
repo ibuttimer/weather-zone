@@ -308,7 +308,7 @@ class GoogleMapsClient:
     """
     Singleton instance of the Google Maps client
     """
-    _instance = None
+    _instance: Optional[googlemaps.Client] = None
 
     def __new__(cls):
         if cls._instance is None:

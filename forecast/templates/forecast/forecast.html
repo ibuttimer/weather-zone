@@ -14,6 +14,7 @@
 {#                             'title' as title for page #}
 {#                             'page_heading' as heading for page #}
 {#                             'page_sub_heading' as sub-heading for page #}
+{#                             'embed_map' as embedded map html #}
 
 {% load i18n %}
 {% load static %}
@@ -78,9 +79,12 @@
 
     <div class="row mt-2 mb-2">
         {% if page_heading or page_sub_heading %}
-            <div class="col-12 text-center">
+            <div class="col-sm-10 text-center">
                 {% if page_heading %}<h3>{{ page_heading | safe }}</h3>{% endif %}
                 {% if page_sub_heading %}<h4>{{ page_sub_heading | safe }}</h4>{% endif %}
+            </div>
+            <div class="col-sm-2">
+                {{ embed_map | safe }}
             </div>
         {% endif %}
     </div>

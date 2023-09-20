@@ -55,7 +55,8 @@ from .constants import (
     SUBMIT_BTN_TEXT_CTX,
     FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX,
     WARNING_LIST_CTX, WARNING_CTX, WARNING_URL_CTX, WARNING_URL_ARIA_CTX,
-    ADDRESS_ROUTE_NAME, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER
+    ADDRESS_ROUTE_NAME, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER,
+    EMBED_MAP_CTX
 )
 from .convert import Units, speed_conversion
 from .enums import ForecastType, AttribRowTypes
@@ -64,6 +65,7 @@ from .geocoding import geocode_address
 from .dto import (
     GeoAddress, Forecast, AttribRow, ForecastEntry, WeatherWarnings
 )
+from .map_embed import map_embed
 from .misc import RangeArg, DateRange
 from .constants import ALL_PROVIDERS
 from .registry import Registry
@@ -315,7 +317,8 @@ class ForecastAddress(ServiceCacheMixin, View):
                                 **addr_kwargs)
 
                 # need to redirect to url with query parameters
-                query_kwargs = geo_address.as_dict()
+                query_kwargs = geo_address.as_dict(
+                    filter_fun=geo_address.filter_none_val)
                 query_kwargs[QUERY_TIME_RANGE] = form.get_field(
                     AddressForm.TIME_RANGE_FIELD)
                 query_kwargs[QUERY_PROVIDER] = form.get_field(
@@ -419,7 +422,8 @@ class ForecastAddressById(ServiceCacheMixin, View):
         geo_address = GeoAddress.from_address(addr)
 
         # need to redirect to url with query parameters
-        query_kwargs = geo_address.as_dict()
+        query_kwargs = geo_address.as_dict(
+            filter_fun=geo_address.filter_none_val)
         query_kwargs[QUERY_TIME_RANGE] = RangeArg.TODAY.value
         query_kwargs[QUERY_PROVIDER] = ALL_PROVIDERS
         url = reverse_q(
@@ -493,7 +497,6 @@ def display_home(request: HttpRequest, *args, **kwargs) -> HttpResponse:
                              *args, **kwargs)
 
 
-
 def forecast_render_info(forecast_type: ForecastType, forecasts: List[Forecast],
                          warnings: List[WeatherWarnings]):
     """
@@ -550,7 +553,8 @@ def forecast_render_info(forecast_type: ForecastType, forecasts: List[Forecast],
         PAGE_HEADING_CTX: title,
         PAGE_SUB_HEADING_CTX: formatted_addr,
         FORECAST_LIST_CTX: forecast_list,
-        WARNING_LIST_CTX: warning_list
+        WARNING_LIST_CTX: warning_list,
+        EMBED_MAP_CTX: map_embed(forecasts[0].address)
     }
 
     return app_template_path(THIS_APP, template), context

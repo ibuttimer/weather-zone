@@ -53,7 +53,9 @@ class CompressedTextField(models.BinaryField):
         :param add:
         :return:
         """
-        byte_data = zlib.compress(super().pre_save(model_instance, add))
+        value = super().pre_save(model_instance, add)
+        byte_data = zlib.compress(
+            value.encode() if isinstance(value, str) else value)
         # update the model’s attribute so that code holding references to the
         # model will always see the correct value
         # https://docs.djangoproject.com/en/4.2/howto/custom-model-fields/#preprocessing-values-before-saving
@@ -68,6 +70,8 @@ class CompressedTextField(models.BinaryField):
         :param connection:
         :return:
         """
+        if isinstance(value, memoryview) and value.nbytes == 0:
+            value = None
         if value is not None:
             value = zlib.decompress(value).decode()
         return value

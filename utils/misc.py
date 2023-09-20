@@ -29,7 +29,6 @@ from typing import List, Any, Callable, Optional, TypeVar, Dict
 
 import environ
 
-
 TypeCrud = TypeVar("TypeCrud", bound="Crud")
 
 
@@ -53,7 +52,7 @@ class Crud(Enum):
     CREATE = ('add', 'post', 'create', 'new')
     READ = ('view', 'get', 'read')
     UPDATE = ('change', 'put', 'update')
-    DELETE = ('delete', 'remove')   # permission & method are the same
+    DELETE = ('delete', 'remove')  # permission & method are the same
 
     @staticmethod
     def from_str(value: str) -> Optional[TypeCrud]:
@@ -81,8 +80,8 @@ def ensure_list(item: Any) -> List[Any]:
 
 
 def find_index(
-    search: List[Any], sought: Any, start: int = None, end: int = None,
-    mapper: Callable[[Any], Any] = None, replace: Any = None
+        search: List[Any], sought: Any, start: int = None, end: int = None,
+        mapper: Callable[[Any], Any] = None, replace: Any = None
 ) -> int:
     """
     Find the index of the first occurrence of `sought` in `search`
@@ -99,6 +98,7 @@ def find_index(
     if mapper is None:
         def pass_thru(entry):
             return entry
+
         mapper = pass_thru
     if start is None:
         start = 0
@@ -151,7 +151,8 @@ class AsDictMixin:
     """
     Mixin class to provide as_dict method
     """
-    def as_dict(self) -> Dict[str, Any]:
+
+    def as_dict(self, filter_fun: Callable = None) -> Dict[str, Any]:
         """
         Convert an object to a map
         :return: map
@@ -159,5 +160,15 @@ class AsDictMixin:
         return {
             k: v for k, v in self.__dict__.items()
             if k not in object.__dict__ and not k.startswith('_')
-               and not callable(v)
+            and not callable(v) and (filter_fun is None or filter_fun(k, v))
         }
+
+    @staticmethod
+    def filter_none_val(key: str, value: Any) -> bool:
+        """
+        Filter function to remove None values
+        :param key: key
+        :param value: value
+        :return: True if value is not None, otherwise False
+        """
+        return value is not None
