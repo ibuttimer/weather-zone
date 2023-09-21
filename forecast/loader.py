@@ -39,6 +39,7 @@ from .registry import Registry
 ID_CAMEL_CAPITAL = re.compile(r'_([a-zA-Z]){1}')
 
 
+# key name & conversion function corresponding to a config entry
 ProviderCfgEntry = namedtuple(
     'ProviderCfgEntry', ['name', 'func'], defaults=[None, None])
 
@@ -60,6 +61,9 @@ def load_provider(registry: Registry, provider_list: List[str], app_name: str,
     """
     for app_provider in provider_list:
         # convention is `<provider app name>_<provider id>`
+        # e.g. `locationforecast_met_eireann_forecast`:
+        #  app name: `locationforecast`
+        #  provider class name: `met_eireann_forecast`
         provider_id = app_provider[len(app_name) + 1:]
         provider_classname = get_provider_classname(
             app_provider[len(app_name):])

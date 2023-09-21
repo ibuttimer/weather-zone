@@ -87,7 +87,7 @@ class MetEireannForecastProvider(LocationforecastProvider):
     from_q: str     # From date/time query parameter
     to_q: str       # To date/time query parameter
 
-    def __init__(self, name: str, friendly_name: str, url: str,
+    def __init__(self, name: str, friendly_name: str, url: str, data_url: str,
                  lat_q: str, lng_q: str, from_q: str, to_q: str,
                  tz: str, country: Union[str, List[str]]):
         """
@@ -96,6 +96,7 @@ class MetEireannForecastProvider(LocationforecastProvider):
         :param name: Name of provider
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
+        :param data_url: data URL of provider
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
         :param from_q: From date/time query parameter
@@ -104,7 +105,8 @@ class MetEireannForecastProvider(LocationforecastProvider):
         :param country: ISO 3166-1 alpha-2 country code of provider
         """
         super().__init__(
-            name, friendly_name, url, lat_q, lng_q, tz, country, ME_ATTRIBUTES)
+            name, friendly_name, url, data_url, lat_q, lng_q, tz, country,
+            ME_ATTRIBUTES)
         self.from_q = from_q
         self.to_q = to_q
 

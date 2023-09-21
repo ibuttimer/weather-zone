@@ -25,6 +25,7 @@ Interface for forecast providers
 #
 from abc import ABC, abstractmethod
 from datetime import datetime
+from typing import Optional
 
 from broker import ServiceType
 from .dto import Forecast, GeoAddress, WeatherWarnings
@@ -35,7 +36,7 @@ class IProvider(ABC):
     Interface for forecast providers
     """
 
-    stype: ServiceType      # service type
+    stype: Optional[ServiceType]      # service type
 
     def __init__(self):
         self.stype = None

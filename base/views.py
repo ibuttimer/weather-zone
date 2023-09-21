@@ -33,10 +33,9 @@ from utils import app_template_path
 
 from .constants import (
     THIS_APP, REDIRECT_TO_CTX, SET_LANGUAGE_CTX, TITLE_CTX, ABOUT_INFO_CTX,
-    CREDITS_CTX, HELP_SECTIONS_CTX
+    PROVIDERS_CTX, CREDITS_CTX, HELP_SECTIONS_CTX
 )
-from .credits import ICON_CREDITS
-
+from .credits import ICON_CREDITS, provider_credits
 
 DISALLOWED_URLS = [
     ADMIN_URL,
@@ -100,6 +99,7 @@ def get_about(request: HttpRequest) -> HttpResponse:
             '%(app_name)s is a weather forecast application utilising multiple '
             'third-party weather forecasters, to provide address-based weather '
             'forecasts.') % {'app_name': APP_NAME},
+        PROVIDERS_CTX: provider_credits(),
         CREDITS_CTX: ICON_CREDITS,
     }
     return render(

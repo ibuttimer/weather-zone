@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<section>
+    <div class="row mt-2 mb-3">
+        <div class="col-12">
+            <h3 id="view-providers-help">{% trans "Forecast Providers" %}</h3>
+            <p>
+                {% translate "This site utilises data from the following providers:" %}
+            </p>
+
+            <div class="row mb-3">
+                <ul class="list-group list-group-horizontal-md">
+                    {% for provider in providers %}
+                        <li class="list-group-item flex-fill">
+                            <a href="{{ provider.url }}" target="_blank" aria-label="{{ provider.aria }}">
+                                {{ provider.name }}
+                            </a>
+                        </li>
+                        {% if forloop.counter|divisibleby:6 %}
+                            </ul>
+                            <ul class="list-group list-group-horizontal-md">
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+

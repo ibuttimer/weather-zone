@@ -157,7 +157,7 @@ class LocationforecastProvider(Provider):
 
     legends: LegendStore  # Legends
 
-    def __init__(self, name: str, friendly_name: str, url: str,
+    def __init__(self, name: str, friendly_name: str, url: str, data_url: str,
                  lat_q: str, lng_q: str, tz: str,
                  country: Union[str, List[str]],
                  attributes: Dict[str, ForecastAttrib]):
@@ -167,14 +167,15 @@ class LocationforecastProvider(Provider):
         :param name: Name of provider
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
+        :param data_url: data URL of provider
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
         :param tz: Timezone identifier of provider
         :param country: ISO 3166-1 alpha-2 country code of provider
         :param attributes: Attributes to use to parse forecast
         """
-        super().__init__(
-            name, friendly_name, url, tz, country, ServiceType.FORECAST)
+        super().__init__(name, friendly_name, url, data_url, tz, country,
+                         ServiceType.FORECAST)
         self.lat_q = lat_q
         self.lng_q = lng_q
         self.attributes = attributes
@@ -245,7 +246,7 @@ class LocationforecastProvider(Provider):
         else:
             try:
                 response = requests.get(
-                    self.url, params=params, headers=get_request_headers(),
+                    self.data_url, params=params, headers=get_request_headers(),
                     timeout=settings.REQUEST_TIMEOUT)
                 if response.status_code == HTTPStatus.OK:
                     forecast_resp = response.text

@@ -41,19 +41,20 @@ class WarningsProvider(Provider):
 
     regions: RegionStore  # Legends
 
-    def __init__(self, name: str, friendly_name: str, url: str, tz: str,
-                 country: Union[str, List[str]]):
+    def __init__(self, name: str, friendly_name: str, url: str, data_url: str,
+                 tz: str, country: Union[str, List[str]]):
         """
         Constructor
 
         :param name: Name of provider
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
+        :param data_url: data URL of provider
         :param tz: Timezone identifier of provider
         :param country: ISO 3166-1 alpha-2 country code of provider
         """
-        super().__init__(
-            name, friendly_name, url, tz, country, ServiceType.WARNING)
+        super().__init__(name, friendly_name, url, data_url, tz, country,
+                         ServiceType.WARNING)
         self.cached_result = None
         WarningsProvider.init_regions()
 

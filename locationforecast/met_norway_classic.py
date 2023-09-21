@@ -75,7 +75,7 @@ class MetNorwayClassicProvider(LocationforecastProvider):
     Forecast provider
     """
 
-    def __init__(self, name: str, friendly_name: str, url: str,
+    def __init__(self, name: str, friendly_name: str, url: str, data_url: str,
                  lat_q: str, lng_q: str, tz: str,
                  country: Union[str, List[str]]):
         """
@@ -84,10 +84,12 @@ class MetNorwayClassicProvider(LocationforecastProvider):
         :param name: Name of provider
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
+        :param data_url: data URL of provider
         :param lat_q: Latitude query parameter
         :param lng_q: Longitude query parameter
         :param tz: Timezone identifier of provider
         :param country: ISO 3166-1 alpha-2 country code of provider
         """
         super().__init__(
-            name, friendly_name, url, lat_q, lng_q, tz, country, MN_ATTRIBUTES)
+            name, friendly_name, url, data_url, lat_q, lng_q, tz, country,
+            MN_ATTRIBUTES)

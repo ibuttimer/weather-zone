@@ -21,9 +21,11 @@
 #  SOFTWARE.
 #
 from collections import namedtuple
+from typing import Dict, List
 
 from django.utils.translation import gettext_lazy as _
 
+from forecast import get_provider_info
 from utils import html_tag
 
 IconInfo = namedtuple(
@@ -118,12 +120,17 @@ ICONS = [
 
 
 def icon_entry(icon: IconInfo) -> str:
-    icon_aria = _(
+    """
+    Get an icon credit entry
+    :param icon: icon information
+    :return:
+    """
+    aria = _(
         "open icon on %(provider)s in another tab"
     ) % {'provider': icon.provider}
     icon_link = html_tag('a', icon.name, **{
         'href': icon.icon_url,
-        'aria-label': icon_aria,
+        'aria-label': aria,
         'target': '_blank',
         'rel': 'noopener'
     })
@@ -139,3 +146,24 @@ def icon_entry(icon: IconInfo) -> str:
 
 
 ICON_CREDITS = list(map(icon_entry, ICONS))
+
+
+def provider_entry(provider: Dict) -> Dict:
+    """
+    Get a provider credit entry
+    :param provider: provider information
+    :return:
+    """
+    entry = provider.copy()
+    entry['aria'] = _(
+        "visit %(provider)s in another tab"
+    ) % {'provider': provider['name']}
+    return entry
+
+
+def provider_credits() -> List[Dict]:
+    """
+    Get a list of forecast provider information
+    :return:
+    """
+    return list(map(provider_entry, get_provider_info()))

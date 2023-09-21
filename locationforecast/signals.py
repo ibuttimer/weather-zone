@@ -40,6 +40,7 @@ from .met_eireann_forecast import MetEireannForecastProvider
 PROVIDER_CFG_KEYS = {
     Provider.FRIENDLY_NAME_PROP: ProviderCfgEntry('name'),
     Provider.URL_PROP: ProviderCfgEntry('url'),
+    Provider.DATA_URL_PROP: ProviderCfgEntry('data_url'),
     LocationforecastProvider.LATITUDE_PROP: ProviderCfgEntry('latitude'),
     LocationforecastProvider.LONGITUDE_PROP: ProviderCfgEntry('longitude'),
     MetEireannForecastProvider.FROM_PROP: ProviderCfgEntry('from'),

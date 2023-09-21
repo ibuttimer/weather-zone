@@ -42,6 +42,7 @@ class Provider(IProvider, ABC):
     NAME_PROP = 'name'
     FRIENDLY_NAME_PROP = 'friendly_name'
     URL_PROP = 'url'
+    DATA_URL_PROP = 'data_url'
     TZ_PROP = 'tz'
     COUNTRY_PROP = 'country'
     STYPE_PROP = 'stype'
@@ -49,12 +50,13 @@ class Provider(IProvider, ABC):
     name: str               # Name of provider
     friendly_name: str      # user friendly of provider
     url: str                # URL of provider
+    data_url: str           # data URL of provider
     tz: ZoneInfo            # timezone
     country: List[Country]  # supported countries
     stype: ServiceType      # service type
 
-    def __init__(self, name: str, friendly_name: str, url: str, tz: str,
-                 country: Union[str, List[str]],
+    def __init__(self, name: str, friendly_name: str, url: str, data_url: str,
+                 tz: str, country: Union[str, List[str]],
                  stype: ServiceType = ServiceType.UNKNOWN):
         """
         Constructor
@@ -62,6 +64,7 @@ class Provider(IProvider, ABC):
         :param name: Name of provider
         :param friendly_name: User friendly name of provider
         :param url: URL of provider
+        :param data_url: data URL of provider
         :param tz: Timezone identifier of provider
         :param country: ISO 3166-1 alpha-2 country code of provider
         :param stype: type of Provider
@@ -70,6 +73,7 @@ class Provider(IProvider, ABC):
         self.name = name
         self.friendly_name = friendly_name
         self.url = url
+        self.data_url = data_url
         self.tz = ZoneInfo(tz or "UTC")
         self.country = list(map(Country, ensure_list(country)))
         self.stype = stype

@@ -35,7 +35,7 @@ from .help import forecast_help
 from .iprovider import IProvider
 from .loader import load_provider, ProviderCfgEntry
 from .provider import Provider
-from .registry import Registry
+from .registry import Registry, get_provider_info
 from .signals import registry_open
 
 
@@ -75,6 +75,7 @@ __all__ = [
     'Provider',
 
     'Registry',
+    'get_provider_info',
 
     'registry_open',
 ]

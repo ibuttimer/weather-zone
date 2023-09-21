@@ -98,7 +98,7 @@ class MetEireannWarningProvider(WarningsProvider):
         else:
             # live mode
             reader = request_xml
-            url = self.url
+            url = self.data_url
 
         # load summary
         summary = reader(url, params)

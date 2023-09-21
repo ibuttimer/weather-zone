@@ -38,6 +38,7 @@ from .constants import THIS_APP
 PROVIDER_CFG_KEYS = {
     Provider.FRIENDLY_NAME_PROP: ProviderCfgEntry('name'),
     Provider.URL_PROP: ProviderCfgEntry('url'),
+    Provider.DATA_URL_PROP: ProviderCfgEntry('data_url'),
     Provider.TZ_PROP: ProviderCfgEntry('tz'),
     Provider.COUNTRY_PROP: ProviderCfgEntry('country', lambda x: x.split(',')),
 }

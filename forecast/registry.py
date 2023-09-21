@@ -24,7 +24,7 @@ Provides a registry of forecast providers
 #  SOFTWARE.
 #
 from datetime import datetime
-from typing import TypeVar, Optional, List, Callable
+from typing import TypeVar, Optional, List, Callable, Dict, Any
 
 from broker import Broker, ServiceType
 from utils import SingletonMixin, ensure_list
@@ -102,16 +102,16 @@ class Registry(SingletonMixin):
             filter_func=filter_func
         )
 
-    @property
-    def providers(self) -> List[IProvider]:
+    def providers(self, stype: List[ServiceType] = None) -> List[IProvider]:
         """
         Get the providers
 
+        :param stype: Provider type to filter on; default None
         :return: Providers
         """
         return self._broker.providers(
-            ServiceType.weather_types() if self.stype is None else
-            ensure_list(self.stype)
+            ServiceType.weather_types() if stype is None else
+            ensure_list(stype)
         )
 
     def generate_forecast(
@@ -185,3 +185,14 @@ class Registry(SingletonMixin):
         """
         # TODO generate_warnings_summary for forecast page header
         return []
+
+
+def get_provider_info() -> List[Dict[str, Any]]:
+    """
+    Get a list of forecast provider information
+    :return: list of provider information
+    """
+    return list(map(lambda p: {
+        'name': p.friendly_name,
+        'url': p.url,
+    }, Registry.get_instance().providers(stype=ServiceType.FORECAST)))

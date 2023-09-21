@@ -43,6 +43,7 @@ ARIA_CHANGE_LANG_CTX = 'change_lang'
 
 TITLE_CTX = 'title'
 ABOUT_INFO_CTX = 'about_info'
+PROVIDERS_CTX = 'providers'
 CREDITS_CTX = 'credits'
 
 TITLE_CLASS_CTX = 'title_class'
