@@ -19,6 +19,7 @@ xmltodict = "^0.13.0"
 psycopg2 = "^2.9.7"
 tzdata = "^2023.3"
 django-allauth = "^0.56.1"
+gunicorn = "^21.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
