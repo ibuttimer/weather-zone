@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ app_name }} Help{% endblock %}
+
+{% block content %}
+<article id="help-content">
+
+    <div class="row mt-2">
+        <div class="col-12 text-center">
+            <h1>{% trans "Help" %}</h1>
+        </div>
+    </div>
+
+    {% for help in help_sections %}
+        <div class="row mt-2">
+            <div class="col-12">
+                {{ help | safe }}
+            </div>
+        </div>
+    {% endfor %}
+
+</article>
+{% endblock %}

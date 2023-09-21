@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<section>
+    <div class="row mt-2">
+        <div class="col-12">
+            <h2 id="id__forecast-help">{% trans "Forecast" %}</h2>
+            <p>{% trans "The Forecast menu provides options to obtain a weather forecast for a location." %}</p>
+        </div>
+        <div class="col-12">
+            <h3 id="id__forecast-help">{% trans "Address" %}</h3>
+            <p>{% trans "Select the Address option to get a weather forecast for a specified address." %}</p>
+            <ul class="list-group">
+                <li class="list-group-item">{% trans "Enter the address elements" %}</li>
+                <li class="list-group-item">{% trans "Select a time range from the available options" %}</li>
+                <li class="list-group-item">{% trans "Select a forecast provider from the available options" %}</li>
+                <li class="list-group-item">{% trans "Select <em>Save to profile</em> to save the address to the user's list of stored locations." %}</li>
+                <li class="list-group-item">{% trans "Select <em>Set as default</em> to set the address as the user's default location." %}</li>
+            </ul>
+        </div>
+    </div>
+</section>

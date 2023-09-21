@@ -33,7 +33,7 @@ from utils import app_template_path
 
 from .constants import (
     THIS_APP, REDIRECT_TO_CTX, SET_LANGUAGE_CTX, TITLE_CTX, ABOUT_INFO_CTX,
-    CREDITS_CTX
+    CREDITS_CTX, HELP_SECTIONS_CTX
 )
 from .credits import ICON_CREDITS
 
@@ -74,12 +74,17 @@ def get_help(request: HttpRequest) -> HttpResponse:
     :param request: request
     :return: response
     """
-    # from recipes.views.utils import duration_help_context
-    #
-    # context = duration_help_context()
-    # return render(request, app_template_path(THIS_APP, 'help.html'),
-    #               context=context)
-    return get_landing(request)
+    from forecast import forecast_help
+    from user import user_help
+
+    help_sections = []
+    help_sections.extend(forecast_help())
+    help_sections.extend(user_help())
+    context = {
+        HELP_SECTIONS_CTX: help_sections,
+    }
+    return render(request, app_template_path(THIS_APP, 'help.html'),
+                  context=context)
 
 
 @require_GET

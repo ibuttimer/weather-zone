@@ -51,6 +51,8 @@ MODAL_LEVEL_CTX = 'modal_level'
 PAGE_HEADING_CTX = 'page_heading'
 PAGE_SUB_HEADING_CTX = 'page_sub_heading'
 
+HELP_SECTIONS_CTX = 'help_sections'
+
 TOAST_POSITION_CTX = 'toast_position'
 
 InfoModalCfg = namedtuple(

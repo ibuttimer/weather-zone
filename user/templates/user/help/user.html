@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<section>
+    <div class="row mt-2">
+        <div class="col-12">
+            <h2 id="id__user-help">{% trans "User" %}</h2>
+            <p>{% trans "The User menu provides options for password and profile address management, as well as sign out functionality." %}</p>
+        </div>
+        <div class="col-12">
+            <h3 id="id__user-addresses-help">{% trans "Addresses" %}</h3>
+            <p>{% trans "Select the Addresses option manage the addresses stored in the user profile." %}</p>
+            <ul class="list-group">
+                <li class="list-group-item">{% trans "Select the <em>Add address</em> option to add a new address to the user's list of stored locations." %}</li>
+                <li class="list-group-item">{% trans "Select the <em>Edit</em> option on an address update the location." %}</li>
+                <li class="list-group-item">{% trans "Select the <em>Delete</em> option on an address to remove it from the user's list of stored locations." %}</li>
+                <li class="list-group-item">{% trans "Select the <em>Make Default</em> option on an address to set it as the location for which the forecast is displayed on the home screen." %}</li>
+            </ul>
+        </div>
+    </div>
+</section>

@@ -22,8 +22,11 @@
 from .constants import (
     USER_ID_ROUTE_NAME,
 )
+from .help import user_help
 
 
 __all__ = [
     'USER_ID_ROUTE_NAME',
+
+    'user_help',
 ]

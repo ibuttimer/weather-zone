@@ -31,6 +31,7 @@ from .dto import (
 )
 from .enums import Severity, Category, AttribRowTypes
 from .geocoding import GeoCodeResult
+from .help import forecast_help
 from .iprovider import IProvider
 from .loader import load_provider, ProviderCfgEntry
 from .provider import Provider
@@ -63,6 +64,8 @@ __all__ = [
     'AttribRowTypes',
 
     'GeoCodeResult',
+
+    'forecast_help',
 
     'IProvider',
 
