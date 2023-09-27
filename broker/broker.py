@@ -181,6 +181,19 @@ class Broker(SingletonMixin):
             for v in st_providers.values()
         ]
 
+    @property
+    def providers_count(self) -> int:
+        """
+        Get the number of providers
+
+        :return: Number of providers
+        """
+        return len(self.providers())
+
+    def __str__(self):
+        return (f'{super().__str__()}: providers {self.providers_count}, '
+                f'types {len(self._providers)}')
+
 
 class ServiceCacheMixin:
     """

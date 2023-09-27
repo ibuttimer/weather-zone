@@ -61,7 +61,7 @@ def registry_open_handler(sender, **kwargs):
     """
     registry: Registry = kwargs.get('registry')
 
-    print(f"{THIS_APP}: Registry open signal received from {sender}")
+    print(f"{THIS_APP}: Registry open signal received from {str(registry)}")
 
     def finalise_config(provider: Provider):
         cached_result_setting = f'CACHED_{provider.name.upper()}_RESULT'

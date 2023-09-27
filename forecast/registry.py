@@ -186,6 +186,9 @@ class Registry(SingletonMixin):
         # TODO generate_warnings_summary for forecast page header
         return []
 
+    def __str__(self):
+        return f'{super().__str__()}: providers {len(self.providers())}'
+
 
 def get_provider_info() -> List[Dict[str, Any]]:
     """

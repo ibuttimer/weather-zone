@@ -48,7 +48,7 @@ def broker_open_handler(sender, **kwargs):
     """
     broker: Broker = kwargs.get('broker')
 
-    print(f"{THIS_APP}: Broker open signal received from {sender}")
+    print(f"{THIS_APP}: Broker open signal received from {str(broker)}")
 
     # register services
     broker.add(GeocodeService.__name__, ServiceType.SERVICE,
