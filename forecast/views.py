@@ -56,7 +56,7 @@ from .constants import (
     FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX,
     WARNING_LIST_CTX, WARNING_CTX, WARNING_URL_CTX, WARNING_URL_ARIA_CTX,
     ADDRESS_ROUTE_NAME, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER,
-    EMBED_MAP_CTX
+    EMBED_MAP_CTX, GEOIP_SERVICE
 )
 from .convert import Units, speed_conversion
 from .enums import ForecastType, AttribRowTypes
@@ -258,7 +258,14 @@ class ForecastAddress(ServiceCacheMixin, View):
         :param kwargs: additional keyword arguments
         :return: http response
         """
-        template_path, context = self.address_render_info(AddressForm())
+        geo_ip_service: IService = Broker.get_instance().get(
+            GEOIP_SERVICE, ServiceType.SERVICE)
+
+        country = geo_ip_service.get_request_country(request)
+        initial = {AddressForm.COUNTRY_FIELD: country} if country else None
+
+        template_path, context = self.address_render_info(
+            AddressForm(initial=initial))
 
         return render(request, template_path, context=context)
 
@@ -486,7 +493,7 @@ def display_home(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     """
 
     addr_service: ICrudService = Broker.get_instance().get(
-        'AddressService', ServiceType.DB_CRUD)
+        ADDRESS_SERVICE, ServiceType.DB_CRUD)
 
     addr = addr_service.get(user=request.user, is_default=True)
 

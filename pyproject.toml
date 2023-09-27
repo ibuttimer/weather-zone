@@ -22,6 +22,7 @@ django-allauth = "^0.56.1"
 gunicorn = "^21.2.0"
 django-storages = "^1.14"
 boto3 = "^1.28.55"
+geoip2 = "^4.7.0"
 
 
 [tool.poetry.group.dev.dependencies]

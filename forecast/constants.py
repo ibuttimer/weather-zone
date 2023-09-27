@@ -76,6 +76,8 @@ COUNTRY_PROVIDERS = 'country'
 # service-specific
 GEOCODE_SERVICE = 'GeocodeService'
 GEOCODE_ADDRESS_FUNC = 'geocode_address'
+GEOIP_SERVICE = 'GeoIpService'
+GET_REQUEST_COUNTRY_FUNC = 'get_request_country'
 
 # field names of GeoCodeResult
 COMPONENTS_FIELD = 'components'

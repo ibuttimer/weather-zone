@@ -406,6 +406,11 @@ FONTAWESOME_URL = env('FONTAWESOME_URL', default='')
 # https://developers.google.com/maps/documentation/geocoding/start
 GOOGLE_API_KEY = env('GOOGLE_API_KEY', default='')
 
+# GeoIP2 Web Services account id and licence key
+# https://dev.maxmind.com/geoip/docs/web-services?lang=en
+MAXMIND_GEOIP_ACCOUNT = env('MAXMIND_GEOIP_ACCOUNT', default=0)
+MAXMIND_GEOIP_KEY = env('MAXMIND_GEOIP_KEY', default='')
+
 # Requests timeout
 REQUEST_TIMEOUT = env('REQUEST_TIMEOUT', default=10)
 

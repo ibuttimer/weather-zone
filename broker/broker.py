@@ -97,8 +97,8 @@ class Broker(SingletonMixin):
 
         return registered
 
-    def _service_types(self,
-                       service_type: Union[ServiceType, List, Tuple]
+    @staticmethod
+    def _service_types(service_type: Union[ServiceType, List, Tuple]
                        ) -> Tuple[ServiceType]:
         """
         Get the service types
@@ -131,7 +131,8 @@ class Broker(SingletonMixin):
             raise ValueError(f"Provider '{name}' not registered")
         return provider
 
-    def types_list(self, service_type: ServiceType = None) -> List[ServiceType]:
+    @staticmethod
+    def types_list(service_type: ServiceType = None) -> List[ServiceType]:
         """
         Get a ServiceType list
 

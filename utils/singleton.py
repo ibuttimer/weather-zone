@@ -20,8 +20,8 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from typing import TypeVar
-
+from typing import TypeVar, Any
+from collections.abc import Callable
 
 T = TypeVar("T")
 
@@ -33,6 +33,23 @@ class SingletonMixin:
 
     _instance: T
 
+    @staticmethod
+    def get_class_instance(cls: type, attrib_name: str, func: Callable = None) -> Any:
+        """
+        Get the instance
+
+        :param cls: class of instance to get
+        :param attrib_name: name of instance attribute
+        :param func: constructor function; default None
+        :return: instance
+        """
+        if not hasattr(cls, attrib_name):
+            instance = func() if func else cls()
+            setattr(cls, attrib_name, instance)
+        else:
+            instance = getattr(cls, attrib_name)
+        return instance
+
     @classmethod
     def get_instance(cls) -> T:
         """
@@ -40,6 +57,4 @@ class SingletonMixin:
 
         :return: instance
         """
-        if not hasattr(cls, '_instance'):
-            cls._instance = cls()
-        return cls._instance
+        return cls.get_class_instance(cls, '_instance')

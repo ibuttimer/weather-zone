@@ -29,7 +29,7 @@ from django.dispatch import receiver
 from broker import broker_open, Broker, ServiceType
 
 from .constants import THIS_APP
-from .services import GeocodeService
+from .services import GeocodeService, GeoIpService
 from .registry import Registry
 
 
@@ -53,6 +53,8 @@ def broker_open_handler(sender, **kwargs):
     # register services
     broker.add(GeocodeService.__name__, ServiceType.SERVICE,
                GeocodeService.get_instance())
+    broker.add(GeoIpService.__name__, ServiceType.SERVICE,
+               GeoIpService.get_instance())
 
     # create the registry instance
     registry = Registry.get_instance()
