@@ -26,7 +26,7 @@ Alternatively, most IDEs provide an option to create a project from Version Cont
 
 #### Virtual Environment
 It is recommended that a virtual environment be used for development purposes.
-There are numerous options available; e.g. [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment), [pyenv](https://github.com/pyenv/pyenv) etc. 
+There are numerous options available; e.g. [poetry](https://python-poetry.org/), [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment), [pyenv](https://github.com/pyenv/pyenv) etc. 
 
 Please see [Switching between environments](https://python-poetry.org/docs/managing-environments/#switching-between-environments).
 
@@ -43,29 +43,34 @@ In the `weather-zone` folder, run the following command to install the necessary
 ```
 
 ###### Table 1: Configuration settings
-| Key                                    | Value                                                                                                                                                                                |
-|----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ENV_FILE                               | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                              |
-| PORT                                   | Port application is served on; default 8000                                                                                                                                          |
-| DEBUG                                  | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                          |
-| SECRET_KEY                             | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)   |
-| DATABASE_URL                           | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                        |
-| FONTAWESOME_URL                        | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                                 |
-| REQUESTS_TIMEOUT                       | Requests timeout in seconds                                                                                                                                                          |
-| FORECAST_PROVIDERS                     | List of forecast providers to use, see [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable).                                                          |
-| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#locationforecast_provider-id-environment-variables).        |
-| DEFAULT_SEND_EMAIL                     | Email address to send emails from. Only valid when development mode is enabled, in production mode emails are sent from `EMAIL_HOST_USER`                                            |
-| EMAIL_HOST                             | SMTP server to send email. Only valid when production mode is enabled.                                                                                                               |
-| EMAIL_USE_TLS                          | Use Transport Layer Security (TLS) flag; see [Boolean environment variables](#boolean-environment-variables), default true. Only valid when production mode is enabled.              |
-| EMAIL_PORT                             | SMTP server port. Only valid when production mode is enabled.                                                                                                                        |
-| EMAIL_HOST_USER                        | Email user account to send email. Only valid when production mode is enabled.                                                                                                        |
-| EMAIL_HOST_PASSWORD                    | Email user account password. Only valid when production mode is enabled.                                                                                                             |
-|                                        | **Development-specific configuration**                                                                                                                                               |
-| CACHED_GEOCODE_RESULT                  | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                  |
-| CACHED_MET_EIREANN_RESULT              | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                               |
+| Key                                    | Value                                                                                                                                                                                                                                                                   |
+|----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ENV_FILE                               | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                                                                                                                 |
+| PORT                                   | Port application is served on; default 8000                                                                                                                                                                                                                             |
+| DEBUG                                  | A boolean that turns on/off debug mode; see [Boolean environment variables](#boolean-environment-variables)                                                                                                                                                             |
+| SECRET_KEY                             | [Secret key](https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)                                                                                      |
+| DATABASE_URL                           | [Database url](https://docs.djangoproject.com/en/4.2/ref/settings/#databases)                                                                                                                                                                                           |
+| REMOTE_DATABASE_URL                    | Url of remote PostgreSQL database resource.<br>__Note:__ Only required for admin purposes, see database configuration under [Cloud-based Deployment](#cloud-based-deployment)                                                                                           |
+| FONTAWESOME_URL                        | Fontawesome kit url. See [Use a Kit](https://fontawesome.com/docs/web/setup/use-kit)                                                                                                                                                                                    |
+| REQUESTS_TIMEOUT                       | Requests timeout in seconds                                                                                                                                                                                                                                             |
+| FORECAST_PROVIDERS                     | List of forecast providers to use, see [FORECAST_PROVIDERS environment variable](#forecast_providers-environment-variable).                                                                                                                                             |
+| LOCATIONFORECAST_*&lt;provider id&gt;* | Individual forecast provider configuration settings, see [LOCATIONFORECAST_*&lt;provider id&gt;* environment variables](#locationforecast_provider-id-environment-variables).                                                                                           |
+| DEFAULT_SEND_EMAIL                     | Email address to send emails from. Only valid when development mode is enabled, in production mode emails are sent from `EMAIL_HOST_USER`                                                                                                                               |
+| EMAIL_HOST                             | SMTP server to send email. Only valid when production mode is enabled.                                                                                                                                                                                                  |
+| EMAIL_USE_TLS                          | Use Transport Layer Security (TLS) flag; see [Boolean environment variables](#boolean-environment-variables), default true. Only valid when production mode is enabled.                                                                                                 |
+| EMAIL_PORT                             | SMTP server port. Only valid when production mode is enabled.                                                                                                                                                                                                           |
+| EMAIL_HOST_USER                        | Email user account to send email. Only valid when production mode is enabled.                                                                                                                                                                                           |
+| EMAIL_HOST_PASSWORD                    | Email user account password. Only valid when production mode is enabled.                                                                                                                                                                                                |
+| STORAGE_PROVIDER                       | Storage provider; set to `s3` to use an Amazon Web Service S3 bucket for storage or `default` to use Django's default storage                                                                                                                                           |
+| EXTERNAL_HOSTNAME                      | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on hosting service.<br>__Note:__ To specify multiple hosts, use a comma-separated list with no spaces.<br>__Note:__ Set to `localhost,127.0.0.1` in local development mode |
+|                                        | **Amazon S3-specific**                                                                                                                                                                                                                                                  |
+| AWS_ACCESS_KEY_ID                      | The access key for your AWS account.                                                                                                                                                                                                                                    |
+| AWS_SECRET_ACCESS_KEY                  | The secret key for your AWS account.                                                                                                                                                                                                                                    |
+| AWS_STORAGE_BUCKET_NAME                | AWS S3 bucket name.                                                                                                                                                                                                                                                     |
+|                                        | **Development-specific configuration**                                                                                                                                                                                                                                  |
+| CACHED_GEOCODE_RESULT                  | Cached Google Geocoding response to use; e.g. '[{"address_components": [{"long_name": "50", ... }]'                                                                                                                                                                     |
+| CACHED_MET_EIREANN_RESULT              | Path relative to project root of forecast response to use; e.g. 'dev/data/met_eireann/cached_resp.xml'                                                                                                                                                                  |
 
-
-# TODO add STORAGE_PROVIDER environment variables
 
 #### Boolean environment variables
 Set environment variables evaluating a boolean value, should be set to any of `true`, `on`, `ok`, `y`, `yes` or `1` to set true, otherwise the variable is evaluated as false.
@@ -102,7 +107,8 @@ must be provided by an environment variable of the following format:
 | Key       | Description                                                                                                                               |
 |-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | name      | Display name of provider                                                                                                                  |
-| url       | API url. See [Using unsafe characters in URLs](https://django-environ.readthedocs.io/en/latest/tips.html#using-unsafe-characters-in-urls) |
+| url       | Provider website url.                                                                                                                     |
+| data_url  | API url. See [Using unsafe characters in URLs](https://django-environ.readthedocs.io/en/latest/tips.html#using-unsafe-characters-in-urls) |
 | latitude  | Latitude query parameter name, e.g. `latitude=lat`                                                                                        |
 | longitude | Longitude query parameter name, e.g. `longitude=long`                                                                                     |
 | from      | From date/time query parameter name                                                                                                       |
@@ -153,11 +159,19 @@ Enter `Username`, `Password` and optionally `Email address`.
 $ python manage.py createsuperuser
 ````
 
-#### Build Bootstrap
-Build the customised version of Bootstrap.
-````shell
-$ npm run build
-````
+#### Configure authentication
+From [django-allauth Post-Installation](https://django-allauth.readthedocs.io/en/latest/installation.html#post-installation)
+- Add a Site for your domain in the database
+  - Login to `http://&lt;domain&gt;/admin/sites/site/` as the previously created superuser, e.g. http://127.0.0.1:8000/admin/sites/site/
+  - Add a Site for your domain (django.contrib.sites app).
+
+    E.g.
+
+    | Domain name    | Display name   |
+    |----------------|----------------| 
+    | 127.0.0.1:8000 | my domain      | 
+
+    __Note:__ The id (primary key) of the site must be added to the application configuration. See `SITE_ID` in [Table 1: Configuration settings](#table-1-configuration-settings).
 
 ### Run server
 In order to run the development server, run the following command from the `weather-zone` folder:
@@ -179,13 +193,85 @@ The application structure is as follows:
 ├─ locale               - translation files
 ├─ manage.py            - application entry point
 ├─ weather_zone         - main Django application
-├─ base                 - base Django application
+├─ addresses            - address application
+├─ base                 - base application
 ├─ broker               - service broker application
 ├─ forecast             - application generating forecast data from provider data  
 ├─ locationforecast     - Locationforecast provider application
+├─ user                 - user application
+├─ utils                - utility functions
+├─ weather_warning      - weather warning application
 ├─ static               - static files
 └─ templates            - application templates
 ```
+
+### Cloud-based Deployment
+#### Render
+
+The site was deployed on [Render](https://www.render.com).
+
+##### Deployment
+The following steps were followed to deploy the website:
+- Login to Render in a browser
+- From the dashboard select `New -> Web Service`
+- Connect to the git repository
+- Set following
+  - `Name`, (e.g. `weather-zone`)
+  - Choose an appropriate region
+  - Select the git branch to deploy
+  - Select `Python 3` runtime,
+  - Set the Build command to `./build.sh`
+  - Set the Start command to `gunicorn weather-zone.wsgi:application`
+  - Select `Create Web Service`
+- To provision the application with a database, such as an [ElephantSQL](https://www.elephantsql.com/) database.
+  - For an [ElephantSQL](https://www.elephantsql.com/) database, follow the `Create a new instance` instructions under the `Getting started` section of the [ElephantSQL documentation](https://www.elephantsql.com/docs/index.html).
+- Create an Amazon S3 bucket using [Storing Django Static and Media Files on Amazon S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/).
+  See [Configuring cross-origin resource sharing (CORS)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) and [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html)
+  regarding setting the CORS configuration for the S3 bucket.
+- Under `Environment -> Environment Variables` add the following environment variables
+
+  | Key                     | Value                                                                                                                                                                                                                                                                                                          |
+  |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | PYTHON_VERSION          | [Python version](https://render.com/docs/python-version)<br>**Note:** At time of writing the [Render Python3 environment](https://render.com/docs/native-environments) does not include the necessary Python headers to compile the `psycopg2` library for Python version 3.10.10, use *Python version 3.9.16* |
+  | POETRY_VERSION          | [Poetry version](https://render.com/docs/python-version) |
+
+  - Under `Environment -> Secret Files` add a file with the name `.env` with the same environment variables as specified in [Table 1: Configuration settings](#table-1-configuration-settings) with the following differences:
+    - The following variables are *NOT* required
+      - **Development-specific configuration**
+    - Add the following variables:
+      - **DATABASE_URL**
+    - Add Amazon S3-specific settings
+
+See [Table 1: Configuration settings](#table-1-configuration-settings) for details.
+
+If any other settings vary from the defaults outlined in [Table 1: Configuration settings](#table-1-configuration-settings) they must be added as well.
+
+- Select the `Manual Deploy` to deploy the application.
+
+- Initialise the database and Create a superuser
+
+  Involves the same procedure as outlined in [Initialise the database](#initialise-the-database) and [Create a superuser](#create-a-superuser)
+  but may be run from the local machine.
+  - From a [Development and Local Deployment](#development-and-local-deployment)
+    - Initialise the database
+      ````shell
+      $ python manage.py migrate --database=remote
+      ````
+    - Create a superuser
+
+      Enter `Username`, `Password` and optionally `Email address`.
+      ````shell
+      $ python manage.py createsuperuser --database=remote
+      ````
+
+    __Note:__ Ensure to specify the `--database=remote` option to apply the change to the database specified by the `REMOTE_DATABASE_URL` environment variable.
+
+- Configure authentication
+
+  Follow the same procedure as outlined in [Configure authentication](#configure-authentication) using the
+  Heroku domain as `<domain>`, e.g. `weather-zone.onrender.com`
+
+The live website is available at [https://weather-zone.onrender.com](https://weather-zone.onrender.com)
 
 ## Credits
 
