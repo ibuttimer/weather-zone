@@ -55,7 +55,15 @@ DEBUG = env('DEBUG')
 DEVELOPMENT = env('DEVELOPMENT')
 TEST = env('TEST')
 
-ALLOWED_HOSTS = []
+if DEVELOPMENT:
+    ALLOWED_HOSTS = ['testserver'] \
+        if env('TEST') else ['localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = env('EXTERNAL_HOSTNAME', default=[])
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 
 # Application definition
