@@ -436,7 +436,7 @@ class ForecastAddressById(ServiceCacheMixin, View):
 
 def _display_forecast(request: HttpRequest, geo_address: GeoAddress,
                       forecast_type: ForecastType, dates: DateRange,
-                      provider: str, *args, **kwargs) -> HttpResponse:
+                      provider: Optional[str], *args, **kwargs) -> HttpResponse:
     """
     Get forecast view function
     :param request: http request
@@ -490,11 +490,15 @@ def display_home(request: HttpRequest, *args, **kwargs) -> HttpResponse:
 
     addr = addr_service.get(user=request.user, is_default=True)
 
-    geo_address = GeoAddress.from_address(addr)
+    if addr is None:
+        response = redirect(namespaced_url(THIS_APP, ADDRESS_ROUTE_NAME))
+    else:
+        geo_address = GeoAddress.from_address(addr)
 
-    return _display_forecast(request, geo_address, ForecastType.DEFAULT_ADDR,
-                             RangeArg.TODAY.as_dates(), None,
-                             *args, **kwargs)
+        response = _display_forecast(
+            request, geo_address, ForecastType.DEFAULT_ADDR,
+            RangeArg.TODAY.as_dates(), None, *args, **kwargs)
+    return response
 
 
 def forecast_render_info(forecast_type: ForecastType, forecasts: List[Forecast],
