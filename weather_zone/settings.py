@@ -315,18 +315,19 @@ STATIC_URL = 'static/'
 
 if STORAGE_PROVIDER == 's3':
     # s3-related settings
-    # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+    # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#authentication-settings
     # aws settings
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+    # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
     # ACL default is None which means the file will be private per Amazon’s
     # default
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     # s3 static settings
-    AWS_LOCATION = 'static'
+    AWS_LOCATION = 'static'     # path prefix to prepend to all uploads
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = 'media'
