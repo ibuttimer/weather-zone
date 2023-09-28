@@ -40,9 +40,15 @@ PASSWORD_CONFIRM = "password2"
 OLD_PASSWORD = "oldpassword"
 PREVIOUS_LOGIN = 'previous_login'
 
+# group related
+REGISTERED_GROUP = 'Registered'
+
 # User routes related
 USER_ID_URL = append_slash("<int:pk>")
 USER_USERNAME_URL = append_slash("<str:name>")
 
 USER_ID_ROUTE_NAME = "user_id"
 USER_USERNAME_ROUTE_NAME = "user_username"
+
+# context related
+USER_CTX = 'user'
