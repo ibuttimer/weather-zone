@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-15 15:55+0100\n"
+"POT-Creation-Date: 2023-09-28 14:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Postcode"
 msgstr ""
 
-#: .\addresses\forms.py:63 .\addresses\models.py:100
+#: .\addresses\forms.py:63 .\addresses\models.py:142
 msgid "(Select country)"
 msgstr ""
 
@@ -67,31 +67,39 @@ msgstr ""
 msgid "Set as default"
 msgstr ""
 
-#: .\addresses\forms.py:143 .\forecast\forms.py:103
+#: .\addresses\forms.py:143 .\forecast\forms.py:98
 msgid "No fields entered"
 msgstr ""
 
-#: .\addresses\models.py:104
+#: .\addresses\models.py:146
 msgid "Address components"
 msgstr ""
 
-#: .\addresses\models.py:107
+#: .\addresses\models.py:149
 msgid "Formatted address"
 msgstr ""
 
-#: .\addresses\models.py:109
+#: .\addresses\models.py:151
 msgid "Latitude"
 msgstr ""
 
-#: .\addresses\models.py:110
+#: .\addresses\models.py:152
 msgid "Longitude"
 msgstr ""
 
-#: .\addresses\models.py:112
+#: .\addresses\models.py:154
+msgid "Place ID"
+msgstr ""
+
+#: .\addresses\models.py:157
+msgid "Global Plus Code"
+msgstr ""
+
+#: .\addresses\models.py:160
 msgid "default"
 msgstr ""
 
-#: .\addresses\models.py:113
+#: .\addresses\models.py:161
 msgid "Designates that this record represents the user's default address."
 msgstr ""
 
@@ -161,34 +169,43 @@ msgstr ""
 msgid "Change language"
 msgstr ""
 
-#: .\base\credits.py:35
+#: .\base\credits.py:37
 msgid "icons by"
 msgstr ""
 
-#: .\base\credits.py:36
+#: .\base\credits.py:38
 msgid "icon by"
 msgstr ""
 
-#: .\base\credits.py:37
+#: .\base\credits.py:39
 msgid "icons derived from"
 msgstr ""
 
-#: .\base\credits.py:38
+#: .\base\credits.py:40
 msgid "icon created by"
 msgstr ""
 
-#: .\base\credits.py:122
+#: .\base\credits.py:129
 #, python-format
 msgid "open icon on %(provider)s in another tab"
 msgstr ""
 
-#: .\base\credits.py:131
+#: .\base\credits.py:138
 #, python-format
 msgid "open %(provider)s in another tab"
 msgstr ""
 
+#: .\base\credits.py:159
+#, python-format
+msgid "visit %(provider)s in another tab"
+msgstr ""
+
 #: .\base\templates\base\about.html:12 .\templates\base.html:80
 msgid "About"
+msgstr ""
+
+#: .\base\templates\base\help.html:12 .\templates\base.html:75
+msgid "Help"
 msgstr ""
 
 #: .\base\templates\base\help\credits.html:6
@@ -203,6 +220,14 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
+#: .\base\templates\base\help\providers.html:6
+msgid "Forecast Providers"
+msgstr ""
+
+#: .\base\templates\base\help\providers.html:8
+msgid "This site utilises data from the following providers:"
+msgstr ""
+
 #: .\base\templates\base\set_language.html:35
 msgid "Set"
 msgstr ""
@@ -211,19 +236,19 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: .\base\views.py:93
+#: .\base\views.py:97
 #, python-format
 msgid "About %(app_name)s"
 msgstr ""
 
-#: .\base\views.py:95
+#: .\base\views.py:99
 #, python-format
 msgid ""
 "%(app_name)s is a weather forecast application utilising multiple third-"
 "party weather forecasters, to provide address-based weather forecasts."
 msgstr ""
 
-#: .\base\views.py:129
+#: .\base\views.py:134
 msgid "Set language"
 msgstr ""
 
@@ -523,30 +548,30 @@ msgstr ""
 msgid "Advisory"
 msgstr ""
 
-#: .\forecast\enums.py:223 .\forecast\templates\forecast\dflt_forecast.html:55
-#: .\forecast\templates\forecast\forecast.html:55
+#: .\forecast\enums.py:223 .\forecast\templates\forecast\dflt_forecast.html:56
+#: .\forecast\templates\forecast\forecast.html:56
 msgid "Marine"
 msgstr ""
 
-#: .\forecast\enums.py:224 .\forecast\templates\forecast\dflt_forecast.html:67
-#: .\forecast\templates\forecast\forecast.html:67
+#: .\forecast\enums.py:224 .\forecast\templates\forecast\dflt_forecast.html:68
+#: .\forecast\templates\forecast\forecast.html:68
 msgid "Environmental"
 msgstr ""
 
-#: .\forecast\enums.py:225 .\forecast\templates\forecast\dflt_forecast.html:43
-#: .\forecast\templates\forecast\forecast.html:43
+#: .\forecast\enums.py:225 .\forecast\templates\forecast\dflt_forecast.html:44
+#: .\forecast\templates\forecast\forecast.html:44
 msgid "Weather"
 msgstr ""
 
-#: .\forecast\forms.py:57
+#: .\forecast\forms.py:53
 msgid "Time range"
 msgstr ""
 
-#: .\forecast\forms.py:60
+#: .\forecast\forms.py:56
 msgid "Provider"
 msgstr ""
 
-#: .\forecast\forms.py:64
+#: .\forecast\forms.py:60
 msgid "Save to profile"
 msgstr ""
 
@@ -594,76 +619,127 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: .\forecast\templates\forecast\dflt_forecast.html:35
-#: .\forecast\templates\forecast\forecast.html:35
+#: .\forecast\templates\forecast\dflt_forecast.html:36
+#: .\forecast\templates\forecast\forecast.html:36
 msgid "Warnings"
 msgstr ""
 
-#: .\forecast\templates\forecast\dflt_forecast.html:45
-#: .\forecast\templates\forecast\forecast.html:45
+#: .\forecast\templates\forecast\dflt_forecast.html:46
+#: .\forecast\templates\forecast\forecast.html:46
 #: .\weather_warning\templates\weather_warning\snippet\warning.html:22
 msgid "Weather warning icon"
 msgstr ""
 
-#: .\forecast\templates\forecast\dflt_forecast.html:57
-#: .\forecast\templates\forecast\forecast.html:57
+#: .\forecast\templates\forecast\dflt_forecast.html:58
+#: .\forecast\templates\forecast\forecast.html:58
 msgid "Marine warning icon"
 msgstr ""
 
-#: .\forecast\templates\forecast\dflt_forecast.html:69
-#: .\forecast\templates\forecast\forecast.html:69
+#: .\forecast\templates\forecast\dflt_forecast.html:70
+#: .\forecast\templates\forecast\forecast.html:70
 msgid "Environmental warning icon"
 msgstr ""
 
-#: .\forecast\views.py:187
-msgid "Temperature"
+#: .\forecast\templates\forecast\help\forecast.html:6 .\templates\base.html:67
+msgid "Forecast"
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:7
+msgid ""
+"The Forecast menu provides options to obtain a weather forecast for a "
+"location."
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:10 .\templates\base.html:70
+msgid "Address"
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:11
+msgid ""
+"Select the Address option to get a weather forecast for a specified address."
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:13
+msgid "Enter the address elements"
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:14
+msgid "Select a time range from the available options"
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:15
+msgid "Select a forecast provider from the available options"
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:16
+msgid ""
+"Select <em>Save to profile</em> to save the address to the user's list of "
+"stored locations."
+msgstr ""
+
+#: .\forecast\templates\forecast\help\forecast.html:17
+msgid ""
+"Select <em>Set as default</em> to set the address as the user's default "
+"location."
 msgstr ""
 
 #: .\forecast\views.py:190
-msgid "Precipitation"
+msgid "Temperature"
 msgstr ""
 
 #: .\forecast\views.py:193
+msgid "Precipitation"
+msgstr ""
+
+#: .\forecast\views.py:196
 msgid "Precipitation Probability"
 msgstr ""
 
-#: .\forecast\views.py:195
+#: .\forecast\views.py:198
 msgid "Humidity"
 msgstr ""
 
-#: .\forecast\views.py:198 .\forecast\views.py:219
+#: .\forecast\views.py:201 .\forecast\views.py:222
 msgid "Wind Speed"
 msgstr ""
 
-#: .\forecast\views.py:202
+#: .\forecast\views.py:205
 msgid "Wind Direction"
 msgstr ""
 
-#: .\forecast\views.py:205
+#: .\forecast\views.py:208
 msgid "Wind Gust"
 msgstr ""
 
-#: .\forecast\views.py:226
+#: .\forecast\views.py:229
 msgid "Location forecast"
 msgstr ""
 
-#: .\forecast\views.py:228
+#: .\forecast\views.py:231
 msgid "Default address forecast"
 msgstr ""
 
-#: .\forecast\views.py:343
+#: .\forecast\views.py:235
+msgid "No forecast provider available for address"
+msgstr ""
+
+#: .\forecast\views.py:236
+msgid "Selected forecast provider does not support address"
+msgstr ""
+
+#: .\forecast\views.py:369
 msgid "Forecast location"
 msgstr ""
 
-#: .\forecast\views.py:344
+#: .\forecast\views.py:370
 msgid "Address of forecast location"
 msgstr ""
 
-#: .\forecast\views.py:345
+#: .\forecast\views.py:371
 msgid "Submit"
 msgstr ""
 
-#: .\forecast\views.py:543
+#: .\forecast\views.py:578
 #, python-format
 msgid "view %(provider)s weather warnings."
 msgstr ""
@@ -1008,23 +1084,11 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\templates\base.html:67
-msgid "Forecast"
-msgstr ""
-
-#: .\templates\base.html:70
-msgid "Address"
-msgstr ""
-
-#: .\templates\base.html:75
-msgid "Help"
-msgstr ""
-
 #: .\templates\base.html:102
 msgid "manage addresses"
 msgstr ""
 
-#: .\templates\base.html:102
+#: .\templates\base.html:102 .\user\templates\user\help\user.html:10
 msgid "Addresses"
 msgstr ""
 
@@ -1082,8 +1146,45 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: .\user\models.py:66
+#: .\user\models.py:63
 msgid "previous login"
+msgstr ""
+
+#: .\user\templates\user\help\user.html:6
+msgid "User"
+msgstr ""
+
+#: .\user\templates\user\help\user.html:7
+msgid ""
+"The User menu provides options for password and profile address management, "
+"as well as sign out functionality."
+msgstr ""
+
+#: .\user\templates\user\help\user.html:11
+msgid ""
+"Select the Addresses option manage the addresses stored in the user profile."
+msgstr ""
+
+#: .\user\templates\user\help\user.html:13
+msgid ""
+"Select the <em>Add address</em> option to add a new address to the user's "
+"list of stored locations."
+msgstr ""
+
+#: .\user\templates\user\help\user.html:14
+msgid "Select the <em>Edit</em> option on an address update the location."
+msgstr ""
+
+#: .\user\templates\user\help\user.html:15
+msgid ""
+"Select the <em>Delete</em> option on an address to remove it from the user's "
+"list of stored locations."
+msgstr ""
+
+#: .\user\templates\user\help\user.html:16
+msgid ""
+"Select the <em>Make Default</em> option on an address to set it as the "
+"location for which the forecast is displayed on the home screen."
 msgstr ""
 
 #: .\weather_warning\dto.py:102
@@ -1124,22 +1225,22 @@ msgstr ""
 msgid "Environmental Warnings"
 msgstr ""
 
-#: .\weather_warning\views.py:83
+#: .\weather_warning\views.py:79
 msgid "Weather warnings"
 msgstr ""
 
-#: .\weather_warning\views.py:84
+#: .\weather_warning\views.py:80
 msgid "No weather warnings"
 msgstr ""
 
-#: .\weather_zone\settings.py:288
+#: .\weather_zone\settings.py:297
 msgid "English"
 msgstr ""
 
-#: .\weather_zone\settings.py:289
+#: .\weather_zone\settings.py:298
 msgid "German"
 msgstr ""
 
-#: .\weather_zone\settings.py:290
+#: .\weather_zone\settings.py:299
 msgid "French"
 msgstr ""

@@ -28,15 +28,11 @@ from dataclasses import dataclass
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from django_countries.fields import CountryField
-from django_countries.widgets import CountrySelectWidget
-
 from addresses.constants import SET_AS_DEFAULT_FIELD
 from addresses.forms import AddressForm as BaseAddressForm
-from utils import FormMixin
 
 from broker import ServiceType
-from .misc import RangeArg, get_range_choices, get_provider_choices
+from .misc import get_range_choices, get_provider_choices
 
 
 TIME_RANGE_FIELD = 'time_range'
@@ -95,9 +91,8 @@ class AddressForm(BaseAddressForm):
         :return:
         """
         if not self.empty_permitted:
-            # check that at least one line is entered
-            if not any(
-                [self.cleaned_data.get(f) for f in AddressForm.Meta.fields]
-            ):
+            # check that at least one basic address line is entered
+            if not any(self.cleaned_data.get(f)
+                       for f in BaseAddressForm.Meta.fields):
                 raise forms.ValidationError(
                     _("No fields entered"), code="empty")

@@ -31,7 +31,7 @@ from utils import SingletonMixin, ensure_list
 
 from .dto import Forecast, GeoAddress, WeatherWarnings
 from .iprovider import IProvider
-from .constants import COUNTRY_PROVIDERS
+from .constants import COUNTRY_PROVIDERS, ALL_PROVIDERS
 
 TypeRegistry = TypeVar('TypeRegistry', bound='Registry')
 
@@ -114,6 +114,42 @@ class Registry(SingletonMixin):
             ensure_list(stype)
         )
 
+    def providers_for_addr(
+            self, geo_address: GeoAddress, provider: str = None,
+            **kwargs) -> List[str]:
+        """
+        Get a list of forecast providers for an address
+        :param geo_address: geographic address
+        :param provider: name of forecast provider; default is all providers
+        :param kwargs: Additional arguments
+        :return: list of forecast providers
+        """
+        def is_supported(prov: IProvider) -> bool:
+            return prov.is_country_supported(geo_address.country)
+
+        provider = provider.lower() if provider else None
+        if provider in [ALL_PROVIDERS, COUNTRY_PROVIDERS]:
+            filter_func = is_supported
+            provider = None
+        else:
+            filter_func = is_supported
+
+        return ensure_list(provider) if provider is not None \
+            else self.provider_names(stype=ServiceType.FORECAST,
+                                     filter_func=filter_func)
+
+    def have_provider_for_addr(
+            self, geo_address: GeoAddress, provider: str = None,
+            **kwargs) -> bool:
+        """
+        Check if there is a forecast provider for an address
+        :param geo_address: geographic address
+        :param provider: name of forecast provider; default is all providers
+        :param kwargs: Additional arguments
+        :return: True if have a forecast provider, otherwise False
+        """
+        return len(self.providers_for_addr(geo_address, provider, **kwargs)) > 0
+
     def generate_forecast(
             self, geo_address: GeoAddress, start: datetime = None,
             end: datetime = None, provider: str = None,
@@ -125,22 +161,11 @@ class Registry(SingletonMixin):
         :param end: forecast end date; default is end of available forecast
         :param provider: name of forecast provider; default is all providers
         :param kwargs: Additional arguments
-        :return: Forecast
+        :return: List of Forecast
         """
         forecasts = []
 
-        def is_supported(prov: IProvider) -> bool:
-            return prov.is_country_supported(geo_address.country)
-
-        if provider and provider.lower() == COUNTRY_PROVIDERS:
-            filter_func = is_supported
-            provider = None
-        else:
-            filter_func = is_supported
-
-        providers = [provider] if provider is not None \
-            else self.provider_names(stype=ServiceType.FORECAST,
-                                     filter_func=filter_func)
+        providers = self.providers_for_addr(geo_address, provider, **kwargs)
 
         for name in providers:
             forecasts.append(

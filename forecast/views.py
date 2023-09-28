@@ -23,7 +23,6 @@ This file is used to create the views for the forecast app.
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from collections import namedtuple
 from datetime import datetime
 from typing import Callable, List, Optional, Union
 
@@ -56,7 +55,7 @@ from .constants import (
     FORECAST_LIST_CTX, FORECAST_CTX, ROW_TYPES_CTX,
     WARNING_LIST_CTX, WARNING_CTX, WARNING_URL_CTX, WARNING_URL_ARIA_CTX,
     ADDRESS_ROUTE_NAME, DISPLAY_ROUTE_NAME, QUERY_TIME_RANGE, QUERY_PROVIDER,
-    EMBED_MAP_CTX, GEOIP_SERVICE
+    EMBED_MAP_CTX, GEOIP_SERVICE, ALL_PROVIDERS, COUNTRY_PROVIDERS
 )
 from .convert import Units, speed_conversion
 from .enums import ForecastType, AttribRowTypes
@@ -67,7 +66,6 @@ from .dto import (
 )
 from .map_embed import map_embed
 from .misc import RangeArg, DateRange
-from .constants import ALL_PROVIDERS
 from .registry import Registry
 
 
@@ -78,6 +76,7 @@ def title_unit_wrapper(title: str, unit: Units = None):
     :param unit: unit to display; default is forecast unit
     :return: function to add unit to title
     """
+
     def add_title_unit(forecast: Forecast, ar: AttribRow):
         """
         Add unit to title
@@ -109,6 +108,7 @@ def measurement_unit_wrapper(fmt: str):
     :param fmt: format string for value
     :return: function to add measurement unit to value
     """
+
     def add_measurement_unit(
             forecast: Forecast, ar: AttribRow, measurement: str,
             index: int, prev_measurement: str) -> str:
@@ -134,6 +134,7 @@ def speed_conversion_wrapper(to_unit: Units, fmt: str = None):
     :param fmt: format string for value
     :return: function to add value speed conversion
     """
+
     def forecast_speed_conversion(
             forecast: Forecast, ar: AttribRow, measurement: float,
             index: int, prev_measurement: float) -> str:
@@ -231,6 +232,9 @@ FORECAST_META = {
         SUMMARY_DISPLAY_ITEMS),
 }
 
+NO_PROVIDER_FOR_ADDR = _('No forecast provider available for address')
+PROVIDER_DNS_ADDR = _('Selected forecast provider does not support address')
+
 
 def get_display_item_attribute_key(
         display_items: List[AttribRow], filter_fxn: Callable) -> Callable:
@@ -258,10 +262,7 @@ class ForecastAddress(ServiceCacheMixin, View):
         :param kwargs: additional keyword arguments
         :return: http response
         """
-        geo_ip_service: IService = Broker.get_instance().get(
-            GEOIP_SERVICE, ServiceType.SERVICE)
-
-        country = geo_ip_service.get_request_country(request)
+        country = self.service(GEOIP_SERVICE).get_request_country(request)
         initial = {AddressForm.COUNTRY_FIELD: country} if country else None
 
         template_path, context = self.address_render_info(
@@ -289,51 +290,66 @@ class ForecastAddress(ServiceCacheMixin, View):
             success = geo_address.is_valid
 
             if success:
-                if request.user.is_authenticated:
-                    save_to_profile = form.get_field(
-                        AddressForm.SAVE_TO_PROFILE_FIELD)
-                    set_as_default = form.get_field(
-                        AddressForm.SET_AS_DEFAULT_FIELD)
+                # check if there is a forecast provider for the address
+                provider = form.get_field(AddressForm.PROVIDER_FIELD)
+                provider = provider.lower() if provider else None
+                has_provider = Registry.get_instance().have_provider_for_addr(
+                    geo_address, provider=provider, **kwargs)
+
+                if not has_provider:
+                    success = False
+                    all_or_country = (
+                            provider and (provider == ALL_PROVIDERS or
+                                          provider == COUNTRY_PROVIDERS))
+                    form.add_error(None,
+                                   NO_PROVIDER_FOR_ADDR if all_or_country
+                                   else PROVIDER_DNS_ADDR)
                 else:
-                    save_to_profile = False
-                    set_as_default = False
-
-                if save_to_profile or set_as_default:
-                    # save to profile
-                    addr_kwargs = {
-                        f'{USER_FIELD}': request.user,
-                        f'{LATITUDE_FIELD}': geo_address.lat,
-                        f'{LONGITUDE_FIELD}': geo_address.lng,
-                    }
-
-                    address_service: Union[IService, ICrudService] = \
-                        self.service(ADDRESS_SERVICE, stype=ServiceType.DB_CRUD)
-
-                    addr = address_service.get(**addr_kwargs)
-                    if addr is None:
-                        # add new address
-                        addr = address_service.create(
-                            request.user, geocode_result)
+                    if request.user.is_authenticated:
+                        save_to_profile = form.get_field(
+                            AddressForm.SAVE_TO_PROFILE_FIELD)
+                        set_as_default = form.get_field(
+                            AddressForm.SET_AS_DEFAULT_FIELD)
                     else:
-                        # update existing address
-                        if set_as_default != addr.is_default:
-                            addr_kwargs['update'] = {
-                                f'{IS_DEFAULT_FIELD}': set_as_default
-                            }
-                            updated = address_service.update(
-                                **addr_kwargs)
+                        save_to_profile = False
+                        set_as_default = False
 
-                # need to redirect to url with query parameters
-                query_kwargs = geo_address.as_dict(
-                    filter_fun=geo_address.filter_none_val)
-                query_kwargs[QUERY_TIME_RANGE] = form.get_field(
-                    AddressForm.TIME_RANGE_FIELD)
-                query_kwargs[QUERY_PROVIDER] = form.get_field(
-                    AddressForm.PROVIDER_FIELD)
-                url = reverse_q(
-                    namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
-                    query_kwargs=query_kwargs
-                )
+                    if save_to_profile or set_as_default:
+                        # save to profile
+                        addr_kwargs = {
+                            f'{USER_FIELD}': request.user,
+                            f'{LATITUDE_FIELD}': geo_address.lat,
+                            f'{LONGITUDE_FIELD}': geo_address.lng,
+                        }
+
+                        address_service: Union[IService, ICrudService] = \
+                            self.service(ADDRESS_SERVICE,
+                                         stype=ServiceType.DB_CRUD)
+
+                        addr = address_service.get(**addr_kwargs)
+                        if addr is None:
+                            # add new address
+                            addr = address_service.create(
+                                request.user, geocode_result)
+                        else:
+                            # update existing address
+                            if set_as_default != addr.is_default:
+                                addr_kwargs['update'] = {
+                                    f'{IS_DEFAULT_FIELD}': set_as_default
+                                }
+                                updated = address_service.update(
+                                    **addr_kwargs)
+
+                    # need to redirect to url with query parameters
+                    query_kwargs = geo_address.as_dict(
+                        filter_fun=geo_address.filter_none_val)
+                    query_kwargs[QUERY_TIME_RANGE] = form.get_field(
+                        AddressForm.TIME_RANGE_FIELD)
+                    query_kwargs[QUERY_PROVIDER] = provider
+                    url = reverse_q(
+                        namespaced_url(THIS_APP, DISPLAY_ROUTE_NAME),
+                        query_kwargs=query_kwargs
+                    )
 
         if not success:
             template_path, context = self.address_render_info(form)
@@ -396,7 +412,7 @@ def display_forecast(request: HttpRequest, *args, **kwargs) -> HttpResponse:
     )
     dates = time_rng.as_dates()
 
-    provider = request.GET.get(QUERY_PROVIDER, None)    # default is all
+    provider = request.GET.get(QUERY_PROVIDER, None)  # default is all
 
     return _display_forecast(request, geo_address, ForecastType.LOCATION,
                              dates, provider, *args, **kwargs)
@@ -456,7 +472,7 @@ def _display_forecast(request: HttpRequest, geo_address: GeoAddress,
     :return: http response
     """
     if provider and provider.lower() == ALL_PROVIDERS:
-        provider = None    # default is all
+        provider = None  # default is all
 
     _, _, display_attribs = FORECAST_META.get(forecast_type)
 
@@ -473,13 +489,18 @@ def _display_forecast(request: HttpRequest, geo_address: GeoAddress,
         geo_address, provider=provider,
         start=dates.start, end=dates.end, **forecast_kwargs)
 
-    warnings = registry.generate_warnings(geo_address.country,
-                                          provider=provider)
+    if forecasts:
+        warnings = registry.generate_warnings(geo_address.country,
+                                              provider=provider)
 
-    template_path, context = forecast_render_info(forecast_type, forecasts,
-                                                  warnings)
+        template_path, context = forecast_render_info(forecast_type, forecasts,
+                                                      warnings)
 
-    return render(request, template_path, context=context)
+        response = render(request, template_path, context=context)
+    else:
+        raise ValueError("No forecasts generated")
+
+    return response
 
 
 @require_http_methods([GET])

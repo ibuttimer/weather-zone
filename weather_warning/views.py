@@ -23,14 +23,11 @@ This file is used to create the views for the forecast app.
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 #
-from collections import namedtuple
-from datetime import datetime
-from typing import Callable, List
+from typing import List
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
-from django.views import View
 from django.views.decorators.http import require_http_methods
 from django_countries import countries
 
@@ -45,7 +42,7 @@ from utils import (
 from .constants import (
     THIS_APP, WARNING_LIST_CTX
 )
-from .dto import WarningItem, WeatherWarningsDo
+from .dto import WeatherWarningsDo
 
 
 @require_http_methods([GET])
@@ -61,12 +58,11 @@ def display_warnings(request: HttpRequest, country: str,
     """
 
     provider = request.GET.get(QUERY_PROVIDER, None)    # default is all
-    if provider == ALL_PROVIDERS:
+    if provider.lower() == ALL_PROVIDERS:
         provider = None    # default is all
 
-    registry = Registry.get_instance()
-
-    warnings = registry.generate_warnings(country, provider=provider)
+    warnings = Registry.get_instance().generate_warnings(
+        country, provider=provider)
 
     template_path, context = warnings_render_info(country, warnings)
 
