@@ -1,5 +1,5 @@
 """
-Locationforecast forecast provider
+Met Éireann forecast provider
 """
 #  MIT License
 #

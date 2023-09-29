@@ -47,7 +47,15 @@ The `symbol` tag is the same as the one from [Met Éireann Symbol tag](#met-éir
 ```
 
 ### Weather legends
-The legends are available at https://api.met.no/weatherapi/weathericon/2.0/legends.
+The legends are available at https://github.com/metno/weathericons/tree/main/weather#legend.
+
+> **Note:**
+> [legends.json](../data/locationforecast/legends.json) is the base file originally downloaded from https://api.met.no/weatherapi/weathericon/2.0/legends.
+> As of Aug 2, 2023, the legends file is not available from the Met Norway API. The data has been updated and moved to https://github.com/metno/weathericons/blob/main/weather/legend.csv.
+> See https://github.com/metno/weathericons/tree/main/weather#readme for more information.
+> 
+> The [legends.csv](../data/locationforecast/legends.csv) file was doenloaded from https://github.com/metno/weathericons/blob/main/weather/legend.csv, and its contents verified using 
+> [verify_weather_icons.py](../data/locationforecast/verify_weather_icons.py).
 
 There differences in the weather legends between the Met Éireann and Met Norway versions of the Locationforcast. 
 These difference are applied by the [me-legends.json](../data/locationforecast/me-legends.json) patch file.
@@ -59,9 +67,6 @@ Differences applied by the patch file:
   The `old_id` field of all `dark_xxx` variants is set to the base old_id value plus 100.
 
 Please see [The Met Éireann Location Forecast API](https://www.met.ie/Open_Data/Notes-on-API-XML-file_V6.odt) and [met-eireann-weather-forecast-api](https://data.gov.ie/dataset/met-eireann-weather-forecast-api) for more information.
-
-[legends.json](../data/locationforecast/legends.json) is the base file downloaded from https://api.met.no/weatherapi/weathericon/2.0/legends.
-[me-legends.json](../data/locationforecast/me-legends.json) is the patch file used to apply the Met Éireann specific changes to the base file.
 
 ### Weather icons
 #### Latest version

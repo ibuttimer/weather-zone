@@ -1,5 +1,5 @@
 """
-Locationforecast forecast provider
+Met Norway (classic) forecast provider
 """
 #  MIT License
 #

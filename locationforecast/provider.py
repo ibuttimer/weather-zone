@@ -321,12 +321,14 @@ class LocationforecastProvider(Provider):
         # The original and variant legends may be connected via the 'old_id'
         # field; variant 'old_id' values are the original 'old_id' + 100
         legend = legend.lower()
-        if not self.legends.key_exists(legend):
-            raise ValueError(f"Legend '{legend}' not found")
-        entry = self.legends.get(legend)
-        old_id, addendum = self.get_id_variant(entry)
+        if self.legends.key_exists(legend):
+            entry = self.legends.get(legend)
+            old_id, addendum = self.get_id_variant(entry)
 
-        return WEATHER_ICON_URL.format(old_id=old_id, addendum=addendum)
+            url = WEATHER_ICON_URL.format(old_id=old_id, addendum=addendum)
+        else:
+            url = None
+        return url
 
     def get_wind_dir_icon(self, name: str, degrees: float) -> str:
         """

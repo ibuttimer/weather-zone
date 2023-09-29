@@ -119,9 +119,13 @@
                                     {{ value|safe }}
                                 {% else %}
                                     {% if val_type == 'img_wi' %}
+                                        {% if value.url %}
                                         <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-icon">
+                                        {% endif %}
                                     {% elif val_type == 'img_wd' %}
+                                        {% if value.url %}
                                         <img src="{% static value.url %}" alt="{{ value.alt_text }} icon" class="img__weather-dir">
+                                        {% endif %}
                                     {% else %}
                                         {{ value|safe }}
                                     {% endif %}
